@@ -11,43 +11,6 @@
 
 import Foundation
 
-// MARK: - JSONBatter
-
-struct JSONBatter: Codable, Hashable {
-    let name, team: String?
-    let g, pa, hr, r: Int?
-    let rbi, sb: Int?
-    let bb, k: String?
-    let iso, babip, avg, obp: Double?
-    let slg, wOBA: Double?
-    let wRC: Int?
-    let bsR, off, def, war: Double?
-
-    enum CodingKeys: String, CodingKey {
-        case name = "Name"
-        case team = "Team"
-        case g = "G"
-        case pa = "PA"
-        case hr = "HR"
-        case r = "R"
-        case rbi = "RBI"
-        case sb = "SB"
-        case bb = "BB%"
-        case k = "K%"
-        case iso = "ISO"
-        case babip = "BABIP"
-        case avg = "AVG"
-        case obp = "OBP"
-        case slg = "SLG"
-        case wOBA
-        case wRC = "wRC+"
-        case bsR = "BsR"
-        case off = "Off"
-        case def = "Def"
-        case war = "WAR"
-    }
-}
-
 // MARK: - Batter
 
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
@@ -286,7 +249,7 @@ extension Batter {
 // MARK: - AllBatters
 
 class AllBatters: Codable, Hashable, ObservableObject {
-    @Published var batters: [Batter] = Batter.getPlayers(projectionType: .steamer, position: .c)
+    @Published var batters: [Batter] = []
     @Published var editedBatters: [Batter] = []
 
     static var shared: AllBatters = .load() ?? AllBatters()
@@ -355,11 +318,49 @@ extension AllBatters {
 // MARK: - ProjectionTypes
 
 enum ProjectionTypes: String, CaseIterable, Codable {
-    case steamer, zips, batx, atc
+    case steamer, zips, thebat, thebatx, atc, depthCharts
+    
+    var str: String {
+        switch self {
+        case .steamer:
+            return "Steamer"
+        case .zips:
+            return "zips"
+        case .thebat:
+            return "Thebat"
+        case .thebatx:
+            return "Thebatx"
+        case .atc:
+            return "Atc"
+        case .depthCharts:
+            return "Fangraphsdc"
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .steamer:
+            return self.str
+        case .zips:
+            return "ZiPS"
+        case .thebat:
+            return "THE BAT"
+        case .thebatx:
+            return "THE BAT X"
+        case .atc:
+            return self.str.uppercased()
+        case .depthCharts:
+            return "Depth Charts"
+        }
+    }
 
-    static let arr = [ProjectionTypes.steamer, ProjectionTypes.atc]
+    static let arr: [ProjectionTypes] = [.steamer, .thebat, .thebatx, .atc, .depthCharts]
 
     var jsonFile: String { "\(rawValue)Standard" }
+    
+    func jsonFileName(position: Positions) -> String {
+        position.str + "Bat" + self.str + "Standard"
+    }
 }
 
 extension JSONBatter {
@@ -402,8 +403,4 @@ extension JSONBatter {
 //            fatalError("Unable to read and decode \(fileName): \(error)")
 //        }
 //    }
-}
-
-extension JSONBatter {
-    static let nullBatter = JSONBatter(name: "NULL Batter", team: "Angels", g: 999, pa: 999, hr: 999, r: 999, rbi: 999, sb: 999, bb: "99%", k: "99%", iso: 999, babip: 999, avg: 999, obp: 999, slg: 999, wOBA: 999, wRC: 999, bsR: 999, off: 999, def: 999, war: 999)
 }

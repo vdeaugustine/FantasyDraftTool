@@ -23,15 +23,15 @@ enum Positions {
         case .c:
             return "C"
         case .first:
-            return "1B"
+            return "1b"
         case .second:
-            return "2B"
+            return "2b"
         case .third:
-            return "3B"
+            return "3b"
         case .ss:
-            return "SS"
+            return "Ss"
         case .of:
-            return "OF"
+            return "Of"
         case .dh:
             return "DH"
         case .sp:

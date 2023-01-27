@@ -13,20 +13,39 @@
 		9C1AE39C29804D4A0016BF50 /* ScoringSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */; };
 		9C1AE39E29807C290016BF50 /* StandardNaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE39D29807C290016BF50 /* StandardNaming.swift */; };
 		9C1AE3A42981F29D0016BF50 /* Positions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE3A32981F29D0016BF50 /* Positions.swift */; };
-		9C1AE3A62981F4760016BF50 /* steamerStandardC.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE3A52981F4760016BF50 /* steamerStandardC.json */; };
-		9C1AE3AF298224000016BF50 /* steamerStandard3B.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE3AA298223FF0016BF50 /* steamerStandard3B.json */; };
-		9C1AE3B1298224000016BF50 /* steamerStandard2B.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE3AC298223FF0016BF50 /* steamerStandard2B.json */; };
-		9C1AE3B2298224000016BF50 /* steamerStandardSS.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE3AD298223FF0016BF50 /* steamerStandardSS.json */; };
-		9C1AE3BB2982261A0016BF50 /* atcStandardOF.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE3B52982261A0016BF50 /* atcStandardOF.json */; };
-		9C1AE3BC2982261A0016BF50 /* atcStandardC.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE3B62982261A0016BF50 /* atcStandardC.json */; };
-		9C1AE3BD2982261A0016BF50 /* atcStandard2B.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE3B72982261A0016BF50 /* atcStandard2B.json */; };
-		9C1AE3BE2982261A0016BF50 /* atcStandard1B.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE3B82982261A0016BF50 /* atcStandard1B.json */; };
-		9C1AE3BF2982261A0016BF50 /* atcStandard3B.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE3B92982261A0016BF50 /* atcStandard3B.json */; };
-		9C1AE3C02982261A0016BF50 /* atcStandardSS.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE3BA2982261A0016BF50 /* atcStandardSS.json */; };
-		9C1AE3C229822D710016BF50 /* steamerStandard1B.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE3C129822D710016BF50 /* steamerStandard1B.json */; };
-		9C1AE3C429822D8C0016BF50 /* steamerStandardOF.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE3C329822D8C0016BF50 /* steamerStandardOF.json */; };
+		9C33F7DB29838B2E0038A938 /* CBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BD29838B2D0038A938 /* CBatThebatxStandard.json */; };
+		9C33F7DC29838B2E0038A938 /* 3bBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BE29838B2D0038A938 /* 3bBatThebatStandard.json */; };
+		9C33F7DD29838B2E0038A938 /* CBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BF29838B2D0038A938 /* CBatFangraphsdcStandard.json */; };
+		9C33F7DE29838B2E0038A938 /* OfBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7C029838B2D0038A938 /* OfBatFangraphsdcStandard.json */; };
+		9C33F7DF29838B2E0038A938 /* SsBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7C129838B2D0038A938 /* SsBatThebatxStandard.json */; };
+		9C33F7E029838B2E0038A938 /* 3bBatSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7C229838B2D0038A938 /* 3bBatSteamerStandard.json */; };
+		9C33F7E129838B2E0038A938 /* CBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7C329838B2D0038A938 /* CBatThebatStandard.json */; };
+		9C33F7E229838B2E0038A938 /* 1bBatAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7C429838B2D0038A938 /* 1bBatAtcStandard.json */; };
+		9C33F7E329838B2E0038A938 /* 2bBatSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7C529838B2D0038A938 /* 2bBatSteamerStandard.json */; };
+		9C33F7E429838B2E0038A938 /* OfBatSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7C629838B2D0038A938 /* OfBatSteamerStandard.json */; };
+		9C33F7E529838B2E0038A938 /* OfBatAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7C729838B2D0038A938 /* OfBatAtcStandard.json */; };
+		9C33F7E629838B2E0038A938 /* 1bBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7C829838B2D0038A938 /* 1bBatThebatStandard.json */; };
+		9C33F7E729838B2E0038A938 /* 3bBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7C929838B2D0038A938 /* 3bBatFangraphsdcStandard.json */; };
+		9C33F7E829838B2E0038A938 /* 2bBatAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7CA29838B2D0038A938 /* 2bBatAtcStandard.json */; };
+		9C33F7E929838B2E0038A938 /* 2bBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7CB29838B2D0038A938 /* 2bBatThebatStandard.json */; };
+		9C33F7EA29838B2E0038A938 /* SsBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7CC29838B2D0038A938 /* SsBatThebatStandard.json */; };
+		9C33F7EB29838B2E0038A938 /* 1bBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7CD29838B2D0038A938 /* 1bBatThebatxStandard.json */; };
+		9C33F7EC29838B2E0038A938 /* CBatAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7CE29838B2D0038A938 /* CBatAtcStandard.json */; };
+		9C33F7ED29838B2E0038A938 /* SsBatAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7CF29838B2D0038A938 /* SsBatAtcStandard.json */; };
+		9C33F7EE29838B2E0038A938 /* 2bBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7D029838B2D0038A938 /* 2bBatFangraphsdcStandard.json */; };
+		9C33F7EF29838B2E0038A938 /* CBatSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7D129838B2E0038A938 /* CBatSteamerStandard.json */; };
+		9C33F7F029838B2E0038A938 /* OfBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7D229838B2E0038A938 /* OfBatThebatStandard.json */; };
+		9C33F7F129838B2E0038A938 /* 1bBatSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7D329838B2E0038A938 /* 1bBatSteamerStandard.json */; };
+		9C33F7F229838B2E0038A938 /* 3bBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7D429838B2E0038A938 /* 3bBatThebatxStandard.json */; };
+		9C33F7F329838B2E0038A938 /* 3bBatAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7D529838B2E0038A938 /* 3bBatAtcStandard.json */; };
+		9C33F7F429838B2E0038A938 /* SsBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7D629838B2E0038A938 /* SsBatFangraphsdcStandard.json */; };
+		9C33F7F529838B2E0038A938 /* 1bBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7D729838B2E0038A938 /* 1bBatFangraphsdcStandard.json */; };
+		9C33F7F629838B2E0038A938 /* 2bBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7D829838B2E0038A938 /* 2bBatThebatxStandard.json */; };
+		9C33F7F729838B2E0038A938 /* OfBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7D929838B2E0038A938 /* OfBatThebatxStandard.json */; };
+		9C33F7F829838B2E0038A938 /* SsBatSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7DA29838B2E0038A938 /* SsBatSteamerStandard.json */; };
+		9C33F7FA29838BCD0038A938 /* JSONBatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C33F7F929838BCD0038A938 /* JSONBatter.swift */; };
 		9C75B9B8296F590F003B35E6 /* FantasyDraftToolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */; };
-		9C75B9BA296F590F003B35E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9B9296F590F003B35E6 /* ContentView.swift */; };
+		9C75B9BA296F590F003B35E6 /* OldJSONView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9B9296F590F003B35E6 /* OldJSONView.swift */; };
 		9C75B9BC296F5910003B35E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C75B9BB296F5910003B35E6 /* Assets.xcassets */; };
 		9C75B9BF296F5910003B35E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C75B9BE296F5910003B35E6 /* Preview Assets.xcassets */; };
 		9C75B9C8296F8C7E003B35E6 /* Batter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9C7296F8C7E003B35E6 /* Batter.swift */; };
@@ -40,6 +59,8 @@
 		9C75B9EE296FD215003B35E6 /* ExtColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9E6296FD215003B35E6 /* ExtColor.swift */; };
 		9C75B9EF296FD215003B35E6 /* ExtText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9E7296FD215003B35E6 /* ExtText.swift */; };
 		9C75B9F0296FD215003B35E6 /* ExtStr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9E8296FD215003B35E6 /* ExtStr.swift */; };
+		9CA24CA62983915400A394B4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA52983915400A394B4 /* ContentView.swift */; };
+		9CA24CA8298394EB00A394B4 /* ParsedBatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,21 +70,40 @@
 		9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringSettingsView.swift; sourceTree = "<group>"; };
 		9C1AE39D29807C290016BF50 /* StandardNaming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardNaming.swift; sourceTree = "<group>"; };
 		9C1AE3A32981F29D0016BF50 /* Positions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Positions.swift; sourceTree = "<group>"; };
-		9C1AE3A52981F4760016BF50 /* steamerStandardC.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = steamerStandardC.json; sourceTree = "<group>"; };
-		9C1AE3AA298223FF0016BF50 /* steamerStandard3B.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = steamerStandard3B.json; sourceTree = "<group>"; };
-		9C1AE3AC298223FF0016BF50 /* steamerStandard2B.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = steamerStandard2B.json; sourceTree = "<group>"; };
-		9C1AE3AD298223FF0016BF50 /* steamerStandardSS.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = steamerStandardSS.json; sourceTree = "<group>"; };
-		9C1AE3B52982261A0016BF50 /* atcStandardOF.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = atcStandardOF.json; sourceTree = "<group>"; };
-		9C1AE3B62982261A0016BF50 /* atcStandardC.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = atcStandardC.json; sourceTree = "<group>"; };
-		9C1AE3B72982261A0016BF50 /* atcStandard2B.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = atcStandard2B.json; sourceTree = "<group>"; };
-		9C1AE3B82982261A0016BF50 /* atcStandard1B.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = atcStandard1B.json; sourceTree = "<group>"; };
-		9C1AE3B92982261A0016BF50 /* atcStandard3B.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = atcStandard3B.json; sourceTree = "<group>"; };
-		9C1AE3BA2982261A0016BF50 /* atcStandardSS.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = atcStandardSS.json; sourceTree = "<group>"; };
-		9C1AE3C129822D710016BF50 /* steamerStandard1B.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = steamerStandard1B.json; sourceTree = "<group>"; };
-		9C1AE3C329822D8C0016BF50 /* steamerStandardOF.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = steamerStandardOF.json; sourceTree = "<group>"; };
+		9C33F7BD29838B2D0038A938 /* CBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatThebatxStandard.json; sourceTree = "<group>"; };
+		9C33F7BE29838B2D0038A938 /* 3bBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3bBatThebatStandard.json; sourceTree = "<group>"; };
+		9C33F7BF29838B2D0038A938 /* CBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C33F7C029838B2D0038A938 /* OfBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OfBatFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C33F7C129838B2D0038A938 /* SsBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SsBatThebatxStandard.json; sourceTree = "<group>"; };
+		9C33F7C229838B2D0038A938 /* 3bBatSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3bBatSteamerStandard.json; sourceTree = "<group>"; };
+		9C33F7C329838B2D0038A938 /* CBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatThebatStandard.json; sourceTree = "<group>"; };
+		9C33F7C429838B2D0038A938 /* 1bBatAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 1bBatAtcStandard.json; sourceTree = "<group>"; };
+		9C33F7C529838B2D0038A938 /* 2bBatSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2bBatSteamerStandard.json; sourceTree = "<group>"; };
+		9C33F7C629838B2D0038A938 /* OfBatSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OfBatSteamerStandard.json; sourceTree = "<group>"; };
+		9C33F7C729838B2D0038A938 /* OfBatAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OfBatAtcStandard.json; sourceTree = "<group>"; };
+		9C33F7C829838B2D0038A938 /* 1bBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 1bBatThebatStandard.json; sourceTree = "<group>"; };
+		9C33F7C929838B2D0038A938 /* 3bBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3bBatFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C33F7CA29838B2D0038A938 /* 2bBatAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2bBatAtcStandard.json; sourceTree = "<group>"; };
+		9C33F7CB29838B2D0038A938 /* 2bBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2bBatThebatStandard.json; sourceTree = "<group>"; };
+		9C33F7CC29838B2D0038A938 /* SsBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SsBatThebatStandard.json; sourceTree = "<group>"; };
+		9C33F7CD29838B2D0038A938 /* 1bBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 1bBatThebatxStandard.json; sourceTree = "<group>"; };
+		9C33F7CE29838B2D0038A938 /* CBatAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatAtcStandard.json; sourceTree = "<group>"; };
+		9C33F7CF29838B2D0038A938 /* SsBatAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SsBatAtcStandard.json; sourceTree = "<group>"; };
+		9C33F7D029838B2D0038A938 /* 2bBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2bBatFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C33F7D129838B2E0038A938 /* CBatSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatSteamerStandard.json; sourceTree = "<group>"; };
+		9C33F7D229838B2E0038A938 /* OfBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OfBatThebatStandard.json; sourceTree = "<group>"; };
+		9C33F7D329838B2E0038A938 /* 1bBatSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 1bBatSteamerStandard.json; sourceTree = "<group>"; };
+		9C33F7D429838B2E0038A938 /* 3bBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3bBatThebatxStandard.json; sourceTree = "<group>"; };
+		9C33F7D529838B2E0038A938 /* 3bBatAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3bBatAtcStandard.json; sourceTree = "<group>"; };
+		9C33F7D629838B2E0038A938 /* SsBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SsBatFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C33F7D729838B2E0038A938 /* 1bBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 1bBatFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C33F7D829838B2E0038A938 /* 2bBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2bBatThebatxStandard.json; sourceTree = "<group>"; };
+		9C33F7D929838B2E0038A938 /* OfBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OfBatThebatxStandard.json; sourceTree = "<group>"; };
+		9C33F7DA29838B2E0038A938 /* SsBatSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SsBatSteamerStandard.json; sourceTree = "<group>"; };
+		9C33F7F929838BCD0038A938 /* JSONBatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONBatter.swift; sourceTree = "<group>"; };
 		9C75B9B4296F590F003B35E6 /* FantasyDraftTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FantasyDraftTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FantasyDraftToolApp.swift; sourceTree = "<group>"; };
-		9C75B9B9296F590F003B35E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9C75B9B9296F590F003B35E6 /* OldJSONView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldJSONView.swift; sourceTree = "<group>"; };
 		9C75B9BB296F5910003B35E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C75B9BE296F5910003B35E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9C75B9C7296F8C7E003B35E6 /* Batter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Batter.swift; sourceTree = "<group>"; };
@@ -77,6 +117,8 @@
 		9C75B9E6296FD215003B35E6 /* ExtColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtColor.swift; sourceTree = "<group>"; };
 		9C75B9E7296FD215003B35E6 /* ExtText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtText.swift; sourceTree = "<group>"; };
 		9C75B9E8296FD215003B35E6 /* ExtStr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtStr.swift; sourceTree = "<group>"; };
+		9CA24CA52983915400A394B4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedBatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +145,8 @@
 		9C1AE39F2980A7170016BF50 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9C75B9B9296F590F003B35E6 /* ContentView.swift */,
+				9C75B9B9296F590F003B35E6 /* OldJSONView.swift */,
+				9CA24CA52983915400A394B4 /* ContentView.swift */,
 				9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */,
 				9C75B9CD296FD174003B35E6 /* BatterDetailView.swift */,
 				9C0C9D112974CC460069703D /* EditDoubleView.swift */,
@@ -117,6 +160,8 @@
 				9C1AE397297FA0A20016BF50 /* ScoringSettings.swift */,
 				9C1AE39D29807C290016BF50 /* StandardNaming.swift */,
 				9C75B9C7296F8C7E003B35E6 /* Batter.swift */,
+				9C33F7F929838BCD0038A938 /* JSONBatter.swift */,
+				9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */,
 				9C1AE3A32981F29D0016BF50 /* Positions.swift */,
 			);
 			path = Objects;
@@ -125,23 +170,38 @@
 		9C1AE3A72982239F0016BF50 /* Projection JSONS */ = {
 			isa = PBXGroup;
 			children = (
-				9C1AE3B4298225700016BF50 /* ATC */,
-				9C1AE3A8298223AA0016BF50 /* Steamer */,
+				9C33F7C429838B2D0038A938 /* 1bBatAtcStandard.json */,
+				9C33F7D729838B2E0038A938 /* 1bBatFangraphsdcStandard.json */,
+				9C33F7D329838B2E0038A938 /* 1bBatSteamerStandard.json */,
+				9C33F7C829838B2D0038A938 /* 1bBatThebatStandard.json */,
+				9C33F7CD29838B2D0038A938 /* 1bBatThebatxStandard.json */,
+				9C33F7CA29838B2D0038A938 /* 2bBatAtcStandard.json */,
+				9C33F7D029838B2D0038A938 /* 2bBatFangraphsdcStandard.json */,
+				9C33F7C529838B2D0038A938 /* 2bBatSteamerStandard.json */,
+				9C33F7CB29838B2D0038A938 /* 2bBatThebatStandard.json */,
+				9C33F7D829838B2E0038A938 /* 2bBatThebatxStandard.json */,
+				9C33F7D529838B2E0038A938 /* 3bBatAtcStandard.json */,
+				9C33F7C929838B2D0038A938 /* 3bBatFangraphsdcStandard.json */,
+				9C33F7C229838B2D0038A938 /* 3bBatSteamerStandard.json */,
+				9C33F7BE29838B2D0038A938 /* 3bBatThebatStandard.json */,
+				9C33F7D429838B2E0038A938 /* 3bBatThebatxStandard.json */,
+				9C33F7CE29838B2D0038A938 /* CBatAtcStandard.json */,
+				9C33F7BF29838B2D0038A938 /* CBatFangraphsdcStandard.json */,
+				9C33F7D129838B2E0038A938 /* CBatSteamerStandard.json */,
+				9C33F7C329838B2D0038A938 /* CBatThebatStandard.json */,
+				9C33F7BD29838B2D0038A938 /* CBatThebatxStandard.json */,
+				9C33F7C729838B2D0038A938 /* OfBatAtcStandard.json */,
+				9C33F7C029838B2D0038A938 /* OfBatFangraphsdcStandard.json */,
+				9C33F7C629838B2D0038A938 /* OfBatSteamerStandard.json */,
+				9C33F7D229838B2E0038A938 /* OfBatThebatStandard.json */,
+				9C33F7D929838B2E0038A938 /* OfBatThebatxStandard.json */,
+				9C33F7CF29838B2D0038A938 /* SsBatAtcStandard.json */,
+				9C33F7D629838B2E0038A938 /* SsBatFangraphsdcStandard.json */,
+				9C33F7DA29838B2E0038A938 /* SsBatSteamerStandard.json */,
+				9C33F7CC29838B2D0038A938 /* SsBatThebatStandard.json */,
+				9C33F7C129838B2D0038A938 /* SsBatThebatxStandard.json */,
 			);
 			path = "Projection JSONS";
-			sourceTree = "<group>";
-		};
-		9C1AE3A8298223AA0016BF50 /* Steamer */ = {
-			isa = PBXGroup;
-			children = (
-				9C1AE3C129822D710016BF50 /* steamerStandard1B.json */,
-				9C1AE3AC298223FF0016BF50 /* steamerStandard2B.json */,
-				9C1AE3AA298223FF0016BF50 /* steamerStandard3B.json */,
-				9C1AE3AD298223FF0016BF50 /* steamerStandardSS.json */,
-				9C1AE3A52981F4760016BF50 /* steamerStandardC.json */,
-				9C1AE3C329822D8C0016BF50 /* steamerStandardOF.json */,
-			);
-			path = Steamer;
 			sourceTree = "<group>";
 		};
 		9C1AE3A9298223BF0016BF50 /* Not used JSONs */ = {
@@ -151,19 +211,6 @@
 				9C1AE399297FA7DC0016BF50 /* steamerStandard.json */,
 			);
 			path = "Not used JSONs";
-			sourceTree = "<group>";
-		};
-		9C1AE3B4298225700016BF50 /* ATC */ = {
-			isa = PBXGroup;
-			children = (
-				9C1AE3B62982261A0016BF50 /* atcStandardC.json */,
-				9C1AE3B82982261A0016BF50 /* atcStandard1B.json */,
-				9C1AE3B72982261A0016BF50 /* atcStandard2B.json */,
-				9C1AE3B92982261A0016BF50 /* atcStandard3B.json */,
-				9C1AE3BA2982261A0016BF50 /* atcStandardSS.json */,
-				9C1AE3B52982261A0016BF50 /* atcStandardOF.json */,
-			);
-			path = ATC;
 			sourceTree = "<group>";
 		};
 		9C75B9AB296F590F003B35E6 = {
@@ -276,22 +323,40 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C1AE3C429822D8C0016BF50 /* steamerStandardOF.json in Resources */,
-				9C1AE3A62981F4760016BF50 /* steamerStandardC.json in Resources */,
-				9C1AE3AF298224000016BF50 /* steamerStandard3B.json in Resources */,
 				9C75B9CC296F9386003B35E6 /* steamer.json in Resources */,
+				9C33F7DC29838B2E0038A938 /* 3bBatThebatStandard.json in Resources */,
+				9C33F7F529838B2E0038A938 /* 1bBatFangraphsdcStandard.json in Resources */,
+				9C33F7EE29838B2E0038A938 /* 2bBatFangraphsdcStandard.json in Resources */,
+				9C33F7E729838B2E0038A938 /* 3bBatFangraphsdcStandard.json in Resources */,
+				9C33F7DD29838B2E0038A938 /* CBatFangraphsdcStandard.json in Resources */,
+				9C33F7E629838B2E0038A938 /* 1bBatThebatStandard.json in Resources */,
+				9C33F7F329838B2E0038A938 /* 3bBatAtcStandard.json in Resources */,
+				9C33F7F829838B2E0038A938 /* SsBatSteamerStandard.json in Resources */,
+				9C33F7F229838B2E0038A938 /* 3bBatThebatxStandard.json in Resources */,
+				9C33F7F129838B2E0038A938 /* 1bBatSteamerStandard.json in Resources */,
+				9C33F7E029838B2E0038A938 /* 3bBatSteamerStandard.json in Resources */,
+				9C33F7EA29838B2E0038A938 /* SsBatThebatStandard.json in Resources */,
+				9C33F7E229838B2E0038A938 /* 1bBatAtcStandard.json in Resources */,
+				9C33F7F629838B2E0038A938 /* 2bBatThebatxStandard.json in Resources */,
+				9C33F7F729838B2E0038A938 /* OfBatThebatxStandard.json in Resources */,
+				9C33F7E829838B2E0038A938 /* 2bBatAtcStandard.json in Resources */,
+				9C33F7E929838B2E0038A938 /* 2bBatThebatStandard.json in Resources */,
+				9C33F7EF29838B2E0038A938 /* CBatSteamerStandard.json in Resources */,
+				9C33F7E129838B2E0038A938 /* CBatThebatStandard.json in Resources */,
+				9C33F7F029838B2E0038A938 /* OfBatThebatStandard.json in Resources */,
+				9C33F7ED29838B2E0038A938 /* SsBatAtcStandard.json in Resources */,
+				9C33F7EB29838B2E0038A938 /* 1bBatThebatxStandard.json in Resources */,
+				9C33F7DE29838B2E0038A938 /* OfBatFangraphsdcStandard.json in Resources */,
+				9C33F7F429838B2E0038A938 /* SsBatFangraphsdcStandard.json in Resources */,
+				9C33F7E429838B2E0038A938 /* OfBatSteamerStandard.json in Resources */,
+				9C33F7DB29838B2E0038A938 /* CBatThebatxStandard.json in Resources */,
 				9C75B9BF296F5910003B35E6 /* Preview Assets.xcassets in Resources */,
-				9C1AE3BE2982261A0016BF50 /* atcStandard1B.json in Resources */,
+				9C33F7DF29838B2E0038A938 /* SsBatThebatxStandard.json in Resources */,
+				9C33F7E329838B2E0038A938 /* 2bBatSteamerStandard.json in Resources */,
 				9C75B9BC296F5910003B35E6 /* Assets.xcassets in Resources */,
-				9C1AE3C229822D710016BF50 /* steamerStandard1B.json in Resources */,
-				9C1AE3BD2982261A0016BF50 /* atcStandard2B.json in Resources */,
-				9C1AE3BF2982261A0016BF50 /* atcStandard3B.json in Resources */,
-				9C1AE3B1298224000016BF50 /* steamerStandard2B.json in Resources */,
-				9C1AE3BB2982261A0016BF50 /* atcStandardOF.json in Resources */,
+				9C33F7EC29838B2E0038A938 /* CBatAtcStandard.json in Resources */,
 				9C1AE39A297FA7DC0016BF50 /* steamerStandard.json in Resources */,
-				9C1AE3BC2982261A0016BF50 /* atcStandardC.json in Resources */,
-				9C1AE3C02982261A0016BF50 /* atcStandardSS.json in Resources */,
-				9C1AE3B2298224000016BF50 /* steamerStandardSS.json in Resources */,
+				9C33F7E529838B2E0038A938 /* OfBatAtcStandard.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +373,10 @@
 				9C75B9EF296FD215003B35E6 /* ExtText.swift in Sources */,
 				9C0C9D122974CC460069703D /* EditDoubleView.swift in Sources */,
 				9C1AE398297FA0A20016BF50 /* ScoringSettings.swift in Sources */,
-				9C75B9BA296F590F003B35E6 /* ContentView.swift in Sources */,
+				9CA24CA8298394EB00A394B4 /* ParsedBatter.swift in Sources */,
+				9C75B9BA296F590F003B35E6 /* OldJSONView.swift in Sources */,
+				9C33F7FA29838BCD0038A938 /* JSONBatter.swift in Sources */,
+				9CA24CA62983915400A394B4 /* ContentView.swift in Sources */,
 				9C75B9CE296FD174003B35E6 /* BatterDetailView.swift in Sources */,
 				9C75B9ED296FD215003B35E6 /* ExtInt.swift in Sources */,
 				9C75B9C8296F8C7E003B35E6 /* Batter.swift in Sources */,
