@@ -11,22 +11,6 @@ struct ContentView: View {
     
     @State private var projection: ProjectionTypes = .steamer
     
-    var data: [ParsedBatter] {
-        switch projection {
-        case .steamer:
-            return AllParsedBatters.steamer.all
-        case .zips:
-            return AllParsedBatters.steamer.all
-        case .thebat:
-            return AllParsedBatters.theBat.all
-        case .thebatx:
-            return AllParsedBatters.theBatx.all
-        case .atc:
-            return AllParsedBatters.atc.all
-        case .depthCharts:
-            return AllParsedBatters.depthCharts.all
-        }
-    }
     
     var body: some View {
         VStack {
@@ -39,12 +23,13 @@ struct ContentView: View {
             .padding()
             
             List {
-                ForEach(data, id: \.self) { datum in
+                ForEach(AllParsedBatters.batters(for: projection), id: \.self) { datum in
                     Text(datum.name)
-                        .spacedOut(text: datum.hr.str)
+                        .spacedOut(text: datum.fantasyPoints(.defaultPoints).str)
                 }
             }
         }
+        .background(Color.listBackground)
     }
 }
 
