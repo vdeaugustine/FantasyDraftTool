@@ -59,9 +59,10 @@
 		9C75B9EE296FD215003B35E6 /* ExtColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9E6296FD215003B35E6 /* ExtColor.swift */; };
 		9C75B9EF296FD215003B35E6 /* ExtText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9E7296FD215003B35E6 /* ExtText.swift */; };
 		9C75B9F0296FD215003B35E6 /* ExtStr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9E8296FD215003B35E6 /* ExtStr.swift */; };
-		9CA24CA62983915400A394B4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA52983915400A394B4 /* ContentView.swift */; };
+		9CA24CA62983915400A394B4 /* AllBattersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA52983915400A394B4 /* AllBattersListView.swift */; };
 		9CA24CA8298394EB00A394B4 /* ParsedBatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */; };
 		9CA24CAA2983A43500A394B4 /* ParsedBatterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA92983A43500A394B4 /* ParsedBatterDetailView.swift */; };
+		9CA24CAC29850FE000A394B4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CAB29850FE000A394B4 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,9 +119,10 @@
 		9C75B9E6296FD215003B35E6 /* ExtColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtColor.swift; sourceTree = "<group>"; };
 		9C75B9E7296FD215003B35E6 /* ExtText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtText.swift; sourceTree = "<group>"; };
 		9C75B9E8296FD215003B35E6 /* ExtStr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtStr.swift; sourceTree = "<group>"; };
-		9CA24CA52983915400A394B4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9CA24CA52983915400A394B4 /* AllBattersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBattersListView.swift; sourceTree = "<group>"; };
 		9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedBatter.swift; sourceTree = "<group>"; };
 		9CA24CA92983A43500A394B4 /* ParsedBatterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedBatterDetailView.swift; sourceTree = "<group>"; };
+		9CA24CAB29850FE000A394B4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				9C75B9B9296F590F003B35E6 /* OldJSONView.swift */,
-				9CA24CA52983915400A394B4 /* ContentView.swift */,
+				9CA24CA52983915400A394B4 /* AllBattersListView.swift */,
+				9CA24CAB29850FE000A394B4 /* ContentView.swift */,
 				9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */,
 				9C75B9CD296FD174003B35E6 /* BatterDetailView.swift */,
 				9CA24CA92983A43500A394B4 /* ParsedBatterDetailView.swift */,
@@ -379,9 +382,10 @@
 				9CA24CA8298394EB00A394B4 /* ParsedBatter.swift in Sources */,
 				9C75B9BA296F590F003B35E6 /* OldJSONView.swift in Sources */,
 				9C33F7FA29838BCD0038A938 /* JSONBatter.swift in Sources */,
-				9CA24CA62983915400A394B4 /* ContentView.swift in Sources */,
+				9CA24CA62983915400A394B4 /* AllBattersListView.swift in Sources */,
 				9C75B9CE296FD174003B35E6 /* BatterDetailView.swift in Sources */,
 				9C75B9ED296FD215003B35E6 /* ExtInt.swift in Sources */,
+				9CA24CAC29850FE000A394B4 /* ContentView.swift in Sources */,
 				9C75B9C8296F8C7E003B35E6 /* Batter.swift in Sources */,
 				9C75B9B8296F590F003B35E6 /* FantasyDraftToolApp.swift in Sources */,
 				9C1AE39E29807C290016BF50 /* StandardNaming.swift in Sources */,

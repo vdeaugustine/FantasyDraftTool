@@ -29,40 +29,41 @@ struct ParsedBatterDetailView: View {
             .pickerStyle(.segmented)
             .listRowSeparator(.hidden)
             .listRowBackground(Color.clear)
-            
-            
-            Section("My Stats"){
+
+            Section("My Stats") {
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
                     ForEach(batter.relevantStatsKeys, id: \.self) { key in
                         if let val = batter.dict[key] as? Int {
                             StatRect(stat: key, value: val)
-                                
-                                
                         }
                     }
                 }
-                
             }
             .listRowBackground(Color.clear)
-            
-            Section("Average for position") {
-                
-                LazyVGrid(columns: (0...4).map({ _ in GridItem(.flexible())})) {
-                    ForEach(AverageStats.arr) { stat in
-                        StatRect(stat: stat.str, value: AverageStats.average(stat: stat, for: batter.position, projectionType: projection))
-                        
+            .listRowSeparator(.hidden)
+
+            ForEach(batter.positions, id: \.self) { position in
+
+                Section("Average for \(position.str.uppercased())") {
+                    LazyVGrid(columns: (0 ... 4).map { _ in GridItem(.flexible()) }) {
+                        ForEach(AverageStats.arr) { stat in
+                            StatRect(stat: stat.str, value: AverageStats.average(stat: stat, for: position, projectionType: projection))
+                        }
                     }
                 }
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
             }
-            .listRowBackground(Color.clear)
             Spacer()
                 .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
         }
         
         .listStyle(.plain)
         .navigationTitle(batter.name)
         .navigationBarTitleDisplayMode(.inline)
         .background(Color.listBackground)
+        
     }
 }
 
@@ -70,17 +71,17 @@ extension ParsedBatterDetailView {
     struct StatRect: View {
         let stat: String
         let value: Int
-        
+
         init(stat: String, value: Int) {
             self.stat = stat
             self.value = value
         }
+
         init(stat: String, value: Double) {
             self.stat = stat
             self.value = Int(value.roundTo(places: 1))
         }
-        
-        
+
         var body: some View {
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
@@ -91,13 +92,7 @@ extension ParsedBatterDetailView {
                         .fontWeight(.semibold)
                 }
                 .padding(4)
-                
-                
             }
-            
-            
-            
-            
         }
     }
 }
@@ -106,7 +101,7 @@ extension ParsedBatterDetailView {
 
 struct ParsedBatterDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ParsedBatterDetailView(batter: AllParsedBatters.steamer.all.first!)
+        ParsedBatterDetailView(batter: AllParsedBatters.theBat.all.first(where: { $0.name == "Luis Arraez" })!)
             .putInNavView()
     }
 }
