@@ -7,41 +7,7 @@
 
 import Foundation
 
-// MARK: - AverageStats
 
-enum AverageStats: String, Hashable, Identifiable {
-    case g, ab, pa, tb, r, rbi, so, bb
-
-    static let arr: [AverageStats] = [.g, .ab, .pa, .tb, .r, .rbi, .so, .bb]
-
-    var str: String { rawValue.uppercased() }
-
-    var id: String { str }
-
-    static func average(stat: AverageStats, for position: Positions, projectionType: ProjectionTypes) -> Double {
-        let batters = AllParsedBatters.batters(for: projectionType, at: position)
-        let sum: Double
-        switch stat {
-            case .g:
-                sum = batters.reduce(Double(0)) { $0 + Double($1.g) }
-            case .ab:
-                sum = batters.reduce(Double(0)) { $0 + Double($1.ab) }
-            case .pa:
-                sum = batters.reduce(Double(0)) { $0 + Double($1.pa) }
-            case .tb:
-                sum = batters.reduce(Double(0)) { $0 + Double($1.tb) }
-            case .r:
-                sum = batters.reduce(Double(0)) { $0 + Double($1.r) }
-            case .rbi:
-                sum = batters.reduce(Double(0)) { $0 + Double($1.rbi) }
-            case .so:
-                sum = batters.reduce(Double(0)) { $0 + Double($1.so) }
-            case .bb:
-                sum = batters.reduce(Double(0)) { $0 + Double($1.bb) }
-        }
-        return sum / Double(batters.count)
-    }
-}
 
 // MARK: - ParsedBatter
 
@@ -197,65 +163,5 @@ extension ParsedBatter {
     }
 }
 
-// MARK: - AllParsedBatters
 
-struct AllParsedBatters {
-    static let steamer: Projection = .init(projectionType: .steamer)
-    static let atc: Projection = .init(projectionType: .atc)
-    static let theBat: Projection = .init(projectionType: .thebat)
-    static let theBatx: Projection = .init(projectionType: .thebatx)
-    static let depthCharts: Projection = .init(projectionType: .depthCharts)
 
-    static func batters(for projection: ProjectionTypes) -> [ParsedBatter] {
-        switch projection {
-            case .steamer:
-                return AllParsedBatters.steamer.all.sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
-            case .zips:
-                return AllParsedBatters.steamer.all.sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
-            case .thebat:
-                return AllParsedBatters.theBat.all.sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
-            case .thebatx:
-                return AllParsedBatters.theBatx.all.sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
-            case .atc:
-                return AllParsedBatters.atc.all.sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
-            case .depthCharts:
-                return AllParsedBatters.depthCharts.all.sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
-        }
-    }
-
-    static func batters(for projection: ProjectionTypes, at position: Positions) -> [ParsedBatter] {
-        var batters = batters(for: projection)
-        batters = batters.filter { $0.positions.contains(position) }
-        return batters
-    }
-}
-
-// MARK: - Projection
-
-class Projection {
-    let c: [ParsedBatter]
-    let firstBase: [ParsedBatter]
-    let secondBase: [ParsedBatter]
-    let thirdBase: [ParsedBatter]
-    let ss: [ParsedBatter]
-    let of: [ParsedBatter]
-    var all: [ParsedBatter] { c + firstBase + secondBase + thirdBase + ss + of }
-
-    init(c: [ParsedBatter], firstBase: [ParsedBatter], secondBase: [ParsedBatter], thirdBase: [ParsedBatter], ss: [ParsedBatter], of: [ParsedBatter]) {
-        self.c = c
-        self.firstBase = firstBase
-        self.secondBase = secondBase
-        self.thirdBase = thirdBase
-        self.ss = ss
-        self.of = of
-    }
-
-    init(projectionType: ProjectionTypes) {
-        self.c = JSONBatter.loadBatters(projectionType.jsonFileName(position: .c)).map { ParsedBatter(from: $0) }
-        self.firstBase = JSONBatter.loadBatters(projectionType.jsonFileName(position: .first)).map { ParsedBatter(from: $0) }
-        self.secondBase = JSONBatter.loadBatters(projectionType.jsonFileName(position: .second)).map { ParsedBatter(from: $0) }
-        self.thirdBase = JSONBatter.loadBatters(projectionType.jsonFileName(position: .third)).map { ParsedBatter(from: $0) }
-        self.ss = JSONBatter.loadBatters(projectionType.jsonFileName(position: .ss)).map { ParsedBatter(from: $0) }
-        self.of = JSONBatter.loadBatters(projectionType.jsonFileName(position: .of)).map { ParsedBatter(from: $0) }
-    }
-}

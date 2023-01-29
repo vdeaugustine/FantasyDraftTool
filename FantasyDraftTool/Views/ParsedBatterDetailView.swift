@@ -44,7 +44,7 @@ struct ParsedBatterDetailView: View {
 
             ForEach(batter.positions, id: \.self) { position in
 
-                Section("Average for \(position.str.uppercased())") {
+                Section("Average for \(position.str.uppercased()) based on \(projection.title)") {
                     LazyVGrid(columns: (0 ... 4).map { _ in GridItem(.flexible()) }) {
                         ForEach(AverageStats.arr) { stat in
                             StatRect(stat: stat.str, value: AverageStats.average(stat: stat, for: position, projectionType: projection))

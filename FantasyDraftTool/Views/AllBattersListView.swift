@@ -7,11 +7,7 @@
 
 import SwiftUI
 
-extension Array where Element: Hashable {
-    func removingDuplicates() -> Self {
-        Array(Set(self))
-    }
-}
+
 
 // MARK: - AllBattersListView
 

@@ -89,4 +89,44 @@ extension JSONBatter {
 
 }
 
+extension JSONBatter {
+    func load<T: Decodable>(_ projectionType: ProjectionTypes = .steamer) -> T {
+        let data: Data
+        let filename = projectionType.jsonFile
+        guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
+        else {
+            fatalError("Couldn't find \(filename) in main bundle.")
+        }
 
+        do {
+            data = try Data(contentsOf: file)
+        } catch {
+            fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
+        }
+    }
+
+//    static func getPlayers(projectionType: ProjectionTypes) -> [Batter] {
+//        let fileName = projectionType.jsonFile
+//        guard let fileURL = Bundle.main.url(forResource: fileName, withExtension: nil) else {
+//            fatalError("Unable to find \(fileName)")
+//        }
+//        do {
+//            let data = try Data(contentsOf: fileURL)
+//            let players = try JSONDecoder().decode([JSONBatter].self, from: data)
+//            var retPlayers = [Batter]()
+//            for player in players {
+//                retPlayers.append(Batter(player))
+//            }
+//            return retPlayers
+//        } catch {
+//            fatalError("Unable to read and decode \(fileName): \(error)")
+//        }
+//    }
+}

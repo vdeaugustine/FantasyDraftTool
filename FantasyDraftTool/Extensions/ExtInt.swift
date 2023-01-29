@@ -16,4 +16,8 @@ extension Int {
         let dub = Double(self)
         return dub.formattedForMoney()
     }
+    
+    var isEven: Bool {
+        self % 2 == 0
+    }
 }
