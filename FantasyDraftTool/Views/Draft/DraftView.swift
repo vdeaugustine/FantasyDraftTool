@@ -60,6 +60,9 @@ struct DraftView: View {
                         }
                     }
                 }
+                NavigationLink("Show all") {
+                    DraftSummaryView(players: pickStack, draft: draft)
+                }
             }
             
             
