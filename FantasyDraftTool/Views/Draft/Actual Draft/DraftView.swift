@@ -73,8 +73,8 @@ struct DraftView: View {
                     Button {
                         makePick(player: batter)
                     } label: {
-                        Text(batter.name + " " + (batter.positionWithWeakestPeers(projection: .steamer)?.str.uppercased() ?? "xx"))
-                            .spacedOut(text: batter.weightedPointsForWeakestPosition(projection: .steamer)?.roundTo(places: 1).str ?? "" )
+                        Text(batter.name)
+                            .spacedOut(text: batter.weightedPointsForWeakestPosition(projection: .steamer).str)
                     }
                 }
             }

@@ -336,9 +336,9 @@
 		9CA24CBB29851C2500A394B4 /* Draft */ = {
 			isa = PBXGroup;
 			children = (
+				9CA24CE4298902FC00A394B4 /* Actual Draft */,
 				9CA24CD529865F5100A394B4 /* Draft Summary */,
 				9CA24CCC2985B9E900A394B4 /* DraftSettings */,
-				9CA24CBC29851C2C00A394B4 /* DraftView.swift */,
 			);
 			path = Draft;
 			sourceTree = "<group>";
@@ -459,6 +459,14 @@
 				9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */,
 			);
 			path = Selectors;
+			sourceTree = "<group>";
+		};
+		9CA24CE4298902FC00A394B4 /* Actual Draft */ = {
+			isa = PBXGroup;
+			children = (
+				9CA24CBC29851C2C00A394B4 /* DraftView.swift */,
+			);
+			path = "Actual Draft";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

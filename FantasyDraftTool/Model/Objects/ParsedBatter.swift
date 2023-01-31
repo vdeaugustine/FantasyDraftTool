@@ -169,12 +169,12 @@ struct ParsedBatter: Hashable {
         return lowestWeightPosition
     }
 
-    func weightedPointsForWeakestPosition(projection: ProjectionTypes) -> Double? {
-        guard let weakestPosition = positionWithWeakestPeers(projection: projection) else {
-            return nil
-        }
+    func weightedPointsForWeakestPosition(projection: ProjectionTypes) -> Double {
+//        guard let weakestPosition = positionWithWeakestPeers(projection: projection) else {
+//            return fantasyPoints(.defaultPoints)
+//        }
 
-        return fantasyPoints(.defaultPoints) * positionWeight(position: weakestPosition, projection: projection)
+        return fantasyPoints(.defaultPoints) * positionWeight(position: positions.first!, projection: projection)
     }
 }
 
