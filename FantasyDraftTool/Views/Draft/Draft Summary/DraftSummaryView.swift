@@ -14,8 +14,23 @@ struct DraftSummaryView: View {
     @State private var showingTeam: DraftTeam = .init(name: "NULL", draftPosition: 0)
     
     var showingPlayers: [DraftPlayer] {
-        players.array.filter({ $0.team == showingTeam })
+        var showing: [DraftPlayer] = players.array.filter({ $0.team == showingTeam })
+        if selectedPositions.isEmpty {
+            return showing
+        }
+        
+        return showing.filter({
+            for position in selectedPositions {
+                if $0.player.positions.contains(position) {
+                    return true
+                }
+            }
+            return false
+        })
+        
+        
     }
+    @State private var selectedPositions: Set<Positions> = []
     
     var body: some View {
         VStack {
@@ -26,7 +41,12 @@ struct DraftSummaryView: View {
                 }
             }
             
+            SelectPositionsHScroll(selectedPositions: $selectedPositions)
+            
             List {
+                
+                
+                
                 Section {
                     ForEach(showingPlayers, id: \.self) { player in
                         Text(player.player.name)

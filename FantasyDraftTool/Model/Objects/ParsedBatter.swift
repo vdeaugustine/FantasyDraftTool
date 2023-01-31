@@ -7,17 +7,15 @@
 
 import Foundation
 
-
-
 // MARK: - ParsedBatter
 
 struct ParsedBatter: Hashable {
     var empty, name, team: String
     var g, ab, pa, h, the1B, the2B, the3B, hr, r, rbi, bb, ibb, so, hbp, sf, sh, sb, cs: Int
     var avg: Double
-    
+
     var posStr: String {
-        positions.reduce("", { $0 + ", " + $1.str.uppercased()})
+        positions.reduce("") { $0 + ", " + $1.str.uppercased() }
     }
 
     var positions: [Positions] {
@@ -84,7 +82,6 @@ struct ParsedBatter: Hashable {
          "R",
          "RBI",
          "BB",
-         "IBB",
          "SO",
          "HBP",
          "SB",
@@ -145,6 +142,40 @@ struct ParsedBatter: Hashable {
         hasher.combine(team)
         hasher.combine(ab)
     }
+
+    func positionWeight(position: Positions, projection: ProjectionTypes, scoringSystem: ScoringSettings = .defaultPoints) -> Double {
+        let peersForPosition = AllParsedBatters.batters(for: projection)
+        let positionAveragePoints = ParsedBatter.averagePoints(forThese: peersForPosition)
+        return (fantasyPoints(scoringSystem) / positionAveragePoints)
+    }
+
+    func positionWeightedPoints(position: Positions, projection: ProjectionTypes, scoringSystem: ScoringSettings = .defaultPoints) -> Double {
+        positionWeight(position: position, projection: projection, scoringSystem: scoringSystem) * fantasyPoints(scoringSystem)
+    }
+
+    func positionWithWeakestPeers(projection: ProjectionTypes) -> Positions? {
+        guard let firstPosition = positions.first else {
+            return nil
+        }
+        var lowestWeightPosition: Positions = firstPosition
+        var lowestWeight = positionWeight(position: lowestWeightPosition, projection: projection)
+        for position in positions {
+            let thisWeight = positionWeight(position: position, projection: projection)
+            if thisWeight < lowestWeight {
+                lowestWeight = thisWeight
+                lowestWeightPosition = position
+            }
+        }
+        return lowestWeightPosition
+    }
+
+    func weightedPointsForWeakestPosition(projection: ProjectionTypes) -> Double? {
+        guard let weakestPosition = positionWithWeakestPeers(projection: projection) else {
+            return nil
+        }
+
+        return fantasyPoints(.defaultPoints) * positionWeight(position: weakestPosition, projection: projection)
+    }
 }
 
 extension ParsedBatter {
@@ -162,6 +193,3 @@ extension ParsedBatter {
         (batters.reduce(Double(0)) { $0 + $1.fantasyPoints(ScoringSettings.defaultPoints) } / Double(batters.count)).roundTo(places: 1)
     }
 }
-
-
-

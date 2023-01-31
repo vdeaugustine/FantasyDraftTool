@@ -5,6 +5,7 @@
 //  Created by Vincent DeAugustine on 1/26/23.
 //
 
+import Charts
 import SwiftUI
 
 // MARK: - ParsedBatterDetailView
@@ -16,19 +17,17 @@ struct ParsedBatterDetailView: View {
 
     var body: some View {
         List {
-            Picker("Projection", selection: $projection) {
-                ForEach(ProjectionTypes.arr, id: \.self) { proj in
-                    Text(proj.title)
-                }
+            Section("Select Projection") {
+                SelectProjectionTypeHScroll(selectedProjectionType: $projection)
+                    .onChange(of: projection, perform: { newProjection in
+                        if let newBatter = AllParsedBatters.batters(for: newProjection).first(where: { $0.name == batter.name }) {
+                            batter = newBatter
+                        }
+                    })
+                    .pickerStyle(.segmented)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
             }
-            .onChange(of: projection, perform: { newProjection in
-                if let newBatter = AllParsedBatters.batters(for: newProjection).first(where: { $0.name == batter.name }) {
-                    batter = newBatter
-                }
-            })
-            .pickerStyle(.segmented)
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
 
             Section("My Stats") {
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
@@ -37,6 +36,7 @@ struct ParsedBatterDetailView: View {
                             StatRect(stat: key, value: val)
                         }
                     }
+                    StatRect(stat: "Points", value: batter.fantasyPoints(.defaultPoints))
                 }
             }
             .listRowBackground(Color.clear)
@@ -49,21 +49,36 @@ struct ParsedBatterDetailView: View {
                         ForEach(AverageStats.arr) { stat in
                             StatRect(stat: stat.str, value: AverageStats.average(stat: stat, for: position, projectionType: projection))
                         }
+                        StatRect(stat: "Points", value: ParsedBatter.averagePoints(forThese: AllParsedBatters.batters(for: projection).filter { $0.positions.contains(position) }))
                     }
                 }
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
             }
+
+            Section {
+                Chart {
+                    BarMark(x: .value("Batter", batter.name),
+                            y: .value("Fantasy Points", batter.fantasyPoints(.defaultPoints)))
+
+                    ForEach(batter.positions, id: \.self) { position in
+                        BarMark(x: .value(position.str.uppercased(),
+                                          "Average " + position.str.uppercased()),
+                                y: .value("Fantasy Points",
+                                          ParsedBatter.averagePoints(forThese: AllParsedBatters.batters(for: projection).filter { $0.positions.contains(position) })))
+                    }
+                }
+                .padding()
+            }
             Spacer()
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
         }
-        
+
         .listStyle(.plain)
         .navigationTitle(batter.name)
         .navigationBarTitleDisplayMode(.inline)
         .background(Color.listBackground)
-        
     }
 }
 

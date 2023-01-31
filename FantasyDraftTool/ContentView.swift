@@ -9,9 +9,29 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        NavigationView {
-            AllBattersListView()
+        
+        TabView {
+            
+            NavigationView {
+                AllBattersListView()
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+            .tag(0)
+            .tabItem {
+                Label("List", systemImage: "list")
+            }
+            
+            NavigationView {
+                SetupDraftView()
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+            .tag(1)
+            .tabItem {
+                Label("Draft", systemImage: "square.and.arrow.down")
+            }
         }
+        
+        
         
     }
 }

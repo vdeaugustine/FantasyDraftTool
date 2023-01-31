@@ -77,6 +77,10 @@
 		9CA24CCE2985B9F700A394B4 /* SetupDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CCD2985B9F700A394B4 /* SetupDraftView.swift */; };
 		9CA24CD32985BD2200A394B4 /* SetUpDraftTeamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CD22985BD2200A394B4 /* SetUpDraftTeamsView.swift */; };
 		9CA24CD729865F5D00A394B4 /* DraftSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CD629865F5D00A394B4 /* DraftSummaryView.swift */; };
+		9CA24CD929889B1400A394B4 /* SelectPositionsHScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CD829889B1400A394B4 /* SelectPositionsHScroll.swift */; };
+		9CA24CDC2988F4FB00A394B4 /* PositionAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CDB2988F4FB00A394B4 /* PositionAnalysisView.swift */; };
+		9CA24CE02988F57600A394B4 /* SelectProjectionTypeHScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CDF2988F57600A394B4 /* SelectProjectionTypeHScroll.swift */; };
+		9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -151,6 +155,10 @@
 		9CA24CCD2985B9F700A394B4 /* SetupDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupDraftView.swift; sourceTree = "<group>"; };
 		9CA24CD22985BD2200A394B4 /* SetUpDraftTeamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpDraftTeamsView.swift; sourceTree = "<group>"; };
 		9CA24CD629865F5D00A394B4 /* DraftSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftSummaryView.swift; sourceTree = "<group>"; };
+		9CA24CD829889B1400A394B4 /* SelectPositionsHScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPositionsHScroll.swift; sourceTree = "<group>"; };
+		9CA24CDB2988F4FB00A394B4 /* PositionAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionAnalysisView.swift; sourceTree = "<group>"; };
+		9CA24CDF2988F57600A394B4 /* SelectProjectionTypeHScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProjectionTypeHScroll.swift; sourceTree = "<group>"; };
+		9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSinglePositionTypeHScroll.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,12 +185,14 @@
 		9C1AE39F2980A7170016BF50 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9CA24CDD2988F52100A394B4 /* Components */,
+				9CA24CDA2988F4AE00A394B4 /* Analysis */,
 				9CA24CBB29851C2500A394B4 /* Draft */,
-				9CA24CAF2985190500A394B4 /* Deprecated View */,
 				9CA24CA52983915400A394B4 /* AllBattersListView.swift */,
 				9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */,
 				9CA24CA92983A43500A394B4 /* ParsedBatterDetailView.swift */,
 				9C0C9D112974CC460069703D /* EditDoubleView.swift */,
+				9CA24CAF2985190500A394B4 /* Deprecated View */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -425,6 +435,32 @@
 			path = "Draft Summary";
 			sourceTree = "<group>";
 		};
+		9CA24CDA2988F4AE00A394B4 /* Analysis */ = {
+			isa = PBXGroup;
+			children = (
+				9CA24CDB2988F4FB00A394B4 /* PositionAnalysisView.swift */,
+			);
+			path = Analysis;
+			sourceTree = "<group>";
+		};
+		9CA24CDD2988F52100A394B4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9CA24CDE2988F56200A394B4 /* Selectors */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		9CA24CDE2988F56200A394B4 /* Selectors */ = {
+			isa = PBXGroup;
+			children = (
+				9CA24CD829889B1400A394B4 /* SelectPositionsHScroll.swift */,
+				9CA24CDF2988F57600A394B4 /* SelectProjectionTypeHScroll.swift */,
+				9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */,
+			);
+			path = Selectors;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -527,10 +563,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */,
 				9CA24CCE2985B9F700A394B4 /* SetupDraftView.swift in Sources */,
 				9C1AE3A42981F29D0016BF50 /* Positions.swift in Sources */,
 				9C75B9EA296FD215003B35E6 /* ExtView.swift in Sources */,
 				9CA24CC82985B83800A394B4 /* DraftTeam.swift in Sources */,
+				9CA24CD929889B1400A394B4 /* SelectPositionsHScroll.swift in Sources */,
 				9CA24CBA29851A9900A394B4 /* AllParsedBatters.swift in Sources */,
 				9C75B9EE296FD215003B35E6 /* ExtColor.swift in Sources */,
 				9CA24CC62985B83200A394B4 /* Draft.swift in Sources */,
@@ -562,7 +600,9 @@
 				9CA24CAA2983A43500A394B4 /* ParsedBatterDetailView.swift in Sources */,
 				9C75B9EC296FD215003B35E6 /* ExtDouble.swift in Sources */,
 				9C1AE39C29804D4A0016BF50 /* ScoringSettingsView.swift in Sources */,
+				9CA24CE02988F57600A394B4 /* SelectProjectionTypeHScroll.swift in Sources */,
 				9C75B9E9296FD215003B35E6 /* ExtDate.swift in Sources */,
+				9CA24CDC2988F4FB00A394B4 /* PositionAnalysisView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
