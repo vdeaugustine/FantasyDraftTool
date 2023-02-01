@@ -25,7 +25,14 @@ struct SetUpDraftTeamsView: View {
 
             Section {
                 NavigationLink {
-                    DraftView(draft: Draft(teams: teams, currentPickNumber: 1, settings: DraftSettings(numberOfTeams: numberOfTeams, snakeDraft: snakeDraft, numberOfRounds: numberOfRounds, scoringSystem: scoringSystem)))
+                    DraftView(
+                        draft: Draft(teams: teams,
+                                     currentPickNumber: 1,
+                                     settings: DraftSettings(numberOfTeams: numberOfTeams,
+                                                             snakeDraft: snakeDraft,
+                                                             numberOfRounds: numberOfRounds,
+                                                             scoringSystem: scoringSystem))
+                    )
                 } label: {
                     Text("Start Draft")
                         .foregroundColor(.blue)

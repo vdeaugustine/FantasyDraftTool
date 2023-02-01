@@ -7,56 +7,76 @@
 
 import SwiftUI
 
-// MARK: - Stack
-
-struct Stack<T> {
-    var array: [T] = []
-
-    mutating func push(_ element: T) {
-        array.insert(element, at: 0)
-    }
-
-    mutating func pop() -> T? {
-        return array.popLast()
-    }
-
-    func peek() -> T? {
-        return array.last
-    }
-
-    func isEmpty() -> Bool {
-        return array.isEmpty
-    }
-}
-
 // MARK: - DraftView
 
 struct DraftView: View {
-    let draft: Draft
-    @State private var currentTeam: DraftTeam = DraftTeam(name: "", draftPosition: 1)
-    @State private var totalPickNumber: Int = 1
-    @State private var pickStack: Stack<DraftPlayer> = .init()
+    @StateObject var draft: Draft
+    
+//    @State private var currentTeam: DraftTeam = DraftTeam(name: "", draftPosition: 1)
 
-    var roundNumber: Int {
-        (totalPickNumber - 1) / draft.settings.numberOfTeams + 1
+//    var remainingC: [ParsedBatter] { playerPool.filter { $0.positions.contains(.c) }
+//    }
+//
+//    var remaining1B: [ParsedBatter] { playerPool.filter { $0.positions.contains(.first) }
+//    }
+//
+//    var remaining2B: [ParsedBatter] { playerPool.filter { $0.positions.contains(.second) }
+//    }
+//
+//    var remaining3B: [ParsedBatter] { playerPool.filter { $0.positions.contains(.third) }
+//    }
+//
+//    var remainingSS: [ParsedBatter] { playerPool.filter { $0.positions.contains(.ss) }
+//    }
+//
+//    var remainingOF: [ParsedBatter] { playerPool.filter { $0.positions.contains(.of) }
+//    }
+
+//    var dict: [Positions: [ParsedBatter]] {
+//        var retDict: [Positions: [ParsedBatter]] = [:]
+//        for position in Positions.batters {
+//            let values: [ParsedBatter]
+//            switch position {
+//                case .c:
+//                    values = remainingC
+//                case .first:
+//                    values = remaining1B
+//                case .second:
+//                    values = remaining2B
+//                case .third:
+//                    values = remaining3B
+//                case .ss:
+//                    values = remainingSS
+//                case .of:
+//                    values = remainingOF
+//                default:
+//                    values = []
+//            }
+//            retDict[position] = values
+//        }
+//        return retDict
+//    }
+
+    var sortedBatters: [ParsedBatter] {
+        draft.playerPool.batters.sorted {
+            $0.weightedFantasyPoints(dict: draft.playerPool.positionAveragesDict) > $1.weightedFantasyPoints(dict: draft.playerPool.positionAveragesDict)
+        }
+
+//        draft.playerPool.batters.sorted(by: { $0.weightedFantasyPoints(positionAverage: draft.playerPool.positionAveragesDict[$0.positions.first!]!) >
+//                $1.weightedFantasyPoints(positionAverage: draft.playerPool.positionAveragesDict[$1.positions.first!]!)
+//        })
     }
-
-    var roundPickNumber: Int {
-        (totalPickNumber - 1) % draft.settings.numberOfTeams + 1
-    }
-
-    @State private var playerPool = AllParsedBatters.batters(for: .steamer)
 
     var body: some View {
         List {
-            Text("Current team: \(currentTeam.name)")
-            Text("Round \(roundNumber), Pick \(roundPickNumber)")
+            Text("Current team: \(draft.currentTeam.name)")
+            Text("Round \(draft.roundNumber), Pick \(draft.roundPickNumber)")
 
             Section("Recent picks") {
-                if pickStack.isEmpty() == false {
+                if draft.pickStack.isEmpty() == false {
                     ScrollView(.horizontal) {
                         LazyHStack {
-                            ForEach(pickStack.array, id: \.self) { pick in
+                            ForEach(draft.pickStack.array, id: \.self) { pick in
                                 Text("\(pick.team.name): \(pick.player.name),")
                             }
                         }
@@ -64,39 +84,54 @@ struct DraftView: View {
                 }
 
                 NavigationLink("Show all") {
-                    DraftSummaryView(players: pickStack, draft: draft)
+                    DraftSummaryView(players: draft.pickStack, draft: draft)
+                }
+            }
+
+            Section("Averages for remaining by position") {
+                LazyVGrid(columns: (0 ... 2).map { _ in
+                    GridItem(.flexible())
+                }) {
+                    ForEach(Positions.batters, id: \.self) { position in
+                        if let positionAverage = draft.playerPool.positionAveragesDict[position] {
+                            StatRect(stat: position.str.uppercased(), value: positionAverage)
+                        }
+                    }
                 }
             }
 
             Section {
-                ForEach(playerPool, id: \.self) { batter in
+                ForEach(sortedBatters,
+                        id: \.self) { batter in
                     Button {
                         makePick(player: batter)
                     } label: {
                         Text(batter.name)
-                            .spacedOut(text: batter.weightedPointsForWeakestPosition(projection: .steamer).str)
+                            .spacedOut(text: batter.weightedFantasyPoints(dict: draft.playerPool.positionAveragesDict).str)
                     }
                 }
             }
         }
         .onAppear {
-            currentTeam = draft.teams.first!
+            draft.currentTeam = draft.teams.first!
         }
     }
 
     func makePick(player: ParsedBatter) {
-        playerPool.removeAll(where: { $0 == player })
-        let draftPlayer = DraftPlayer(player: player, pickNumber: totalPickNumber, team: currentTeam)
-        pickStack.push(draftPlayer)
-        totalPickNumber += 1
+        let draftPlayer = DraftPlayer(player: player,
+                                      pickNumber: draft.totalPickNumber,
+                                      team: draft.currentTeam)
+        draft.removeFromPool(player: draftPlayer)
+        draft.pickStack.push(draftPlayer)
+        draft.totalPickNumber += 1
         setNextTeam()
     }
 
     func setNextTeam() {
         let numberOfTeams = draft.settings.numberOfTeams
 
-        let currentTeamIndex: Int = roundNumber.isEven ? numberOfTeams - roundPickNumber : roundPickNumber - 1
-        currentTeam = draft.teams[currentTeamIndex]
+        let currentTeamIndex: Int = draft.roundNumber.isEven ? draft.settings.numberOfTeams - draft.roundPickNumber : draft.roundPickNumber - 1
+        draft.currentTeam = draft.teams[currentTeamIndex]
     }
 }
 

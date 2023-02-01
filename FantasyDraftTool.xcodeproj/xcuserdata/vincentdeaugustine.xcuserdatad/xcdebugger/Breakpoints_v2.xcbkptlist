@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "123B854B-ADB5-458D-9F84-D7992D4C1D30"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8688EFC8-B862-41FE-9EE8-479719487463"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FantasyDraftTool/Views/Draft/Actual Draft/DraftView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "8688EFC8-B862-41FE-9EE8-479719487463 - a4ce3a5688964945"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (FantasyDraftTool.Positions) -&gt; Swift.Optional&lt;FantasyDraftTool.StatRect&gt; in closure #2 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;FantasyDraftTool.Positions&gt;, FantasyDraftTool.Positions, Swift.Optional&lt;FantasyDraftTool.StatRect&gt;&gt; in closure #2 () -&gt; SwiftUI.LazyVGrid&lt;SwiftUI.ForEach&lt;Swift.Array&lt;FantasyDraftTool.Positions&gt;, FantasyDraftTool.Positions, Swift.Optional&lt;FantasyDraftTool.StatRect&gt;&gt;&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Text, SwiftUI.Text, SwiftUI.Section&lt;SwiftUI.Text, SwiftUI.TupleView&lt;(Swift.Optional&lt;SwiftUI.ScrollView&lt;SwiftUI.LazyHStack&lt;SwiftUI.ForEach&lt;Swift.Array&lt;FantasyDraftTool.DraftPlayer&gt;, FantasyDraftTool.DraftPlayer, SwiftUI.Text&gt;&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.Text, FantasyDraftTool.DraftSummaryView&gt;)&gt;, SwiftUI.EmptyView&gt;, SwiftUI.Section&lt;SwiftUI.Text, SwiftUI.LazyVGrid&lt;SwiftUI.ForEach&lt;Swift.Array&lt;FantasyDraftTool.Positions&gt;, FantasyDraftTool.Positions, Swift.Optional&lt;FantasyDraftTool.StatRect&gt;&gt;&gt;, SwiftUI.EmptyView&gt;, SwiftUI.Section&lt;SwiftUI.EmptyView, SwiftUI.ForEach&lt;Swift.Array&lt;FantasyDraftTool.ParsedBatter&gt;, FantasyDraftTool.ParsedBatter, SwiftUI.Button&lt;&lt;&lt;opaque return type of SwiftUI.Text.spacedOut(text: Swift.String) -&gt; some&gt;&gt;.0&gt;&gt;, SwiftUI.EmptyView&gt;)&gt; in FantasyDraftTool.DraftView.body.getter : some"
+                  moduleName = "FantasyDraftTool"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/Views/Draft/Actual%20Draft/DraftView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  uuid = "8688EFC8-B862-41FE-9EE8-479719487463 - a4ce3a5688964945"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (FantasyDraftTool.Positions) -&gt; Swift.Optional&lt;FantasyDraftTool.StatRect&gt; in closure #2 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;FantasyDraftTool.Positions&gt;, FantasyDraftTool.Positions, Swift.Optional&lt;FantasyDraftTool.StatRect&gt;&gt; in closure #2 () -&gt; SwiftUI.LazyVGrid&lt;SwiftUI.ForEach&lt;Swift.Array&lt;FantasyDraftTool.Positions&gt;, FantasyDraftTool.Positions, Swift.Optional&lt;FantasyDraftTool.StatRect&gt;&gt;&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Text, SwiftUI.Text, SwiftUI.Section&lt;SwiftUI.Text, SwiftUI.TupleView&lt;(Swift.Optional&lt;SwiftUI.ScrollView&lt;SwiftUI.LazyHStack&lt;SwiftUI.ForEach&lt;Swift.Array&lt;FantasyDraftTool.DraftPlayer&gt;, FantasyDraftTool.DraftPlayer, SwiftUI.Text&gt;&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.Text, FantasyDraftTool.DraftSummaryView&gt;)&gt;, SwiftUI.EmptyView&gt;, SwiftUI.Section&lt;SwiftUI.Text, SwiftUI.LazyVGrid&lt;SwiftUI.ForEach&lt;Swift.Array&lt;FantasyDraftTool.Positions&gt;, FantasyDraftTool.Positions, Swift.Optional&lt;FantasyDraftTool.StatRect&gt;&gt;&gt;, SwiftUI.EmptyView&gt;, SwiftUI.Section&lt;SwiftUI.EmptyView, SwiftUI.ForEach&lt;Swift.Array&lt;FantasyDraftTool.ParsedBatter&gt;, FantasyDraftTool.ParsedBatter, SwiftUI.Button&lt;&lt;&lt;opaque return type of SwiftUI.Text.spacedOut(text: Swift.String) -&gt; some&gt;&gt;.0&gt;&gt;, SwiftUI.EmptyView&gt;)&gt; in FantasyDraftTool.DraftView.body.getter : some"
+                  moduleName = "FantasyDraftTool"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/Views/Draft/Actual%20Draft/DraftView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "484">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3DD3B619-B6EA-43AA-A811-4EB23B5B0056"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FantasyDraftTool/Views/Draft/Actual Draft/DraftView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "makePick(player:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "51FB8D9C-5D1B-4D9D-9E81-0D91476F6535"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FantasyDraftTool/Model/Objects/Draft/Draft/Draft.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "removeFromPool(player:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

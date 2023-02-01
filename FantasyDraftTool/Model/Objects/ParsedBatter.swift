@@ -14,33 +14,15 @@ struct ParsedBatter: Hashable {
     var g, ab, pa, h, the1B, the2B, the3B, hr, r, rbi, bb, ibb, so, hbp, sf, sh, sb, cs: Int
     var avg: Double
 
-    var posStr: String {
-        positions.reduce("") { $0 + ", " + $1.str.uppercased() }
+    func posStr() -> String {
+        var retStr: String = ""
+        for position in positions {
+            retStr += ", " + position.str.uppercased()
+        }
+        return retStr
     }
 
-    var positions: [Positions] {
-        var posArr: [Positions] = []
-        if !AllParsedBatters.steamer.c.filter({ $0.name == self.name }).isEmpty {
-            posArr.append(.c)
-        }
-        if !AllParsedBatters.steamer.firstBase.filter({ $0.name == self.name }).isEmpty {
-            posArr.append(.first)
-        }
-        if !AllParsedBatters.steamer.secondBase.filter({ $0.name == self.name }).isEmpty {
-            posArr.append(.second)
-        }
-        if !AllParsedBatters.steamer.thirdBase.filter({ $0.name == self.name }).isEmpty {
-            posArr.append(.third)
-        }
-        if !AllParsedBatters.steamer.ss.filter({ $0.name == self.name }).isEmpty {
-            posArr.append(.ss)
-        }
-        if !AllParsedBatters.steamer.of.filter({ $0.name == self.name }).isEmpty {
-            posArr.append(.of)
-        }
-
-        return posArr
-    }
+    let positions: [Positions]
 
     var tb: Double {
         Double(the1B) + (2 * Double(the2B)) + (3 * Double(the3B)) + (4 * Double(hr))
@@ -94,7 +76,7 @@ struct ParsedBatter: Hashable {
         }
     }
 
-    init(from jsonBatter: JSONBatter) {
+    init(from jsonBatter: JSONBatter, pos: Positions) {
         self.empty = jsonBatter.empty
         self.name = jsonBatter.name
         self.team = jsonBatter.team
@@ -119,6 +101,8 @@ struct ParsedBatter: Hashable {
         self.cs = Int(jsonBatter.cs) ?? 0
 
         self.avg = Double("0" + jsonBatter.avg) ?? 0
+        
+        self.positions = [pos]
     }
 
     static func == (lhs: Self, rhs: Self) -> Bool {
@@ -142,40 +126,55 @@ struct ParsedBatter: Hashable {
         hasher.combine(team)
         hasher.combine(ab)
     }
-
-    func positionWeight(position: Positions, projection: ProjectionTypes, scoringSystem: ScoringSettings = .defaultPoints) -> Double {
-        let peersForPosition = AllParsedBatters.batters(for: projection)
-        let positionAveragePoints = ParsedBatter.averagePoints(forThese: peersForPosition)
-        return (fantasyPoints(scoringSystem) / positionAveragePoints)
+    
+    func weightedFantasyPoints(positionAverage: Double) -> Double {
+        self.fantasyPoints(.defaultPoints) / positionAverage * self.fantasyPoints(.defaultPoints)
+    }
+    
+    func weightedFantasyPoints(dict: [Positions: Double]) -> Double {
+        guard let firstPos = positions.first,
+              let average = dict[firstPos] else
+        { return 0 }
+        return (self.fantasyPoints(.defaultPoints) / average * self.fantasyPoints(.defaultPoints)).roundTo(places: 1)
     }
 
-    func positionWeightedPoints(position: Positions, projection: ProjectionTypes, scoringSystem: ScoringSettings = .defaultPoints) -> Double {
-        positionWeight(position: position, projection: projection, scoringSystem: scoringSystem) * fantasyPoints(scoringSystem)
-    }
-
-    func positionWithWeakestPeers(projection: ProjectionTypes) -> Positions? {
-        guard let firstPosition = positions.first else {
-            return nil
-        }
-        var lowestWeightPosition: Positions = firstPosition
-        var lowestWeight = positionWeight(position: lowestWeightPosition, projection: projection)
-        for position in positions {
-            let thisWeight = positionWeight(position: position, projection: projection)
-            if thisWeight < lowestWeight {
-                lowestWeight = thisWeight
-                lowestWeightPosition = position
-            }
-        }
-        return lowestWeightPosition
-    }
-
-    func weightedPointsForWeakestPosition(projection: ProjectionTypes) -> Double {
-//        guard let weakestPosition = positionWithWeakestPeers(projection: projection) else {
-//            return fantasyPoints(.defaultPoints)
+//    func positionWeight(position: Positions, projection: ProjectionTypes, scoringSystem: ScoringSettings = .defaultPoints) -> Double {
+//        let peersForPosition = AllParsedBatters.batters(for: projection)
+//        let positionAveragePoints = ParsedBatter.averagePoints(forThese: peersForPosition)
+//        return (fantasyPoints(scoringSystem) / positionAveragePoints)
+//    }
+//
+//    func positionWeightedPoints(position: Positions, projection: ProjectionTypes, scoringSystem: ScoringSettings = .defaultPoints) -> Double {
+//        positionWeight(position: position, projection: projection, scoringSystem: scoringSystem) * fantasyPoints(scoringSystem)
+//    }
+//
+//    func positionWithWeakestPeers(projection: ProjectionTypes) -> Positions? {
+//        guard let firstPosition = positions.first else {
+//            return nil
 //        }
-
-        return fantasyPoints(.defaultPoints) * positionWeight(position: positions.first!, projection: projection)
-    }
+//        var lowestWeightPosition: Positions = firstPosition
+//        var lowestWeight = positionWeight(position: lowestWeightPosition, projection: projection)
+//        for position in positions {
+//            let thisWeight = positionWeight(position: position, projection: projection)
+//            if thisWeight < lowestWeight {
+//                lowestWeight = thisWeight
+//                lowestWeightPosition = position
+//            }
+//        }
+//        return lowestWeightPosition
+//    }
+//
+//    func weightedPointsForWeakestPosition(projection: ProjectionTypes) -> Double {
+////        guard let weakestPosition = positionWithWeakestPeers(projection: projection) else {
+////            return fantasyPoints(.defaultPoints)
+////        }
+//
+//        return (fantasyPoints(.defaultPoints) * positionWeight(position: positions.first!, projection: projection)).roundTo(places: 1)
+//    }
+//
+//    func pointsComparedTo(these players: [ParsedBatter], scoring: ScoringSettings) -> Double {
+//        (fantasyPoints(scoring) / ParsedBatter.averagePoints(forThese: players) * fantasyPoints(scoring)).roundTo(places: 1)
+//    }
 }
 
 extension ParsedBatter {
@@ -190,6 +189,7 @@ extension ParsedBatter {
     }
 
     static func averagePoints(forThese batters: [ParsedBatter]) -> Double {
-        (batters.reduce(Double(0)) { $0 + $1.fantasyPoints(ScoringSettings.defaultPoints) } / Double(batters.count)).roundTo(places: 1)
+        guard !batters.isEmpty else { return 0 }
+        return (batters.reduce(Double(0)) { $0 + $1.fantasyPoints(ScoringSettings.defaultPoints) } / Double(batters.count)).roundTo(places: 1)
     }
 }

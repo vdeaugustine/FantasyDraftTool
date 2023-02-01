@@ -14,19 +14,20 @@ struct DraftSummaryView: View {
     @State private var showingTeam: DraftTeam = .init(name: "NULL", draftPosition: 0)
     
     var showingPlayers: [DraftPlayer] {
-        var showing: [DraftPlayer] = players.array.filter({ $0.team == showingTeam })
-        if selectedPositions.isEmpty {
-            return showing
-        }
-        
-        return showing.filter({
-            for position in selectedPositions {
-                if $0.player.positions.contains(position) {
-                    return true
-                }
-            }
-            return false
-        })
+        return draft.pickStack.array
+//        var showing: [DraftPlayer] = players.array.filter({ $0.team == showingTeam })
+//        if selectedPositions.isEmpty {
+//            return showing
+//        }
+//
+//        return showing.filter({
+//            for position in selectedPositions {
+//                if $0.player.positions.contains(position) {
+//                    return true
+//                }
+//            }
+//            return false
+//        })
         
         
     }

@@ -81,6 +81,7 @@
 		9CA24CDC2988F4FB00A394B4 /* PositionAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CDB2988F4FB00A394B4 /* PositionAnalysisView.swift */; };
 		9CA24CE02988F57600A394B4 /* SelectProjectionTypeHScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CDF2988F57600A394B4 /* SelectProjectionTypeHScroll.swift */; };
 		9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */; };
+		9CA24CE62989E81400A394B4 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CE52989E81400A394B4 /* Stack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,6 +160,7 @@
 		9CA24CDB2988F4FB00A394B4 /* PositionAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionAnalysisView.swift; sourceTree = "<group>"; };
 		9CA24CDF2988F57600A394B4 /* SelectProjectionTypeHScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProjectionTypeHScroll.swift; sourceTree = "<group>"; };
 		9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSinglePositionTypeHScroll.swift; sourceTree = "<group>"; };
+		9CA24CE52989E81400A394B4 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +285,8 @@
 				9CA24CAB29850FE000A394B4 /* ContentView.swift */,
 				9C1AE39F2980A7170016BF50 /* Views */,
 				9C1AE396297FA08F0016BF50 /* Model */,
+				9CA24CE72989E82200A394B4 /* Components */,
+				9CA24CE52989E81400A394B4 /* Stack.swift */,
 				9C75B9E0296FD215003B35E6 /* Extensions */,
 				9C75B9BB296F5910003B35E6 /* Assets.xcassets */,
 				9C75B9BD296F5910003B35E6 /* Preview Content */,
@@ -346,10 +350,10 @@
 		9CA24CBE2985B7C800A394B4 /* Draft */ = {
 			isa = PBXGroup;
 			children = (
+				9CA24CC12985B7DD00A394B4 /* Draft */,
 				9CA24CD4298658D600A394B4 /* DraftPick */,
 				9CA24CC22985B7E300A394B4 /* DraftPlayer */,
 				9CA24CC92985B8EB00A394B4 /* Settings */,
-				9CA24CC12985B7DD00A394B4 /* Draft */,
 				9CA24CBF2985B7D100A394B4 /* DraftTeam */,
 			);
 			path = Draft;
@@ -469,6 +473,13 @@
 			path = "Actual Draft";
 			sourceTree = "<group>";
 		};
+		9CA24CE72989E82200A394B4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -577,6 +588,7 @@
 				9C75B9EA296FD215003B35E6 /* ExtView.swift in Sources */,
 				9CA24CC82985B83800A394B4 /* DraftTeam.swift in Sources */,
 				9CA24CD929889B1400A394B4 /* SelectPositionsHScroll.swift in Sources */,
+				9CA24CE62989E81400A394B4 /* Stack.swift in Sources */,
 				9CA24CBA29851A9900A394B4 /* AllParsedBatters.swift in Sources */,
 				9C75B9EE296FD215003B35E6 /* ExtColor.swift in Sources */,
 				9CA24CC62985B83200A394B4 /* Draft.swift in Sources */,

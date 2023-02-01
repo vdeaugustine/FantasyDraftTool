@@ -82,32 +82,32 @@ struct ParsedBatterDetailView: View {
     }
 }
 
-extension ParsedBatterDetailView {
-    struct StatRect: View {
-        let stat: String
-        let value: Int
 
-        init(stat: String, value: Int) {
-            self.stat = stat
-            self.value = value
-        }
 
-        init(stat: String, value: Double) {
-            self.stat = stat
-            self.value = Int(value.roundTo(places: 1))
-        }
+struct StatRect: View {
+    let stat: String
+    let value: Int
 
-        var body: some View {
-            ZStack {
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(lineWidth: 1)
-                VStack {
-                    Text(stat)
-                    Text(value.str)
-                        .fontWeight(.semibold)
-                }
-                .padding(4)
+    init(stat: String, value: Int) {
+        self.stat = stat
+        self.value = value
+    }
+
+    init(stat: String, value: Double) {
+        self.stat = stat
+        self.value = Int(value.roundTo(places: 1))
+    }
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(lineWidth: 1)
+            VStack {
+                Text(stat)
+                Text(value.str)
+                    .fontWeight(.semibold)
             }
+            .padding(4)
         }
     }
 }
