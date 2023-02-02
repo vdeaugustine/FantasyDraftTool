@@ -7,9 +7,19 @@
 
 import SwiftUI
 
+// MARK: - DraftPath
+
+enum DraftPath: Hashable {
+    case setUpGeneral
+    case setUpTeams
+    case main
+}
+
 // MARK: - ContentView
 
 struct ContentView: View {
+    @EnvironmentObject private var model: MainModel
+
     var body: some View {
         TabView {
             NavigationView {
@@ -21,10 +31,25 @@ struct ContentView: View {
                 Label("List", systemImage: "list.bullet")
             }
 
-            NavigationView {
+            NavigationStack(path: $model.navPathForDrafting) {
                 SetupDraftView()
-                    .navigationBarTitleDisplayMode(.inline)
+                    .onAppear {
+                        
+                        if UserDefaults.isCurrentlyInDraft {
+                        model.navPathForDrafting = [.setUpGeneral, .setUpTeams, .main]
+                        }
+                    }
+
+                    .navigationDestination(for: DraftPath.self) { thisView in
+                        switch thisView {
+                            case .setUpGeneral, .setUpTeams:
+                                SetUpDraftTeamsView()
+                            case .main:
+                                DraftView()
+                        }
+                    }
             }
+            .navigationBarTitleDisplayMode(.inline)
             .tag(1)
             .tabItem {
                 Label("Draft", systemImage: "square.and.arrow.down")
@@ -38,5 +63,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(MainModel.shared)
     }
 }

@@ -23,7 +23,14 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
                                                         scoringSystem: .defaultPoints),
                                         myTeamIndex: 10)
 
+    @Published var navPathForDrafting: [DraftPath] = [] {
+        didSet {
+            print(self.navPathForDrafting)
+        }
+    }
+
     // MARK: - Stored Properties
+    
 
     // MARK: - Computed Properties
 

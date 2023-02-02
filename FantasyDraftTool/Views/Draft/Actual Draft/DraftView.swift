@@ -20,6 +20,13 @@ struct DraftView: View {
 
     var body: some View {
         List {
+            
+            Button("Cancel draft", role: .destructive) {
+                
+                model.navPathForDrafting = []
+                UserDefaults.isCurrentlyInDraft = false
+            }
+            
             Text("Current team: \(model.draft.currentTeam.name)")
             Text("Round \(model.draft.roundNumber), Pick \(model.draft.roundPickNumber)")
 
@@ -62,6 +69,9 @@ struct DraftView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            UserDefaults.isCurrentlyInDraft = true
         }
         
     }

@@ -12,13 +12,12 @@ import SwiftUI
 struct SetUpDraftTeamsView: View {
     @EnvironmentObject private var model: MainModel
 
-    let snakeDraft: Bool
-    let numberOfRounds: Int
-    let scoringSystem: ScoringSettings
+//    let snakeDraft: Bool
+//    let numberOfRounds: Int
+//    let scoringSystem: ScoringSettings
 
     @Environment(\.editMode) private var editMode
 
-    @Binding var numberOfTeams: Int
     @State private var teams: [DraftTeam] = DraftTeam.someDefaultTeams(amount: 10)
     @Environment(\.dismiss) private var dismiss
 
@@ -73,12 +72,8 @@ struct SetUpDraftTeamsView: View {
             }
 
             Section {
-                NavigationLink {
-                    DraftView()
-//                        .onAppear {
-//                            model.draft.teams = teams
-//                        }
-
+                Button {
+                    model.navPathForDrafting.append(.main)
                 } label: {
                     Text("Start Draft")
                         .foregroundColor(.blue)
@@ -107,10 +102,7 @@ struct SetUpDraftTeamsView: View {
 
 struct SetUpDraftTeamsView_Previews: PreviewProvider {
     static var previews: some View {
-        SetUpDraftTeamsView(snakeDraft: true,
-                            numberOfRounds: 25,
-                            scoringSystem: .defaultPoints,
-                            numberOfTeams: .constant(10))
+        SetUpDraftTeamsView()
             .putInNavView(displayMode: .inline)
             .environmentObject(MainModel.shared)
     }

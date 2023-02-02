@@ -46,22 +46,19 @@ struct SetupDraftView: View {
             }
 
             Section {
-                NavigationLink {
-                    SetUpDraftTeamsView(snakeDraft: snakeDraft, numberOfRounds: numberOfRounds, scoringSystem: scoringSystem, numberOfTeams: $numberOfTeams)
-//                        .onAppear {
-//                            let draftSettings = DraftSettings(numberOfTeams: numberOfTeams,
-//                                                              snakeDraft: snakeDraft,
-//                                                              numberOfRounds: numberOfRounds,
-//                                                              scoringSystem: scoringSystem)
-//
-//                            model.draft = Draft(teams: DraftTeam.someDefaultTeams(amount: numberOfTeams),
-//                                                settings: draftSettings)
-//                        }
-
+                Button {
+                    model.navPathForDrafting.append(.setUpTeams)
                 } label: {
                     Text("Proceed to set up teams")
                         .foregroundColor(.blue)
                 }
+//                NavigationLink(value: model.navPathForDrafting) {
+//
+//                }
+//                .navigationDestination(for: DraftPath.self) { item in
+//                    SetUpDraftTeamsView()
+//                }
+                
             }
         }
         .navigationTitle("Set up Draft")

@@ -84,6 +84,7 @@
 		9CA24CE02988F57600A394B4 /* SelectProjectionTypeHScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CDF2988F57600A394B4 /* SelectProjectionTypeHScroll.swift */; };
 		9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */; };
 		9CA24CE62989E81400A394B4 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CE52989E81400A394B4 /* Stack.swift */; };
+		9CC80284298C7524005B438D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80283298C7524005B438D /* UserDefaults.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -165,6 +166,7 @@
 		9CA24CDF2988F57600A394B4 /* SelectProjectionTypeHScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProjectionTypeHScroll.swift; sourceTree = "<group>"; };
 		9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSinglePositionTypeHScroll.swift; sourceTree = "<group>"; };
 		9CA24CE52989E81400A394B4 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		9CC80283298C7524005B438D /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,6 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				9C3B702D298B2CE100A1B42C /* MainModel.swift */,
+				9CC80283298C7524005B438D /* UserDefaults.swift */,
 			);
 			path = "Main Model";
 			sourceTree = "<group>";
@@ -680,6 +683,7 @@
 				9C75B9EB296FD215003B35E6 /* CoreDataExtensions.swift in Sources */,
 				9CA24CB2298519E100A394B4 /* ProjectionTypes.swift in Sources */,
 				9CA24CB829851A7600A394B4 /* AverageStats.swift in Sources */,
+				9CC80284298C7524005B438D /* UserDefaults.swift in Sources */,
 				9C75B9F0296FD215003B35E6 /* ExtStr.swift in Sources */,
 				9CA24CAA2983A43500A394B4 /* ParsedBatterDetailView.swift in Sources */,
 				9C75B9EC296FD215003B35E6 /* ExtDouble.swift in Sources */,
