@@ -12,8 +12,11 @@ import Foundation
 struct Draft: Codable, Hashable, Equatable {
     // MARK: - Stored Properties
 
-    let teams: [DraftTeam]
-    let settings: DraftSettings
+    var teams: [DraftTeam]
+    var settings: DraftSettings
+    
+    /// This should be = teamPickOrder - 1
+    let myTeamIndex: Int
 
     // MARK: - Published Properties
 
@@ -55,12 +58,13 @@ struct Draft: Codable, Hashable, Equatable {
 
     // MARK: - Static Properties
 
-    static var live: Draft = Draft(teams: (1 ... 10).map { DraftTeam(name: "Team \($0)", draftPosition: $0) },
+    static var live: Draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10),
                                    currentPickNumber: 1,
                                    settings: .init(numberOfTeams: 10,
                                                    snakeDraft: true,
                                                    numberOfRounds: 25,
-                                                   scoringSystem: .defaultPoints))
+                                                   scoringSystem: .defaultPoints),
+                                   myTeamIndex: 3)
 
     // MARK: - Methods
 
@@ -86,14 +90,16 @@ struct Draft: Codable, Hashable, Equatable {
         self.totalPickNumber = try values.decode(Int.self, forKey: .totalPickNumber)
         self.playerPool = try values.decode(PlayerPool.self, forKey: .playerPool)
         self.pickStack = try values.decode(Stack<DraftPlayer>.self, forKey: .pickStack)
+        self.myTeamIndex = try values.decode(Int.self, forKey: .myTeamIndex)
     }
 
-    init(teams: [DraftTeam], currentPickNumber: Int, settings: DraftSettings) {
+    init(teams: [DraftTeam], currentPickNumber: Int = 1, settings: DraftSettings, myTeamIndex: Int = 0) {
         self.teams = teams
         self.currentPickNumber = currentPickNumber
         self.totalPickNumber = currentPickNumber
         self.settings = settings
         self.currentTeam = teams.first ?? DraftTeam(name: "", draftPosition: 0)
+        self.myTeamIndex = myTeamIndex
     }
 }
 
@@ -108,6 +114,7 @@ extension Draft {
         case totalPickNumber
         case playerPool
         case pickStack
+        case myTeamIndex
     }
 
     func encode(to encoder: Encoder) throws {
@@ -119,6 +126,7 @@ extension Draft {
         try container.encode(totalPickNumber, forKey: .totalPickNumber)
         try container.encode(playerPool, forKey: .playerPool)
         try container.encode(pickStack, forKey: .pickStack)
+        try container.encode(myTeamIndex, forKey: .myTeamIndex)
     }
 
     static func == (lhs: Draft, rhs: Draft) -> Bool {

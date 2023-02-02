@@ -18,6 +18,8 @@ struct DraftSummaryView: View {
     var showingPlayers: [DraftPlayer] {
         return draft.pickStack.getArray()
     }
+    
+    
 
     @State private var selectedPositions: Set<Position> = []
 
@@ -26,7 +28,7 @@ struct DraftSummaryView: View {
             Picker("Team", selection: $showingTeam) {
                 ForEach(draft.teams, id: \.self) { team in
                     Text(team.name)
-                        .tag(team.name)
+                        .tag(team)
                 }
             }
 
@@ -41,7 +43,7 @@ struct DraftSummaryView: View {
 
                 Section {
                     ForEach(draft.pickStack.getArray(), id: \.self) { player in
-                        Text(player.team.name + ":" + player.player.name)
+                        Text("#\(player.pickNumber) " + player.team.name + " : " + player.player.name)
                     }
                 }
             }

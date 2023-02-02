@@ -18,12 +18,11 @@ struct ContentView: View {
             }
             .tag(0)
             .tabItem {
-                Label("List", systemImage: "list")
+                Label("List", systemImage: "list.bullet")
             }
 
             NavigationView {
-                DraftView()
-//                SetupDraftView()
+                SetupDraftView()
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tag(1)

@@ -8,9 +8,9 @@
 import Foundation
 
 struct DraftSettings: Codable, Equatable, Hashable {
-    let numberOfTeams: Int
-    let snakeDraft: Bool
-    let numberOfRounds: Int
+    var numberOfTeams: Int
+    var snakeDraft: Bool
+    var numberOfRounds: Int
     var playersPerTeam: Int { numberOfRounds }
-    let scoringSystem: ScoringSettings
+    var scoringSystem: ScoringSettings
 }

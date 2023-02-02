@@ -15,12 +15,13 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
     @Published var scoringSettings: ScoringSettings = .defaultPoints
     @Published var testValue: Int = 0
 
-    @Published var draft: Draft = Draft(teams: (1 ... 10).map { DraftTeam(name: "Team \($0)", draftPosition: $0) },
+    @Published var draft: Draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10),
                                         currentPickNumber: 1,
                                         settings: .init(numberOfTeams: 10,
                                                         snakeDraft: true,
                                                         numberOfRounds: 25,
-                                                        scoringSystem: .defaultPoints))
+                                                        scoringSystem: .defaultPoints),
+                                        myTeamIndex: 10)
 
     // MARK: - Stored Properties
 

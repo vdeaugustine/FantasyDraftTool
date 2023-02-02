@@ -67,3 +67,13 @@ extension DraftTeam {
         hasher.combine(draftedPlayers)
     }
 }
+
+// MARK: - Some default values
+
+extension DraftTeam {
+    static func someDefaultTeams(amount: Int) -> [DraftTeam] {
+       (0 ..< amount).map {
+                DraftTeam(name: "Team \($0 + 1)", draftPosition: $0)
+            }
+    }
+}
