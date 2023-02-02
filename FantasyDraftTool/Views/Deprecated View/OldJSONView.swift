@@ -13,7 +13,7 @@ struct OldJSONView: View {
     @State private var selectedProjType: ProjectionTypes = .steamer
     @State private var playersPerPosition: Int = 20
 
-    func filteredBatters(_ position: Positions) -> [Batter] {
+    func filteredBatters(_ position: Position) -> [Batter] {
         Array(
             Batter
                 .getPlayers(projectionType: selectedProjType,
@@ -36,7 +36,7 @@ struct OldJSONView: View {
             
 
             List {
-                ForEach(Positions.batters, id: \.self) { pos in
+                ForEach(Position.batters, id: \.self) { pos in
                     Section {
                         ForEach(filteredBatters(pos), id: \.self) { player in
                             NavigationLink {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DraftSettings {
+struct DraftSettings: Codable, Equatable, Hashable {
     let numberOfTeams: Int
     let snakeDraft: Bool
     let numberOfRounds: Int

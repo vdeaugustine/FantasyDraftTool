@@ -7,11 +7,11 @@
 
 import SwiftUI
 
+// MARK: - ContentView
+
 struct ContentView: View {
     var body: some View {
-        
         TabView {
-            
             NavigationView {
                 AllBattersListView()
                     .navigationBarTitleDisplayMode(.inline)
@@ -20,9 +20,10 @@ struct ContentView: View {
             .tabItem {
                 Label("List", systemImage: "list")
             }
-            
+
             NavigationView {
-                SetupDraftView()
+                DraftView()
+//                SetupDraftView()
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tag(1)
@@ -30,11 +31,10 @@ struct ContentView: View {
                 Label("Draft", systemImage: "square.and.arrow.down")
             }
         }
-        
-        
-        
     }
 }
+
+// MARK: - ContentView_Previews
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

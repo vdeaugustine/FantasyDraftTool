@@ -12,7 +12,7 @@
 		9C1AE39A297FA7DC0016BF50 /* steamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE399297FA7DC0016BF50 /* steamerStandard.json */; };
 		9C1AE39C29804D4A0016BF50 /* ScoringSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */; };
 		9C1AE39E29807C290016BF50 /* StandardNaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE39D29807C290016BF50 /* StandardNaming.swift */; };
-		9C1AE3A42981F29D0016BF50 /* Positions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE3A32981F29D0016BF50 /* Positions.swift */; };
+		9C1AE3A42981F29D0016BF50 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE3A32981F29D0016BF50 /* Position.swift */; };
 		9C33F7DB29838B2E0038A938 /* CBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BD29838B2D0038A938 /* CBatThebatxStandard.json */; };
 		9C33F7DC29838B2E0038A938 /* 3bBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BE29838B2D0038A938 /* 3bBatThebatStandard.json */; };
 		9C33F7DD29838B2E0038A938 /* CBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BF29838B2D0038A938 /* CBatFangraphsdcStandard.json */; };
@@ -44,6 +44,8 @@
 		9C33F7F729838B2E0038A938 /* OfBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7D929838B2E0038A938 /* OfBatThebatxStandard.json */; };
 		9C33F7F829838B2E0038A938 /* SsBatSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7DA29838B2E0038A938 /* SsBatSteamerStandard.json */; };
 		9C33F7FA29838BCD0038A938 /* JSONBatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C33F7F929838BCD0038A938 /* JSONBatter.swift */; };
+		9C3B7025298B2C3400A1B42C /* PlayerPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B7024298B2C3400A1B42C /* PlayerPool.swift */; };
+		9C3B702E298B2CE100A1B42C /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B702D298B2CE100A1B42C /* MainModel.swift */; };
 		9C75B9B8296F590F003B35E6 /* FantasyDraftToolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */; };
 		9C75B9BA296F590F003B35E6 /* OldJSONView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9B9296F590F003B35E6 /* OldJSONView.swift */; };
 		9C75B9BC296F5910003B35E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C75B9BB296F5910003B35E6 /* Assets.xcassets */; };
@@ -90,7 +92,7 @@
 		9C1AE399297FA7DC0016BF50 /* steamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = steamerStandard.json; sourceTree = "<group>"; };
 		9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringSettingsView.swift; sourceTree = "<group>"; };
 		9C1AE39D29807C290016BF50 /* StandardNaming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardNaming.swift; sourceTree = "<group>"; };
-		9C1AE3A32981F29D0016BF50 /* Positions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Positions.swift; sourceTree = "<group>"; };
+		9C1AE3A32981F29D0016BF50 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		9C33F7BD29838B2D0038A938 /* CBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatThebatxStandard.json; sourceTree = "<group>"; };
 		9C33F7BE29838B2D0038A938 /* 3bBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3bBatThebatStandard.json; sourceTree = "<group>"; };
 		9C33F7BF29838B2D0038A938 /* CBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatFangraphsdcStandard.json; sourceTree = "<group>"; };
@@ -122,6 +124,8 @@
 		9C33F7D929838B2E0038A938 /* OfBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OfBatThebatxStandard.json; sourceTree = "<group>"; };
 		9C33F7DA29838B2E0038A938 /* SsBatSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SsBatSteamerStandard.json; sourceTree = "<group>"; };
 		9C33F7F929838BCD0038A938 /* JSONBatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONBatter.swift; sourceTree = "<group>"; };
+		9C3B7024298B2C3400A1B42C /* PlayerPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPool.swift; sourceTree = "<group>"; };
+		9C3B702D298B2CE100A1B42C /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		9C75B9B4296F590F003B35E6 /* FantasyDraftTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FantasyDraftTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FantasyDraftToolApp.swift; sourceTree = "<group>"; };
 		9C75B9B9296F590F003B35E6 /* OldJSONView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldJSONView.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 		9C1AE396297FA08F0016BF50 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9C3B702C298B2CD900A1B42C /* Main Model */,
 				9CA24CB0298519A000A394B4 /* Deprecated Models */,
 				9C1AE3A72982239F0016BF50 /* Projection JSONS */,
 				9C1AE3A22981F1A90016BF50 /* Objects */,
@@ -202,16 +207,9 @@
 		9C1AE3A22981F1A90016BF50 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				9CA24CBE2985B7C800A394B4 /* Draft */,
-				9CA24CB1298519E100A394B4 /* ProjectionTypes.swift */,
-				9C1AE397297FA0A20016BF50 /* ScoringSettings.swift */,
-				9C1AE39D29807C290016BF50 /* StandardNaming.swift */,
-				9C33F7F929838BCD0038A938 /* JSONBatter.swift */,
-				9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */,
-				9CA24CB529851A5300A394B4 /* Projection.swift */,
-				9CA24CB729851A7600A394B4 /* AverageStats.swift */,
-				9CA24CB929851A9900A394B4 /* AllParsedBatters.swift */,
-				9C1AE3A32981F29D0016BF50 /* Positions.swift */,
+				9CA24CE72989E82200A394B4 /* Components */,
+				9C3B7028298B2C7800A1B42C /* Enums */,
+				9C3B7027298B2C6900A1B42C /* Classes and Structs */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -262,6 +260,70 @@
 			path = "Not used JSONs";
 			sourceTree = "<group>";
 		};
+		9C3B7026298B2C5400A1B42C /* Player Pool */ = {
+			isa = PBXGroup;
+			children = (
+				9C3B7024298B2C3400A1B42C /* PlayerPool.swift */,
+			);
+			path = "Player Pool";
+			sourceTree = "<group>";
+		};
+		9C3B7027298B2C6900A1B42C /* Classes and Structs */ = {
+			isa = PBXGroup;
+			children = (
+				9C3B702B298B2CB300A1B42C /* Projections */,
+				9C3B702A298B2C9C00A1B42C /* Players */,
+				9C3B7029298B2C8800A1B42C /* Settings */,
+				9CA24CBE2985B7C800A394B4 /* Draft */,
+			);
+			path = "Classes and Structs";
+			sourceTree = "<group>";
+		};
+		9C3B7028298B2C7800A1B42C /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				9C1AE3A32981F29D0016BF50 /* Position.swift */,
+				9CA24CB729851A7600A394B4 /* AverageStats.swift */,
+				9C1AE39D29807C290016BF50 /* StandardNaming.swift */,
+				9CA24CB1298519E100A394B4 /* ProjectionTypes.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		9C3B7029298B2C8800A1B42C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				9C1AE397297FA0A20016BF50 /* ScoringSettings.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		9C3B702A298B2C9C00A1B42C /* Players */ = {
+			isa = PBXGroup;
+			children = (
+				9CA24CB929851A9900A394B4 /* AllParsedBatters.swift */,
+				9C33F7F929838BCD0038A938 /* JSONBatter.swift */,
+				9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */,
+			);
+			path = Players;
+			sourceTree = "<group>";
+		};
+		9C3B702B298B2CB300A1B42C /* Projections */ = {
+			isa = PBXGroup;
+			children = (
+				9CA24CB529851A5300A394B4 /* Projection.swift */,
+			);
+			path = Projections;
+			sourceTree = "<group>";
+		};
+		9C3B702C298B2CD900A1B42C /* Main Model */ = {
+			isa = PBXGroup;
+			children = (
+				9C3B702D298B2CE100A1B42C /* MainModel.swift */,
+			);
+			path = "Main Model";
+			sourceTree = "<group>";
+		};
 		9C75B9AB296F590F003B35E6 = {
 			isa = PBXGroup;
 			children = (
@@ -285,8 +347,6 @@
 				9CA24CAB29850FE000A394B4 /* ContentView.swift */,
 				9C1AE39F2980A7170016BF50 /* Views */,
 				9C1AE396297FA08F0016BF50 /* Model */,
-				9CA24CE72989E82200A394B4 /* Components */,
-				9CA24CE52989E81400A394B4 /* Stack.swift */,
 				9C75B9E0296FD215003B35E6 /* Extensions */,
 				9C75B9BB296F5910003B35E6 /* Assets.xcassets */,
 				9C75B9BD296F5910003B35E6 /* Preview Content */,
@@ -351,6 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				9CA24CC12985B7DD00A394B4 /* Draft */,
+				9C3B7026298B2C5400A1B42C /* Player Pool */,
 				9CA24CD4298658D600A394B4 /* DraftPick */,
 				9CA24CC22985B7E300A394B4 /* DraftPlayer */,
 				9CA24CC92985B8EB00A394B4 /* Settings */,
@@ -394,8 +455,8 @@
 		9CA24CCC2985B9E900A394B4 /* DraftSettings */ = {
 			isa = PBXGroup;
 			children = (
-				9CA24CD12985BD0400A394B4 /* Set teams */,
 				9CA24CD02985BCFD00A394B4 /* Set Up Draft */,
+				9CA24CD12985BD0400A394B4 /* Set teams */,
 				9CA24CCF2985BAB300A394B4 /* ScoringSettingsDetailView */,
 			);
 			path = DraftSettings;
@@ -476,6 +537,7 @@
 		9CA24CE72989E82200A394B4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9CA24CE52989E81400A394B4 /* Stack.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -582,9 +644,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C3B702E298B2CE100A1B42C /* MainModel.swift in Sources */,
 				9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */,
 				9CA24CCE2985B9F700A394B4 /* SetupDraftView.swift in Sources */,
-				9C1AE3A42981F29D0016BF50 /* Positions.swift in Sources */,
+				9C1AE3A42981F29D0016BF50 /* Position.swift in Sources */,
 				9C75B9EA296FD215003B35E6 /* ExtView.swift in Sources */,
 				9CA24CC82985B83800A394B4 /* DraftTeam.swift in Sources */,
 				9CA24CD929889B1400A394B4 /* SelectPositionsHScroll.swift in Sources */,
@@ -612,6 +675,7 @@
 				9C1AE39E29807C290016BF50 /* StandardNaming.swift in Sources */,
 				9CA24CC42985B7F100A394B4 /* DraftPlayer.swift in Sources */,
 				9CA24CB429851A0800A394B4 /* All Batters.swift in Sources */,
+				9C3B7025298B2C3400A1B42C /* PlayerPool.swift in Sources */,
 				9CA24CCB2985B8F500A394B4 /* DraftSettings.swift in Sources */,
 				9C75B9EB296FD215003B35E6 /* CoreDataExtensions.swift in Sources */,
 				9CA24CB2298519E100A394B4 /* ProjectionTypes.swift in Sources */,

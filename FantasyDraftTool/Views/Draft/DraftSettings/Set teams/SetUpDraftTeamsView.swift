@@ -10,6 +10,8 @@ import SwiftUI
 // MARK: - SetUpDraftTeamsView
 
 struct SetUpDraftTeamsView: View {
+    @EnvironmentObject private var model: MainModel
+    
     let snakeDraft: Bool
     let numberOfRounds: Int
     let scoringSystem: ScoringSettings
@@ -25,14 +27,8 @@ struct SetUpDraftTeamsView: View {
 
             Section {
                 NavigationLink {
-                    DraftView(
-                        draft: Draft(teams: teams,
-                                     currentPickNumber: 1,
-                                     settings: DraftSettings(numberOfTeams: numberOfTeams,
-                                                             snakeDraft: snakeDraft,
-                                                             numberOfRounds: numberOfRounds,
-                                                             scoringSystem: scoringSystem))
-                    )
+                    DraftView()
+                        
                 } label: {
                     Text("Start Draft")
                         .foregroundColor(.blue)
@@ -61,5 +57,6 @@ struct SetUpDraftTeamsView_Previews: PreviewProvider {
                             scoringSystem: .defaultPoints,
                             numberOfTeams: .constant(10))
             .putInNavView(displayMode: .inline)
+            .environmentObject(MainModel.shared)
     }
 }

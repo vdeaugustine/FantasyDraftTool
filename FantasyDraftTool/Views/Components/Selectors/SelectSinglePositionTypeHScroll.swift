@@ -10,11 +10,11 @@ import SwiftUI
 // MARK: - SelectSinglePositionTypeHScroll
 
 struct SelectSinglePositionTypeHScroll: View {
-    @Binding var selectedPosition: Positions
+    @Binding var selectedPosition: Position
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(Positions.batters, id: \.self) { position in
+                ForEach(Position.batters, id: \.self) { position in
                     Button {
                         withAnimation {
                             selectedPosition = position

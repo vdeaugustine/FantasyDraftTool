@@ -65,7 +65,7 @@ class AllBatters: Codable, Hashable, ObservableObject {
 }
 
 extension AllBatters {
-    func averagePoints(for position: Positions, projection: ProjectionTypes, topX: Int? = nil) -> Double {
+    func averagePoints(for position: Position, projection: ProjectionTypes, topX: Int? = nil) -> Double {
         var batters = Batter.getPlayers(projectionType: projection, position: position)
         if let topX = topX { batters = Array(batters.prefix(topX)) }
         return batters.reduce(Double(0)) { $0 + $1.fantasyPoints(ScoringSettings.defaultPoints) }

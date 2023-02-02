@@ -33,7 +33,7 @@ struct AllParsedBatters {
         }
     }
 
-    static func batters(for projection: ProjectionTypes, at position: Positions) -> [ParsedBatter] {
+    static func batters(for projection: ProjectionTypes, at position: Position) -> [ParsedBatter] {
         var batters = batters(for: projection)
         batters = batters.filter { $0.positions.contains(position) }
         return batters

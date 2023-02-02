@@ -11,7 +11,7 @@ import SwiftUI
 // MARK: - PositionAnalysisView
 
 struct PositionAnalysisView: View {
-    @State var position: Positions = .of
+    @State var position: Position = .of
     @State var projectionType: ProjectionTypes = .steamer
     var batters: [ParsedBatter] {
         AllParsedBatters.batters(for: projectionType, at: position)
@@ -38,7 +38,7 @@ struct PositionAnalysisView: View {
 
                 Section {
                     Chart {
-                        ForEach(Positions.batters, id: \.self) { thisPosition in
+                        ForEach(Position.batters, id: \.self) { thisPosition in
                             BarMark(x: .value("Position", thisPosition.str.uppercased()),
                                     y: .value("Average Fantasy Points", ParsedBatter.averagePoints(forThese: AllParsedBatters.batters(for: projectionType).filter { $0.positions.contains(thisPosition) })))
                             .foregroundStyle(thisPosition == position ? .red : .blue)

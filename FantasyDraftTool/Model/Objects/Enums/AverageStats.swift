@@ -18,7 +18,7 @@ enum AverageStats: String, Hashable, Identifiable {
 
     var id: String { str }
 
-    static func average(stat: AverageStats, for position: Positions, projectionType: ProjectionTypes) -> Double {
+    static func average(stat: AverageStats, for position: Position, projectionType: ProjectionTypes) -> Double {
         let batters = AllParsedBatters.batters(for: projectionType, at: position)
         let sum: Double
         switch stat {

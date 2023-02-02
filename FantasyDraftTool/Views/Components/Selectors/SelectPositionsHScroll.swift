@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SelectPositionsHScroll: View {
     
-    @Binding var selectedPositions: Set<Positions>
+    @Binding var selectedPositions: Set<Position>
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
@@ -31,7 +31,7 @@ struct SelectPositionsHScroll: View {
                 }
                 
                 
-                ForEach(Positions.batters, id: \.self) { pos in
+                ForEach(Position.batters, id: \.self) { pos in
                     
                     Button {
                         if selectedPositions.contains(pos) {

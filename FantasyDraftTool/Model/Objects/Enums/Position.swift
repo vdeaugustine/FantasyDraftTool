@@ -7,17 +7,11 @@
 
 import Foundation
 
-enum Positions {
-    case c,
-         first,
-         second,
-         third,
-         ss,
-         of,
-         dh,
-         sp,
-         rp
+enum Position: Codable {
+    case c, first,second,third, ss, of, dh, sp, rp
     
+    
+    /// Positions are returned in such a way that they can be used for accessing files names. (ie. 1B is 1b and SS is Ss)
     var str: String {
         switch self {
         case .c:
@@ -41,12 +35,12 @@ enum Positions {
         }
     }
 
-    static let batters: [Positions] =
-        [Positions.c,
-         Positions.first,
-         Positions.second,
-         Positions.third,
-         Positions.ss,
-         Positions.of]
+    static let batters: [Position] =
+        [Position.c,
+         Position.first,
+         Position.second,
+         Position.third,
+         Position.ss,
+         Position.of]
     
 }

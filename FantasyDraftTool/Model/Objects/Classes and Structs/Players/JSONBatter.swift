@@ -6,24 +6,31 @@
 import Foundation
 
 // MARK: - JSONBatter
-struct JSONBatter: Codable, Hashable {
+
+struct JSONBatter: Codable, Hashable, Equatable {
+    // MARK: Stored properties
+
     var empty, name, team, g: String
     var ab, pa, h, the1B: String
     var the2B, the3B, hr, r: String
     var rbi, bb, ibb, so: String
     var hbp, sf, sh, sb: String
     var cs, avg: String
-    
+}
+
+// MARK: - Codable, Hashable, Equatable
+
+extension JSONBatter {
     static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.name == rhs.name &&
-        lhs.team == rhs.team &&
-        lhs.ab == rhs.ab &&
-        lhs.pa == rhs.pa &&
-        lhs.h == rhs.h &&
-        lhs.sf == rhs.sf &&
-        lhs.r == rhs.r
+            lhs.team == rhs.team &&
+            lhs.ab == rhs.ab &&
+            lhs.pa == rhs.pa &&
+            lhs.h == rhs.h &&
+            lhs.sf == rhs.sf &&
+            lhs.r == rhs.r
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
         hasher.combine(team)
@@ -62,22 +69,23 @@ struct JSONBatter: Codable, Hashable {
     }
 }
 
+// MARK: - Loading from Data
+
 extension JSONBatter {
-    
     static func loadBatters(_ filename: String) -> [JSONBatter] {
         let data: Data
-        
+
         guard let file = Bundle.main.url(forResource: filename, withExtension: ".json")
         else {
             fatalError("Couldn't find \(filename) in main bundle.")
         }
-        
+
         do {
             data = try Data(contentsOf: file)
         } catch {
             fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
         }
-        
+
         do {
             let decoder = JSONDecoder()
             let arr = try decoder.decode([JSONBatter].self, from: data)
@@ -87,9 +95,6 @@ extension JSONBatter {
         }
     }
 
-}
-
-extension JSONBatter {
     func load<T: Decodable>(_ projectionType: ProjectionTypes = .steamer) -> T {
         let data: Data
         let filename = projectionType.jsonFile
@@ -111,22 +116,4 @@ extension JSONBatter {
             fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
         }
     }
-
-//    static func getPlayers(projectionType: ProjectionTypes) -> [Batter] {
-//        let fileName = projectionType.jsonFile
-//        guard let fileURL = Bundle.main.url(forResource: fileName, withExtension: nil) else {
-//            fatalError("Unable to find \(fileName)")
-//        }
-//        do {
-//            let data = try Data(contentsOf: fileURL)
-//            let players = try JSONDecoder().decode([JSONBatter].self, from: data)
-//            var retPlayers = [Batter]()
-//            for player in players {
-//                retPlayers.append(Batter(player))
-//            }
-//            return retPlayers
-//        } catch {
-//            fatalError("Unable to read and decode \(fileName): \(error)")
-//        }
-//    }
 }

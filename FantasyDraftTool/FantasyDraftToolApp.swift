@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct FantasyDraftToolApp: App {
-    @StateObject private var model: AllBatters = .shared
+    @StateObject private var model: MainModel = MainModel.shared
     var body: some Scene {
         WindowGroup {
             ContentView()

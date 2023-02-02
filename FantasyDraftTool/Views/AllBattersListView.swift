@@ -11,7 +11,7 @@ import SwiftUI
 
 struct AllBattersListView: View {
     @State private var projection: ProjectionTypes = .steamer
-    @State private var selectedPositions: Set<Positions> = []
+    @State private var selectedPositions: Set<Position> = []
 
     var batters: [ParsedBatter] {
         if selectedPositions.isEmpty {

@@ -9,8 +9,17 @@ import Foundation
 
 // MARK: - Stack
 
-struct Stack<T> {
-    var array: [T] = []
+struct Stack<T>: Codable, Equatable, Hashable where T : Codable, T: Hashable, T: Equatable  {
+    
+    static func == (lhs: Stack<T>, rhs: Stack<T>) -> Bool {
+        lhs.array == rhs.array
+    }
+    
+    private var array: [T] = []
+    
+    func getArray() -> [T] {
+        array
+    }
 
     mutating func push(_ element: T) {
         array.insert(element, at: 0)

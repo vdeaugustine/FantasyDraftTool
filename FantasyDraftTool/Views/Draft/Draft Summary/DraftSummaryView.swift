@@ -7,32 +7,20 @@
 
 import SwiftUI
 
+// MARK: - DraftSummaryView
+
 struct DraftSummaryView: View {
-    
-    let players: Stack<DraftPlayer>
-    let draft: Draft
+    @EnvironmentObject private var model: MainModel
     @State private var showingTeam: DraftTeam = .init(name: "NULL", draftPosition: 0)
-    
+
+    var draft: Draft { model.draft }
+
     var showingPlayers: [DraftPlayer] {
-        return draft.pickStack.array
-//        var showing: [DraftPlayer] = players.array.filter({ $0.team == showingTeam })
-//        if selectedPositions.isEmpty {
-//            return showing
-//        }
-//
-//        return showing.filter({
-//            for position in selectedPositions {
-//                if $0.player.positions.contains(position) {
-//                    return true
-//                }
-//            }
-//            return false
-//        })
-        
-        
+        return draft.pickStack.getArray()
     }
-    @State private var selectedPositions: Set<Positions> = []
-    
+
+    @State private var selectedPositions: Set<Position> = []
+
     var body: some View {
         VStack {
             Picker("Team", selection: $showingTeam) {
@@ -41,23 +29,19 @@ struct DraftSummaryView: View {
                         .tag(team.name)
                 }
             }
-            
+
             SelectPositionsHScroll(selectedPositions: $selectedPositions)
-            
+
             List {
-                
-                
-                
                 Section {
                     ForEach(showingPlayers, id: \.self) { player in
                         Text(player.player.name)
                     }
                 }
-                
+
                 Section {
-                    ForEach(players.array, id: \.self) { player in
+                    ForEach(draft.pickStack.getArray(), id: \.self) { player in
                         Text(player.team.name + ":" + player.player.name)
-                        
                     }
                 }
             }
@@ -68,14 +52,12 @@ struct DraftSummaryView: View {
     }
 }
 
+// MARK: - DraftSummaryView_Previews
+
 struct DraftSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        DraftSummaryView(players: .init(), draft: .init(teams: (0 ..< 10).map {
-            DraftTeam(name: "Team \($0 + 1)",
-                      draftPosition: $0)
-        }, currentPickNumber: 1, settings: .init(numberOfTeams: 10,
-                                                 snakeDraft: true,
-                                                 numberOfRounds: 25,
-                                                 scoringSystem: .defaultPoints)))
+        DraftSummaryView()
+            .environmentObject(MainModel.shared)
+            .putInNavView()
     }
 }
