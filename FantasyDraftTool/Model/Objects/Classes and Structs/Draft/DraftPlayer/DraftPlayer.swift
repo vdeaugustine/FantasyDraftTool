@@ -14,11 +14,11 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable {
 
     var player: ParsedBatter
     var pickNumber: Int
-    var team: DraftTeam
+//    var draftTeam: DraftTeam
     var weightedScoreWhenDrafted: Double
 
     var id: String {
-        "\(player.name) drafted #\(pickNumber) overall by \(team.name)."
+        "\(player.name) drafted #\(pickNumber) overall by."
     }
     
 
@@ -27,14 +27,14 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.player = try values.decode(ParsedBatter.self, forKey: .player)
         self.pickNumber = try values.decode(Int.self, forKey: .pickNumber)
-        self.team = try values.decode(DraftTeam.self, forKey: .team)
+//        self.draftTeam = try values.decode(DraftTeam.self, forKey: .draftTeam)
         self.weightedScoreWhenDrafted = try values.decode(Double.self, forKey: .weightedScoreWhenDrafted)
     }
     
     init(player: ParsedBatter, pickNumber: Int, team: DraftTeam, weightedScore: Double) {
         self.player = player
         self.pickNumber = pickNumber
-        self.team = team
+        //    self.draftTeam = team
         self.weightedScoreWhenDrafted = weightedScore
     }
 }
@@ -43,25 +43,25 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable {
 
 extension DraftPlayer {
     
-    enum CodingKeys: CodingKey { case player, pickNumber, team, weightedScoreWhenDrafted }
+    enum CodingKeys: CodingKey { case player, pickNumber, draftTeam, weightedScoreWhenDrafted }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(player, forKey: .player)
         try container.encode(pickNumber, forKey: .pickNumber)
-        try container.encode(team, forKey: .team)
+        //    try container.encode(draftTeam, forKey: .draftTeam)
         try container.encode(weightedScoreWhenDrafted, forKey: .weightedScoreWhenDrafted)
     }
     
     static func == (lhs: DraftPlayer, rhs: DraftPlayer) -> Bool {
         return lhs.player == rhs.player &&
-            lhs.pickNumber == rhs.pickNumber &&
-            lhs.team == rhs.team
+            lhs.pickNumber == rhs.pickNumber
+        //        lhs.draftTeam == rhs.draftTeam
     }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(player)
         hasher.combine(pickNumber)
-        hasher.combine(team)
+        ////hasher.combine(draftTeam)
     }
 }

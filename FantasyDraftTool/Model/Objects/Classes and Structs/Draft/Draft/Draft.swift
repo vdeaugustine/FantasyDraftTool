@@ -14,13 +14,13 @@ struct Draft: Codable, Hashable, Equatable {
 
     var teams: [DraftTeam]
     var settings: DraftSettings
-    
+
     var currentTeam: DraftTeam
     var currentPickNumber: Int
     var totalPickNumber: Int
     var playerPool: PlayerPool = PlayerPool()
     var pickStack: Stack<DraftPlayer> = .init()
-    
+
     /// This should be = teamPickOrder - 1
     let myTeamIndex: Int
 //
@@ -28,25 +28,21 @@ struct Draft: Codable, Hashable, Equatable {
 //    func getCurrentPickNumber() -> Int { currentPickNumber }
 //    func getTotalPickNumber() -> Int { totalPickNumber }
 //    func getPickStack() -> Stack<DraftPlayer> { pickStack }
-    
-    
-    
+
     // MARK: - Mutating functions
-    
-    
-    
+
     mutating func changeCurrentTeam(to team: DraftTeam) {
         currentTeam = team
     }
-    
+
     mutating func changeCurrentPick(to pickNumber: Int) {
         currentPickNumber = pickNumber
     }
-    
+
     mutating func changeTotalPick(to pickNumber: Int) {
         totalPickNumber = pickNumber
     }
-    
+
     mutating func makePick(_ player: DraftPlayer) {
         removeFromPool(player: player)
         pickStack.push(player)
@@ -54,14 +50,12 @@ struct Draft: Codable, Hashable, Equatable {
         let currentTeamIndex: Int = roundNumber.isEven ? settings.numberOfTeams - roundPickNumber : roundPickNumber - 1
         teams[currentTeamIndex].draftedPlayers.append(player)
         setNextTeam()
-        
     }
-    
+
     mutating func setNextTeam() {
         let currentTeamIndex: Int = roundNumber.isEven ? settings.numberOfTeams - roundPickNumber : roundPickNumber - 1
         currentTeam = teams[currentTeamIndex]
     }
- 
 
     // MARK: - Computed Properties
 
@@ -90,7 +84,11 @@ struct Draft: Codable, Hashable, Equatable {
     mutating func removeFromPool(player: DraftPlayer) {
         for position in player.player.positions {
             if var previousArray = playerPool.battersDict[position] {
+                let prevArrCheck = previousArray
                 previousArray.removeAll(where: { $0 == player.player })
+                guard prevArrCheck != previousArray else {
+                    return
+                }
 
                 playerPool.battersDict[position] = previousArray
             }

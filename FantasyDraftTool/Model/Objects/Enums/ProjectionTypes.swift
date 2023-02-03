@@ -8,7 +8,7 @@
 import Foundation
 
 enum ProjectionTypes: String, CaseIterable, Codable {
-    case steamer, zips, thebat, thebatx, atc, depthCharts
+    case steamer, zips, thebat, thebatx, atc, depthCharts, myProjections
     
     var str: String {
         switch self {
@@ -24,6 +24,8 @@ enum ProjectionTypes: String, CaseIterable, Codable {
             return "Atc"
         case .depthCharts:
             return "Fangraphsdc"
+        case .myProjections:
+            return "My Projections"
         }
     }
     
@@ -41,10 +43,13 @@ enum ProjectionTypes: String, CaseIterable, Codable {
             return self.str.uppercased()
         case .depthCharts:
             return "Depth Charts"
+        case .myProjections:
+            return self.str
         }
     }
 
     static let arr: [ProjectionTypes] = [.steamer, .thebat, .thebatx, .atc, .depthCharts]
+    static let allArr: [ProjectionTypes] = [.steamer, .thebat, .thebatx, .atc, .depthCharts, .myProjections]
 
     var jsonFile: String { "\(rawValue)Standard" }
     

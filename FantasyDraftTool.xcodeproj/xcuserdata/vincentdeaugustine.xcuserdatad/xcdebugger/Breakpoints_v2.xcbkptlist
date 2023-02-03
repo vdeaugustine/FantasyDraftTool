@@ -7,15 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "51FB8D9C-5D1B-4D9D-9E81-0D91476F6535"
+            uuid = "B809D6A3-B899-4478-BCC3-81BD89434B0C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FantasyDraftTool/Model/Objects/Draft/Draft/Draft.swift"
+            filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/Draft/Draft.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "removeFromPool(player:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -23,65 +23,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3DB5CB6F-842E-4403-85F9-56F901213DD8"
-            shouldBeEnabled = "No"
+            uuid = "47521D2D-404B-443E-A46D-39FAFFAB7CB4"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FantasyDraftTool/Views/Draft/Actual Draft/DraftView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "makePick(player:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AE1C2DBD-FCC7-44C6-90E5-4E5CCD28F8BF"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FantasyDraftTool/Views/Draft/Actual Draft/DraftView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "sortedBatters"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "AE1C2DBD-FCC7-44C6-90E5-4E5CCD28F8BF - 98405896e7f06ce3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FantasyDraftTool.DraftView.sortedBatters.getter : Swift.Array&lt;FantasyDraftTool.ParsedBatter&gt;"
-                  moduleName = "FantasyDraftTool"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/Views/Draft/Actual%20Draft/DraftView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
-                  offsetFromSymbolStart = "48">
-               </Location>
-               <Location
-                  uuid = "AE1C2DBD-FCC7-44C6-90E5-4E5CCD28F8BF - 75c5770ae2d49686"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (FantasyDraftTool.ParsedBatter, FantasyDraftTool.ParsedBatter) -&gt; Swift.Bool in FantasyDraftTool.DraftView.sortedBatters.getter : Swift.Array&lt;FantasyDraftTool.ParsedBatter&gt;"
-                  moduleName = "FantasyDraftTool"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/Views/Draft/Actual%20Draft/DraftView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "112">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

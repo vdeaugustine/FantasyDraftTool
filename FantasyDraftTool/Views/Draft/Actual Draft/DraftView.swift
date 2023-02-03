@@ -29,7 +29,7 @@ struct DraftView: View {
                     ScrollView(.horizontal) {
                         LazyHStack {
                             ForEach(model.draft.pickStack.getArray(), id: \.self) { pick in
-                                Text("\(pick.team.name): \(pick.player.name),")
+                                Text(": \(pick.player.name),")
                             }
                         }
                     }

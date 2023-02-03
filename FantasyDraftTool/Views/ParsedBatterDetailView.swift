@@ -14,7 +14,8 @@ struct ParsedBatterDetailView: View {
     @State var batter: ParsedBatter
 
     @State var projection: ProjectionTypes = .steamer
-
+    @State private var myPlayer: MyStatsPlayer = MyStatsPlayer(player: .nullBatter)
+    
     var body: some View {
         List {
             Section("Select Projection") {
@@ -79,6 +80,9 @@ struct ParsedBatterDetailView: View {
         .navigationTitle(batter.name)
         .navigationBarTitleDisplayMode(.inline)
         .background(Color.listBackground)
+        .onAppear {
+            myPlayer = MyStatsPlayer(player: batter)
+        }
     }
 }
 

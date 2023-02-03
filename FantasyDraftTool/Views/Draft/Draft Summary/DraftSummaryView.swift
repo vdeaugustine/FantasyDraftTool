@@ -43,7 +43,7 @@ struct DraftSummaryView: View {
 
                 Section {
                     ForEach(draft.pickStack.getArray(), id: \.self) { player in
-                        Text("#\(player.pickNumber) " + player.team.name + " : " + player.player.name)
+                        Text("#\(player.pickNumber) " + " : " + player.player.name)
                     }
                 }
             }

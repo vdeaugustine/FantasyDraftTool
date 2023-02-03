@@ -16,6 +16,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
     var g, ab, pa, h, the1B, the2B, the3B, hr, r, rbi, bb, ibb, so, hbp, sf, sh, sb, cs: Int
     var avg: Double
     let positions: [Position]
+    
 
     // MARK: Computed properties
 
@@ -72,6 +73,10 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
             Int(str)
         }
     }
+    
+    // MARK: - Static Properties
+    static let nullBatter: ParsedBatter = .init(empty: "", name: "", team: "", g: 0, ab: 0, pa: 0, h: 0, the1B: 0, the2B: 0, the3B: 0, hr: 0, r: 0, rbi: 0, bb: 0, ibb: 0, so: 0, hbp: 0, sf: 0, sh: 0, sb: 0, cs: 0, avg: 0, positions: [])
+    
 
     // MARK: Methods
 

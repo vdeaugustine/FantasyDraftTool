@@ -12,7 +12,7 @@ struct SelectProjectionTypeHScroll: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(ProjectionTypes.arr, id: \.self) { projectionType in
+                ForEach(ProjectionTypes.allArr, id: \.self) { projectionType in
                     Button {
                         
                         withAnimation {
