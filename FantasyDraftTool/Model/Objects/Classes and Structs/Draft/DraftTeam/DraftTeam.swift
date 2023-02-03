@@ -40,7 +40,13 @@ class DraftTeam: Hashable, Codable, Equatable {
         let players = draftedPlayers
         let val: Double = players.reduce(Double(0), { $0 + $1.player.fantasyPoints(.defaultPoints) })
         print("NEW \(val)")
-        return val
+        return (val / Double(players.count)).roundTo(places: 1)
+    }
+    
+    func points(for position: Position) -> Double {
+        let theseBatters = self.draftedPlayers.filter({$0.player.positions.contains(position)})
+        let sum: Double = theseBatters.reduce(Double(0), { $0 + $1.player.fantasyPoints(.defaultPoints) })
+        return (sum / Double(theseBatters.count)).roundTo(places: 1)
     }
 }
 

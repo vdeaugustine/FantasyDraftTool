@@ -79,7 +79,7 @@ struct Draft: Codable, Hashable, Equatable {
                                                    scoringSystem: .defaultPoints),
                                    myTeamIndex: 3)
 
-    // MARK: - Methods
+    // MARK: - Mutating Methods
 
     mutating func removeFromPool(player: DraftPlayer) {
         for position in player.player.positions {
@@ -94,6 +94,37 @@ struct Draft: Codable, Hashable, Equatable {
             }
         }
         playerPool.recalculateDict(for: player.player.positions)
+    }
+    
+    // MARK: - Calculating Methods / Calculations
+    
+    func strongestTeam(for position: Position) -> DraftTeam {
+        let unsortedTeams = self.teams
+        let sortedTeams = unsortedTeams.sorted(by: {$0.points(for: position) > $1.points(for: position)})
+        return sortedTeams.first!
+    }
+    
+    func leagueAverage(for position: Position, excludeTopTeam: Bool = true) -> Double {
+        
+        let teamsToUse: [DraftTeam]
+        if excludeTopTeam {
+            let topTeam = strongestTeam(for: position)
+            teamsToUse = self.teams.filter({$0 != topTeam})
+        } else {
+            teamsToUse = self.teams
+        }
+        
+        
+        let batters: [DraftPlayer] = teamsToUse.reduce([DraftPlayer](), {
+            
+            
+            $0 + $1.draftedPlayers.filter({$0.player.positions.contains(position)})
+            
+        })
+        
+        let sum: Double = batters.reduce(0, {$0 + $1.player.fantasyPoints(.defaultPoints)})
+        return (sum / Double(batters.count)).roundTo(places: 1)
+        
     }
 
     // MARK: - Initializers

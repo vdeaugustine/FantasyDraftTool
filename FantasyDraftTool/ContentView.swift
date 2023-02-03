@@ -13,15 +13,16 @@ enum DraftPath: Hashable {
     case setUpGeneral
     case setUpTeams
     case main
+    case teamSummary
 }
 
 // MARK: - ContentView
 
 struct ContentView: View {
     @EnvironmentObject private var model: MainModel
-
+    @State private var selectedTab: Int = 1
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             NavigationView {
                 AllBattersListView()
                     .navigationBarTitleDisplayMode(.inline)
@@ -36,7 +37,7 @@ struct ContentView: View {
                     .onAppear {
                         
                         if UserDefaults.isCurrentlyInDraft {
-                        model.navPathForDrafting = [.setUpGeneral, .setUpTeams, .main]
+                            model.navPathForDrafting = [.setUpGeneral, .setUpTeams, .main, .teamSummary]
                         }
                     }
 
@@ -46,6 +47,8 @@ struct ContentView: View {
                                 SetUpDraftTeamsView()
                             case .main:
                                 DraftView()
+                        case .teamSummary:
+                            DraftSummaryView()
                         }
                     }
             }

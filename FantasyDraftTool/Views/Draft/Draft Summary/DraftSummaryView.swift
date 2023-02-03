@@ -18,13 +18,13 @@ struct DraftSummaryView: View {
     var showingPlayers: [DraftPlayer] {
         return draft.pickStack.getArray()
     }
-    
-    
 
     @State private var selectedPositions: Set<Position> = []
 
     var body: some View {
         VStack {
+            StrongestAtEachPositionView()
+
             Picker("Team", selection: $showingTeam) {
                 ForEach(draft.teams, id: \.self) { team in
                     Text(team.name)
@@ -51,6 +51,7 @@ struct DraftSummaryView: View {
         .onAppear {
             showingTeam = draft.teams[0]
         }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
