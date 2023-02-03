@@ -19,7 +19,7 @@ struct PlayerPool: Codable, Hashable, Equatable {
                 retArr += battersAtPosition
             }
         }
-        return retArr
+        return retArr.removingDuplicates()
     }
 
     var battersDict: [Position: [ParsedBatter]] = {

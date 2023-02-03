@@ -14,9 +14,10 @@ struct DraftView: View {
     @EnvironmentObject private var model: MainModel
 
     var sortedBatters: [ParsedBatter] {
-        model.draft.playerPool.batters.sorted {
+        model.draft.playerPool.batters.removingDuplicates().sorted {
             $0.weightedFantasyPoints(dict: model.draft.playerPool.positionAveragesDict) > $1.weightedFantasyPoints(dict: model.draft.playerPool.positionAveragesDict)
         }
+        
     }
 
     var body: some View {

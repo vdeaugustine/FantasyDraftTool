@@ -16,6 +16,10 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable {
     var pickNumber: Int
 //    var draftTeam: DraftTeam
     var weightedScoreWhenDrafted: Double
+    
+    var draftedTeam: DraftTeam? {
+        MainModel.shared.draft.teams.first(where: {$0.draftedPlayers.contains(self)})
+    }
 
     var id: String {
         "\(player.name) drafted #\(pickNumber) overall by."

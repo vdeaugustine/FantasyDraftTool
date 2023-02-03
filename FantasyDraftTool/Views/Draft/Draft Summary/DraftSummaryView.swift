@@ -16,7 +16,14 @@ struct DraftSummaryView: View {
     var draft: Draft { model.draft }
 
     var showingPlayers: [DraftPlayer] {
-        return draft.pickStack.getArray()
+        let filteredByTeam = draft.pickStack.getArray()
+            .filter({$0.draftedTeam! == showingTeam})
+        
+        let filteredByTeamAndPositions = filteredByTeam.filter {
+            Set($0.player.positions).intersection(selectedPositions).count != 0
+        }
+        
+        return selectedPositions.isEmpty ? filteredByTeam : filteredByTeamAndPositions
     }
 
     @State private var selectedPositions: Set<Position> = []
@@ -35,15 +42,15 @@ struct DraftSummaryView: View {
             SelectPositionsHScroll(selectedPositions: $selectedPositions)
 
             List {
-                Section {
+                Section("Filtered") {
                     ForEach(showingPlayers, id: \.self) { player in
-                        Text(player.player.name)
+                        Text(player.player.name + " \(player.player.posStr())")
                     }
                 }
 
-                Section {
+                Section("All drafted") {
                     ForEach(draft.pickStack.getArray(), id: \.self) { player in
-                        Text("#\(player.pickNumber) " + " : " + player.player.name)
+                        Text("#\(player.pickNumber) " + " \(player.draftedTeam?.name ?? ""): " + player.player.name)
                     }
                 }
             }

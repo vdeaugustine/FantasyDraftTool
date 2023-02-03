@@ -219,53 +219,53 @@ extension ParsedBatter {
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(empty)
-        hasher.combine(name)
-        hasher.combine(team)
-        hasher.combine(g)
-        hasher.combine(ab)
-        hasher.combine(pa)
-        hasher.combine(h)
-        hasher.combine(the1B)
-        hasher.combine(the2B)
-        hasher.combine(the3B)
-        hasher.combine(hr)
-        hasher.combine(r)
-        hasher.combine(rbi)
-        hasher.combine(bb)
-        hasher.combine(ibb)
-        hasher.combine(so)
-        hasher.combine(hbp)
-        hasher.combine(sf)
-        hasher.combine(sh)
-        hasher.combine(sb)
-        hasher.combine(cs)
-        hasher.combine(avg)
-        hasher.combine(positions)
+//        hasher.combine(empty)
+        hasher.combine(name.removingWhiteSpaces())
+        hasher.combine(team.removingWhiteSpaces())
+//        hasher.combine(g)
+//        hasher.combine(ab)
+//        hasher.combine(pa)
+//        hasher.combine(h)
+//        hasher.combine(the1B)
+//        hasher.combine(the2B)
+//        hasher.combine(the3B)
+//        hasher.combine(hr)
+//        hasher.combine(r)
+//        hasher.combine(rbi)
+//        hasher.combine(bb)
+//        hasher.combine(ibb)
+//        hasher.combine(so)
+//        hasher.combine(hbp)
+//        hasher.combine(sf)
+//        hasher.combine(sh)
+//        hasher.combine(sb)
+//        hasher.combine(cs)
+//        hasher.combine(avg)
+//        hasher.combine(positions)
     }
 
     static func == (lhs: ParsedBatter, rhs: ParsedBatter) -> Bool {
-        return lhs.empty == rhs.empty &&
-            lhs.name == rhs.name &&
-            lhs.team == rhs.team &&
-            lhs.g == rhs.g &&
-            lhs.ab == rhs.ab &&
-            lhs.pa == rhs.pa &&
-            lhs.h == rhs.h &&
-            lhs.the1B == rhs.the1B &&
-            lhs.the2B == rhs.the2B &&
-            lhs.the3B == rhs.the3B &&
-            lhs.hr == rhs.hr &&
-            lhs.r == rhs.r &&
-            lhs.rbi == rhs.rbi &&
-            lhs.bb == rhs.bb &&
-            lhs.ibb == rhs.ibb &&
-            lhs.so == rhs.so &&
-            lhs.hbp == rhs.hbp &&
-            lhs.sf == rhs.sf &&
-            lhs.sh == rhs.sh &&
-            lhs.sb == rhs.sb &&
-            lhs.cs == rhs.cs &&
-            lhs.avg == rhs.avg
+        return
+        lhs.name.removingWhiteSpaces() == rhs.name.removingWhiteSpaces() &&
+            lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces() // &&
+//            lhs.g == rhs.g &&
+//            lhs.ab == rhs.ab &&
+//            lhs.pa == rhs.pa &&
+//            lhs.h == rhs.h &&
+//            lhs.the1B == rhs.the1B &&
+//            lhs.the2B == rhs.the2B &&
+//            lhs.the3B == rhs.the3B &&
+//            lhs.hr == rhs.hr &&
+//            lhs.r == rhs.r &&
+//            lhs.rbi == rhs.rbi &&
+//            lhs.bb == rhs.bb &&
+//            lhs.ibb == rhs.ibb &&
+//            lhs.so == rhs.so &&
+//            lhs.hbp == rhs.hbp &&
+//            lhs.sf == rhs.sf &&
+//            lhs.sh == rhs.sh &&
+//            lhs.sb == rhs.sb &&
+//            lhs.cs == rhs.cs &&
+//            lhs.avg == rhs.avg
     }
 }

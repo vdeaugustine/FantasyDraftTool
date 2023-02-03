@@ -11,6 +11,10 @@ import SwiftUI
 extension String {
     static let emptyString: String = ""
 
+    func removingWhiteSpaces() -> String {
+        return components(separatedBy: .whitespaces).joined()
+    }
+
     func spacedWith(_ secondString: String) -> some View {
         HStack {
             Text(self)
