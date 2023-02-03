@@ -6,8 +6,9 @@
 //
 
 import SwiftUI
+import Charts
 
-// MARK: - model.draftView
+// MARK: - DraftView
 
 struct DraftView: View {
     @EnvironmentObject private var model: MainModel
@@ -20,13 +21,6 @@ struct DraftView: View {
 
     var body: some View {
         List {
-            
-            Button("Cancel draft", role: .destructive) {
-                
-                model.navPathForDrafting = []
-                UserDefaults.isCurrentlyInDraft = false
-            }
-            
             Text("Current team: \(model.draft.currentTeam.name)")
             Text("Round \(model.draft.roundNumber), Pick \(model.draft.roundPickNumber)")
 
@@ -44,6 +38,10 @@ struct DraftView: View {
                 NavigationLink("Show all") {
                     DraftSummaryView()
                 }
+            }
+            
+            Section {
+                TeamsChart(label: "Team Points", data: $model.draft.teams)
             }
 
             Section("Averages for remaining by position") {
@@ -73,31 +71,68 @@ struct DraftView: View {
         .onAppear {
             UserDefaults.isCurrentlyInDraft = true
         }
-        
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Menu {
+                    Button {
+                    } label: {
+                        HStack {
+                            Image(systemName: "arrow.uturn.backward")
+                            Text("Undo last pick")
+                        }
+                    }
+
+                    Button(role: .destructive) {
+                        model.resetDraft()
+                    } label: {
+                        Label("Restart draft", systemImage: "restart")
+                    }
+                    
+                    Button {
+                        
+                    } label: {
+                        Label("Sort", systemImage: "line.3.horizontal.decrease")
+                    }
+
+                } label: {
+                    Label("more", systemImage: "ellipsis")
+                }
+            }
+        }
     }
 
     func makePick(player: ParsedBatter) {
-        
         let draftPlayer = DraftPlayer(player: player,
                                       pickNumber: model.draft.totalPickNumber,
                                       team: model.draft.currentTeam, weightedScore: player.weightedFantasyPoints(dict: model.draft.playerPool.positionAveragesDict))
-        model.draft.removeFromPool(player: draftPlayer)
-        model.draft.pickStack.push(draftPlayer)
-        model.draft.totalPickNumber += 1
-
+        
+        model.draft.makePick(draftPlayer)        
+        model.save()
+        
         print(draftPlayer.id)
         print("Pool contains: \(model.draft.playerPool.batters.count) players")
 
-        setNextTeam()
-        model.save()
-        
         
     }
 
-    func setNextTeam() {
-        let currentTeamIndex: Int = model.draft.roundNumber.isEven ? model.draft.settings.numberOfTeams - model.draft.roundPickNumber : model.draft.roundPickNumber - 1
-        model.draft.currentTeam = model.draft.teams[currentTeamIndex]
+    
+    
+}
+
+struct TeamsChart: View {
+    var label: String? = nil
+    @Binding var data: [DraftTeam]
+    var body: some View {
+        Chart {
+            ForEach(data, id: \.self) { thisTeam in
+                BarMark(x: .value("Points", thisTeam.averagePoints()), y: .value("Team Name", thisTeam.name))
+                
+                    
+            }
+        }
     }
+    
+    
 }
 
 // MARK: - DraftView_Previews
@@ -105,7 +140,7 @@ struct DraftView: View {
 struct DraftView_Previews: PreviewProvider {
     static var previews: some View {
         DraftView()
-        .environmentObject(MainModel.shared)
-        .putInNavView()
+            .environmentObject(MainModel.shared)
+            .putInNavView()
     }
 }

@@ -41,7 +41,9 @@ struct PlayerPool: Codable, Hashable, Equatable {
         positionAveragesDict
     }
 
-    var positionAveragesDict: [Position: Double] = {
+    var positionAveragesDict: [Position: Double] = emptyPosAverageDict()
+    
+    static func emptyPosAverageDict() -> [Position: Double] {
         var retDict: [Position: Double] = [:]
 
         for position in Position.batters {
@@ -50,7 +52,7 @@ struct PlayerPool: Codable, Hashable, Equatable {
         }
 
         return retDict
-    }()
+    }
 
     // MARK: - Methods
 

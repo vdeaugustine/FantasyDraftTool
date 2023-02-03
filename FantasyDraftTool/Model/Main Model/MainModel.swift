@@ -22,12 +22,10 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
                                                         numberOfRounds: 25,
                                                         scoringSystem: .defaultPoints),
                                         myTeamIndex: 10)
+    
+    
 
-    @Published var navPathForDrafting: [DraftPath] = [] {
-        didSet {
-            print(self.navPathForDrafting)
-        }
-    }
+    @Published var navPathForDrafting: [DraftPath] = []
 
     // MARK: - Stored Properties
     
@@ -41,6 +39,16 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
     static let key = "mainModelKey"
 
     // MARK: - Methods
+    
+    func resetDraft() {
+        let teams = draft.teams
+        let myTeamIndex = draft.myTeamIndex
+        let settings = draft.settings
+        
+        draft = Draft(teams: teams.map { DraftTeam(name: $0.name, draftPosition: $0.draftPosition) },
+                      settings: settings,
+                      myTeamIndex: myTeamIndex)
+    }
 
     // MARK: - Initializers
 

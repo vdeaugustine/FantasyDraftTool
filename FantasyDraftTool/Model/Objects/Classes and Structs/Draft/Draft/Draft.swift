@@ -15,21 +15,25 @@ struct Draft: Codable, Hashable, Equatable {
     var teams: [DraftTeam]
     var settings: DraftSettings
     
-    /// This should be = teamPickOrder - 1
-    let myTeamIndex: Int
-
-    // MARK: - Published Properties
-
     var currentTeam: DraftTeam
     var currentPickNumber: Int
     var totalPickNumber: Int
     var playerPool: PlayerPool = PlayerPool()
     var pickStack: Stack<DraftPlayer> = .init()
     
-    func getCurrentTeam()->DraftTeam { currentTeam }
-    func getCurrentPickNumber() -> Int { currentPickNumber }
-    func getTotalPickNumber() -> Int { totalPickNumber }
-    func getPickStack() -> Stack<DraftPlayer> { pickStack }
+    /// This should be = teamPickOrder - 1
+    let myTeamIndex: Int
+//
+//    func getCurrentTeam() ->DraftTeam { currentTeam }
+//    func getCurrentPickNumber() -> Int { currentPickNumber }
+//    func getTotalPickNumber() -> Int { totalPickNumber }
+//    func getPickStack() -> Stack<DraftPlayer> { pickStack }
+    
+    
+    
+    // MARK: - Mutating functions
+    
+    
     
     mutating func changeCurrentTeam(to team: DraftTeam) {
         currentTeam = team
@@ -41,6 +45,21 @@ struct Draft: Codable, Hashable, Equatable {
     
     mutating func changeTotalPick(to pickNumber: Int) {
         totalPickNumber = pickNumber
+    }
+    
+    mutating func makePick(_ player: DraftPlayer) {
+        removeFromPool(player: player)
+        pickStack.push(player)
+        totalPickNumber += 1
+        let currentTeamIndex: Int = roundNumber.isEven ? settings.numberOfTeams - roundPickNumber : roundPickNumber - 1
+        teams[currentTeamIndex].draftedPlayers.append(player)
+        setNextTeam()
+        
+    }
+    
+    mutating func setNextTeam() {
+        let currentTeamIndex: Int = roundNumber.isEven ? settings.numberOfTeams - roundPickNumber : roundPickNumber - 1
+        currentTeam = teams[currentTeamIndex]
     }
  
 

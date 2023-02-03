@@ -33,6 +33,15 @@ class DraftTeam: Hashable, Codable, Equatable {
         self.positionsRequired = positionsRequired
         self.draftedPlayers = draftedPlayers
     }
+    
+    // MARK: - Calculations
+    
+    func averagePoints() -> Double {
+        let players = draftedPlayers
+        let val: Double = players.reduce(Double(0), { $0 + $1.player.fantasyPoints(.defaultPoints) })
+        print("NEW \(val)")
+        return val
+    }
 }
 
 // MARK: - Codable Equatable, Hashable

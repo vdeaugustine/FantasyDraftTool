@@ -23,6 +23,7 @@ struct Stack<T>: Codable, Equatable, Hashable where T : Codable, T: Hashable, T:
 
     mutating func push(_ element: T) {
         array.insert(element, at: 0)
+        
     }
 
     mutating func pop() -> T? {
