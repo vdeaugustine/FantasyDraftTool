@@ -23,6 +23,8 @@ struct ContentView: View {
     @State private var selectedTab: Int = 1
     var body: some View {
         TabView(selection: $selectedTab) {
+            
+            
             NavigationView {
                 AllBattersListView()
                     .navigationBarTitleDisplayMode(.inline)
@@ -37,7 +39,7 @@ struct ContentView: View {
                     .onAppear {
                         
                         if UserDefaults.isCurrentlyInDraft {
-                            model.navPathForDrafting = [.setUpGeneral, .setUpTeams, .main, .teamSummary]
+                            model.navPathForDrafting = [.setUpGeneral, .setUpTeams, .main]
                         }
                     }
 
@@ -57,6 +59,8 @@ struct ContentView: View {
             .tabItem {
                 Label("Draft", systemImage: "square.and.arrow.down")
             }
+            
+            
         }
     }
 }

@@ -32,12 +32,14 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     // MARK: - Static Properties
 
-    static let shared: MainModel = { MainModel.load() ?? MainModel() }()
+    static var shared: MainModel = { MainModel.load() ?? MainModel() }()
 
     static let key = "mainModelKey"
 
-    // MARK: - Methods
+    
+    // MARK: - Static functions
 
+    // MARK: - Methods
     func resetDraft() {
         let teams = draft.teams
         let myTeamIndex = draft.myTeamIndex

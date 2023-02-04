@@ -5,8 +5,8 @@
 //  Created by Vincent DeAugustine on 1/28/23.
 //
 
-import SwiftUI
 import Charts
+import SwiftUI
 
 // MARK: - DraftView
 
@@ -17,13 +17,11 @@ struct DraftView: View {
         model.draft.playerPool.batters.removingDuplicates().sorted {
             $0.weightedFantasyPoints(dict: model.draft.playerPool.positionAveragesDict) > $1.weightedFantasyPoints(dict: model.draft.playerPool.positionAveragesDict)
         }
-        
     }
 
     var body: some View {
         List {
-            Text("Current team: \(model.draft.currentTeam.name)")
-            Text("Round \(model.draft.roundNumber), Pick \(model.draft.roundPickNumber)")
+            
 
             Section("Recent picks") {
                 if model.draft.pickStack.isEmpty() == false {
@@ -40,10 +38,6 @@ struct DraftView: View {
                     DraftSummaryView()
                 }
             }
-            
-            Section {
-                TeamsChart(label: "Team Points", data: $model.draft.teams)
-            }
 
             Section("Averages for remaining by position") {
                 LazyVGrid(columns: (0 ... 2).map { _ in
@@ -56,6 +50,34 @@ struct DraftView: View {
                     }
                 }
             }
+            
+            if let myTeam = model.draft.myTeam {
+                Section("My team") {
+                    ForEach(Position.batters, id: \.self) { position in
+                        VStack {
+                            Text(position.str.uppercased())
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach(myTeam.players(for: position), id: \.self) { batter in
+                                        Text(batter.player.name)
+                                    }
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            
+            Section {
+                Text("Current pick index \(model.draft.currentIndex)")
+                Text("Previous team index: \(model.draft.previousIndex)")
+                Text("My Team index: \(model.draft.myTeamIndex)")
+                Text("My Team name: \(model.draft.myTeam?.name ?? "")")
+                Text("Current team: \(model.draft.currentTeam.name)")
+                Text("Round \(model.draft.roundNumber), Pick \(model.draft.roundPickNumber)")
+            }
+            
 
             Section {
                 ForEach(sortedBatters,
@@ -88,9 +110,8 @@ struct DraftView: View {
                     } label: {
                         Label("Restart draft", systemImage: "restart")
                     }
-                    
+
                     Button {
-                        
                     } label: {
                         Label("Sort", systemImage: "line.3.horizontal.decrease")
                     }
@@ -106,19 +127,16 @@ struct DraftView: View {
         let draftPlayer = DraftPlayer(player: player,
                                       pickNumber: model.draft.totalPickNumber,
                                       team: model.draft.currentTeam, weightedScore: player.weightedFantasyPoints(dict: model.draft.playerPool.positionAveragesDict))
-        
-        model.draft.makePick(draftPlayer)        
+
+        model.draft.makePick(draftPlayer)
         model.save()
-        
+
         print(draftPlayer.id)
         print("Pool contains: \(model.draft.playerPool.batters.count) players")
-
-        
     }
-
-    
-    
 }
+
+// MARK: - TeamsChart
 
 struct TeamsChart: View {
     var label: String? = nil
@@ -127,13 +145,24 @@ struct TeamsChart: View {
         Chart {
             ForEach(data, id: \.self) { thisTeam in
                 BarMark(x: .value("Points", thisTeam.averagePoints()), y: .value("Team Name", thisTeam.name))
-                
-                    
             }
         }
+        .chartXAxis {
+            AxisMarks(position: .bottom) { _ in
+                // AxisGridLine().foregroundStyle(.clear)
+                AxisTick().foregroundStyle(.clear)
+                AxisValueLabel()
+            }
+        }
+        .chartYAxis {
+            AxisMarks(position: .automatic) { _ in
+                // AxisGridLine().foregroundStyle(.clear)
+                AxisTick().foregroundStyle(.clear)
+                AxisValueLabel()
+            }
+        }
+        .height(250)
     }
-    
-    
 }
 
 // MARK: - DraftView_Previews

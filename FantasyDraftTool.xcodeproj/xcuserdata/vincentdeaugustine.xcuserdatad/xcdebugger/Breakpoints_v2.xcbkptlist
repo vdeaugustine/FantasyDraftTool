@@ -7,32 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B809D6A3-B899-4478-BCC3-81BD89434B0C"
+            uuid = "41E2625E-A3BC-4936-BEA9-49BF6B1167A7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/Draft/Draft.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "removeFromPool(player:)"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "changeCurrentIndex()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "47521D2D-404B-443E-A46D-39FAFFAB7CB4"
+            uuid = "FFEC41BE-63AB-4EAA-83C9-2BD036BB3E22"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FantasyDraftTool/Views/Draft/Actual Draft/DraftView.swift"
+            filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/Draft/Draft.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "makePick(player:)"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "changeCurrentIndex()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

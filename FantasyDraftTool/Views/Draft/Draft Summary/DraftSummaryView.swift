@@ -12,12 +12,14 @@ import SwiftUI
 struct DraftSummaryView: View {
     @EnvironmentObject private var model: MainModel
     @State private var showingTeam: DraftTeam = .init(name: "NULL", draftPosition: 0)
-
+    @State private var filterTeam: Bool = false
+    
     var draft: Draft { model.draft }
 
     var showingPlayers: [DraftPlayer] {
-        let filteredByTeam = draft.pickStack.getArray()
-            .filter({$0.draftedTeam! == showingTeam})
+        
+        let filteredByTeam = filterTeam ? draft.pickStack.getArray()
+            .filter({$0.draftedTeam! == showingTeam}) : draft.pickStack.getArray()
         
         let filteredByTeamAndPositions = filteredByTeam.filter {
             Set($0.player.positions).intersection(selectedPositions).count != 0
@@ -34,11 +36,24 @@ struct DraftSummaryView: View {
                 .height(350)
                 .padding(3)
 
-            Picker("Team", selection: $showingTeam) {
-                ForEach(draft.teams, id: \.self) { team in
-                    Text(team.name)
-                        .tag(team)
+            Section {
+                
+                Toggle("Filter by team", isOn: $filterTeam)
+                
+                if filterTeam {
+                    Picker("Team", selection: $showingTeam) {
+                        ForEach(draft.teams, id: \.self) { team in
+                            Text(team.name)
+                                .tag(team)
+                        }
+                    }
                 }
+                
+                
+            }
+            
+            Section("Team average points per position") {
+                TeamsChart(label: "Team Points", data: $model.draft.teams)
             }
 
             SelectPositionsHScroll(selectedPositions: $selectedPositions)

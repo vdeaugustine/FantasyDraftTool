@@ -12,28 +12,23 @@ import SwiftUI
 struct SetUpDraftTeamsView: View {
     @EnvironmentObject private var model: MainModel
 
-//    let snakeDraft: Bool
-//    let numberOfRounds: Int
-//    let scoringSystem: ScoringSettings
-
     @Environment(\.editMode) private var editMode
 
     @State private var teams: [DraftTeam] = DraftTeam.someDefaultTeams(amount: 10)
     @Environment(\.dismiss) private var dismiss
 
     @State private var myTeamIndex: Int = 0
-    
+
     @State private var selectedIndex: Int = 0
-    
+
     @State private var showAlertToChangeName: Bool = false
-    
+
     @State private var newTeamName: String = ""
 
     func move(from source: IndexSet, to destination: Int) {
         // move the data here
-        teams.move(fromOffsets: source, toOffset: destination)
+        model.draft.teams.move(fromOffsets: source, toOffset: destination)
     }
-    
 
     var body: some View {
         Form {
@@ -45,15 +40,12 @@ struct SetUpDraftTeamsView: View {
                             Text(model.draft.teams[teamIndex].name)
                         }
                         Spacer()
-                        
                     }
                     .allPartsTappable()
                     .onTapGesture {
                         selectedIndex = teamIndex
                         showAlertToChangeName.toggle()
                     }
-                    
-                   
                 }
                 .onMove(perform: move)
             } header: {
@@ -63,12 +55,13 @@ struct SetUpDraftTeamsView: View {
             }
 
             Section {
-                Picker("My team", selection: $myTeamIndex) {
+                Picker("My team", selection: $model.draft.myTeamIndex) {
                     ForEach(model.draft.teams.indices, id: \.self) { index in
                         Text(model.draft.teams[index].name)
                             .tag(index)
                     }
                 }
+                Text("My team index: \(model.draft.myTeamIndex)")
             }
 
             Section {
@@ -84,8 +77,8 @@ struct SetUpDraftTeamsView: View {
         .toolbar {
             EditButton()
         }
-        
-        .alert("Edit team name", isPresented: $showAlertToChangeName){
+
+        .alert("Edit team name", isPresented: $showAlertToChangeName) {
             TextField(teams[selectedIndex].name, text: $newTeamName)
             Button("Save") {
                 model.draft.teams[selectedIndex].name = newTeamName
@@ -93,7 +86,7 @@ struct SetUpDraftTeamsView: View {
             }
             Button("Cancel", role: .cancel) {}
         }
-        
+
         .navigationTitle("Edit Team Names")
     }
 }

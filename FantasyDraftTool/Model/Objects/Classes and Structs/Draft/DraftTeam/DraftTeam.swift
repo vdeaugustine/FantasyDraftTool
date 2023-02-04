@@ -55,6 +55,10 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
         let sum: Double = theseBatters.reduce(Double(0)) { $0 + $1.player.fantasyPoints(.defaultPoints) }
         return (sum / Double(theseBatters.count)).roundTo(places: 1)
     }
+    
+    func players(for position: Position) -> [DraftPlayer] {
+        draftedPlayers.filter{$0.player.positions.contains(position)}
+    }
 }
 
 // MARK: - Codable Equatable, Hashable
