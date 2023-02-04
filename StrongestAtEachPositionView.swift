@@ -85,6 +85,15 @@ struct StrongestAtEachPositionViewSideBySide: View {
 struct StrongestAtEachPositionView: View {
     @EnvironmentObject private var model: MainModel
 
+    var strongestDict: [Position: DraftTeam] {
+        var dict: [Position: DraftTeam] = [:]
+        for position in Position.batters {
+            let strongestTeam = model.draft.strongestTeam(for: position)
+            dict[position] = strongestTeam
+        }
+        return dict
+    }
+
     var body: some View {
         VStack {
             Text("Strongest Team by Position")
@@ -93,53 +102,55 @@ struct StrongestAtEachPositionView: View {
 
             Chart {
                 ForEach(Position.batters, id: \.self) { pos in
-                    BarMark(x: .value("Position and Team",
-                                      "\(pos.str.uppercased())"),
-                            y: .value("Points",
-                                      model.draft.strongestTeam(for: pos).points(for: pos)))
+                    BarMark(x: .value("Points",
+                                      strongestDict[pos]!.points(for: pos)),
+                            y: .value("Position and Team",
+                                      "\(pos.str.uppercased())"))
 
                         .annotation(position: .overlay, alignment: .center) {
-                            VStack {
-                                Text(model.draft.strongestTeam(for: pos).name)
+                            HStack {
+                                Text(strongestDict[pos]!.name)
                                     .fontWeight(.bold)
-                                Text(model.draft.strongestTeam(for: pos).points(for: pos).str)
+                                Text(strongestDict[pos]!.points(for: pos).str)
                             }
                             .font(.caption2)
                             .foregroundColor(.white)
+                            .padding(.vertical)
                         }
 
-                    BarMark(x: .value("Position and Team",
-                                      "\(pos.str.uppercased())"),
-                            y: .value("Points",
-                                      model.draft.leagueAverage(for: pos)))
+                    BarMark(x: .value("Points",
+                                      model.draft.leagueAverage(for: pos)),
+                            y: .value("Position and Team",
+                                      "\(pos.str.uppercased())"))
 
                         .annotation(position: .overlay, alignment: .center) {
-                            VStack {
+                            HStack {
                                 Text("League")
                                     .fontWeight(.bold)
                                 Text(model.draft.leagueAverage(for: pos).str)
                             }
                             .font(.caption2)
                             .foregroundColor(.white)
+                            .padding(.vertical)
                         }
                         .foregroundStyle(Color.red)
                 }
             }
-            .chartForegroundStyleScale(["Rest of the League Average": Color.red,
-                                        "Strongest Team's Average": Color.blue])
+            .chartForegroundStyleScale(["Strongest Team's Average": Color.blue, "Rest of the League Average": Color.red])
 
             .chartXAxis {
                 AxisMarks(position: .bottom) { _ in
                     // AxisGridLine().foregroundStyle(.clear)
                     AxisTick().foregroundStyle(.clear)
-                    AxisValueLabel()
+//                    AxisValueLabel()
                 }
             }
             .chartYAxis {
-                AxisMarks(position: .bottom) { _ in
+                
+                AxisMarks(position: .automatic) { _ in
                     // AxisGridLine().foregroundStyle(.clear)
-//                    AxisTick().foregroundStyle(.clear)
-//                    AxisValueLabel()
+                    AxisTick().foregroundStyle(.clear)
+                    AxisValueLabel()
                 }
             }
         }

@@ -108,8 +108,10 @@ struct StatRect: View {
                 .stroke(lineWidth: 1)
             VStack {
                 Text(stat)
+                    .font(.caption2)
                 Text(value.str)
                     .fontWeight(.semibold)
+                    .font(.caption)
             }
             .padding(4)
         }

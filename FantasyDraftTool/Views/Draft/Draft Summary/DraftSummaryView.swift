@@ -29,8 +29,10 @@ struct DraftSummaryView: View {
     @State private var selectedPositions: Set<Position> = []
 
     var body: some View {
-        VStack {
+        List {
             StrongestAtEachPositionView()
+                .height(350)
+                .padding(3)
 
             Picker("Team", selection: $showingTeam) {
                 ForEach(draft.teams, id: \.self) { team in
@@ -41,7 +43,6 @@ struct DraftSummaryView: View {
 
             SelectPositionsHScroll(selectedPositions: $selectedPositions)
 
-            List {
                 Section("Filtered") {
                     ForEach(showingPlayers, id: \.self) { player in
                         Text(player.player.name + " \(player.player.posStr())")
@@ -53,8 +54,9 @@ struct DraftSummaryView: View {
                         Text("#\(player.pickNumber) " + " \(player.draftedTeam?.name ?? ""): " + player.player.name)
                     }
                 }
-            }
+            
         }
+        .listStyle(.plain)
         .onAppear {
             showingTeam = draft.teams[0]
         }

@@ -18,7 +18,8 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable {
     var weightedScoreWhenDrafted: Double
     
     var draftedTeam: DraftTeam? {
-        MainModel.shared.draft.teams.first(where: {$0.draftedPlayers.contains(self)})
+        let team = MainModel.shared.draft.teams.first(where: {$0.draftedPlayers.contains(self)})
+        return team
     }
 
     var id: String {

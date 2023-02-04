@@ -29,6 +29,7 @@ struct SelectPositionsHScroll: View {
                         .cornerRadius(10)
                         .padding([.vertical, .leading], 2)
                 }
+                .buttonStyle(.plain)
                 
                 
                 ForEach(Position.batters, id: \.self) { pos in
@@ -58,7 +59,6 @@ struct SelectPositionsHScroll: View {
                 }
             }
         }
-        .padding(.horizontal)
     }
 }
 

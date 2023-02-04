@@ -9,13 +9,18 @@ import Foundation
 
 // MARK: - DraftTeam
 
-class DraftTeam: Hashable, Codable, Equatable {
+class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
     // MARK: Stored Properties
 
     var name: String
     var draftPosition: Int
     var positionsRequired: [Position: Int]
     var draftedPlayers: [DraftPlayer]
+
+    var description: String {
+        let starting: String = "# \(draftPosition): \(name) "
+        return draftedPlayers.reduce(starting) { $0 + $1.player.name + ", " }
+    }
 
     // MARK: - Initializers
 
@@ -33,19 +38,21 @@ class DraftTeam: Hashable, Codable, Equatable {
         self.positionsRequired = positionsRequired
         self.draftedPlayers = draftedPlayers
     }
-    
+
     // MARK: - Calculations
-    
+
     func averagePoints() -> Double {
         let players = draftedPlayers
-        let val: Double = players.reduce(Double(0), { $0 + $1.player.fantasyPoints(.defaultPoints) })
-        print("NEW \(val)")
+        let val: Double = players.reduce(Double(0)) { $0 + $1.player.fantasyPoints(.defaultPoints) }
         return (val / Double(players.count)).roundTo(places: 1)
     }
-    
+
     func points(for position: Position) -> Double {
-        let theseBatters = self.draftedPlayers.filter({$0.player.positions.contains(position)})
-        let sum: Double = theseBatters.reduce(Double(0), { $0 + $1.player.fantasyPoints(.defaultPoints) })
+        let theseBatters = draftedPlayers.filter { $0.player.positions.contains(position) }
+        guard !theseBatters.isEmpty else {
+            return 0
+        }
+        let sum: Double = theseBatters.reduce(Double(0)) { $0 + $1.player.fantasyPoints(.defaultPoints) }
         return (sum / Double(theseBatters.count)).roundTo(places: 1)
     }
 }
@@ -71,15 +78,15 @@ extension DraftTeam {
     static func == (lhs: DraftTeam, rhs: DraftTeam) -> Bool {
         return lhs.name == rhs.name &&
             lhs.draftPosition == rhs.draftPosition &&
-            lhs.positionsRequired == rhs.positionsRequired &&
-            lhs.draftedPlayers == rhs.draftedPlayers
+            lhs.positionsRequired == rhs.positionsRequired // &&
+//            lhs.draftedPlayers == rhs.draftedPlayers
     }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
         hasher.combine(draftPosition)
         hasher.combine(positionsRequired)
-        hasher.combine(draftedPlayers)
+//        hasher.combine(draftedPlayers)
     }
 }
 
@@ -87,8 +94,8 @@ extension DraftTeam {
 
 extension DraftTeam {
     static func someDefaultTeams(amount: Int) -> [DraftTeam] {
-       (0 ..< amount).map {
-                DraftTeam(name: "Team \($0 + 1)", draftPosition: $0)
-            }
+        (0 ..< amount).map {
+            DraftTeam(name: "Team \($0 + 1)", draftPosition: $0)
+        }
     }
 }
