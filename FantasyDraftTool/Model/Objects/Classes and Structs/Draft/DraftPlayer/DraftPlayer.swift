@@ -44,6 +44,15 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable {
     }
 }
 
+// MARK: - Functions
+extension DraftPlayer {
+    
+    // MARK: - Static functions
+    
+    
+    
+}
+
 // MARK: - Codable, Hashable, Equatable
 
 extension DraftPlayer {

@@ -85,7 +85,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
         for position in positions {
             retStr += ", " + position.str.uppercased()
         }
-        return retStr
+        return retStr.removeExtraneousMarks()
     }
 
     func weightedFantasyPoints(positionAverage: Double) -> Double {
@@ -179,6 +179,9 @@ extension ParsedBatter {
     
 }
 
+
+
+// MARK: - Functions
 extension ParsedBatter {
     
 }

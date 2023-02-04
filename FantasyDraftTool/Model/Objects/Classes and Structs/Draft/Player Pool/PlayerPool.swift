@@ -27,7 +27,7 @@ struct PlayerPool: Codable, Hashable, Equatable {
 
         for position in Position.batters {
             let battersForThisPosition = AllParsedBatters.batters(for: .steamer, at: position)
-            retDict[position] = battersForThisPosition
+            retDict[position] = battersForThisPosition.sortedByPoints
         }
 
         return retDict
@@ -53,6 +53,8 @@ struct PlayerPool: Codable, Hashable, Equatable {
 
         return retDict
     }
+    
+    
 
     // MARK: - Methods
 

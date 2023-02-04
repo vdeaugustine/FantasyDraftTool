@@ -22,7 +22,7 @@ struct Draft: Codable, Hashable, Equatable {
     var pickStack: Stack<DraftPlayer> = .init()
     var currentIndex: Int = 0
     var previousIndex: Int = 0
-    
+    var bestPicksStack: Stack<BestPick> = .init()
     
     
     /// This should be = teamPickOrder - 1

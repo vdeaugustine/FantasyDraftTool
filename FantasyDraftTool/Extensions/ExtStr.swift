@@ -10,6 +10,19 @@ import SwiftUI
 
 extension String {
     static let emptyString: String = ""
+    
+    func removeExtraneousMarks() -> String {
+        var temp = self
+        while let first = temp.first,
+              first.isSymbol || first.isPunctuation || first.isWhitespace {
+            temp.removeFirst()
+        }
+        while let last = temp.last,
+              last.isSymbol || last.isPunctuation || last.isWhitespace {
+            temp.removeLast()
+        }
+        return temp
+    }
 
     func removingWhiteSpaces() -> String {
         return components(separatedBy: .whitespaces).joined()

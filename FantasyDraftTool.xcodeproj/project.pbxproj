@@ -87,6 +87,8 @@
 		9CC80284298C7524005B438D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80283298C7524005B438D /* UserDefaults.swift */; };
 		9CC80286298CCD83005B438D /* MyStatsPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80285298CCD83005B438D /* MyStatsPlayers.swift */; };
 		9CC80288298D86CF005B438D /* StrongestAtEachPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */; };
+		9CC8028B298E3785005B438D /* BestPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8028A298E3785005B438D /* BestPick.swift */; };
+		9CC8028D298E47EC005B438D /* RecommendedPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,6 +173,8 @@
 		9CC80283298C7524005B438D /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9CC80285298CCD83005B438D /* MyStatsPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStatsPlayers.swift; sourceTree = "<group>"; };
 		9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongestAtEachPositionView.swift; sourceTree = "<group>"; };
+		9CC8028A298E3785005B438D /* BestPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestPick.swift; sourceTree = "<group>"; };
+		9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedPlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +338,7 @@
 		9C75B9AB296F590F003B35E6 = {
 			isa = PBXGroup;
 			children = (
+				9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */,
 				9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */,
 				9CC80285298CCD83005B438D /* MyStatsPlayers.swift */,
 				9C75B9B6296F590F003B35E6 /* FantasyDraftTool */,
@@ -419,6 +424,7 @@
 		9CA24CBE2985B7C800A394B4 /* Draft */ = {
 			isa = PBXGroup;
 			children = (
+				9CC80289298E3778005B438D /* BestPick */,
 				9CA24CC12985B7DD00A394B4 /* Draft */,
 				9C3B7026298B2C5400A1B42C /* Player Pool */,
 				9CA24CD4298658D600A394B4 /* DraftPick */,
@@ -551,6 +557,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		9CC80289298E3778005B438D /* BestPick */ = {
+			isa = PBXGroup;
+			children = (
+				9CC8028A298E3785005B438D /* BestPick.swift */,
+			);
+			path = BestPick;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -654,6 +668,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C3B702E298B2CE100A1B42C /* MainModel.swift in Sources */,
+				9CC8028D298E47EC005B438D /* RecommendedPlayerView.swift in Sources */,
 				9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */,
 				9CA24CCE2985B9F700A394B4 /* SetupDraftView.swift in Sources */,
 				9C1AE3A42981F29D0016BF50 /* Position.swift in Sources */,
@@ -667,6 +682,7 @@
 				9CA24CC62985B83200A394B4 /* Draft.swift in Sources */,
 				9CA24CD729865F5D00A394B4 /* DraftSummaryView.swift in Sources */,
 				9C75B9EF296FD215003B35E6 /* ExtText.swift in Sources */,
+				9CC8028B298E3785005B438D /* BestPick.swift in Sources */,
 				9C0C9D122974CC460069703D /* EditDoubleView.swift in Sources */,
 				9C1AE398297FA0A20016BF50 /* ScoringSettings.swift in Sources */,
 				9CA24CAE2985181A00A394B4 /* ExtArray.swift in Sources */,
