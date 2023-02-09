@@ -29,7 +29,7 @@ struct SetupDraftView: View {
                 Text("No").tag(false)
             }
             Picker("Roster Size", selection: $model.draft.settings.numberOfRounds) {
-                ForEach(25 ... 30, id: \.self) { num in
+                ForEach(10 ... 30, id: \.self) { num in
                     Text(num.str).tag(num)
                 }
             }
@@ -52,12 +52,6 @@ struct SetupDraftView: View {
                     Text("Proceed to set up teams")
                         .foregroundColor(.blue)
                 }
-//                NavigationLink(value: model.navPathForDrafting) {
-//
-//                }
-//                .navigationDestination(for: DraftPath.self) { item in
-//                    SetUpDraftTeamsView()
-//                }
                 
             }
         }

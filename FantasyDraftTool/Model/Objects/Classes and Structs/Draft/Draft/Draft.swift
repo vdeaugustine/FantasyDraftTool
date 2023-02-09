@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - Draft
 
@@ -23,12 +24,11 @@ struct Draft: Codable, Hashable, Equatable {
     var currentIndex: Int = 0
     var previousIndex: Int = 0
     var bestPicksStack: Stack<BestPick> = .init()
-    
-    
+    var totalPicksMade: Int = 1
+
     /// This should be = teamPickOrder - 1
     var myTeamIndex: Int
 
-    
     var myTeam: DraftTeam? {
         guard myTeamIndex < teams.count,
               myTeamIndex >= 0 else {
@@ -50,11 +50,96 @@ struct Draft: Codable, Hashable, Equatable {
     mutating func changeTotalPick(to pickNumber: Int) {
         totalPickNumber = pickNumber
     }
-    
+
     mutating func changeCurrentIndex() {
+        currentIndex = totalPicksMade - 1
+        let roundNumber: Int = Int(floor(Double(totalPicksMade) / Double(teams.count)) + 1)
+        let goingUp: Bool = roundNumber % 2 != 0
+        let numberOfTeams: Int = teams.count
+        let pickNumber = goingUp ? totalPicksMade % numberOfTeams + 1 : numberOfTeams - totalPicksMade % numberOfTeams
+        print("total pick:", totalPicksMade, "round: ", roundNumber, "pick", pickNumber)
+//        totalPicksMade += 1
+        currentIndex = pickNumber - 1
+        print("team: ", teams[pickNumber - 1])
+    }
+
+//    mutating func changeCurrentIndex() {
+//        let lastIndex = teams.count - 1
+//        let nextToLast = teams.count - 1 - 1
+//
+//        // We are on the last index
+//        if currentIndex >= lastIndex {
+//            // The previous pick was also at the last index
+//            if previousIndex >= lastIndex {
+//                // Move down one from count to get index number of last item, then move down one from there since we are going down
+//                currentIndex = nextToLast
+//                // Since we are going down, make previous index the last index in the array
+//                previousIndex = lastIndex
+//            }
+//            // Need to repeat last pick
+//            else {
+//                previousIndex = lastIndex
+//                currentIndex = lastIndex
+//            }
+//        }
+//        // We are on the first index
+//        else if currentIndex <= 0 {
+//            // The previous pick was also at the first index
+//            if previousIndex <= 0 {
+//                // Move up one to get index number of first item, then move up one from there since we are going up
+//                currentIndex = 1
+//                // Since we are going down, make previous index the last index in the array
+//                previousIndex = 0
+//            } else {
+//                previousIndex = currentIndex
+//            }
+//        }
+//        // We are neither on the first or last index
+//        else {
+//            // We are going up
+//            if previousIndex < currentIndex {
+//                currentIndex += 1
+//                previousIndex += 1
+//            }
+//
+//            // We are going down
+//            if previousIndex > currentIndex {
+//                previousIndex -= 1
+//                currentIndex -= 1
+//            }
+//        }
+//
+//        if currentIndex >= teams.count {
+//            currentIndex = teams.count - 1
+//        }
+//        if currentIndex < 0 {
+//            currentIndex = 0
+//        }
+//    }
+
+    mutating func makePick(_ player: DraftPlayer) {
+        removeFromPool(player: player)
+        pickStack.push(player)
+        totalPickNumber += 1
+        totalPicksMade = pickStack.getArray().count
+        teams[currentIndex].draftedPlayers.append(player)
+        setNextTeam()
+    }
+
+    mutating func undoPick() {
+        guard let lastPick = pickStack.popFirst() else { return }
+        insertIntoPool(player: lastPick)
+        totalPickNumber -= 1
+        teams[currentIndex].draftedPlayers.removeAll(where: { $0 == lastPick })
+        changeCurrentIndex()
+        guard currentIndex > 0 && currentIndex < teams.count else { return }
+        currentTeam = teams[currentIndex]
+    }
+
+    mutating func reduceCurrentIndex() {
         let lastIndex = teams.count - 1
         let nextToLast = teams.count - 1 - 1
-        
+
         // We are on the last index
         if currentIndex >= lastIndex {
             // The previous pick was also at the last index
@@ -89,34 +174,30 @@ struct Draft: Codable, Hashable, Equatable {
                 currentIndex += 1
                 previousIndex += 1
             }
-            
+
             // We are going down
             if previousIndex > currentIndex {
                 previousIndex -= 1
                 currentIndex -= 1
             }
-            
         }
-        
+
         if currentIndex >= teams.count {
             currentIndex = teams.count - 1
         }
         if currentIndex < 0 {
             currentIndex = 0
         }
-        
     }
-    mutating func makePick(_ player: DraftPlayer) {
-        removeFromPool(player: player)
-        pickStack.push(player)
-        totalPickNumber += 1
-//        let currentTeamIndex: Int = roundNumber.isEven ? settings.numberOfTeams - roundPickNumber : roundPickNumber - 1
-        teams[currentIndex].draftedPlayers.append(player)
-        setNextTeam()
+
+    mutating func insertIntoPool(player: DraftPlayer) {
+        for position in player.player.positions {
+            playerPool.battersDict[position]?.append(player.player)
+            playerPool.recalculateDict(for: [position])
+        }
     }
 
     mutating func setNextTeam() {
-//        let currentTeamIndex: Int = roundNumber.isEven ? settings.numberOfTeams - roundPickNumber : roundPickNumber - 1
         changeCurrentIndex()
         currentTeam = teams[currentIndex]
     }
@@ -125,7 +206,11 @@ struct Draft: Codable, Hashable, Equatable {
 
     var roundNumber: Int {
         guard settings.numberOfTeams > 0 else { return 0 }
-        return (totalPickNumber - 1) / settings.numberOfTeams + 1
+        var number = (totalPickNumber - 1) / settings.numberOfTeams + 1
+        if number > settings.numberOfRounds {
+            number = settings.numberOfRounds
+        }
+        return number
     }
 
     var roundPickNumber: Int {

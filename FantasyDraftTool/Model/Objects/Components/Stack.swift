@@ -26,8 +26,12 @@ struct Stack<T>: Codable, Equatable, Hashable where T : Codable, T: Hashable, T:
         
     }
 
-    mutating func pop() -> T? {
+    mutating func popLast() -> T? {
         return array.popLast()
+    }
+    
+    mutating func popFirst() -> T? {
+        return array.removeFirst()
     }
 
     func peek() -> T? {

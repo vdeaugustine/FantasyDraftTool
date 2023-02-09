@@ -19,10 +19,13 @@ struct DraftView: View {
         }
     }
 
+    var allPicksDone: Bool {
+        model.draft.roundNumber >= model.draft.settings.numberOfRounds
+    }
+
+
     var body: some View {
         List {
-            
-
             Section("Recent picks") {
                 if model.draft.pickStack.isEmpty() == false {
                     ScrollView(.horizontal) {
@@ -50,7 +53,7 @@ struct DraftView: View {
                     }
                 }
             }
-            
+
             if let myTeam = model.draft.myTeam {
                 Section("My team") {
                     ForEach(Position.batters, id: \.self) { position in
@@ -63,12 +66,11 @@ struct DraftView: View {
                                     }
                                 }
                             }
-                            
                         }
                     }
                 }
             }
-            
+
             Section {
                 Text("Current pick index \(model.draft.currentIndex)")
                 Text("Previous team index: \(model.draft.previousIndex)")
@@ -77,7 +79,6 @@ struct DraftView: View {
                 Text("Current team: \(model.draft.currentTeam.name)")
                 Text("Round \(model.draft.roundNumber), Pick \(model.draft.roundPickNumber)")
             }
-            
 
             Section {
                 ForEach(sortedBatters,
@@ -94,10 +95,22 @@ struct DraftView: View {
         .onAppear {
             UserDefaults.isCurrentlyInDraft = true
         }
+        .conditionalModifier(model.draft.totalPickNumber >= (model.draft.settings.numberOfTeams * model.draft.settings.numberOfRounds)) { selfView in
+            selfView
+                .disabled(true)
+                .blur(radius: 10)
+                .overlay {
+                    Button("Restart draft") {
+                        model.resetDraft()
+                    }
+                }
+                
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
                     Button {
+                        model.draft.undoPick()
                     } label: {
                         HStack {
                             Image(systemName: "arrow.uturn.backward")
@@ -121,6 +134,7 @@ struct DraftView: View {
                 }
             }
         }
+        
     }
 
     func makePick(player: ParsedBatter) {
