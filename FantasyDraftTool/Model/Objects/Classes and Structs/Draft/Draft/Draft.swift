@@ -38,6 +38,21 @@ struct Draft: Codable, Hashable, Equatable {
     }
 
     // MARK: - Mutating functions
+    
+    mutating func removeFromPool(player: DraftPlayer) {
+        for position in player.player.positions {
+            if var previousArray = playerPool.battersDict[position] {
+                let prevArrCheck = previousArray
+                previousArray.removeAll(where: { $0 == player.player })
+                guard prevArrCheck != previousArray else {
+                    return
+                }
+
+                playerPool.battersDict[position] = previousArray
+            }
+        }
+        playerPool.updateDicts(for: player.player.positions)
+    }
 
     mutating func changeCurrentTeam(to team: DraftTeam) {
         currentTeam = team
@@ -58,64 +73,9 @@ struct Draft: Codable, Hashable, Equatable {
         let numberOfTeams: Int = teams.count
         let pickNumber = goingUp ? totalPicksMade % numberOfTeams + 1 : numberOfTeams - totalPicksMade % numberOfTeams
         print("total pick:", totalPicksMade, "round: ", roundNumber, "pick", pickNumber)
-//        totalPicksMade += 1
         currentIndex = pickNumber - 1
         print("team: ", teams[pickNumber - 1])
     }
-
-//    mutating func changeCurrentIndex() {
-//        let lastIndex = teams.count - 1
-//        let nextToLast = teams.count - 1 - 1
-//
-//        // We are on the last index
-//        if currentIndex >= lastIndex {
-//            // The previous pick was also at the last index
-//            if previousIndex >= lastIndex {
-//                // Move down one from count to get index number of last item, then move down one from there since we are going down
-//                currentIndex = nextToLast
-//                // Since we are going down, make previous index the last index in the array
-//                previousIndex = lastIndex
-//            }
-//            // Need to repeat last pick
-//            else {
-//                previousIndex = lastIndex
-//                currentIndex = lastIndex
-//            }
-//        }
-//        // We are on the first index
-//        else if currentIndex <= 0 {
-//            // The previous pick was also at the first index
-//            if previousIndex <= 0 {
-//                // Move up one to get index number of first item, then move up one from there since we are going up
-//                currentIndex = 1
-//                // Since we are going down, make previous index the last index in the array
-//                previousIndex = 0
-//            } else {
-//                previousIndex = currentIndex
-//            }
-//        }
-//        // We are neither on the first or last index
-//        else {
-//            // We are going up
-//            if previousIndex < currentIndex {
-//                currentIndex += 1
-//                previousIndex += 1
-//            }
-//
-//            // We are going down
-//            if previousIndex > currentIndex {
-//                previousIndex -= 1
-//                currentIndex -= 1
-//            }
-//        }
-//
-//        if currentIndex >= teams.count {
-//            currentIndex = teams.count - 1
-//        }
-//        if currentIndex < 0 {
-//            currentIndex = 0
-//        }
-//    }
 
     mutating func makePick(_ player: DraftPlayer) {
         removeFromPool(player: player)
@@ -124,6 +84,7 @@ struct Draft: Codable, Hashable, Equatable {
         totalPicksMade = pickStack.getArray().count
         teams[currentIndex].draftedPlayers.append(player)
         setNextTeam()
+        playerPool.setPositionsOrder()
     }
 
     mutating func undoPick() {
@@ -134,67 +95,16 @@ struct Draft: Codable, Hashable, Equatable {
         changeCurrentIndex()
         guard currentIndex > 0 && currentIndex < teams.count else { return }
         currentTeam = teams[currentIndex]
+        playerPool.setPositionsOrder()
     }
 
-    mutating func reduceCurrentIndex() {
-        let lastIndex = teams.count - 1
-        let nextToLast = teams.count - 1 - 1
-
-        // We are on the last index
-        if currentIndex >= lastIndex {
-            // The previous pick was also at the last index
-            if previousIndex >= lastIndex {
-                // Move down one from count to get index number of last item, then move down one from there since we are going down
-                currentIndex = nextToLast
-                // Since we are going down, make previous index the last index in the array
-                previousIndex = lastIndex
-            }
-            // Need to repeat last pick
-            else {
-                previousIndex = lastIndex
-                currentIndex = lastIndex
-            }
-        }
-        // We are on the first index
-        else if currentIndex <= 0 {
-            // The previous pick was also at the first index
-            if previousIndex <= 0 {
-                // Move up one to get index number of first item, then move up one from there since we are going up
-                currentIndex = 1
-                // Since we are going down, make previous index the last index in the array
-                previousIndex = 0
-            } else {
-                previousIndex = currentIndex
-            }
-        }
-        // We are neither on the first or last index
-        else {
-            // We are going up
-            if previousIndex < currentIndex {
-                currentIndex += 1
-                previousIndex += 1
-            }
-
-            // We are going down
-            if previousIndex > currentIndex {
-                previousIndex -= 1
-                currentIndex -= 1
-            }
-        }
-
-        if currentIndex >= teams.count {
-            currentIndex = teams.count - 1
-        }
-        if currentIndex < 0 {
-            currentIndex = 0
-        }
-    }
 
     mutating func insertIntoPool(player: DraftPlayer) {
         for position in player.player.positions {
             playerPool.battersDict[position]?.append(player.player)
-            playerPool.recalculateDict(for: [position])
+            playerPool.updateDicts(for: [position])
         }
+        
     }
 
     mutating func setNextTeam() {
@@ -228,22 +138,8 @@ struct Draft: Codable, Hashable, Equatable {
                                                    scoringSystem: .defaultPoints),
                                    myTeamIndex: 0)
 
-    // MARK: - Mutating Methods
 
-    mutating func removeFromPool(player: DraftPlayer) {
-        for position in player.player.positions {
-            if var previousArray = playerPool.battersDict[position] {
-                let prevArrCheck = previousArray
-                previousArray.removeAll(where: { $0 == player.player })
-                guard prevArrCheck != previousArray else {
-                    return
-                }
-
-                playerPool.battersDict[position] = previousArray
-            }
-        }
-        playerPool.recalculateDict(for: player.player.positions)
-    }
+    
 
     // MARK: - Calculating Methods / Calculations
 

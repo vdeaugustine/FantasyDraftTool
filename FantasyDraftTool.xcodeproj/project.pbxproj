@@ -46,6 +46,7 @@
 		9C33F7FA29838BCD0038A938 /* JSONBatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C33F7F929838BCD0038A938 /* JSONBatter.swift */; };
 		9C3B7025298B2C3400A1B42C /* PlayerPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B7024298B2C3400A1B42C /* PlayerPool.swift */; };
 		9C3B702E298B2CE100A1B42C /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B702D298B2CE100A1B42C /* MainModel.swift */; };
+		9C73D089299573C4007C251F /* RemainingAnalysisPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C73D088299573C4007C251F /* RemainingAnalysisPosition.swift */; };
 		9C75B9B8296F590F003B35E6 /* FantasyDraftToolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */; };
 		9C75B9BA296F590F003B35E6 /* OldJSONView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9B9296F590F003B35E6 /* OldJSONView.swift */; };
 		9C75B9BC296F5910003B35E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C75B9BB296F5910003B35E6 /* Assets.xcassets */; };
@@ -131,6 +132,7 @@
 		9C33F7F929838BCD0038A938 /* JSONBatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONBatter.swift; sourceTree = "<group>"; };
 		9C3B7024298B2C3400A1B42C /* PlayerPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPool.swift; sourceTree = "<group>"; };
 		9C3B702D298B2CE100A1B42C /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
+		9C73D088299573C4007C251F /* RemainingAnalysisPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingAnalysisPosition.swift; sourceTree = "<group>"; };
 		9C75B9B4296F590F003B35E6 /* FantasyDraftTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FantasyDraftTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FantasyDraftToolApp.swift; sourceTree = "<group>"; };
 		9C75B9B9296F590F003B35E6 /* OldJSONView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldJSONView.swift; sourceTree = "<group>"; };
@@ -335,6 +337,14 @@
 			path = "Main Model";
 			sourceTree = "<group>";
 		};
+		9C73D087299573B5007C251F /* Remaining Analysis for Position */ = {
+			isa = PBXGroup;
+			children = (
+				9C73D088299573C4007C251F /* RemainingAnalysisPosition.swift */,
+			);
+			path = "Remaining Analysis for Position";
+			sourceTree = "<group>";
+		};
 		9C75B9AB296F590F003B35E6 = {
 			isa = PBXGroup;
 			children = (
@@ -414,6 +424,7 @@
 		9CA24CBB29851C2500A394B4 /* Draft */ = {
 			isa = PBXGroup;
 			children = (
+				9C73D087299573B5007C251F /* Remaining Analysis for Position */,
 				9CA24CE4298902FC00A394B4 /* Actual Draft */,
 				9CA24CD529865F5100A394B4 /* Draft Summary */,
 				9CA24CCC2985B9E900A394B4 /* DraftSettings */,
@@ -668,6 +679,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C3B702E298B2CE100A1B42C /* MainModel.swift in Sources */,
+				9C73D089299573C4007C251F /* RemainingAnalysisPosition.swift in Sources */,
 				9CC8028D298E47EC005B438D /* RecommendedPlayerView.swift in Sources */,
 				9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */,
 				9CA24CCE2985B9F700A394B4 /* SetupDraftView.swift in Sources */,

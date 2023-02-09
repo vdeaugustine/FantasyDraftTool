@@ -91,6 +91,14 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
     func weightedFantasyPoints(positionAverage: Double) -> Double {
         fantasyPoints(.defaultPoints) / positionAverage * fantasyPoints(.defaultPoints)
     }
+    
+    func zScore(positionAverage: Double, standardDeviation: Double) -> Double {
+        let zScore = (self.fantasyPoints(.defaultPoints) - positionAverage) / standardDeviation
+            return zScore
+    }
+    
+    
+    
 
     func weightedFantasyPoints(dict: [Position: Double]) -> Double {
         guard let firstPos = positions.first,

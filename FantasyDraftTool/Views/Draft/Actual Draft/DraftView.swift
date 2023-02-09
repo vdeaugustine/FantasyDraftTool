@@ -43,15 +43,36 @@ struct DraftView: View {
             }
 
             Section("Averages for remaining by position") {
-                LazyVGrid(columns: (0 ... 2).map { _ in
-                    GridItem(.flexible())
-                }) {
-                    ForEach(Position.batters, id: \.self) { position in
-                        if let positionAverage = model.draft.playerPool.positionAveragesDict[position] {
-                            StatRect(stat: position.str.uppercased(), value: positionAverage)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        
+                        ForEach(model.draft.playerPool.positionsOrder, id: \.self) { position in
+                            if let positionAverage = model.draft.playerPool.positionAveragesDict[position] {
+                                StatRect(stat: position.str.uppercased(), value: positionAverage)
+                                    .frame(width: 50)
+                            }
                         }
                     }
                 }
+                
+
+            }
+            Section("Std Dev for remaining by position") {
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        
+                        ForEach(model.draft.playerPool.positionsOrder, id: \.self) { position in
+                            if let positionAverage = model.draft.playerPool.standardDeviationDict[position] {
+                                StatRect(stat: position.str.uppercased(), value: positionAverage)
+                                    .frame(width: 50)
+                            }
+                        }
+                    }
+                }
+                
+
             }
 
             if let myTeam = model.draft.myTeam {
@@ -71,14 +92,7 @@ struct DraftView: View {
                 }
             }
 
-            Section {
-                Text("Current pick index \(model.draft.currentIndex)")
-                Text("Previous team index: \(model.draft.previousIndex)")
-                Text("My Team index: \(model.draft.myTeamIndex)")
-                Text("My Team name: \(model.draft.myTeam?.name ?? "")")
-                Text("Current team: \(model.draft.currentTeam.name)")
-                Text("Round \(model.draft.roundNumber), Pick \(model.draft.roundPickNumber)")
-            }
+
 
             Section {
                 ForEach(sortedBatters,
@@ -94,6 +108,8 @@ struct DraftView: View {
         }
         .onAppear {
             UserDefaults.isCurrentlyInDraft = true
+            model.draft.playerPool.setPositionsOrder()
+            model.draft.playerPool.updateDicts()
         }
         .conditionalModifier(model.draft.totalPickNumber >= (model.draft.settings.numberOfTeams * model.draft.settings.numberOfRounds)) { selfView in
             selfView
@@ -185,6 +201,6 @@ struct DraftView_Previews: PreviewProvider {
     static var previews: some View {
         DraftView()
             .environmentObject(MainModel.shared)
-            .putInNavView()
+            .putInNavView(displayMode: .inline)
     }
 }

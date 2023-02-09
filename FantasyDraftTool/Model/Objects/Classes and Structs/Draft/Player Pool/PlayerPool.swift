@@ -21,6 +21,8 @@ struct PlayerPool: Codable, Hashable, Equatable {
         }
         return retArr.removingDuplicates()
     }
+    
+    var positionsOrder: [Position] = Position.batters
 
     var battersDict: [Position: [ParsedBatter]] = {
         var retDict: [Position: [ParsedBatter]] = [:]
@@ -43,6 +45,8 @@ struct PlayerPool: Codable, Hashable, Equatable {
 
     var positionAveragesDict: [Position: Double] = emptyPosAverageDict()
     
+    var standardDeviationDict: [Position: Double] = [:]
+    
     static func emptyPosAverageDict() -> [Position: Double] {
         var retDict: [Position: Double] = [:]
 
@@ -57,6 +61,13 @@ struct PlayerPool: Codable, Hashable, Equatable {
     
 
     // MARK: - Methods
+    
+    mutating func updateDicts(for positions: [Position]? = nil) {
+        updateStandardDeviationDict()
+        if let positions = positions {
+            recalculateDict(for: positions)
+        }
+    }
 
     mutating func recalculateDict() {
         for pos in battersDict.keys {
@@ -72,6 +83,18 @@ struct PlayerPool: Codable, Hashable, Equatable {
                 positionAveragesDict[pos] = ParsedBatter.averagePoints(forThese: posBatters)
             }
         }
+    }
+    
+    mutating func updateStandardDeviationDict() {
+        for position in positionsOrder {
+            guard let players = battersDict[position] else { continue }
+            standardDeviationDict[position] = players.standardDeviation(for: position)
+        }
+    }
+    
+    mutating func setPositionsOrder() {
+        let v = positionsOrder
+        positionsOrder = v.sorted(by: { positionAveragesDict[$0] ?? 0 > positionAveragesDict[$1] ?? 0 })
     }
 
     // MARK: - Initializers

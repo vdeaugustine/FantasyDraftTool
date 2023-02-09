@@ -7,6 +7,17 @@
 
 import Foundation
 
+extension Array where Element == Double {
+    func standardDeviation() -> Double {
+        let count = Double(self.count)
+        let average = self.reduce(0, +) / count
+        let variance = self.map { pow($0 - average, 2) }.reduce(0, +) / count
+        let standardDeviation = sqrt(variance)
+        return standardDeviation
+    }
+
+}
+
 extension Array where Element: Hashable {
     func removingDuplicates() -> Self {
         Array(Set(self))
@@ -26,6 +37,10 @@ extension Array where Element == ParsedBatter {
     
     func averagePoints(for: Position) -> Double {
         ParsedBatter.averagePoints(forThese: self)
+    }
+    
+    func standardDeviation(for: Position) -> Double {
+        self.map({$0.fantasyPoints(.defaultPoints)}).standardDeviation()
     }
     
     func filter(for position: Position) -> [ParsedBatter] {
