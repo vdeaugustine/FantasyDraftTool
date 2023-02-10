@@ -29,7 +29,7 @@ struct RecommendedPlayerView: View {
             
             
             Text("Positions " + numberOnePlayer.posStr())
-            Text("\(numberOnePlayer.fantasyPoints(.defaultPoints).roundTo(places: 1).str) projected points")
+            Text("\(numberOnePlayer.fantasyPoints(model.scoringSettings).roundTo(places: 1).str) projected points")
             
             ForEach(numberOnePlayer.positions, id: \.self) { pos in
                 if let average = bestPick.draftState.playerPool.positionAveragesDict[pos] {

@@ -40,7 +40,7 @@ extension Array where Element == ParsedBatter {
     }
     
     func standardDeviation(for: Position) -> Double {
-        self.map({$0.fantasyPoints(.defaultPoints)}).standardDeviation()
+        self.map({$0.fantasyPoints(MainModel.shared.getScoringSettings())}).standardDeviation()
     }
     
     func filter(for position: Position) -> [ParsedBatter] {

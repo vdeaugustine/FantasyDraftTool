@@ -15,7 +15,7 @@ struct DraftView: View {
 
     var sortedBatters: [ParsedBatter] {
         model.draft.playerPool.batters.removingDuplicates().sorted {
-            $0.weightedFantasyPoints(dict: model.draft.playerPool.positionAveragesDict) > $1.weightedFantasyPoints(dict: model.draft.playerPool.positionAveragesDict)
+            $0.zScore() > $1.zScore()
         }
     }
 
@@ -101,7 +101,7 @@ struct DraftView: View {
                         makePick(player: batter)
                     } label: {
                         Text(batter.name)
-                            .spacedOut(text: batter.weightedFantasyPoints(dict: model.draft.playerPool.positionAveragesDict).str)
+                            .spacedOut(text: batter.zScore().roundTo(places: 3).str)
                     }
                 }
             }

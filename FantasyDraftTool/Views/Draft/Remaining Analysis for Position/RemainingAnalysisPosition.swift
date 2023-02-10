@@ -33,7 +33,7 @@ struct RemainingAnalysisPosition: View {
                 
                 ForEach(players.prefixArray(3), id: \.self) { player in
                     VStack {
-                        Text("\(player.name): \(player.fantasyPoints(.defaultPoints).str)")
+                        Text("\(player.name): \(player.fantasyPoints(model.scoringSettings).str)")
                         
                     }
                     

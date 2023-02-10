@@ -37,7 +37,7 @@ struct ParsedBatterDetailView: View {
                             StatRect(stat: key, value: val)
                         }
                     }
-                    StatRect(stat: "Points", value: batter.fantasyPoints(.defaultPoints))
+                    StatRect(stat: "Points", value: batter.fantasyPoints(MainModel.shared.getScoringSettings()))
                 }
             }
             .listRowBackground(Color.clear)
@@ -60,7 +60,7 @@ struct ParsedBatterDetailView: View {
             Section {
                 Chart {
                     BarMark(x: .value("Batter", batter.name),
-                            y: .value("Fantasy Points", batter.fantasyPoints(.defaultPoints)))
+                            y: .value("Fantasy Points", batter.fantasyPoints(MainModel.shared.getScoringSettings())))
 
                     ForEach(batter.positions, id: \.self) { position in
                         BarMark(x: .value(position.str.uppercased(),

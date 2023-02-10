@@ -16,7 +16,6 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
     var g, ab, pa, h, the1B, the2B, the3B, hr, r, rbi, bb, ibb, so, hbp, sf, sh, sb, cs: Int
     var avg: Double
     let positions: [Position]
-    
 
     // MARK: Computed properties
 
@@ -73,10 +72,10 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
             Int(str)
         }
     }
-    
+
     // MARK: - Static Properties
+
     static let nullBatter: ParsedBatter = .init(empty: "", name: "", team: "", g: 0, ab: 0, pa: 0, h: 0, the1B: 0, the2B: 0, the3B: 0, hr: 0, r: 0, rbi: 0, bb: 0, ibb: 0, so: 0, hbp: 0, sf: 0, sh: 0, sb: 0, cs: 0, avg: 0, positions: [])
-    
 
     // MARK: Methods
 
@@ -89,24 +88,27 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
     }
 
     func weightedFantasyPoints(positionAverage: Double) -> Double {
-        fantasyPoints(.defaultPoints) / positionAverage * fantasyPoints(.defaultPoints)
+        fantasyPoints(MainModel.shared.getScoringSettings()) / positionAverage * fantasyPoints(MainModel.shared.getScoringSettings())
     }
-    
-    func zScore(positionAverage: Double, standardDeviation: Double) -> Double {
-        let zScore = (self.fantasyPoints(.defaultPoints) - positionAverage) / standardDeviation
-            return zScore
+
+    func zScore() -> Double {
+        guard let firstPost = positions.first,
+              let average = MainModel.shared.draft.playerPool.positionAveragesDict[firstPost],
+              let playersAtPosition = MainModel.shared.draft.playerPool.battersDict[firstPost]
+        else { return (0 - .infinity) }
+
+        let zScore = (fantasyPoints(MainModel.shared.getScoringSettings()) - average) / playersAtPosition.standardDeviation(for: firstPost)
+        
+        return zScore
     }
-    
-    
-    
 
     func weightedFantasyPoints(dict: [Position: Double]) -> Double {
         guard let firstPos = positions.first,
               let average = dict[firstPos]
         else { return 0 }
-        return (fantasyPoints(.defaultPoints) / average * fantasyPoints(.defaultPoints)).roundTo(places: 1)
+        return (fantasyPoints(MainModel.shared.getScoringSettings()) / average * fantasyPoints(MainModel.shared.getScoringSettings())).roundTo(places: 1)
     }
-    
+
     func fantasyPoints(_ scoringSettings: ScoringSettings) -> Double {
         var points: Double = 0
         points += Double(hr) * scoringSettings.hr
@@ -126,7 +128,6 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
 // MARK: Initializers
 
 extension ParsedBatter {
-    
     init(from jsonBatter: JSONBatter, pos: Position) {
         self.empty = jsonBatter.empty
         self.name = jsonBatter.name
@@ -155,8 +156,9 @@ extension ParsedBatter {
 
         self.positions = [pos]
     }
-    
+
     // MARK: Codable initializer
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.empty = try container.decode(String.self, forKey: .empty)
@@ -183,18 +185,15 @@ extension ParsedBatter {
         self.avg = try container.decode(Double.self, forKey: .avg)
         self.positions = try container.decode([Position].self, forKey: .positions)
     }
-
-    
 }
 
-
-
 // MARK: - Functions
+
 extension ParsedBatter {
-    
 }
 
 // MARK: Codable, Hashable, Equatable
+
 extension ParsedBatter {
     enum CodingKeys: CodingKey {
         case empty, name, team
@@ -257,7 +256,7 @@ extension ParsedBatter {
 
     static func == (lhs: ParsedBatter, rhs: ParsedBatter) -> Bool {
         return
-        lhs.name.removingWhiteSpaces() == rhs.name.removingWhiteSpaces() &&
+            lhs.name.removingWhiteSpaces() == rhs.name.removingWhiteSpaces() &&
             lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces() // &&
 //            lhs.g == rhs.g &&
 //            lhs.ab == rhs.ab &&

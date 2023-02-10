@@ -35,7 +35,7 @@ struct BatterDetailView: View {
             }
             List {
                 Text("Points")
-                    .spacedOut(text: batter.fantasyPoints(.defaultPoints).str)
+                    .spacedOut(text: batter.fantasyPoints(MainModel.shared.getScoringSettings()).str)
 
                 Section("Totals") {
                     Group {

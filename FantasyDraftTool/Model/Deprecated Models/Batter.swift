@@ -91,7 +91,7 @@ extension Batter: Equatable, Hashable {
     static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.name == rhs.name &&
             lhs.team == rhs.team &&
-            lhs.fantasyPoints(.defaultPoints) == rhs.fantasyPoints(.defaultPoints) &&
+            lhs.fantasyPoints(MainModel.shared.getScoringSettings()) == rhs.fantasyPoints(MainModel.shared.getScoringSettings()) &&
             lhs.ab == rhs.ab
     }
 

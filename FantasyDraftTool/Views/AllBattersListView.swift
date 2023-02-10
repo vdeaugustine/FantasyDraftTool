@@ -15,14 +15,14 @@ struct AllBattersListView: View {
 
     var batters: [ParsedBatter] {
         if selectedPositions.isEmpty {
-            return AllParsedBatters.batters(for: projection).removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+            return AllParsedBatters.batters(for: projection).removingDuplicates().sorted(by: { $0.fantasyPoints(MainModel.shared.getScoringSettings()) > $1.fantasyPoints(MainModel.shared.getScoringSettings()) })
         }
 
         return selectedPositions.reduce([ParsedBatter]()) { partialResult, pos in
             partialResult + AllParsedBatters.batters(for: projection, at: pos)
         }
         .removingDuplicates()
-        .sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+        .sorted(by: { $0.fantasyPoints(MainModel.shared.getScoringSettings()) > $1.fantasyPoints(MainModel.shared.getScoringSettings()) })
     }
 
     var body: some View {
@@ -38,7 +38,7 @@ struct AllBattersListView: View {
                         ParsedBatterDetailView(batter: batter, projection: projection)
                     } label: {
                         Text(batter.name)
-                            .spacedOut(text: batter.fantasyPoints(.defaultPoints).str)
+                            .spacedOut(text: batter.fantasyPoints(MainModel.shared.getScoringSettings()).str)
                     }
                 }
             }

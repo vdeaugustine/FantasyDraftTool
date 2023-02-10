@@ -25,6 +25,8 @@ struct Draft: Codable, Hashable, Equatable {
     var previousIndex: Int = 0
     var bestPicksStack: Stack<BestPick> = .init()
     var totalPicksMade: Int = 1
+    
+    var projectedStack: Stack<DraftPlayer> = .init()
 
     /// This should be = teamPickOrder - 1
     var myTeamIndex: Int
@@ -162,7 +164,7 @@ struct Draft: Codable, Hashable, Equatable {
             $0 + $1.draftedPlayers.filter { $0.player.positions.contains(position) }
         }
 
-        let sum: Double = batters.reduce(0) { $0 + $1.player.fantasyPoints(.defaultPoints) }
+        let sum: Double = batters.reduce(0) { $0 + $1.player.fantasyPoints(MainModel.shared.getScoringSettings()) }
         return (sum / Double(batters.count)).roundTo(places: 1)
     }
 
@@ -229,4 +231,39 @@ extension Draft {
         hasher.combine(playerPool)
         hasher.combine(pickStack)
     }
+}
+
+extension Draft {
+    
+    
+    func simulateRemainingDraft() -> Stack<DraftPlayer> {
+        var workingDraft: Draft = self
+        
+        while workingDraft.totalPicksMade <= workingDraft.settings.numberOfRounds * workingDraft.settings.numberOfTeams {
+            
+            let sortedBatters = workingDraft.playerPool.batters.removingDuplicates().sorted(by: {$0.zScore() > $1.zScore()})
+            
+            
+            guard let chosenPlayer: ParsedBatter = sortedBatters.first else {
+                break
+            }
+            
+            let draftPlayer = DraftPlayer(player: chosenPlayer,
+                                          pickNumber: workingDraft.totalPickNumber,
+                                          team: workingDraft.currentTeam,
+                                          weightedScore: chosenPlayer.zScore())
+            workingDraft.makePick(draftPlayer)
+           
+        }
+//        DispatchQueue.main.async {
+//            showSpinning.wrappedValue = false
+//        }
+        
+    
+        return workingDraft.pickStack
+        
+        
+    }
+    
+    
 }

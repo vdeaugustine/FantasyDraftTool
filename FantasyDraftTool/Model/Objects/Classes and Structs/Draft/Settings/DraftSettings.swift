@@ -13,4 +13,12 @@ struct DraftSettings: Codable, Equatable, Hashable {
     var numberOfRounds: Int
     var playersPerTeam: Int { numberOfRounds }
     var scoringSystem: ScoringSettings
+    var rosterRequirements: RosterRequirements = .init()
+    
+    
+}
+
+struct RosterRequirements: Codable, Equatable, Hashable {
+    var positionsRequired: Set<Position> = Set(Position.batters)
+    var maxForPositions: [Position: Int?] = Dictionary(uniqueKeysWithValues: Position.batters.map({($0, nil)}))
 }

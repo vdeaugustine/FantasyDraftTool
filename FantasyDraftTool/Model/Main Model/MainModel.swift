@@ -36,10 +36,10 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     static let key = "mainModelKey"
 
-    
     // MARK: - Static functions
 
     // MARK: - Methods
+
     func resetDraft() {
         let teams = draft.teams
         let myTeamIndex = draft.myTeamIndex
@@ -48,6 +48,11 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
         draft = Draft(teams: teams.map { DraftTeam(name: $0.name, draftPosition: $0.draftPosition) },
                       settings: settings,
                       myTeamIndex: myTeamIndex)
+    }
+    
+    // MARK: - Getter methods
+    func getScoringSettings() -> ScoringSettings {
+        self.scoringSettings
     }
 
     // MARK: - Initializers

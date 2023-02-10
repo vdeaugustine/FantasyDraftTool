@@ -47,6 +47,7 @@
 		9C3B7025298B2C3400A1B42C /* PlayerPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B7024298B2C3400A1B42C /* PlayerPool.swift */; };
 		9C3B702E298B2CE100A1B42C /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B702D298B2CE100A1B42C /* MainModel.swift */; };
 		9C73D089299573C4007C251F /* RemainingAnalysisPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C73D088299573C4007C251F /* RemainingAnalysisPosition.swift */; };
+		9C73D08D2995C801007C251F /* SimulateRemainingDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C73D08C2995C801007C251F /* SimulateRemainingDraftView.swift */; };
 		9C75B9B8296F590F003B35E6 /* FantasyDraftToolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */; };
 		9C75B9BA296F590F003B35E6 /* OldJSONView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9B9296F590F003B35E6 /* OldJSONView.swift */; };
 		9C75B9BC296F5910003B35E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C75B9BB296F5910003B35E6 /* Assets.xcassets */; };
@@ -133,6 +134,7 @@
 		9C3B7024298B2C3400A1B42C /* PlayerPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPool.swift; sourceTree = "<group>"; };
 		9C3B702D298B2CE100A1B42C /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		9C73D088299573C4007C251F /* RemainingAnalysisPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingAnalysisPosition.swift; sourceTree = "<group>"; };
+		9C73D08C2995C801007C251F /* SimulateRemainingDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulateRemainingDraftView.swift; sourceTree = "<group>"; };
 		9C75B9B4296F590F003B35E6 /* FantasyDraftTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FantasyDraftTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FantasyDraftToolApp.swift; sourceTree = "<group>"; };
 		9C75B9B9296F590F003B35E6 /* OldJSONView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldJSONView.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 		9C75B9AB296F590F003B35E6 = {
 			isa = PBXGroup;
 			children = (
+				9C73D08C2995C801007C251F /* SimulateRemainingDraftView.swift */,
 				9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */,
 				9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */,
 				9CC80285298CCD83005B438D /* MyStatsPlayers.swift */,
@@ -688,6 +691,7 @@
 				9CA24CC82985B83800A394B4 /* DraftTeam.swift in Sources */,
 				9CA24CD929889B1400A394B4 /* SelectPositionsHScroll.swift in Sources */,
 				9CA24CE62989E81400A394B4 /* Stack.swift in Sources */,
+				9C73D08D2995C801007C251F /* SimulateRemainingDraftView.swift in Sources */,
 				9CA24CBA29851A9900A394B4 /* AllParsedBatters.swift in Sources */,
 				9CC80288298D86CF005B438D /* StrongestAtEachPositionView.swift in Sources */,
 				9C75B9EE296FD215003B35E6 /* ExtColor.swift in Sources */,

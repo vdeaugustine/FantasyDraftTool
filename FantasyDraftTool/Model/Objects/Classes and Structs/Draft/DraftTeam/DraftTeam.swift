@@ -16,6 +16,18 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
     var draftPosition: Int
     var positionsRequired: [Position: Int]
     var draftedPlayers: [DraftPlayer]
+    
+    var positionsEmpty: Set<Position> {
+        var included: Set<Position> = []
+        for position in Position.batters {
+            for player in draftedPlayers {
+                if player.player.positions.contains(position) {
+                    included.insert(position)
+                }
+            }
+        }
+        return Set(Position.batters).subtracting(included)
+    }
 
     var description: String {
         let starting: String = "# \(draftPosition): \(name) "
@@ -43,7 +55,7 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
 
     func averagePoints() -> Double {
         let players = draftedPlayers
-        let val: Double = players.reduce(Double(0)) { $0 + $1.player.fantasyPoints(.defaultPoints) }
+        let val: Double = players.reduce(Double(0)) { $0 + $1.player.fantasyPoints(MainModel.shared.getScoringSettings()) }
         return (val / Double(players.count)).roundTo(places: 1)
     }
 
@@ -52,7 +64,7 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
         guard !theseBatters.isEmpty else {
             return 0
         }
-        let sum: Double = theseBatters.reduce(Double(0)) { $0 + $1.player.fantasyPoints(.defaultPoints) }
+        let sum: Double = theseBatters.reduce(Double(0)) { $0 + $1.player.fantasyPoints(MainModel.shared.getScoringSettings()) }
         return (sum / Double(theseBatters.count)).roundTo(places: 1)
     }
     
