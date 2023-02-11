@@ -57,7 +57,6 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
          "1B",
          "2B",
          "3B",
-         "SS",
          "R",
          "RBI",
          "BB",
@@ -76,6 +75,43 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
     // MARK: - Static Properties
 
     static let nullBatter: ParsedBatter = .init(empty: "", name: "", team: "", g: 0, ab: 0, pa: 0, h: 0, the1B: 0, the2B: 0, the3B: 0, hr: 0, r: 0, rbi: 0, bb: 0, ibb: 0, so: 0, hbp: 0, sf: 0, sh: 0, sb: 0, cs: 0, avg: 0, positions: [])
+
+    // MARK: - Mutating Methods
+
+    mutating func edit(_ stat: String, with newValue: Int) {
+        switch stat {
+            case "G":
+                g = newValue
+            case "AB":
+                ab = newValue
+            case "PA":
+                pa = newValue
+            case "H":
+                h = newValue
+            case "1B":
+                the1B = newValue
+            case "2B":
+                the2B = newValue
+            case "3B":
+                the3B = newValue
+            case "R":
+                r = newValue
+            case "RBI":
+                rbi = newValue
+            case "BB":
+                bb = newValue
+            case "SO":
+                so = newValue
+            case "HBP":
+                hbp = newValue
+            case "SB":
+                sb = newValue
+            case "CS":
+                cs = newValue
+            default:
+                break
+        }
+    }
 
     // MARK: Methods
 
@@ -98,7 +134,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
         else { return (0 - .infinity) }
 
         let zScore = (fantasyPoints(MainModel.shared.getScoringSettings()) - average) / playersAtPosition.standardDeviation(for: firstPost)
-        
+
         return zScore
     }
 
@@ -229,53 +265,13 @@ extension ParsedBatter {
     }
 
     func hash(into hasher: inout Hasher) {
-//        hasher.combine(empty)
         hasher.combine(name.removingWhiteSpaces())
         hasher.combine(team.removingWhiteSpaces())
-//        hasher.combine(g)
-//        hasher.combine(ab)
-//        hasher.combine(pa)
-//        hasher.combine(h)
-//        hasher.combine(the1B)
-//        hasher.combine(the2B)
-//        hasher.combine(the3B)
-//        hasher.combine(hr)
-//        hasher.combine(r)
-//        hasher.combine(rbi)
-//        hasher.combine(bb)
-//        hasher.combine(ibb)
-//        hasher.combine(so)
-//        hasher.combine(hbp)
-//        hasher.combine(sf)
-//        hasher.combine(sh)
-//        hasher.combine(sb)
-//        hasher.combine(cs)
-//        hasher.combine(avg)
-//        hasher.combine(positions)
     }
 
     static func == (lhs: ParsedBatter, rhs: ParsedBatter) -> Bool {
         return
             lhs.name.removingWhiteSpaces() == rhs.name.removingWhiteSpaces() &&
-            lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces() // &&
-//            lhs.g == rhs.g &&
-//            lhs.ab == rhs.ab &&
-//            lhs.pa == rhs.pa &&
-//            lhs.h == rhs.h &&
-//            lhs.the1B == rhs.the1B &&
-//            lhs.the2B == rhs.the2B &&
-//            lhs.the3B == rhs.the3B &&
-//            lhs.hr == rhs.hr &&
-//            lhs.r == rhs.r &&
-//            lhs.rbi == rhs.rbi &&
-//            lhs.bb == rhs.bb &&
-//            lhs.ibb == rhs.ibb &&
-//            lhs.so == rhs.so &&
-//            lhs.hbp == rhs.hbp &&
-//            lhs.sf == rhs.sf &&
-//            lhs.sh == rhs.sh &&
-//            lhs.sb == rhs.sb &&
-//            lhs.cs == rhs.cs &&
-//            lhs.avg == rhs.avg
+            lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces()
     }
 }

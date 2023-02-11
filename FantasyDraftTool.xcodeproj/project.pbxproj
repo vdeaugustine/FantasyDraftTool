@@ -48,6 +48,8 @@
 		9C3B702E298B2CE100A1B42C /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B702D298B2CE100A1B42C /* MainModel.swift */; };
 		9C73D089299573C4007C251F /* RemainingAnalysisPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C73D088299573C4007C251F /* RemainingAnalysisPosition.swift */; };
 		9C73D08D2995C801007C251F /* SimulateRemainingDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C73D08C2995C801007C251F /* SimulateRemainingDraftView.swift */; };
+		9C73D0912996DC64007C251F /* ModifyStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C73D0902996DC64007C251F /* ModifyStatsView.swift */; };
+		9C73D09329970BD8007C251F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C73D09229970BD8007C251F /* SettingsView.swift */; };
 		9C75B9B8296F590F003B35E6 /* FantasyDraftToolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */; };
 		9C75B9BA296F590F003B35E6 /* OldJSONView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9B9296F590F003B35E6 /* OldJSONView.swift */; };
 		9C75B9BC296F5910003B35E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C75B9BB296F5910003B35E6 /* Assets.xcassets */; };
@@ -135,6 +137,8 @@
 		9C3B702D298B2CE100A1B42C /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		9C73D088299573C4007C251F /* RemainingAnalysisPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingAnalysisPosition.swift; sourceTree = "<group>"; };
 		9C73D08C2995C801007C251F /* SimulateRemainingDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulateRemainingDraftView.swift; sourceTree = "<group>"; };
+		9C73D0902996DC64007C251F /* ModifyStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyStatsView.swift; sourceTree = "<group>"; };
+		9C73D09229970BD8007C251F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9C75B9B4296F590F003B35E6 /* FantasyDraftTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FantasyDraftTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FantasyDraftToolApp.swift; sourceTree = "<group>"; };
 		9C75B9B9296F590F003B35E6 /* OldJSONView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldJSONView.swift; sourceTree = "<group>"; };
@@ -206,12 +210,17 @@
 		9C1AE39F2980A7170016BF50 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9C73D09429970BDD007C251F /* Settings */,
+				9C73D08C2995C801007C251F /* SimulateRemainingDraftView.swift */,
+				9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */,
+				9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */,
 				9CA24CDD2988F52100A394B4 /* Components */,
 				9CA24CDA2988F4AE00A394B4 /* Analysis */,
 				9CA24CBB29851C2500A394B4 /* Draft */,
 				9CA24CA52983915400A394B4 /* AllBattersListView.swift */,
 				9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */,
 				9CA24CA92983A43500A394B4 /* ParsedBatterDetailView.swift */,
+				9C73D0902996DC64007C251F /* ModifyStatsView.swift */,
 				9C0C9D112974CC460069703D /* EditDoubleView.swift */,
 				9CA24CAF2985190500A394B4 /* Deprecated View */,
 			);
@@ -347,12 +356,16 @@
 			path = "Remaining Analysis for Position";
 			sourceTree = "<group>";
 		};
+		9C73D09429970BDD007C251F /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		9C75B9AB296F590F003B35E6 = {
 			isa = PBXGroup;
 			children = (
-				9C73D08C2995C801007C251F /* SimulateRemainingDraftView.swift */,
-				9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */,
-				9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */,
 				9CC80285298CCD83005B438D /* MyStatsPlayers.swift */,
 				9C75B9B6296F590F003B35E6 /* FantasyDraftTool */,
 				9C75B9B5296F590F003B35E6 /* Products */,
@@ -372,6 +385,7 @@
 			children = (
 				9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */,
 				9CA24CAB29850FE000A394B4 /* ContentView.swift */,
+				9C73D09229970BD8007C251F /* SettingsView.swift */,
 				9C1AE39F2980A7170016BF50 /* Views */,
 				9C1AE396297FA08F0016BF50 /* Model */,
 				9C75B9E0296FD215003B35E6 /* Extensions */,
@@ -686,6 +700,7 @@
 				9CC8028D298E47EC005B438D /* RecommendedPlayerView.swift in Sources */,
 				9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */,
 				9CA24CCE2985B9F700A394B4 /* SetupDraftView.swift in Sources */,
+				9C73D0912996DC64007C251F /* ModifyStatsView.swift in Sources */,
 				9C1AE3A42981F29D0016BF50 /* Position.swift in Sources */,
 				9C75B9EA296FD215003B35E6 /* ExtView.swift in Sources */,
 				9CA24CC82985B83800A394B4 /* DraftTeam.swift in Sources */,
@@ -705,6 +720,7 @@
 				9CA24CA8298394EB00A394B4 /* ParsedBatter.swift in Sources */,
 				9C75B9BA296F590F003B35E6 /* OldJSONView.swift in Sources */,
 				9CA24CD32985BD2200A394B4 /* SetUpDraftTeamsView.swift in Sources */,
+				9C73D09329970BD8007C251F /* SettingsView.swift in Sources */,
 				9C33F7FA29838BCD0038A938 /* JSONBatter.swift in Sources */,
 				9CA24CA62983915400A394B4 /* AllBattersListView.swift in Sources */,
 				9CA24CBD29851C2C00A394B4 /* DraftView.swift in Sources */,

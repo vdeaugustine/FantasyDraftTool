@@ -23,7 +23,6 @@ struct DraftView: View {
         model.draft.roundNumber >= model.draft.settings.numberOfRounds
     }
 
-
     var body: some View {
         List {
             Section("Recent picks") {
@@ -43,10 +42,8 @@ struct DraftView: View {
             }
 
             Section("Averages for remaining by position") {
-                
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        
                         ForEach(model.draft.playerPool.positionsOrder, id: \.self) { position in
                             if let positionAverage = model.draft.playerPool.positionAveragesDict[position] {
                                 StatRect(stat: position.str.uppercased(), value: positionAverage)
@@ -55,14 +52,10 @@ struct DraftView: View {
                         }
                     }
                 }
-                
-
             }
             Section("Std Dev for remaining by position") {
-                
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        
                         ForEach(model.draft.playerPool.positionsOrder, id: \.self) { position in
                             if let positionAverage = model.draft.playerPool.standardDeviationDict[position] {
                                 StatRect(stat: position.str.uppercased(), value: positionAverage)
@@ -71,8 +64,6 @@ struct DraftView: View {
                         }
                     }
                 }
-                
-
             }
 
             if let myTeam = model.draft.myTeam {
@@ -91,8 +82,6 @@ struct DraftView: View {
                     }
                 }
             }
-
-
 
             Section {
                 ForEach(sortedBatters,
@@ -120,7 +109,6 @@ struct DraftView: View {
                         model.resetDraft()
                     }
                 }
-                
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -150,7 +138,6 @@ struct DraftView: View {
                 }
             }
         }
-        
     }
 
     func makePick(player: ParsedBatter) {

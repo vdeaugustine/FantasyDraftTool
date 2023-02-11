@@ -26,6 +26,10 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     @Published var myStatsPlayers: MyStatsPlayers = .init()
 
+    @Published var myModifiedBatters: Set<ParsedBatter> = []
+
+    @Published var defaultProjectionSystem: ProjectionTypes = .atc
+
     // MARK: - Stored Properties
 
     // MARK: - Computed Properties
@@ -49,10 +53,11 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
                       settings: settings,
                       myTeamIndex: myTeamIndex)
     }
-    
+
     // MARK: - Getter methods
+
     func getScoringSettings() -> ScoringSettings {
-        self.scoringSettings
+        scoringSettings
     }
 
     // MARK: - Initializers
@@ -71,7 +76,7 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
 extension MainModel {
     enum CodingKeys: CodingKey {
-        case scoringSettings, draft, myStatsPlayers
+        case scoringSettings, draft, myStatsPlayers, defaultProjectionSystem
     }
 
     func encode(to encoder: Encoder) throws {
@@ -79,18 +84,21 @@ extension MainModel {
         try container.encode(scoringSettings, forKey: .scoringSettings)
         try container.encode(draft, forKey: .draft)
         try container.encode(myStatsPlayers, forKey: .myStatsPlayers)
+        try container.encode(defaultProjectionSystem, forKey: .defaultProjectionSystem)
     }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(scoringSettings)
         hasher.combine(draft)
         hasher.combine(myStatsPlayers)
+        hasher.combine(defaultProjectionSystem)
     }
 
     static func == (lhs: MainModel, rhs: MainModel) -> Bool {
         return lhs.scoringSettings == rhs.scoringSettings &&
             lhs.draft == rhs.draft &&
-            lhs.myStatsPlayers == rhs.myStatsPlayers
+            lhs.myStatsPlayers == rhs.myStatsPlayers &&
+            lhs.defaultProjectionSystem == rhs.defaultProjectionSystem
     }
 
     static func load() -> MainModel? {

@@ -13,18 +13,27 @@ struct DraftSummaryView: View {
     @EnvironmentObject private var model: MainModel
     @State private var showingTeam: DraftTeam = .init(name: "NULL", draftPosition: 0)
     @State private var filterTeam: Bool = false
-    
-    var draft: Draft { model.draft }
+
 
     var showingPlayers: [DraftPlayer] {
-        
-        let filteredByTeam = filterTeam ? draft.pickStack.getArray()
-            .filter({$0.draftedTeam! == showingTeam}) : draft.pickStack.getArray()
-        
+        let filteredByTeam: [DraftPlayer] = {
+            if filterTeam {
+                return model.draft.pickStack.getArray().filter { draftPlayer in
+                    guard let draftedTeam = draftPlayer.draftedTeam else {
+                        return false
+                    }
+                    return draftedTeam == showingTeam
+                }
+            } else {
+                return model.draft.pickStack.getArray()
+            }
+
+        }()
+
         let filteredByTeamAndPositions = filteredByTeam.filter {
             Set($0.player.positions).intersection(selectedPositions).count != 0
         }
-        
+
         return selectedPositions.isEmpty ? filteredByTeam : filteredByTeamAndPositions
     }
 
@@ -37,43 +46,44 @@ struct DraftSummaryView: View {
                 .padding(3)
 
             Section {
-                
                 Toggle("Filter by team", isOn: $filterTeam)
-                
+
                 if filterTeam {
                     Picker("Team", selection: $showingTeam) {
-                        ForEach(draft.teams, id: \.self) { team in
+                        ForEach(model.draft.teams, id: \.self) { team in
                             Text(team.name)
                                 .tag(team)
                         }
                     }
                 }
-                
-                
             }
-            
+
             Section("Team average points per position") {
                 TeamsChart(label: "Team Points", data: $model.draft.teams)
             }
 
             SelectPositionsHScroll(selectedPositions: $selectedPositions)
 
-                Section("Filtered") {
-                    ForEach(showingPlayers, id: \.self) { player in
-                        Text(player.player.name + " \(player.player.posStr())")
-                    }
+            Section("Filtered") {
+                ForEach(showingPlayers, id: \.self) { player in
+                    Text(player.player.name + " \(player.player.posStr())")
                 }
+            }
 
-                Section("All drafted") {
-                    ForEach(draft.pickStack.getArray(), id: \.self) { player in
-                        Text("#\(player.pickNumber) " + " \(player.draftedTeam?.name ?? ""): " + player.player.name)
+            Section("All drafted") {
+                ForEach(model.draft.pickStack.getArray(), id: \.self) { player in
+                    if let draftTeam = player.draftedTeam {
+                        Text("#\(player.pickNumber) " + " \(draftTeam.name): " + player.player.name)
                     }
+                    
                 }
-            
+            }
         }
         .listStyle(.plain)
         .onAppear {
-            showingTeam = draft.teams[0]
+            if model.draft.teams.count > 0 {
+                showingTeam = model.draft.teams[0]
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
     }

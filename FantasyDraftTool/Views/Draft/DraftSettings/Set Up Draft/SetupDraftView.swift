@@ -16,6 +16,7 @@ struct SetupDraftView: View {
     @State private var snakeDraft: Bool = true
     @State private var numberOfRounds: Int = 25
     @State private var scoringSystem: ScoringSettings = .defaultPoints
+    
     var body: some View {
         Form {
             Picker("Number of teams", selection: $model.draft.settings.numberOfTeams) {

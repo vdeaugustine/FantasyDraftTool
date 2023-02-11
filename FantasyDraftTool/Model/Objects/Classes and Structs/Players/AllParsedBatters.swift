@@ -31,7 +31,7 @@ struct AllParsedBatters {
             case .depthCharts:
                 return AllParsedBatters.depthCharts.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .myProjections:
-                return MainModel.shared.myStatsPlayers.players.map { $0.player }
+                return Array(MainModel.shared.myModifiedBatters)
         }
     }
 
@@ -39,5 +39,16 @@ struct AllParsedBatters {
         var batters = batters(for: projection)
         batters = batters.filter { $0.positions.contains(position) }
         return batters
+    }
+
+    static func batterVariants(for batter: ParsedBatter) -> [ParsedBatter] {
+        var retArr = [ParsedBatter]()
+        for projection in ProjectionTypes.arr {
+            let batters = batters(for: projection)
+            if let foundBatter = batters.first(where: { $0 == batter }) {
+                retArr.append(foundBatter)
+            }
+        }
+        return retArr
     }
 }

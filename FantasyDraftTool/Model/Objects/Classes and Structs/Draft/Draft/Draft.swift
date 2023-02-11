@@ -15,7 +15,6 @@ struct Draft: Codable, Hashable, Equatable {
 
     var teams: [DraftTeam]
     var settings: DraftSettings
-
     var currentTeam: DraftTeam
     var currentPickNumber: Int
     var totalPickNumber: Int
@@ -25,7 +24,6 @@ struct Draft: Codable, Hashable, Equatable {
     var previousIndex: Int = 0
     var bestPicksStack: Stack<BestPick> = .init()
     var totalPicksMade: Int = 1
-    
     var projectedStack: Stack<DraftPlayer> = .init()
 
     /// This should be = teamPickOrder - 1

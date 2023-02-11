@@ -15,15 +15,26 @@ struct ParsedBatterDetailView: View {
 
     @State var projection: ProjectionTypes = .steamer
     @State private var myPlayer: MyStatsPlayer = MyStatsPlayer(player: .nullBatter)
-    
+    @EnvironmentObject private var model: MainModel
+    @State private var modifyValueAlert: Bool = false
+    @State private var modifiedValue = ""
+    @State private var keyToModify = ""
+
     var body: some View {
         List {
             Section("Select Projection") {
                 SelectProjectionTypeHScroll(selectedProjectionType: $projection)
                     .onChange(of: projection, perform: { newProjection in
+                        batter = AllParsedBatters.batters(for: newProjection).first(where: {$0.name == batter.name})!
                         if let newBatter = AllParsedBatters.batters(for: newProjection).first(where: { $0.name == batter.name }) {
                             batter = newBatter
+                        } else if newProjection == ProjectionTypes.myProjections {
+                            guard let defaultBatter = AllParsedBatters.batters(for: model.defaultProjectionSystem).first(where: { $0 == batter }) else {
+                                return
+                            }
+                            batter = defaultBatter
                         }
+                        
                     })
                     .pickerStyle(.segmented)
                     .listRowSeparator(.hidden)
@@ -35,9 +46,15 @@ struct ParsedBatterDetailView: View {
                     ForEach(batter.relevantStatsKeys, id: \.self) { key in
                         if let val = batter.dict[key] as? Int {
                             StatRect(stat: key, value: val)
+                                .onTapGesture {
+                                    modifyValueAlert = true
+                                    keyToModify = key
+                                    
+                                }
                         }
                     }
                     StatRect(stat: "Points", value: batter.fantasyPoints(MainModel.shared.getScoringSettings()))
+                    
                 }
             }
             .listRowBackground(Color.clear)
@@ -83,10 +100,32 @@ struct ParsedBatterDetailView: View {
         .onAppear {
             myPlayer = MyStatsPlayer(player: batter)
         }
+        
+        .alert("Edit \(keyToModify)", isPresented: $modifyValueAlert) {
+            if let stat = batter.dict[keyToModify] as? Int {
+                TextField("Stat", text: $modifiedValue, prompt: Text(stat.str))
+            }
+            
+            Button("Save", role: .destructive) {
+                if let int = Int(modifiedValue) {
+                    batter.edit(keyToModify, with: int)
+                }
+                keyToModify = ""
+                modifyValueAlert = false
+                modifiedValue = ""
+            }
+            
+            Button("Cancel", role: .cancel) {
+                keyToModify = ""
+                modifyValueAlert = false
+                modifiedValue = ""
+            }
+        }
+        
     }
 }
 
-
+// MARK: - StatRect
 
 struct StatRect: View {
     let stat: String
@@ -99,6 +138,10 @@ struct StatRect: View {
 
     init(stat: String, value: Double) {
         self.stat = stat
+        guard value.isFinite && !value.isNaN else {
+            self.value = 0
+            return
+        }
         self.value = Int(value.roundTo(places: 1))
     }
 
@@ -122,7 +165,8 @@ struct StatRect: View {
 
 struct ParsedBatterDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ParsedBatterDetailView(batter: AllParsedBatters.theBat.all.first(where: { $0.name == "Luis Arraez" })!)
+        ParsedBatterDetailView(batter: AllParsedBatters.theBat.all[3])
+            .environmentObject(MainModel.shared)
             .putInNavView()
     }
 }

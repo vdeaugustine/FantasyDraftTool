@@ -61,6 +61,14 @@ struct ContentView: View {
             }
             
             
+            NavigationView {
+                SettingsView()
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .tag(2)
+            .tabItem {
+                Label("Settings", systemImage: "gear")
+            }
         }
     }
 }
