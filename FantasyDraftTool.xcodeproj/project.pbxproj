@@ -93,6 +93,7 @@
 		9CC80288298D86CF005B438D /* StrongestAtEachPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */; };
 		9CC8028B298E3785005B438D /* BestPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8028A298E3785005B438D /* BestPick.swift */; };
 		9CC8028D298E47EC005B438D /* RecommendedPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */; };
+		9CE9F4F4299B723B0015886D /* CreateModifiedPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -183,6 +184,7 @@
 		9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongestAtEachPositionView.swift; sourceTree = "<group>"; };
 		9CC8028A298E3785005B438D /* BestPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestPick.swift; sourceTree = "<group>"; };
 		9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedPlayerView.swift; sourceTree = "<group>"; };
+		9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateModifiedPlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -366,6 +368,7 @@
 		9C75B9AB296F590F003B35E6 = {
 			isa = PBXGroup;
 			children = (
+				9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */,
 				9CC80285298CCD83005B438D /* MyStatsPlayers.swift */,
 				9C75B9B6296F590F003B35E6 /* FantasyDraftTool */,
 				9C75B9B5296F590F003B35E6 /* Products */,
@@ -730,6 +733,7 @@
 				9C75B9C8296F8C7E003B35E6 /* Batter.swift in Sources */,
 				9C75B9B8296F590F003B35E6 /* FantasyDraftToolApp.swift in Sources */,
 				9CA24CB629851A5300A394B4 /* Projection.swift in Sources */,
+				9CE9F4F4299B723B0015886D /* CreateModifiedPlayerView.swift in Sources */,
 				9C1AE39E29807C290016BF50 /* StandardNaming.swift in Sources */,
 				9CA24CC42985B7F100A394B4 /* DraftPlayer.swift in Sources */,
 				9CA24CB429851A0800A394B4 /* All Batters.swift in Sources */,

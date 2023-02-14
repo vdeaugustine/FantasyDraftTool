@@ -16,6 +16,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
     var g, ab, pa, h, the1B, the2B, the3B, hr, r, rbi, bb, ibb, so, hbp, sf, sh, sb, cs: Int
     var avg: Double
     let positions: [Position]
+    var projectionType: ProjectionTypes
 
     // MARK: Computed properties
 
@@ -74,11 +75,12 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
 
     // MARK: - Static Properties
 
-    static let nullBatter: ParsedBatter = .init(empty: "", name: "", team: "", g: 0, ab: 0, pa: 0, h: 0, the1B: 0, the2B: 0, the3B: 0, hr: 0, r: 0, rbi: 0, bb: 0, ibb: 0, so: 0, hbp: 0, sf: 0, sh: 0, sb: 0, cs: 0, avg: 0, positions: [])
+    static let nullBatter: ParsedBatter = .init(empty: "", name: "", team: "", g: 0, ab: 0, pa: 0, h: 0, the1B: 0, the2B: 0, the3B: 0, hr: 0, r: 0, rbi: 0, bb: 0, ibb: 0, so: 0, hbp: 0, sf: 0, sh: 0, sb: 0, cs: 0, avg: 0, positions: [], projectionType: .steamer)
 
     // MARK: - Mutating Methods
 
     mutating func edit(_ stat: String, with newValue: Int) {
+        print("editing: \(stat) from \(self.dict[stat] as! Int) with \(newValue)")
         switch stat {
             case "G":
                 g = newValue
@@ -164,7 +166,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
 // MARK: Initializers
 
 extension ParsedBatter {
-    init(from jsonBatter: JSONBatter, pos: Position) {
+    init(from jsonBatter: JSONBatter, pos: Position, projectionType: ProjectionTypes) {
         self.empty = jsonBatter.empty
         self.name = jsonBatter.name
         self.team = jsonBatter.team
@@ -191,6 +193,8 @@ extension ParsedBatter {
         self.avg = Double("0" + jsonBatter.avg) ?? 0
 
         self.positions = [pos]
+
+        self.projectionType = projectionType
     }
 
     // MARK: Codable initializer
@@ -220,6 +224,7 @@ extension ParsedBatter {
         self.cs = try container.decode(Int.self, forKey: .cs)
         self.avg = try container.decode(Double.self, forKey: .avg)
         self.positions = try container.decode([Position].self, forKey: .positions)
+        self.projectionType = try container.decode(ProjectionTypes.self, forKey: .projectionType)
     }
 }
 
@@ -234,7 +239,7 @@ extension ParsedBatter {
     enum CodingKeys: CodingKey {
         case empty, name, team
         case g, ab, pa, h, the1B, the2B, the3B, hr, r, rbi, bb, ibb, so, hbp, sf, sh, sb, cs
-        case avg, positions
+        case avg, positions, projectionType
     }
 
     func encode(to encoder: Encoder) throws {
@@ -262,16 +267,19 @@ extension ParsedBatter {
         try container.encode(cs, forKey: .cs)
         try container.encode(avg, forKey: .avg)
         try container.encode(positions, forKey: .positions)
+        try container.encode(projectionType, forKey: .projectionType)
     }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(name.removingWhiteSpaces())
         hasher.combine(team.removingWhiteSpaces())
+        hasher.combine(projectionType)
     }
 
     static func == (lhs: ParsedBatter, rhs: ParsedBatter) -> Bool {
         return
             lhs.name.removingWhiteSpaces() == rhs.name.removingWhiteSpaces() &&
-            lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces()
+            lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces() &&
+            lhs.projectionType == rhs.projectionType
     }
 }
