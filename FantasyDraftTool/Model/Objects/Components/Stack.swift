@@ -41,4 +41,8 @@ struct Stack<T>: Codable, Equatable, Hashable where T : Codable, T: Hashable, T:
     func isEmpty() -> Bool {
         return array.isEmpty
     }
+    
+    func top() -> T? {
+        array.first
+    }
 }

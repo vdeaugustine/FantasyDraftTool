@@ -33,6 +33,15 @@ struct ContentView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             
+            NavigationView {
+                NVDraft()
+            }
+            .tag(1)
+            .tabItem {
+                Label("Draft", systemImage: "list.bullet")
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            
 //
 //            NavigationView {
 //                AllBattersListView()

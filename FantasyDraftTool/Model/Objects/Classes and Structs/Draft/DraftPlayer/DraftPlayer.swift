@@ -14,7 +14,7 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable {
 
     var player: ParsedBatter
     var pickNumber: Int
-//    var draftTeam: DraftTeam
+    var draftTeam: DraftTeam
     var weightedScoreWhenDrafted: Double
     
     var draftedTeam: DraftTeam? {
@@ -32,14 +32,14 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.player = try values.decode(ParsedBatter.self, forKey: .player)
         self.pickNumber = try values.decode(Int.self, forKey: .pickNumber)
-//        self.draftTeam = try values.decode(DraftTeam.self, forKey: .draftTeam)
+        self.draftTeam = try values.decode(DraftTeam.self, forKey: .draftTeam)
         self.weightedScoreWhenDrafted = try values.decode(Double.self, forKey: .weightedScoreWhenDrafted)
     }
     
     init(player: ParsedBatter, pickNumber: Int, team: DraftTeam, weightedScore: Double) {
         self.player = player
         self.pickNumber = pickNumber
-        //    self.draftTeam = team
+            self.draftTeam = team
         self.weightedScoreWhenDrafted = weightedScore
     }
 }
@@ -63,7 +63,7 @@ extension DraftPlayer {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(player, forKey: .player)
         try container.encode(pickNumber, forKey: .pickNumber)
-        //    try container.encode(draftTeam, forKey: .draftTeam)
+            try container.encode(draftTeam, forKey: .draftTeam)
         try container.encode(weightedScoreWhenDrafted, forKey: .weightedScoreWhenDrafted)
     }
     

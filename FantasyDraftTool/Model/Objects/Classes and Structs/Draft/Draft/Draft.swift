@@ -40,17 +40,30 @@ struct Draft: Codable, Hashable, Equatable {
     // MARK: - Mutating functions
     
     mutating func removeFromPool(player: DraftPlayer) {
+        
+        // Loop through each position the player can play.
         for position in player.player.positions {
+
+            // Check if there is an array of batters in the playerPool dictionary for the current position.
             if var previousArray = playerPool.battersDict[position] {
+
+                // Save a copy of the previous array for later comparison.
                 let prevArrCheck = previousArray
+
+                // Remove the player from the previous array, if present.
                 previousArray.removeAll(where: { $0 == player.player })
+
+                // If the previous and updated arrays are the same, the player was not found in the array and we can exit early.
                 guard prevArrCheck != previousArray else {
                     return
                 }
 
+                // Update the playerPool dictionary with the updated array of batters.
                 playerPool.battersDict[position] = previousArray
             }
         }
+
+        // Update the playerPool dictionaries with the updated list of players for each position.
         playerPool.updateDicts(for: player.player.positions)
     }
 
@@ -253,12 +266,33 @@ extension Draft {
             workingDraft.makePick(draftPlayer)
            
         }
-//        DispatchQueue.main.async {
-//            showSpinning.wrappedValue = false
-//        }
-        
     
         return workingDraft.pickStack
+        
+        
+    }
+    
+    static func exampleDraft(picksMade: Int = 30) -> Draft {
+        var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
+        
+        while draft.totalPicksMade <= picksMade {
+            
+            let sortedBatters = draft.playerPool.batters.removingDuplicates().sorted(by: {$0.zScore() > $1.zScore()})
+            
+            
+            guard let chosenPlayer: ParsedBatter = sortedBatters.first else {
+                break
+            }
+            
+            let draftPlayer = DraftPlayer(player: chosenPlayer,
+                                          pickNumber: draft.totalPickNumber,
+                                          team: draft.currentTeam,
+                                          weightedScore: chosenPlayer.zScore())
+            draft.makePick(draftPlayer)
+           
+        }
+        
+        return draft
         
         
     }

@@ -101,6 +101,9 @@
 		9CE9F501299C5A4A0015886D /* NVSortByDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F500299C5A4A0015886D /* NVSortByDropDown.swift */; };
 		9CE9F503299C5D700015886D /* NVPlayerDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F502299C5D700015886D /* NVPlayerDetail.swift */; };
 		9CE9F506299C88320015886D /* RectPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F505299C88320015886D /* RectPieChart.swift */; };
+		9CE9F50E299C9ED80015886D /* NVDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F50D299C9ED80015886D /* NVDraft.swift */; };
+		9CE9F511299C9F400015886D /* NVPreviousPickRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F510299C9F400015886D /* NVPreviousPickRect.swift */; };
+		9CE9F513299CA5C00015886D /* NVCurrentPickRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F512299CA5C00015886D /* NVCurrentPickRect.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -198,7 +201,10 @@
 		9CE9F4FE299C56440015886D /* NVAllPlayersRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVAllPlayersRow.swift; sourceTree = "<group>"; };
 		9CE9F500299C5A4A0015886D /* NVSortByDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVSortByDropDown.swift; sourceTree = "<group>"; };
 		9CE9F502299C5D700015886D /* NVPlayerDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVPlayerDetail.swift; sourceTree = "<group>"; };
-		9CE9F505299C88320015886D /* RectPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectPieChart.swift; sourceTree = SOURCE_ROOT; };
+		9CE9F505299C88320015886D /* RectPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RectPieChart.swift; path = "FantasyDraftTool/New Views/New Components/Charts & Analyzing/RectPieChart.swift"; sourceTree = SOURCE_ROOT; };
+		9CE9F50D299C9ED80015886D /* NVDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDraft.swift; sourceTree = "<group>"; };
+		9CE9F510299C9F400015886D /* NVPreviousPickRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVPreviousPickRect.swift; sourceTree = "<group>"; };
+		9CE9F512299CA5C00015886D /* NVCurrentPickRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVCurrentPickRect.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +221,7 @@
 		9C1AE396297FA08F0016BF50 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9CC80285298CCD83005B438D /* MyStatsPlayers.swift */,
 				9C3B702C298B2CD900A1B42C /* Main Model */,
 				9CA24CB0298519A000A394B4 /* Deprecated Models */,
 				9C1AE3A72982239F0016BF50 /* Projection JSONS */,
@@ -226,6 +233,8 @@
 		9C1AE39F2980A7170016BF50 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */,
+				9C73D09229970BD8007C251F /* SettingsView.swift */,
 				9C73D09429970BDD007C251F /* Settings */,
 				9C73D08C2995C801007C251F /* SimulateRemainingDraftView.swift */,
 				9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */,
@@ -384,8 +393,6 @@
 			children = (
 				9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */,
 				9CA24CAB29850FE000A394B4 /* ContentView.swift */,
-				9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */,
-				9CC80285298CCD83005B438D /* MyStatsPlayers.swift */,
 				9C75B9B6296F590F003B35E6 /* FantasyDraftTool */,
 				9C75B9B5296F590F003B35E6 /* Products */,
 			);
@@ -403,7 +410,6 @@
 			isa = PBXGroup;
 			children = (
 				9CE9F4F5299C4F160015886D /* New Views */,
-				9C73D09229970BD8007C251F /* SettingsView.swift */,
 				9C1AE39F2980A7170016BF50 /* Views */,
 				9C1AE396297FA08F0016BF50 /* Model */,
 				9C75B9E0296FD215003B35E6 /* Extensions */,
@@ -614,9 +620,9 @@
 		9CE9F4F5299C4F160015886D /* New Views */ = {
 			isa = PBXGroup;
 			children = (
+				9CE9F50C299C9ECE0015886D /* Draft */,
+				9CE9F509299C9DC10015886D /* All Players */,
 				9CE9F4F8299C50170015886D /* New Components */,
-				9CE9F4F6299C4F420015886D /* NVAllPlayers.swift */,
-				9CE9F502299C5D700015886D /* NVPlayerDetail.swift */,
 			);
 			path = "New Views";
 			sourceTree = "<group>";
@@ -624,9 +630,8 @@
 		9CE9F4F8299C50170015886D /* New Components */ = {
 			isa = PBXGroup;
 			children = (
-				9CE9F505299C88320015886D /* RectPieChart.swift */,
+				9CE9F507299C9D940015886D /* Charts & Analyzing */,
 				9CE9F504299C72EF0015886D /* DropDowns */,
-				9CE9F4FE299C56440015886D /* NVAllPlayersRow.swift */,
 			);
 			path = "New Components";
 			sourceTree = "<group>";
@@ -639,6 +644,58 @@
 				9CE9F4FB299C54BC0015886D /* NVDropDownPosition.swift */,
 			);
 			path = DropDowns;
+			sourceTree = "<group>";
+		};
+		9CE9F507299C9D940015886D /* Charts & Analyzing */ = {
+			isa = PBXGroup;
+			children = (
+				9CE9F505299C88320015886D /* RectPieChart.swift */,
+			);
+			path = "Charts & Analyzing";
+			sourceTree = "<group>";
+		};
+		9CE9F509299C9DC10015886D /* All Players */ = {
+			isa = PBXGroup;
+			children = (
+				9CE9F50B299C9DD80015886D /* Player Detail */,
+				9CE9F50A299C9DCE0015886D /* Components */,
+				9CE9F4F6299C4F420015886D /* NVAllPlayers.swift */,
+			);
+			path = "All Players";
+			sourceTree = "<group>";
+		};
+		9CE9F50A299C9DCE0015886D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9CE9F4FE299C56440015886D /* NVAllPlayersRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		9CE9F50B299C9DD80015886D /* Player Detail */ = {
+			isa = PBXGroup;
+			children = (
+				9CE9F502299C5D700015886D /* NVPlayerDetail.swift */,
+			);
+			path = "Player Detail";
+			sourceTree = "<group>";
+		};
+		9CE9F50C299C9ECE0015886D /* Draft */ = {
+			isa = PBXGroup;
+			children = (
+				9CE9F50F299C9F1B0015886D /* Components */,
+				9CE9F50D299C9ED80015886D /* NVDraft.swift */,
+			);
+			path = Draft;
+			sourceTree = "<group>";
+		};
+		9CE9F50F299C9F1B0015886D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9CE9F510299C9F400015886D /* NVPreviousPickRect.swift */,
+				9CE9F512299CA5C00015886D /* NVCurrentPickRect.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -760,17 +817,20 @@
 				9CA24CBA29851A9900A394B4 /* AllParsedBatters.swift in Sources */,
 				9CC80288298D86CF005B438D /* StrongestAtEachPositionView.swift in Sources */,
 				9CE9F4FF299C56440015886D /* NVAllPlayersRow.swift in Sources */,
+				9CE9F511299C9F400015886D /* NVPreviousPickRect.swift in Sources */,
 				9C75B9EE296FD215003B35E6 /* ExtColor.swift in Sources */,
 				9CA24CC62985B83200A394B4 /* Draft.swift in Sources */,
 				9CE9F506299C88320015886D /* RectPieChart.swift in Sources */,
 				9CA24CD729865F5D00A394B4 /* DraftSummaryView.swift in Sources */,
 				9C75B9EF296FD215003B35E6 /* ExtText.swift in Sources */,
+				9CE9F513299CA5C00015886D /* NVCurrentPickRect.swift in Sources */,
 				9CC8028B298E3785005B438D /* BestPick.swift in Sources */,
 				9C0C9D122974CC460069703D /* EditDoubleView.swift in Sources */,
 				9C1AE398297FA0A20016BF50 /* ScoringSettings.swift in Sources */,
 				9CA24CAE2985181A00A394B4 /* ExtArray.swift in Sources */,
 				9CA24CA8298394EB00A394B4 /* ParsedBatter.swift in Sources */,
 				9C75B9BA296F590F003B35E6 /* OldJSONView.swift in Sources */,
+				9CE9F50E299C9ED80015886D /* NVDraft.swift in Sources */,
 				9CA24CD32985BD2200A394B4 /* SetUpDraftTeamsView.swift in Sources */,
 				9C73D09329970BD8007C251F /* SettingsView.swift in Sources */,
 				9C33F7FA29838BCD0038A938 /* JSONBatter.swift in Sources */,
