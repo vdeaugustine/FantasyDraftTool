@@ -38,15 +38,12 @@ struct Draft: Codable, Hashable, Equatable {
     }
 
     // MARK: - Mutating functions
-    
+    /// This is a mutating function that removes a player from the playerPool object based on their positions.
     mutating func removeFromPool(player: DraftPlayer) {
-        
-        // Loop through each position the player can play.
+        // Loop through each position the player has.
         for position in player.player.positions {
-
             // Check if there is an array of batters in the playerPool dictionary for the current position.
             if var previousArray = playerPool.battersDict[position] {
-
                 // Save a copy of the previous array for later comparison.
                 let prevArrCheck = previousArray
 
@@ -80,14 +77,30 @@ struct Draft: Codable, Hashable, Equatable {
     }
 
     mutating func changeCurrentIndex() {
+        // Set the currentIndex to the total number of picks made minus 1.
         currentIndex = totalPicksMade - 1
+
+        // Calculate the current round number based on the total number of picks made and the number of teams.
         let roundNumber: Int = Int(floor(Double(totalPicksMade) / Double(teams.count)) + 1)
+
+        // Determine whether the draft is currently going up or down the list of teams.
         let goingUp: Bool = roundNumber % 2 != 0
+
+        // Get the total number of teams.
         let numberOfTeams: Int = teams.count
+
+        // Calculate the pick number for the current round.
         let pickNumber = goingUp ? totalPicksMade % numberOfTeams + 1 : numberOfTeams - totalPicksMade % numberOfTeams
+
+        // Print the total number of picks made, the current round number, and the current pick number.
         print("total pick:", totalPicksMade, "round: ", roundNumber, "pick", pickNumber)
+
+        // Set the currentIndex to the index of the team that is currently picking.
         currentIndex = pickNumber - 1
+
+        // Print the name of the team that is currently picking.
         print("team: ", teams[pickNumber - 1])
+
     }
 
     mutating func makePick(_ player: DraftPlayer) {
@@ -111,13 +124,11 @@ struct Draft: Codable, Hashable, Equatable {
         playerPool.setPositionsOrder()
     }
 
-
     mutating func insertIntoPool(player: DraftPlayer) {
         for position in player.player.positions {
             playerPool.battersDict[position]?.append(player.player)
             playerPool.updateDicts(for: [position])
         }
-        
     }
 
     mutating func setNextTeam() {
@@ -150,9 +161,6 @@ struct Draft: Codable, Hashable, Equatable {
                                                    numberOfRounds: 25,
                                                    scoringSystem: .defaultPoints),
                                    myTeamIndex: 0)
-
-
-    
 
     // MARK: - Calculating Methods / Calculations
 
@@ -245,57 +253,48 @@ extension Draft {
 }
 
 extension Draft {
-    
-    
     func simulateRemainingDraft() -> Stack<DraftPlayer> {
         var workingDraft: Draft = self
-        
+
         while workingDraft.totalPicksMade <= workingDraft.settings.numberOfRounds * workingDraft.settings.numberOfTeams {
-            
-            let sortedBatters = workingDraft.playerPool.batters.removingDuplicates().sorted(by: {$0.zScore() > $1.zScore()})
-            
-            
+            let sortedBatters = workingDraft.playerPool.batters.removingDuplicates().sorted(by: { $0.zScore() > $1.zScore() })
+
             guard let chosenPlayer: ParsedBatter = sortedBatters.first else {
                 break
             }
-            
+
             let draftPlayer = DraftPlayer(player: chosenPlayer,
                                           pickNumber: workingDraft.totalPickNumber,
                                           team: workingDraft.currentTeam,
                                           weightedScore: chosenPlayer.zScore())
             workingDraft.makePick(draftPlayer)
-           
         }
-    
+
         return workingDraft.pickStack
-        
-        
     }
-    
+
     static func exampleDraft(picksMade: Int = 30) -> Draft {
         var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
-        
+
         while draft.totalPicksMade <= picksMade {
-            
-            let sortedBatters = draft.playerPool.batters.removingDuplicates().sorted(by: {$0.zScore() > $1.zScore()})
+            let sortedBatters = draft.playerPool.batters.removingDuplicates().sorted(by: { $0.zScore() > $1.zScore() })
+
+            print("Next 5 players are " , sortedBatters.prefixArray(5))
             
             
             guard let chosenPlayer: ParsedBatter = sortedBatters.first else {
                 break
             }
             
+            print("Chosen player is \(chosenPlayer)")
+
             let draftPlayer = DraftPlayer(player: chosenPlayer,
                                           pickNumber: draft.totalPickNumber,
                                           team: draft.currentTeam,
                                           weightedScore: chosenPlayer.zScore())
             draft.makePick(draftPlayer)
-           
         }
-        
+
         return draft
-        
-        
     }
-    
-    
 }

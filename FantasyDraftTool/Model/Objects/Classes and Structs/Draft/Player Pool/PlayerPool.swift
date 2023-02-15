@@ -45,7 +45,25 @@ struct PlayerPool: Codable, Hashable, Equatable {
 
     var positionAveragesDict: [Position: Double] = emptyPosAverageDict()
     
-    var standardDeviationDict: [Position: Double] = [:]
+    var standardDeviationDict: [Position: Double] = {
+        var dict: [Position: Double] = [:]
+        
+        var tempDict: [Position: [ParsedBatter]] = [:]
+
+        for position in Position.batters {
+            let battersForThisPosition = AllParsedBatters.batters(for: .steamer, at: position)
+            tempDict[position] = battersForThisPosition.sortedByPoints
+        }
+        
+        for position in Position.batters {
+            guard let players = tempDict[position] else { continue }
+            dict[position] = players.standardDeviation(for: position)
+        }
+
+        return dict
+        
+        
+    }()
     
     static func emptyPosAverageDict() -> [Position: Double] {
         var retDict: [Position: Double] = [:]
