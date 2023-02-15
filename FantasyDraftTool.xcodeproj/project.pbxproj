@@ -99,6 +99,8 @@
 		9CE9F4FC299C54BC0015886D /* NVDropDownPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4FB299C54BC0015886D /* NVDropDownPosition.swift */; };
 		9CE9F4FF299C56440015886D /* NVAllPlayersRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4FE299C56440015886D /* NVAllPlayersRow.swift */; };
 		9CE9F501299C5A4A0015886D /* NVSortByDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F500299C5A4A0015886D /* NVSortByDropDown.swift */; };
+		9CE9F503299C5D700015886D /* NVPlayerDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F502299C5D700015886D /* NVPlayerDetail.swift */; };
+		9CE9F506299C88320015886D /* RectPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F505299C88320015886D /* RectPieChart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -195,6 +197,8 @@
 		9CE9F4FB299C54BC0015886D /* NVDropDownPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDropDownPosition.swift; sourceTree = "<group>"; };
 		9CE9F4FE299C56440015886D /* NVAllPlayersRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVAllPlayersRow.swift; sourceTree = "<group>"; };
 		9CE9F500299C5A4A0015886D /* NVSortByDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVSortByDropDown.swift; sourceTree = "<group>"; };
+		9CE9F502299C5D700015886D /* NVPlayerDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVPlayerDetail.swift; sourceTree = "<group>"; };
+		9CE9F505299C88320015886D /* RectPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectPieChart.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,6 +382,8 @@
 		9C75B9AB296F590F003B35E6 = {
 			isa = PBXGroup;
 			children = (
+				9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */,
+				9CA24CAB29850FE000A394B4 /* ContentView.swift */,
 				9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */,
 				9CC80285298CCD83005B438D /* MyStatsPlayers.swift */,
 				9C75B9B6296F590F003B35E6 /* FantasyDraftTool */,
@@ -397,8 +403,6 @@
 			isa = PBXGroup;
 			children = (
 				9CE9F4F5299C4F160015886D /* New Views */,
-				9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */,
-				9CA24CAB29850FE000A394B4 /* ContentView.swift */,
 				9C73D09229970BD8007C251F /* SettingsView.swift */,
 				9C1AE39F2980A7170016BF50 /* Views */,
 				9C1AE396297FA08F0016BF50 /* Model */,
@@ -612,6 +616,7 @@
 			children = (
 				9CE9F4F8299C50170015886D /* New Components */,
 				9CE9F4F6299C4F420015886D /* NVAllPlayers.swift */,
+				9CE9F502299C5D700015886D /* NVPlayerDetail.swift */,
 			);
 			path = "New Views";
 			sourceTree = "<group>";
@@ -619,12 +624,21 @@
 		9CE9F4F8299C50170015886D /* New Components */ = {
 			isa = PBXGroup;
 			children = (
-				9CE9F4F9299C502B0015886D /* NVDropDownProjection.swift */,
-				9CE9F500299C5A4A0015886D /* NVSortByDropDown.swift */,
-				9CE9F4FB299C54BC0015886D /* NVDropDownPosition.swift */,
+				9CE9F505299C88320015886D /* RectPieChart.swift */,
+				9CE9F504299C72EF0015886D /* DropDowns */,
 				9CE9F4FE299C56440015886D /* NVAllPlayersRow.swift */,
 			);
 			path = "New Components";
+			sourceTree = "<group>";
+		};
+		9CE9F504299C72EF0015886D /* DropDowns */ = {
+			isa = PBXGroup;
+			children = (
+				9CE9F4F9299C502B0015886D /* NVDropDownProjection.swift */,
+				9CE9F500299C5A4A0015886D /* NVSortByDropDown.swift */,
+				9CE9F4FB299C54BC0015886D /* NVDropDownPosition.swift */,
+			);
+			path = DropDowns;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -740,6 +754,7 @@
 				9C75B9EA296FD215003B35E6 /* ExtView.swift in Sources */,
 				9CA24CC82985B83800A394B4 /* DraftTeam.swift in Sources */,
 				9CA24CD929889B1400A394B4 /* SelectPositionsHScroll.swift in Sources */,
+				9CE9F503299C5D700015886D /* NVPlayerDetail.swift in Sources */,
 				9CA24CE62989E81400A394B4 /* Stack.swift in Sources */,
 				9C73D08D2995C801007C251F /* SimulateRemainingDraftView.swift in Sources */,
 				9CA24CBA29851A9900A394B4 /* AllParsedBatters.swift in Sources */,
@@ -747,6 +762,7 @@
 				9CE9F4FF299C56440015886D /* NVAllPlayersRow.swift in Sources */,
 				9C75B9EE296FD215003B35E6 /* ExtColor.swift in Sources */,
 				9CA24CC62985B83200A394B4 /* Draft.swift in Sources */,
+				9CE9F506299C88320015886D /* RectPieChart.swift in Sources */,
 				9CA24CD729865F5D00A394B4 /* DraftSummaryView.swift in Sources */,
 				9C75B9EF296FD215003B35E6 /* ExtText.swift in Sources */,
 				9CC8028B298E3785005B438D /* BestPick.swift in Sources */,

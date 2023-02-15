@@ -9,16 +9,24 @@ import SwiftUI
 
 struct NVDropDownPosition: View {
     @Binding var selection: Position?
+    var positions: [Position] = Position.batters
+    var font: Font = .callout
+    var showAll: Bool = true
+    var showBorder: Bool = true
+    
     var body: some View {
         
         Menu {
-            Button {
-                selection = nil
-            } label: {
-                Text("ALL")
+            
+            if showAll {
+                Button {
+                    selection = nil
+                } label: {
+                    Text("ALL")
+                }
+                Divider()
             }
-            Divider()
-            ForEach(Position.batters, id: \.self) { position in
+            ForEach(positions, id: \.self) { position in
                 Button {
                     selection = position
                 } label: {
@@ -32,10 +40,14 @@ struct NVDropDownPosition: View {
                     .fontWeight(.semibold)
                 Image(systemName: "baseball.diamond.bases")
             }
+            .font(font)
             .padding(7)
             .overlay {
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(lineWidth: 1)
+                if showBorder {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(lineWidth: 1)
+                }
+                
             }
         }
         

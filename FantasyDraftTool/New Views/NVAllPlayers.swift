@@ -14,6 +14,7 @@ struct NVAllPlayers: View {
     @State private var projectionSelected: ProjectionTypes = .steamer
     @State private var positionSelected: Position? = nil
     @State private var sortOptionSelected: NVSortByDropDown.Options = .score
+    @State private var showOnlyUtil: Bool = false
 
     var filteredPlayers: [ParsedBatter] {
         if let positionSelected = positionSelected {
@@ -42,22 +43,68 @@ struct NVAllPlayers: View {
                 return filteredPlayers.sorted { $0.sb > $1.sb }
         }
     }
+    
+    var filterUtility: [ParsedBatter] {
+        if showOnlyUtil {
+            return sortedPlayers.filter({$0.positions.count > 1})
+        }
+        return sortedPlayers
+    }
+    
+    var utilityButton: some View {
+        Button {
+            showOnlyUtil.toggle()
+        } label: {
+            HStack {
+                Text("UTIL")
+                    .fontWeight(.semibold)
+                    
+                Image(systemName: "person.and.arrow.left.and.arrow.right")
+            }
+            .font(.callout)
+            .padding(7)
+            .conditionalModifier(showOnlyUtil) {
+                $0.foregroundColor(.white)
+                    
+            }
+            
+            .conditionalModifier(showOnlyUtil) {
+                $0.background {
+                    Color.blue
+                }
+                .cornerRadius(10)
+            }
+            .overlay {
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(lineWidth: 1)
+                    
+            }
+        }
+    }
 
     var body: some View {
-        List {
+        VStack(alignment: .leading) {
             HStack {
                 NVDropDownProjection(selection: $projectionSelected)
                 NVDropDownPosition(selection: $positionSelected)
                 NVSortByDropDown(selection: $sortOptionSelected)
+                
             }
-            .listSectionSeparator(.hidden)
+            .padding([.leading])
+            List {
+                Section {
+                    ForEach(filterUtility) { player in
 
-            Section {
-                ForEach(sortedPlayers) { player in
-                    NVAllPlayersRow(batter: player)
+                        NavigationLink {
+                            NVPlayerDetail(batter: player)
+                        } label: {
+                            NVAllPlayersRow(batter: player)
+                        }
+                    }
                 }
             }
         }
+        
         .listStyle(.plain)
         .navigationTitle("Players")
     }

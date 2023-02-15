@@ -11,8 +11,8 @@ import SwiftUI
 
 struct NVDropDownProjection: View {
     @Binding var selection: ProjectionTypes
+    var font: Font = .callout
     var body: some View {
-        
         Menu {
             ForEach(ProjectionTypes.arr, id: \.self) { projectionType in
                 Button {
@@ -24,16 +24,17 @@ struct NVDropDownProjection: View {
         } label: {
             HStack {
                 Text(selection.title)
+
                     .fontWeight(.semibold)
                 Image(systemName: "chart.xyaxis.line")
             }
+            .font(font)
             .padding(7)
             .overlay {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(lineWidth: 1)
             }
         }
-        
     }
 }
 

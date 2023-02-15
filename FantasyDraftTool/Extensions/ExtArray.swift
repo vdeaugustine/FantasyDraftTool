@@ -28,6 +28,16 @@ extension Array {
     func prefixArray(_ num: Int) -> [Element] {
         Array(self.prefix(num))
     }
+    
+    func safeCheck(_ num: Int) -> Bool {
+        return num >= 0 && num < self.count
+    }
+    
+    func safeGet(at num: Int) -> Element? {
+        guard safeCheck(num) else { return nil }
+        return self[num]
+    }
+    
 }
 
 extension Array where Element == ParsedBatter {

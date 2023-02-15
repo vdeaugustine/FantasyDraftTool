@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - ParsedBatter
 
-struct ParsedBatter: Hashable, Codable, Identifiable {
+struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
     // MARK: Stored Properties
 
     var empty, name, team: String
@@ -17,6 +17,10 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
     var avg: Double
     let positions: [Position]
     var projectionType: ProjectionTypes
+    
+    var description: String {
+        self.name + " \(projectionType.title)"
+    }
 
     // MARK: Computed properties
 
