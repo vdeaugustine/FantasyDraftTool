@@ -1,0 +1,74 @@
+//
+//  NVAllPlayers.swift
+//  FantasyDraftTool
+//
+//  Created by Vincent DeAugustine on 2/14/23.
+//
+
+import SwiftUI
+
+// MARK: - NVAllPlayers
+
+struct NVAllPlayers: View {
+    @EnvironmentObject private var model: MainModel
+    @State private var projectionSelected: ProjectionTypes = .steamer
+    @State private var positionSelected: Position? = nil
+    @State private var sortOptionSelected: NVSortByDropDown.Options = .score
+
+    var filteredPlayers: [ParsedBatter] {
+        if let positionSelected = positionSelected {
+            return AllParsedBatters.batters(for: projectionSelected)
+                .filter {
+                    $0.positions.contains(positionSelected)
+                }
+        }
+
+        return AllParsedBatters.batters(for: projectionSelected)
+    }
+
+    var sortedPlayers: [ParsedBatter] {
+        switch sortOptionSelected {
+            case .points:
+                return filteredPlayers.sorted { $0.fantasyPoints(model.scoringSettings) > $1.fantasyPoints(model.scoringSettings) }
+            case .score:
+                return filteredPlayers.sorted { $0.zScore() > $1.zScore() }
+            case .hr:
+                return filteredPlayers.sorted { $0.hr > $1.hr }
+            case .rbi:
+                return filteredPlayers.sorted { $0.rbi > $1.rbi }
+            case .r:
+                return filteredPlayers.sorted { $0.r > $1.r }
+            case .sb:
+                return filteredPlayers.sorted { $0.sb > $1.sb }
+        }
+    }
+
+    var body: some View {
+        List {
+            HStack {
+                NVDropDownProjection(selection: $projectionSelected)
+                NVDropDownPosition(selection: $positionSelected)
+                NVSortByDropDown(selection: $sortOptionSelected)
+            }
+            .listSectionSeparator(.hidden)
+
+            Section {
+                ForEach(sortedPlayers) { player in
+                    NVAllPlayersRow(batter: player)
+                }
+            }
+        }
+        .listStyle(.plain)
+        .navigationTitle("Players")
+    }
+}
+
+// MARK: - NVAllPlayers_Previews
+
+struct NVAllPlayers_Previews: PreviewProvider {
+    static var previews: some View {
+        NVAllPlayers()
+            .environmentObject(MainModel.shared)
+            .putInNavView()
+    }
+}
