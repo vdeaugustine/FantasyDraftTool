@@ -164,7 +164,7 @@ struct NVPlayerDetail: View {
         .onAppear {
             playerPosition = batter.positions.first
         }
-        .navigationTitle(batter.name)
+        .navigationTitle(batter.name + " • " + batter.team)
     }
 }
 
@@ -173,6 +173,6 @@ struct NVPlayerDetail: View {
 struct NVPlayerDetail_Previews: PreviewProvider {
     static var previews: some View {
         NVPlayerDetail(batter: AllParsedBatters.batters(for: .zips, at: .of)[0])
-            .putInNavView(displayMode: .inline)
+            .putInNavView()
     }
 }

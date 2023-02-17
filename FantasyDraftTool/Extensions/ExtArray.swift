@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension Array where Element == Double {
     func standardDeviation() -> Double {
@@ -57,4 +58,15 @@ extension Array where Element == ParsedBatter {
         self.removingDuplicates().sortedByPoints.filter({$0.positions.contains(position)})
     }
     
+    
+    
+}
+
+extension GridItem {
+    static func flexibleItems(_ amount: Int) -> [GridItem] {
+        (0..<amount).map { _ in GridItem(.flexible())}
+    }
+    static func fixedItems(_ amount: Int, size: CGFloat) -> [GridItem] {
+        (0..<amount).map { _ in GridItem(.fixed(size))}
+    }
 }

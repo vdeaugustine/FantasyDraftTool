@@ -25,6 +25,8 @@ struct Draft: Codable, Hashable, Equatable {
     var bestPicksStack: Stack<BestPick> = .init()
     var totalPicksMade: Int = 1
     var projectedStack: Stack<DraftPlayer> = .init()
+    
+    var myStarPlayers: Set<ParsedBatter> = []
 
     /// This should be = teamPickOrder - 1
     var myTeamIndex: Int
@@ -186,6 +188,22 @@ struct Draft: Codable, Hashable, Equatable {
         let sum: Double = batters.reduce(0) { $0 + $1.player.fantasyPoints(MainModel.shared.getScoringSettings()) }
         return (sum / Double(batters.count)).roundTo(places: 1)
     }
+    
+    func isStar(_ player: ParsedBatter) -> Bool {
+        myStarPlayers.contains(where: {$0.name == player.name})
+    }
+    
+    mutating func addOrRemoveStar(_ player: ParsedBatter) {
+        if isStar(player) {
+            removeStar(player)
+        } else {
+            myStarPlayers.insert(player)
+        }
+    }
+    
+    mutating func removeStar(_ player: ParsedBatter) {
+        self.myStarPlayers.remove(player)
+    }
 
     // MARK: - Initializers
 
@@ -199,6 +217,7 @@ struct Draft: Codable, Hashable, Equatable {
         self.playerPool = try values.decode(PlayerPool.self, forKey: .playerPool)
         self.pickStack = try values.decode(Stack<DraftPlayer>.self, forKey: .pickStack)
         self.myTeamIndex = try values.decode(Int.self, forKey: .myTeamIndex)
+        self.myStarPlayers = try values.decode(Set<ParsedBatter>.self, forKey: .myStarPlayers)
     }
 
     init(teams: [DraftTeam], currentPickNumber: Int = 0, settings: DraftSettings, myTeamIndex: Int = 0) {
@@ -223,6 +242,7 @@ extension Draft {
         case playerPool
         case pickStack
         case myTeamIndex
+        case myStarPlayers
     }
 
     func encode(to encoder: Encoder) throws {
@@ -235,6 +255,7 @@ extension Draft {
         try container.encode(playerPool, forKey: .playerPool)
         try container.encode(pickStack, forKey: .pickStack)
         try container.encode(myTeamIndex, forKey: .myTeamIndex)
+        try container.encode(myStarPlayers, forKey: .myStarPlayers)
     }
 
     static func == (lhs: Draft, rhs: Draft) -> Bool {
@@ -249,6 +270,7 @@ extension Draft {
         hasher.combine(totalPickNumber)
         hasher.combine(playerPool)
         hasher.combine(pickStack)
+        
     }
 }
 

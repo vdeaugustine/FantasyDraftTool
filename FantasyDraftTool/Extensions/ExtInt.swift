@@ -20,4 +20,22 @@ extension Int {
     var isEven: Bool {
         self % 2 == 0
     }
+    
+    var withSuffix: String {
+        func addSuffixToNumber(_ number: Int) -> String {
+            let suffix: String
+            switch number % 10 {
+            case 1 where number % 100 != 11:
+                suffix = "st"
+            case 2 where number % 100 != 12:
+                suffix = "nd"
+            case 3 where number % 100 != 13:
+                suffix = "rd"
+            default:
+                suffix = "th"
+            }
+            return "\(number)\(suffix)"
+        }
+        return addSuffixToNumber(self)
+    }
 }

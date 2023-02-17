@@ -51,4 +51,6 @@ struct AllParsedBatters {
         }
         return retArr
     }
+    
+    
 }

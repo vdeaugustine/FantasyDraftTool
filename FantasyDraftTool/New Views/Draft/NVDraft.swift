@@ -23,24 +23,28 @@ struct NVDraft: View {
             .listSectionSeparator(.hidden)
             .frame(maxWidth: .infinity)
             
-            Section("Std Dev for remaining by position") {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(model.draft.playerPool.positionsOrder, id: \.self) { position in
-                            if let positionAverage = model.draft.playerPool.standardDeviationDict[position] {
-                                StatRect(stat: position.str.uppercased(), value: positionAverage)
-                                    .frame(width: 50)
-                            }
-                        }
-                    }
-                }
-            }
             
-            Section {
-                ForEach(model.draft.pickStack.getArray(), id: \.self) { pick in
-                    Text("\(pick.pickNumber): \(pick.player.name)")
-                }
-            }
+            
+            
+            // MARK: - FOR TESTING
+//            Section("Std Dev for remaining by position") {
+//                ScrollView(.horizontal, showsIndicators: false) {
+//                    HStack {
+//                        ForEach(model.draft.playerPool.positionsOrder, id: \.self) { position in
+//                            if let positionAverage = model.draft.playerPool.standardDeviationDict[position] {
+//                                StatRect(stat: position.str.uppercased(), value: positionAverage)
+//                                    .frame(width: 50)
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            Section {
+//                ForEach(model.draft.pickStack.getArray(), id: \.self) { pick in
+//                    Text("\(pick.pickNumber): \(pick.player.name) - \(pick.weightedScoreWhenDrafted)")
+//                }
+//            }
         }
         .listStyle(.plain)
         .navigationTitle("Round \(model.draft.roundNumber)")

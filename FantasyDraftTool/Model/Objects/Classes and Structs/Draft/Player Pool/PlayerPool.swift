@@ -65,6 +65,16 @@ struct PlayerPool: Codable, Hashable, Equatable {
         
     }()
     
+    func positionRank(for player: ParsedBatter, at position: Position) -> Int? {
+        
+        
+        guard let batters = self.battersDict[position]?.sortedByPoints,
+              let indexFound = batters.firstIndex(of: player) else {
+            return nil
+        }
+        return indexFound + 1
+    }
+    
     static func emptyPosAverageDict() -> [Position: Double] {
         var retDict: [Position: Double] = [:]
 
