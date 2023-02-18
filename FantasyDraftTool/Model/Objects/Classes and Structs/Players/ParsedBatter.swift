@@ -236,6 +236,23 @@ extension ParsedBatter {
 // MARK: - Functions
 
 extension ParsedBatter {
+    
+    
+    func similarPlayers(_ numberOfPlayers: Int, for position: Position, and projection: ProjectionTypes) -> [ParsedBatter] {
+        let preSortedBatters = AllParsedBatters.batters(for: projection, at: position).sortedByPoints
+        let selfPoints = self.fantasyPoints(MainModel.shared.scoringSettings)
+        let sortedBatters = preSortedBatters.sorted { firstBatter, secondBatter in
+            
+            let firstDifference = abs( selfPoints - firstBatter.fantasyPoints(MainModel.shared.scoringSettings) )
+            let secondDifference = abs( selfPoints - secondBatter.fantasyPoints(MainModel.shared.scoringSettings) )
+            
+            return firstDifference > secondDifference
+        }
+        
+        return sortedBatters.prefixArray(numberOfPlayers)
+    }
+    
+    
 }
 
 // MARK: Codable, Hashable, Equatable

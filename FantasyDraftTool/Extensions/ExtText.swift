@@ -9,6 +9,18 @@ import Foundation
 import SwiftUI
 
 extension Text {
+    init(_ dub: Double) {
+        self.init(dub.str)
+    }
+    
+    init(_ player: ParsedBatter) {
+        self.init(player.name)
+    }
+    
+    init(_ draftPlayer: DraftPlayer) {
+        self.init(draftPlayer.player.name)
+    }
+
     func grayOptionText() -> some View {
         fontWeight(.semibold)
             .foregroundColor(.hexStringToColor(hex: "757575"))
@@ -58,17 +70,17 @@ extension Text {
             .foregroundColor(.hexStringToColor(hex: "757575"))
             .font(.system(size: 22))
     }
-    
+
     func labelForValue() -> Text {
         fontWeight(.heavy)
-        .font(.system(size: 20))
+            .font(.system(size: 20))
     }
 
     func headerFormat() -> Text {
         font(.system(size: 24))
             .fontWeight(.semibold)
     }
-    
+
     func makeHeader() -> some View {
         HStack {
             self

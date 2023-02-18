@@ -30,7 +30,11 @@ struct NVDraftPlayerDetail: View {
         else { return nil }
         let positionAverage = Int(AverageStats.average(for: statKey, for: position, and: projection).roundTo(places: 0))
 
-        return (batterNum - positionAverage).str
+        let relativeBatter: Int = batterNum - positionAverage
+
+        let prefix: String = relativeBatter >= 0 ? "+" : ""
+
+        return prefix + relativeBatter.str
     }
 
     var body: some View {
@@ -68,7 +72,7 @@ struct NVDraftPlayerDetail: View {
                     if let stat = batter.dict[statKey] as? Int,
                        let position = position {
                         VStack {
-                            Text(statKey)
+                            Text(statKey).fontWeight(.bold)
                             Text(stat.str)
                             if let plusMinus = plusMinusStr(statKey: statKey, batterNum: stat) {
                                 Text(plusMinus)
@@ -80,6 +84,45 @@ struct NVDraftPlayerDetail: View {
                         }
                     }
                 }
+            }
+
+            Section {
+                if let position = position,
+                   let pickStackArray = model.draft.pickStack.getArray(),
+                   let playersAtPosition = pickStackArray.filter({ $0.player.positions.contains(position) }) {
+                    GroupBox("Drafted So Far") {
+                        ForEach(playersAtPosition, id: \.self) { player in
+                            HStack {
+                                Text(player.player.name)
+                                if let draftedTeam = player.draftedTeam {
+                                    Text(draftedTeam.name)
+                                }
+                                Text("Pick number: \(player.pickNumber)")
+                            }
+                        }
+                    }
+                }
+
+            } header: {
+                Text("Position")
+            }
+
+            Section {
+                if let position = position {
+                    GroupBox("By Position") {
+                        ForEach(batter.similarPlayers(5, for: position, and: projection), id: \.self) { similarPlayer in
+
+                            Text(similarPlayer)
+                                .spacedOut {
+                                    Text(similarPlayer.fantasyPoints(model.draft.settings.scoringSystem))
+                                }
+                        }
+                    }
+                }
+                
+                
+            } header: {
+                Text("Similar Players")
             }
         }
         .listStyle(.plain)
@@ -110,5 +153,8 @@ struct NVDraftPlayerDetail_Previews: PreviewProvider {
         NVDraftPlayerDetail(batter: AllParsedBatters.batters(for: .zips, at: .of)[25])
             .environmentObject(MainModel.shared)
             .putInNavView()
+            .onAppear {
+                MainModel.shared.draft = .exampleDraft(picksMade: 89)
+            }
     }
 }
