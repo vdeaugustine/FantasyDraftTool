@@ -9,13 +9,17 @@ import Foundation
 
 // MARK: - DraftPlayer
 
-class DraftPlayer: Hashable, Codable, Equatable, Identifiable {
+class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConvertible {
     // MARK: - Stored Properties
 
     var player: ParsedBatter
     var pickNumber: Int
     var draftTeam: DraftTeam
     var weightedScoreWhenDrafted: Double
+    
+    var description: String {
+        player.description
+    }
     
     var draftedTeam: DraftTeam? {
         let team = MainModel.shared.draft.teams.first(where: {$0.draftedPlayers.contains(self)})

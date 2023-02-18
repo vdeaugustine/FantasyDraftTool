@@ -19,7 +19,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
     var projectionType: ProjectionTypes
     
     var description: String {
-        self.name + " \(projectionType.title)" + "\(self.zScore())"
+        self.name + " \(projectionType.title)" + " \(self.zScore().roundTo(places: 1).str)"
     }
 
     // MARK: Computed properties

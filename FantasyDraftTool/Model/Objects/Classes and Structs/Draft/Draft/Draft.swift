@@ -25,11 +25,8 @@ struct Draft: Codable, Hashable, Equatable {
     var bestPicksStack: Stack<BestPick> = .init()
     var totalPicksMade: Int = 1
     var projectedStack: Stack<DraftPlayer> = .init()
-    
+
     var myStarPlayers: Set<ParsedBatter> = []
-    
- 
-    
 
     /// This should be = teamPickOrder - 1
     var myTeamIndex: Int
@@ -43,6 +40,7 @@ struct Draft: Codable, Hashable, Equatable {
     }
 
     // MARK: - Mutating functions
+
     /// This is a mutating function that removes a player from the playerPool object based on their positions.
     mutating func removeFromPool(player: DraftPlayer) {
         // Loop through each position the player has.
@@ -105,7 +103,6 @@ struct Draft: Codable, Hashable, Equatable {
 
         // Print the name of the team that is currently picking.
         print("team: ", teams[pickNumber - 1])
-
     }
 
     mutating func makePick(_ player: DraftPlayer) {
@@ -191,11 +188,11 @@ struct Draft: Codable, Hashable, Equatable {
         let sum: Double = batters.reduce(0) { $0 + $1.player.fantasyPoints(MainModel.shared.getScoringSettings()) }
         return (sum / Double(batters.count)).roundTo(places: 1)
     }
-    
+
     func isStar(_ player: ParsedBatter) -> Bool {
-        myStarPlayers.contains(where: {$0.name == player.name})
+        myStarPlayers.contains(where: { $0.name == player.name })
     }
-    
+
     mutating func addOrRemoveStar(_ player: ParsedBatter) {
         if isStar(player) {
             removeStar(player)
@@ -203,9 +200,9 @@ struct Draft: Codable, Hashable, Equatable {
             myStarPlayers.insert(player)
         }
     }
-    
+
     mutating func removeStar(_ player: ParsedBatter) {
-        self.myStarPlayers.remove(player)
+        myStarPlayers.remove(player)
     }
 
     // MARK: - Initializers
@@ -273,7 +270,6 @@ extension Draft {
         hasher.combine(totalPickNumber)
         hasher.combine(playerPool)
         hasher.combine(pickStack)
-        
     }
 }
 
@@ -302,15 +298,19 @@ extension Draft {
         var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
 
         while draft.totalPicksMade <= picksMade {
-            let sortedBatters = draft.playerPool.batters.removingDuplicates().sorted(by: { $0.zScore() > $1.zScore() })
+            print(draft.currentTeam.name + " is up. Their team looks like this")
+            for position in draft.currentTeam.minForPositions.keys {
+                print("\(position.str): \(draft.currentTeam.draftedPlayers.filter { $0.has(position: position) })")
+            }
 
-            print("Next 5 players are " , sortedBatters.prefixArray(5))
-            
-            
-            guard let chosenPlayer: ParsedBatter = sortedBatters.first else {
+            let availableBatters = draft.currentTeam.recommendedBattersDesc(draft: draft)
+
+            print("Next available: ", availableBatters.prefixArray(5))
+
+            guard let chosenPlayer: ParsedBatter = draft.currentTeam.recommendedPlayer(draft: draft) else {
                 break
             }
-            
+
             print("Chosen player is \(chosenPlayer)")
 
             let draftPlayer = DraftPlayer(player: chosenPlayer,
@@ -323,6 +323,3 @@ extension Draft {
         return draft
     }
 }
-
-
-

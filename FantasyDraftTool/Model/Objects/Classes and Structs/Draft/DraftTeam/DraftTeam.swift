@@ -88,7 +88,7 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
         for position in self.minForPositions.keys {
             let numDrafted = self.draftedPlayers.filter({$0.has(position: position)}).count
             if let min = self.minForPositions[position],
-               numDrafted >= min {
+               numDrafted < min {
                 pos.append(position)
             }
         }
@@ -96,9 +96,13 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
     }
     
     func recommendedPlayer(draft: Draft) -> ParsedBatter? {
+        recommendedBattersDesc(draft: draft).first
+    }
+    
+    func recommendedBattersDesc(draft: Draft) -> [ParsedBatter] {
         let positions = positionsNotMetMinimum()
         let players = draft.playerPool.batters(for: positions, draft: draft)
-        return players.sortedByZscore(draft: draft).first
+        return players.sortedByZscore(draft: draft)
     }
     
     
