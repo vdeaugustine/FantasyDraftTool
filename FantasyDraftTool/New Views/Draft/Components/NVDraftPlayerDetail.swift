@@ -119,8 +119,7 @@ struct NVDraftPlayerDetail: View {
                         }
                     }
                 }
-                
-                
+
             } header: {
                 Text("Similar Players")
             }

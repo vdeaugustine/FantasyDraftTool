@@ -17,6 +17,16 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
     var positionsRequired: [Position: Int]
     var draftedPlayers: [DraftPlayer]
     
+    var minForPositions: [Position: Int] = [
+        .c : 1,
+        .first: 1,
+        .second: 1,
+        .third: 1,
+        .ss: 1,
+        .of: 3,
+        .dh: 1
+    ]
+    
     var positionsEmpty: Set<Position> {
         var included: Set<Position> = []
         for position in Position.batters {
@@ -71,6 +81,27 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
     func players(for position: Position) -> [DraftPlayer] {
         draftedPlayers.filter{$0.player.positions.contains(position)}
     }
+    
+    
+    func positionsNotMetMinimum() -> [Position] {
+        var pos = [Position]()
+        for position in self.minForPositions.keys {
+            let numDrafted = self.draftedPlayers.filter({$0.has(position: position)}).count
+            if let min = self.minForPositions[position],
+               numDrafted >= min {
+                pos.append(position)
+            }
+        }
+        return pos
+    }
+    
+    func recommendedPlayer(draft: Draft) -> ParsedBatter? {
+        let positions = positionsNotMetMinimum()
+        let players = draft.playerPool.batters(for: positions, draft: draft)
+        return players.sortedByZscore(draft: draft).first
+    }
+    
+    
 }
 
 // MARK: - Codable Equatable, Hashable

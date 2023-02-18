@@ -27,6 +27,9 @@ struct Draft: Codable, Hashable, Equatable {
     var projectedStack: Stack<DraftPlayer> = .init()
     
     var myStarPlayers: Set<ParsedBatter> = []
+    
+ 
+    
 
     /// This should be = teamPickOrder - 1
     var myTeamIndex: Int
@@ -320,3 +323,6 @@ extension Draft {
         return draft
     }
 }
+
+
+

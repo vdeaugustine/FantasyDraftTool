@@ -11,6 +11,8 @@ import SwiftUI
 
 struct NVDraft: View {
     @EnvironmentObject private var model: MainModel
+    @State private var projection: ProjectionTypes = .steamer
+    @State private var sortOptionSelected: NVSortByDropDown.Options = .score
     var body: some View {
         List {
             HStack {
@@ -18,13 +20,40 @@ struct NVDraft: View {
                     NVPreviousPickRect(player: prevPick)
                 }
                 NVCurrentPickRect(draft: model.draft)
+                
+                NavigationLink("All Picks") {
+                    List {
+                        ForEach (model.draft.pickStack.getArray(), id: \.self) { pick in
+                            Text(pick)
+                        }
+                    }
+                }
             }
             .listRowSeparator(.hidden)
             .listSectionSeparator(.hidden)
             .frame(maxWidth: .infinity)
             
             
+            // MARK: - Available Players
             
+            Section("Available Players") {
+                HStack {
+                    NVDropDownProjection(selection: $projection)
+                    NVSortByDropDown(selection: $sortOptionSelected)
+                }
+                
+                if let recommended = model.draft.myTeam?.recommendedPlayer(draft: model.draft) {
+                    VStack {
+                        Text("Recommended")
+                        
+                        GroupBox(recommended.name) {
+                            
+                        }
+                        
+                        
+                    }
+                }
+            }
             
             // MARK: - FOR TESTING
 //            Section("Std Dev for remaining by position") {

@@ -133,11 +133,11 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
         fantasyPoints(MainModel.shared.getScoringSettings()) / positionAverage * fantasyPoints(MainModel.shared.getScoringSettings())
     }
 
-    func zScore() -> Double {
+    func zScore(draft: Draft = MainModel.shared.draft) -> Double {
         guard let firstPost = positions.first,
-              let average = MainModel.shared.draft.playerPool.positionAveragesDict[firstPost],
-              let playersAtPosition = MainModel.shared.draft.playerPool.battersDict[firstPost],
-              let stdDev: Double = MainModel.shared.draft.playerPool.standardDeviationDict[firstPost]
+              let average = draft.playerPool.positionAveragesDict[firstPost],
+              let playersAtPosition = draft.playerPool.battersDict[firstPost],
+              let stdDev: Double = draft.playerPool.standardDeviationDict[firstPost]
         else { return (0 - .infinity) }
 
         let zScore = (fantasyPoints(MainModel.shared.getScoringSettings()) - average) / stdDev
@@ -165,6 +165,10 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
     static func averagePoints(forThese batters: [ParsedBatter]) -> Double {
         guard !batters.isEmpty else { return 0 }
         return (batters.reduce(Double(0)) { $0 + $1.fantasyPoints(ScoringSettings.defaultPoints) } / Double(batters.count)).roundTo(places: 1)
+    }
+    
+    func has(position: Position) -> Bool {
+        self.positions.contains(position)
     }
 }
 

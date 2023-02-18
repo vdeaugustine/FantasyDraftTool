@@ -31,7 +31,7 @@ struct NVCurrentPickRect: View {
     }
     
     var prediction: ParsedBatter? {
-        poolForPositions.sorted(by: {$0.zScore() > $1.zScore()}).first
+        draft.currentTeam.recommendedPlayer(draft: draft)
     }
     
     var body: some View {

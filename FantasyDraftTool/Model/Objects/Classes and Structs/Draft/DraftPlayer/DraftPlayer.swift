@@ -47,6 +47,10 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable {
 // MARK: - Functions
 extension DraftPlayer {
     
+    func has(position: Position) -> Bool {
+        self.player.positions.contains(position)
+    }
+    
     // MARK: - Static functions
     
     

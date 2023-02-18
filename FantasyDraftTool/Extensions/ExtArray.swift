@@ -46,6 +46,11 @@ extension Array where Element == ParsedBatter {
         self.removingDuplicates().sorted(by: {$0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints)})
     }
     
+    func sortedByZscore(draft: Draft) -> [ParsedBatter] {
+        let removedDuplicates = self.removingDuplicates()
+        return removedDuplicates.sorted(by: {$0.zScore(draft: draft) > $1.zScore(draft: draft)})
+    }
+    
     func averagePoints(for: Position) -> Double {
         ParsedBatter.averagePoints(forThese: self)
     }
