@@ -32,7 +32,7 @@ struct NVAllPlayers: View {
             case .points:
                 return filteredPlayers.sorted { $0.fantasyPoints(model.scoringSettings) > $1.fantasyPoints(model.scoringSettings) }
             case .score:
-                return filteredPlayers.sorted { $0.zScore() > $1.zScore() }
+            return filteredPlayers.sorted { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) }
             case .hr:
                 return filteredPlayers.sorted { $0.hr > $1.hr }
             case .rbi:

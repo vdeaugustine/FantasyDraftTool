@@ -17,8 +17,14 @@ struct NVDraftPlayerDetail: View {
 
     @State private var position: Position? = nil
 
+    @State private var notYourTurnAlert = false
+    
+    @State private var draftedAlert = false
+    
+    @Environment (\.dismiss) private var dismiss
+
     var numPicksTill: Int {
-        let batters = model.draft.playerPool.batters.sorted(by: { $0.zScore() > $1.zScore() })
+        let batters = model.draft.playerPool.batters.sorted(by: { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) })
 
         guard let ind = batters.firstIndex(where: { $0.name == batter.name }) else { return 0 }
 
@@ -135,6 +141,17 @@ struct NVDraftPlayerDetail: View {
                 }
 
                 Button("Draft") {
+                    
+                    model.draft.makePick(.init(player: batter, draft: model.draft))
+                    draftedAlert.toggle()
+                    
+                    
+//                    if model.draft.currentTeam == model.draft.myTeam {
+//                        model.draft.makePick(.init(player: batter, draft: model.draft))
+//                    } else {
+//                        notYourTurnAlert.toggle()
+//                    }
+                    
                 }
             }
         }
@@ -142,7 +159,17 @@ struct NVDraftPlayerDetail: View {
         .onAppear {
             position = batter.positions.first
         }
-    }
+        .alert("It is not your turn", isPresented: $notYourTurnAlert) {
+            Button("OK") {}
+        }
+        .alert("\(model.draft.previousTeam?.name ?? "") drafted \(batter.name)", isPresented: $draftedAlert) {
+            Button("OK") {
+                
+                dismiss()
+                
+            }
+        }
+}
 }
 
 // MARK: - NVDraftPlayerDetail_Previews

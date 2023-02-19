@@ -14,24 +14,27 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
 
     var player: ParsedBatter
     var pickNumber: Int
+    
+    /// Team that is assigned to the player. Not the computed property 
     var draftTeam: DraftTeam
     var weightedScoreWhenDrafted: Double
-    
+
     var description: String {
         player.description
     }
-    
+
+    /// Computed property that tells you what team this player is found on within the draft 
     var draftedTeam: DraftTeam? {
-        let team = MainModel.shared.draft.teams.first(where: {$0.draftedPlayers.contains(self)})
+        let team = MainModel.shared.draft.teams.first(where: { $0.draftedPlayers.contains(self) })
         return team
     }
 
     var id: String {
         "\(player.name) drafted #\(pickNumber) overall by."
     }
-    
 
     // MARK: - Initializers
+
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.player = try values.decode(ParsedBatter.self, forKey: .player)
@@ -39,42 +42,45 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
         self.draftTeam = try values.decode(DraftTeam.self, forKey: .draftTeam)
         self.weightedScoreWhenDrafted = try values.decode(Double.self, forKey: .weightedScoreWhenDrafted)
     }
-    
+
     init(player: ParsedBatter, pickNumber: Int, team: DraftTeam, weightedScore: Double) {
         self.player = player
         self.pickNumber = pickNumber
-            self.draftTeam = team
+        self.draftTeam = team
         self.weightedScoreWhenDrafted = weightedScore
+    }
+
+    convenience init(player: ParsedBatter, draft: Draft) {
+        self.init(player: player,
+                  pickNumber: draft.totalPickNumber,
+                  team: draft.currentTeam,
+                  weightedScore: player.weightedFantasyPoints(dict: draft.playerPool.positionAveragesDict))
     }
 }
 
 // MARK: - Functions
+
 extension DraftPlayer {
-    
     func has(position: Position) -> Bool {
-        self.player.positions.contains(position)
+        player.positions.contains(position)
     }
-    
+
     // MARK: - Static functions
-    
-    
-    
 }
 
 // MARK: - Codable, Hashable, Equatable
 
 extension DraftPlayer {
-    
     enum CodingKeys: CodingKey { case player, pickNumber, draftTeam, weightedScoreWhenDrafted }
-    
+
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(player, forKey: .player)
         try container.encode(pickNumber, forKey: .pickNumber)
-            try container.encode(draftTeam, forKey: .draftTeam)
+        try container.encode(draftTeam, forKey: .draftTeam)
         try container.encode(weightedScoreWhenDrafted, forKey: .weightedScoreWhenDrafted)
     }
-    
+
     static func == (lhs: DraftPlayer, rhs: DraftPlayer) -> Bool {
         return lhs.player == rhs.player &&
             lhs.pickNumber == rhs.pickNumber

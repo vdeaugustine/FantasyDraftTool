@@ -65,7 +65,9 @@
 		9C75B9EE296FD215003B35E6 /* ExtColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9E6296FD215003B35E6 /* ExtColor.swift */; };
 		9C75B9EF296FD215003B35E6 /* ExtText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9E7296FD215003B35E6 /* ExtText.swift */; };
 		9C75B9F0296FD215003B35E6 /* ExtStr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9E8296FD215003B35E6 /* ExtStr.swift */; };
+		9C762DEC29A1D67700C3B804 /* NVDraftPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C762DEB29A1D67700C3B804 /* NVDraftPlayerView.swift */; };
 		9C7CC795299DD4D800A95170 /* NVDraftPlayerDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7CC794299DD4D800A95170 /* NVDraftPlayerDetail.swift */; };
+		9C8643A829A1BB8300067B1A /* NVMyTeamQuickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8643A729A1BB8300067B1A /* NVMyTeamQuickView.swift */; };
 		9CA24CA62983915400A394B4 /* AllBattersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA52983915400A394B4 /* AllBattersListView.swift */; };
 		9CA24CA8298394EB00A394B4 /* ParsedBatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */; };
 		9CA24CAA2983A43500A394B4 /* ParsedBatterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA92983A43500A394B4 /* ParsedBatterDetailView.swift */; };
@@ -167,7 +169,9 @@
 		9C75B9E6296FD215003B35E6 /* ExtColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtColor.swift; sourceTree = "<group>"; };
 		9C75B9E7296FD215003B35E6 /* ExtText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtText.swift; sourceTree = "<group>"; };
 		9C75B9E8296FD215003B35E6 /* ExtStr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtStr.swift; sourceTree = "<group>"; };
+		9C762DEB29A1D67700C3B804 /* NVDraftPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDraftPlayerView.swift; sourceTree = "<group>"; };
 		9C7CC794299DD4D800A95170 /* NVDraftPlayerDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDraftPlayerDetail.swift; sourceTree = "<group>"; };
+		9C8643A729A1BB8300067B1A /* NVMyTeamQuickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVMyTeamQuickView.swift; sourceTree = "<group>"; };
 		9CA24CA52983915400A394B4 /* AllBattersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBattersListView.swift; sourceTree = "<group>"; };
 		9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedBatter.swift; sourceTree = "<group>"; };
 		9CA24CA92983A43500A394B4 /* ParsedBatterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedBatterDetailView.swift; sourceTree = "<group>"; };
@@ -685,6 +689,8 @@
 		9CE9F50C299C9ECE0015886D /* Draft */ = {
 			isa = PBXGroup;
 			children = (
+				9C762DEB29A1D67700C3B804 /* NVDraftPlayerView.swift */,
+				9C8643A729A1BB8300067B1A /* NVMyTeamQuickView.swift */,
 				9CE9F50F299C9F1B0015886D /* Components */,
 				9CE9F50D299C9ED80015886D /* NVDraft.swift */,
 			);
@@ -826,6 +832,7 @@
 				9CA24CC62985B83200A394B4 /* Draft.swift in Sources */,
 				9CE9F506299C88320015886D /* RectPieChart.swift in Sources */,
 				9CA24CD729865F5D00A394B4 /* DraftSummaryView.swift in Sources */,
+				9C762DEC29A1D67700C3B804 /* NVDraftPlayerView.swift in Sources */,
 				9C75B9EF296FD215003B35E6 /* ExtText.swift in Sources */,
 				9CE9F513299CA5C00015886D /* NVCurrentPickRect.swift in Sources */,
 				9CC8028B298E3785005B438D /* BestPick.swift in Sources */,
@@ -864,6 +871,7 @@
 				9CA24CAA2983A43500A394B4 /* ParsedBatterDetailView.swift in Sources */,
 				9C75B9EC296FD215003B35E6 /* ExtDouble.swift in Sources */,
 				9C1AE39C29804D4A0016BF50 /* ScoringSettingsView.swift in Sources */,
+				9C8643A829A1BB8300067B1A /* NVMyTeamQuickView.swift in Sources */,
 				9CA24CE02988F57600A394B4 /* SelectProjectionTypeHScroll.swift in Sources */,
 				9C75B9E9296FD215003B35E6 /* ExtDate.swift in Sources */,
 				9CA24CDC2988F4FB00A394B4 /* PositionAnalysisView.swift in Sources */,

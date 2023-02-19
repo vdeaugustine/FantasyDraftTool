@@ -15,7 +15,7 @@ struct DraftView: View {
 
     var sortedBatters: [ParsedBatter] {
         model.draft.playerPool.batters.removingDuplicates().sorted {
-            $0.zScore() > $1.zScore()
+            $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft)
         }
     }
 
@@ -90,7 +90,7 @@ struct DraftView: View {
                         makePick(player: batter)
                     } label: {
                         Text(batter.name)
-                            .spacedOut(text: batter.zScore().roundTo(places: 3).str)
+                            .spacedOut(text: batter.zScore(draft: model.draft).roundTo(places: 3).str)
                     }
                 }
             }

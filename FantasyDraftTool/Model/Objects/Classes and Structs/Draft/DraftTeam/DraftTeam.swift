@@ -106,6 +106,7 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
     }
     
     
+    
 }
 
 // MARK: - Codable Equatable, Hashable

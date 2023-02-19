@@ -14,13 +14,7 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     @Published var scoringSettings: ScoringSettings = .defaultPoints
 
-    @Published var draft: Draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10),
-                                        currentPickNumber: 1,
-                                        settings: .init(numberOfTeams: 10,
-                                                        snakeDraft: true,
-                                                        numberOfRounds: 25,
-                                                        scoringSystem: .defaultPoints),
-                                        myTeamIndex: 10)
+    @Published var draft: Draft = .exampleDraft(picksMade: 25)
 
     @Published var navPathForDrafting: [DraftPath] = []
 

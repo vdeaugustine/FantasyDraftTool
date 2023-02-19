@@ -10,6 +10,10 @@ import SwiftUI
 // MARK: - NVAllPlayersRow
 
 struct NVAllPlayersRow: View {
+    
+    @EnvironmentObject private var model: MainModel
+    
+    
     let batter: ParsedBatter
 
     var body: some View {
@@ -28,7 +32,7 @@ struct NVAllPlayersRow: View {
                 Text(batter.r.str + " R")
                 Text(batter.sb.str + " SB")
                 Spacer()
-                Text("score: \(batter.zScore().roundTo(places: 1).str)")
+                Text("score: \(batter.zScore(draft: model.draft).roundTo(places: 1).str)")
                 
             }
             .font(.caption)
@@ -44,5 +48,6 @@ struct NVAllPlayersRow_Previews: PreviewProvider {
     static var previews: some View {
         NVAllPlayersRow(batter: AllParsedBatters.batters(for: .atc, at: .first)[0])
             .previewLayout(.sizeThatFits)
+            .environmentObject(MainModel.shared)
     }
 }

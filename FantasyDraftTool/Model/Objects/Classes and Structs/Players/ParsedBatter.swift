@@ -19,7 +19,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
     var projectionType: ProjectionTypes
     
     var description: String {
-        self.name + " \(projectionType.title)" + " \(self.zScore().roundTo(places: 1).str)"
+        self.name + " \(projectionType.title)"
     }
 
     // MARK: Computed properties
@@ -133,14 +133,14 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
         fantasyPoints(MainModel.shared.getScoringSettings()) / positionAverage * fantasyPoints(MainModel.shared.getScoringSettings())
     }
 
-    func zScore(draft: Draft = MainModel.shared.draft) -> Double {
+    func zScore(draft: Draft) -> Double {
         guard let firstPost = positions.first,
               let average = draft.playerPool.positionAveragesDict[firstPost],
               let playersAtPosition = draft.playerPool.battersDict[firstPost],
               let stdDev: Double = draft.playerPool.standardDeviationDict[firstPost]
         else { return (0 - .infinity) }
 
-        let zScore = (fantasyPoints(MainModel.shared.getScoringSettings()) - average) / stdDev
+        let zScore = (fantasyPoints(draft.settings.scoringSystem) - average) / stdDev
 
         return zScore
     }

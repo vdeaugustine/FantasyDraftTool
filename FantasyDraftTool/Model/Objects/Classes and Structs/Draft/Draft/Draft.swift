@@ -28,6 +28,12 @@ struct Draft: Codable, Hashable, Equatable {
 
     var myStarPlayers: Set<ParsedBatter> = []
 
+    var projectionCurrentlyUsing: ProjectionTypes = .steamer
+    
+    var previousTeam: DraftTeam? {
+        pickStack.getArray().first?.draftedTeam
+    }
+
     /// This should be = teamPickOrder - 1
     var myTeamIndex: Int
 
@@ -113,6 +119,10 @@ struct Draft: Codable, Hashable, Equatable {
         teams[currentIndex].draftedPlayers.append(player)
         setNextTeam()
         playerPool.setPositionsOrder()
+    }
+    
+    mutating func makePick(_ player: ParsedBatter) {
+        self.makePick(.init(player: player, draft: self))
     }
 
     mutating func undoPick() {
@@ -278,7 +288,7 @@ extension Draft {
         var workingDraft: Draft = self
 
         while workingDraft.totalPicksMade <= workingDraft.settings.numberOfRounds * workingDraft.settings.numberOfTeams {
-            let sortedBatters = workingDraft.playerPool.batters.removingDuplicates().sorted(by: { $0.zScore() > $1.zScore() })
+            let sortedBatters = workingDraft.playerPool.batters.removingDuplicates().sorted(by: { $0.zScore(draft: workingDraft) > $1.zScore(draft: workingDraft) })
 
             guard let chosenPlayer: ParsedBatter = sortedBatters.first else {
                 break
@@ -287,11 +297,42 @@ extension Draft {
             let draftPlayer = DraftPlayer(player: chosenPlayer,
                                           pickNumber: workingDraft.totalPickNumber,
                                           team: workingDraft.currentTeam,
-                                          weightedScore: chosenPlayer.zScore())
+                                          weightedScore: chosenPlayer.zScore(draft: workingDraft))
             workingDraft.makePick(draftPlayer)
         }
 
         return workingDraft.pickStack
+    }
+    
+    mutating func simulatePicks(_ numPicks: Int) {
+        var draft = self
+        var picksMade: Int = 0
+
+        while picksMade <= numPicks {
+            print(draft.currentTeam.name + " is up. Their team looks like this")
+            for position in draft.currentTeam.minForPositions.keys {
+                print("\(position.str): \(draft.currentTeam.draftedPlayers.filter { $0.has(position: position) })")
+            }
+
+            let availableBatters = draft.currentTeam.recommendedBattersDesc(draft: draft)
+
+            print("Next available: ", availableBatters.prefixArray(5))
+
+            guard let chosenPlayer: ParsedBatter = draft.currentTeam.recommendedPlayer(draft: draft) else {
+                break
+            }
+
+            print("Chosen player is \(chosenPlayer)")
+
+            let draftPlayer = DraftPlayer(player: chosenPlayer,
+                                          pickNumber: draft.totalPickNumber,
+                                          team: draft.currentTeam,
+                                          weightedScore: chosenPlayer.zScore(draft: draft))
+            draft.makePick(draftPlayer)
+            picksMade += 1
+        }
+
+        self = draft
     }
 
     static func exampleDraft(picksMade: Int = 30) -> Draft {
@@ -316,7 +357,7 @@ extension Draft {
             let draftPlayer = DraftPlayer(player: chosenPlayer,
                                           pickNumber: draft.totalPickNumber,
                                           team: draft.currentTeam,
-                                          weightedScore: chosenPlayer.zScore())
+                                          weightedScore: chosenPlayer.zScore(draft: draft))
             draft.makePick(draftPlayer)
         }
 
