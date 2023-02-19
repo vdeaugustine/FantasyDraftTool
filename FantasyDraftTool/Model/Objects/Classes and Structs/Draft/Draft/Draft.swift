@@ -35,6 +35,11 @@ struct Draft: Codable, Hashable, Equatable {
     var previousTeam: DraftTeam? {
         pickStack.getArray().first?.draftedTeam
     }
+    
+    var draftOver: Bool {
+        let pickLimit = settings.numberOfRounds * settings.numberOfTeams
+        return currentPickNumber >= pickLimit
+    }
 
     /// This should be = teamPickOrder - 1
     var myTeamIndex: Int
@@ -311,6 +316,7 @@ extension Draft {
         var picksMade: Int = 0
 
         while picksMade <= numPicks {
+            if draft.draftOver { break }
             print(draft.currentTeam.name + " is up. Their team looks like this")
             for position in draft.currentTeam.minForPositions.keys {
                 print("\(position.str): \(draft.currentTeam.draftedPlayers.filter { $0.has(position: position) })")

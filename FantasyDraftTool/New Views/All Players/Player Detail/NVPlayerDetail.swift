@@ -16,12 +16,12 @@ struct NVPlayerDetail: View {
     @State private var playerPosition: Position? = nil
 
     var thisBatter: ParsedBatter {
-        AllParsedBatters.batters(for: projectionSelected).first(where: { $0.name == batter.name })!
+        AllExtendedBatters.batters(for: projectionSelected).first(where: { $0.name == batter.name })!
     }
 
     var top5Position: [ParsedBatter] {
         guard let position = playerPosition else { return [] }
-        let batters: [ParsedBatter] = AllParsedBatters.batters(for: projectionSelected, at: position)
+        let batters: [ParsedBatter] = AllExtendedBatters.batters(for: projectionSelected, at: position)
         let sorted = batters.sortedByPoints.prefixArray(5)
         return sorted
     }
@@ -33,14 +33,14 @@ struct NVPlayerDetail: View {
 
     var positionAverage: Double {
         guard let position = playerPosition else { return 0 }
-        let batters = AllParsedBatters.batters(for: projectionSelected, at: position)
+        let batters = AllExtendedBatters.batters(for: projectionSelected, at: position)
         let answer = ParsedBatter.averagePoints(forThese: batters).roundTo(places: 2)
         return answer
     }
 
     var top5HR: Double {
         guard let position = playerPosition else { return 0 }
-        let batters = AllParsedBatters.batters(for: projectionSelected, at: position)
+        let batters = AllExtendedBatters.batters(for: projectionSelected, at: position)
         let sorted = batters.sorted(by: { $0.hr > $1.hr })
         let top5 = sorted.prefixArray(5)
         let sum: Double = top5.reduce(Double(0)) { $0 + Double($1.hr) }
@@ -49,7 +49,7 @@ struct NVPlayerDetail: View {
 
     var positionHR: Double {
         guard let position = playerPosition else { return 0 }
-        let batters = AllParsedBatters.batters(for: projectionSelected, at: position)
+        let batters = AllExtendedBatters.batters(for: projectionSelected, at: position)
         let sum: Double = batters.reduce(Double(0)) { $0 + Double($1.hr) }
         return (sum / Double(batters.count)).roundTo(places: 1)
     }
@@ -172,7 +172,7 @@ struct NVPlayerDetail: View {
 
 struct NVPlayerDetail_Previews: PreviewProvider {
     static var previews: some View {
-        NVPlayerDetail(batter: AllParsedBatters.batters(for: .zips, at: .of)[0])
+        NVPlayerDetail(batter: AllExtendedBatters.batters(for: .zips, at: .of)[0])
             .putInNavView()
     }
 }

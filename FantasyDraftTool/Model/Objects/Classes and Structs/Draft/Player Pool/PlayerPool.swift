@@ -28,7 +28,7 @@ struct PlayerPool: Codable, Hashable, Equatable {
         var retDict: [Position: [ParsedBatter]] = [:]
 
         for position in Position.batters {
-            let battersForThisPosition = AllParsedBatters.batters(for: .steamer, at: position)
+            let battersForThisPosition = AllExtendedBatters.batters(for: .steamer, at: position)
             retDict[position] = battersForThisPosition.sortedByPoints
         }
 
@@ -63,7 +63,7 @@ struct PlayerPool: Codable, Hashable, Equatable {
         var tempDict: [Position: [ParsedBatter]] = [:]
 
         for position in Position.batters {
-            let battersForThisPosition = AllParsedBatters.batters(for: .steamer, at: position)
+            let battersForThisPosition = AllExtendedBatters.batters(for: .steamer, at: position)
             tempDict[position] = battersForThisPosition.sortedByPoints
         }
 
@@ -88,7 +88,7 @@ struct PlayerPool: Codable, Hashable, Equatable {
         var retDict: [Position: Double] = [:]
 
         for position in Position.batters {
-            let battersForThisPosition = AllParsedBatters.batters(for: .steamer, at: position)
+            let battersForThisPosition = AllExtendedBatters.batters(for: .steamer, at: position)
             retDict[position] = ParsedBatter.averagePoints(forThese: battersForThisPosition)
         }
 

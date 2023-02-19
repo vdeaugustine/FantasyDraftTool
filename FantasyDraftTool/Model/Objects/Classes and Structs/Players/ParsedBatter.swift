@@ -212,7 +212,7 @@ extension ParsedBatter {
     
     init(from jsonBatter: ExtendedBatter, pos: Position, projectionType: ProjectionTypes) {
         self.empty = jsonBatter.empty ?? "NA"
-        self.name = jsonBatter.name ?? "NA"
+        self.name = jsonBatter.playerName ?? "NA"
         self.team = jsonBatter.team ?? "NA"
         self.g = Int(jsonBatter.g ?? -99)
         self.ab = Int(jsonBatter.ab ?? -99)
@@ -278,7 +278,7 @@ extension ParsedBatter {
 
 extension ParsedBatter {
     func similarPlayers(_ numberOfPlayers: Int, for position: Position, and projection: ProjectionTypes) -> [ParsedBatter] {
-        let preSortedBatters = AllParsedBatters.batters(for: projection, at: position).sortedByPoints
+        let preSortedBatters = AllExtendedBatters.batters(for: projection, at: position).sortedByPoints
         let selfPoints = fantasyPoints(MainModel.shared.scoringSettings)
         let sortedBatters = preSortedBatters.sorted { firstBatter, secondBatter in
 

@@ -14,10 +14,10 @@ struct PositionAnalysisView: View {
     @State var position: Position = .of
     @State var projectionType: ProjectionTypes = .steamer
     var batters: [ParsedBatter] {
-        AllParsedBatters.batters(for: projectionType, at: position)
+        AllExtendedBatters.batters(for: projectionType, at: position)
     }
     var allBatters: [ParsedBatter] {
-        AllParsedBatters.batters(for: projectionType)
+        AllExtendedBatters.batters(for: projectionType)
     }
     
 
