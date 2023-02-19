@@ -207,6 +207,42 @@ extension ParsedBatter {
 
         self.projectionType = projectionType
     }
+    
+    
+    
+    init(from jsonBatter: ExtendedBatter, pos: Position, projectionType: ProjectionTypes) {
+        self.empty = jsonBatter.empty
+        self.name = jsonBatter.name
+        self.team = jsonBatter.team ?? "NA"
+
+        self.g = Int(jsonBatter.g)
+        self.ab = Int(jsonBatter.ab)
+        self.pa = Int(jsonBatter.pa)
+        self.h = Int(jsonBatter.h)
+        self.the1B = Int(jsonBatter.the1B)
+        self.the2B = Int(jsonBatter.the2B)
+        self.the3B = Int(jsonBatter.the3B)
+        self.hr = Int(jsonBatter.hr)
+        self.r = Int(jsonBatter.r)
+        self.rbi = Int(jsonBatter.rbi)
+        self.bb = Int(jsonBatter.bb)
+        self.ibb = Int(jsonBatter.ibb)
+        self.so = Int(jsonBatter.so)
+        self.hbp = Int(jsonBatter.hbp)
+        self.sf = Int(jsonBatter.sf)
+        self.sh = Int(jsonBatter.sh)
+        self.sb = Int(jsonBatter.sb)
+        self.cs = Int(jsonBatter.cs)
+
+        self.avg = Double("0" + jsonBatter.avg.str) ?? 0
+
+        self.positions = [pos]
+
+        self.projectionType = projectionType
+    }
+    
+    
+    
 
     // MARK: Codable initializer
 

@@ -21,9 +21,9 @@ enum DraftPath: Hashable {
 struct ContentView: View {
     @EnvironmentObject private var model: MainModel
     @State private var selectedTab: Int = 0
+    @State private var batters: [ExtendedBatter] = []
     var body: some View {
         TabView(selection: $selectedTab) {
-            
             NavigationView {
                 NVAllPlayers()
             }
@@ -32,7 +32,7 @@ struct ContentView: View {
                 Label("List", systemImage: "list.bullet")
             }
             .navigationBarTitleDisplayMode(.inline)
-            
+
             NavigationView {
                 NVDraft()
             }
@@ -41,7 +41,7 @@ struct ContentView: View {
                 Label("Draft", systemImage: "list.bullet")
             }
             .navigationBarTitleDisplayMode(.inline)
-            
+
 //
 //            NavigationView {
 //                AllBattersListView()
@@ -87,6 +87,9 @@ struct ContentView: View {
 //            .tabItem {
 //                Label("Settings", systemImage: "gear")
 //            }
+        }
+        .onAppear {
+//            print(batters)
         }
     }
 }

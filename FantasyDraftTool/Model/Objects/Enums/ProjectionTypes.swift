@@ -53,6 +53,12 @@ enum ProjectionTypes: String, CaseIterable, Codable {
 
     var jsonFile: String { "\(rawValue)Standard" }
     
+    var extendedFile: String { "Extended" + jsonFile }
+    
+    func extendedFileName(position: Position) -> String {
+        "Extended" + jsonFileName(position: position)
+    }
+    
     func jsonFileName(position: Position) -> String {
         position.str + "Bat" + self.str + "Standard"
     }
