@@ -40,7 +40,7 @@ struct NVPreviousPickRect: View {
 struct NVPreviousPickRect_Previews: PreviewProvider {
     static var previews: some View {
         NVPreviousPickRect(
-            player: .init(player: AllParsedBatters.batters(for: .steamer,
+            player: .init(player: AllExtendedBatters.batters(for: .steamer,
                                                            at: .first).first!,
                           pickNumber: 24,
                           team: .init(name: "Team 4",

@@ -60,11 +60,7 @@ struct NVDraft: View {
                 NVCurrentPickRect(draft: model.draft)
 
                 NavigationLink("All Picks") {
-                    List {
-                        ForEach(model.draft.pickStack.getArray(), id: \.self) { pick in
-                            Text(pick)
-                        }
-                    }
+                    NVDraftSummaryView()
                 }
             }
             .listRowSeparator(.hidden)

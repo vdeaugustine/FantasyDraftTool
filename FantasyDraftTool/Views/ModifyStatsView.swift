@@ -41,9 +41,9 @@ struct ModifyStatsView: View {
                     VStack {
                         Text( ProjectionTypes.arr[thisProjIndex].title)
                         
-                        if let val = AllParsedBatters.batterVariants(for: myParsedBatter)[thisProjIndex].dict[stat] as? Double {
+                        if let val = AllExtendedBatters.batterVariants(for: myParsedBatter)[thisProjIndex].dict[stat] as? Double {
                             Text(val.str)
-                        } else if let val = AllParsedBatters.batterVariants(for: myParsedBatter)[thisProjIndex].dict[stat] as? Int {
+                        } else if let val = AllExtendedBatters.batterVariants(for: myParsedBatter)[thisProjIndex].dict[stat] as? Int {
                             Text(val.str)
                         }
                         
@@ -63,7 +63,7 @@ struct ModifyStatsView: View {
 
 struct ModifyStatsView_Previews: PreviewProvider {
     static var previews: some View {
-        ModifyStatsView(batter: AllParsedBatters.atc.firstBase.first!)
+        ModifyStatsView(batter: AllExtendedBatters.atc.firstBase.first!)
             .environmentObject(MainModel.shared)
             .putInNavView(displayMode: .inline)
     }

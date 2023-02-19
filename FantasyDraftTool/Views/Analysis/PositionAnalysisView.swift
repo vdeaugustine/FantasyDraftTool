@@ -40,7 +40,7 @@ struct PositionAnalysisView: View {
                     Chart {
                         ForEach(Position.batters, id: \.self) { thisPosition in
                             BarMark(x: .value("Position", thisPosition.str.uppercased()),
-                                    y: .value("Average Fantasy Points", ParsedBatter.averagePoints(forThese: AllParsedBatters.batters(for: projectionType).filter { $0.positions.contains(thisPosition) })))
+                                    y: .value("Average Fantasy Points", ParsedBatter.averagePoints(forThese: AllExtendedBatters.batters(for: projectionType).filter { $0.positions.contains(thisPosition) })))
                             .foregroundStyle(thisPosition == position ? .red : .blue)
                         }
 
