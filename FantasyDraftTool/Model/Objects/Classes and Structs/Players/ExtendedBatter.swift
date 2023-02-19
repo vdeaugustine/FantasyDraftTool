@@ -13,29 +13,27 @@ import Foundation
 // MARK: - ExtendedBatter
 
 struct ExtendedBatter: Codable, Hashable, Equatable, CustomStringConvertible {
-    let name: String
-    let team, shortName: String?
-    let g, ab, pa, h: Int
-    let the1B, the2B, the3B, hr: Int
-    let r, rbi, bb, ibb: Int
-    let so, hbp, sf, sh: Int
-    let gdp: JSONNull?
-    let sb, cs: Int
-    let avg, obp, slg, ops: Double
-    let wOBA, extendedBatterBB, k, bbK: Double
-    let iso, spd, babip, ubr: Double
-    let gdpRuns: JSONNull?
-    let wRC, wRAA, uzr, wBsR: Double
-    let baseRunning, war, off, def: Double
-    let extendedBatterWRC, adp: Double
-    let pos: Double?
-    let minpos: String
-    let teamid: Int?
-    let league: String?
-    let playerName, playerids, empty: String
+    let name, team, shortName: String?
+        let g, ab, pa, h: Int?
+        let the1B, the2B, the3B, hr: Int?
+        let r, rbi, bb, ibb: Int?
+        let so, hbp, sf, sh: Int?
+        let gdp: JSONNull?
+        let sb, cs: Int?
+        let avg, obp, slg, ops: Double?
+        let wOBA, extendedBatterBB, k, bbK: Double?
+        let iso, spd, babip, ubr: Double?
+        let gdpRuns: JSONNull?
+        let wRC, wRAA, uzr, wBsR: Double?
+        let baseRunning, war, off, def: Double?
+        let extendedBatterWRC, adp: Double?
+        let pos: Double?
+        let minpos: String?
+        let teamid: Int?
+        let league, playerName, playerids, empty: String?
 
     var description: String {
-        "\(playerName): \(pos?.str ?? "") : \(team ?? "") "
+        "\(playerName ?? "NO NAME"): \(pos?.str ?? "") : \(team ?? "") "
     }
 
     enum CodingKeys: String, CodingKey {
@@ -189,12 +187,12 @@ struct ExtensionProjection {
     }
 
     init(projectionType: ProjectionTypes) {
-        self.c = ExtensionProjection.loadBatters(projectionType.jsonFileName(position: .c)).map { ParsedBatter(from: $0, pos: .c, projectionType: projectionType) }
-        self.firstBase = ExtensionProjection.loadBatters(projectionType.jsonFileName(position: .first)).map { ParsedBatter(from: $0, pos: .first, projectionType: projectionType) }
-        self.secondBase = ExtensionProjection.loadBatters(projectionType.jsonFileName(position: .second)).map { ParsedBatter(from: $0, pos: .second, projectionType: projectionType) }
-        self.thirdBase = ExtensionProjection.loadBatters(projectionType.jsonFileName(position: .third)).map { ParsedBatter(from: $0, pos: .third, projectionType: projectionType) }
-        self.ss = ExtensionProjection.loadBatters(projectionType.jsonFileName(position: .ss)).map { ParsedBatter(from: $0, pos: .ss, projectionType: projectionType) }
-        self.of = ExtensionProjection.loadBatters(projectionType.jsonFileName(position: .of)).map { ParsedBatter(from: $0, pos: .of, projectionType: projectionType) }
+        self.c = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .c)).map { ParsedBatter(from: $0, pos: .c, projectionType: projectionType) }
+        self.firstBase = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .first)).map { ParsedBatter(from: $0, pos: .first, projectionType: projectionType) }
+        self.secondBase = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .second)).map { ParsedBatter(from: $0, pos: .second, projectionType: projectionType) }
+        self.thirdBase = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .third)).map { ParsedBatter(from: $0, pos: .third, projectionType: projectionType) }
+        self.ss = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .ss)).map { ParsedBatter(from: $0, pos: .ss, projectionType: projectionType) }
+        self.of = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .of)).map { ParsedBatter(from: $0, pos: .of, projectionType: projectionType) }
     }
     
     static func loadBatters(_ filename: String) -> [ExtendedBatter] {
@@ -214,9 +212,9 @@ struct ExtensionProjection {
         do {
             let decoder = JSONDecoder()
             let arr = try decoder.decode([ExtendedBatter].self, from: data)
-            return Array(Set<ExtendedBatter>(arr)).sorted(by: { $0.empty < $1.empty })
+            return Array(Set<ExtendedBatter>(arr))
         } catch {
-            fatalError("Couldn't parse \(filename) as \(JSONBatter.self):\n\(error)")
+            fatalError("Couldn't parse \(filename) as \(ExtendedBatter.self):\n\(error)")
         }
     }
 }

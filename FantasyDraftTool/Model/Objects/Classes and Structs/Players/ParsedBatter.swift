@@ -136,7 +136,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
     func zScore(draft: Draft) -> Double {
         guard let firstPost = positions.first,
               let average = draft.playerPool.positionAveragesDict[firstPost],
-              let playersAtPosition = draft.playerPool.battersDict[firstPost],
+              let _ = draft.playerPool.battersDict[firstPost],
               let stdDev: Double = draft.playerPool.standardDeviationDict[firstPost]
         else {
             return (0 - .infinity)
@@ -211,30 +211,29 @@ extension ParsedBatter {
     
     
     init(from jsonBatter: ExtendedBatter, pos: Position, projectionType: ProjectionTypes) {
-        self.empty = jsonBatter.empty
-        self.name = jsonBatter.name
+        self.empty = jsonBatter.empty ?? "NA"
+        self.name = jsonBatter.name ?? "NA"
         self.team = jsonBatter.team ?? "NA"
+        self.g = Int(jsonBatter.g ?? -99)
+        self.ab = Int(jsonBatter.ab ?? -99)
+        self.pa = Int(jsonBatter.pa ?? -99)
+        self.h = Int(jsonBatter.h ?? -99)
+        self.the1B = Int(jsonBatter.the1B ?? -99)
+        self.the2B = Int(jsonBatter.the2B ?? -99)
+        self.the3B = Int(jsonBatter.the3B ?? -99)
+        self.hr = Int(jsonBatter.hr ?? -99)
+        self.r = Int(jsonBatter.r ?? -99)
+        self.rbi = Int(jsonBatter.rbi ?? -99)
+        self.bb = Int(jsonBatter.bb ?? -99)
+        self.ibb = Int(jsonBatter.ibb ?? -99)
+        self.so = Int(jsonBatter.so ?? -99)
+        self.hbp = Int(jsonBatter.hbp ?? -99)
+        self.sf = Int(jsonBatter.sf ?? -99)
+        self.sh = Int(jsonBatter.sh ?? -99)
+        self.sb = Int(jsonBatter.sb ?? -99)
+        self.cs = Int(jsonBatter.cs ?? -99)
 
-        self.g = Int(jsonBatter.g)
-        self.ab = Int(jsonBatter.ab)
-        self.pa = Int(jsonBatter.pa)
-        self.h = Int(jsonBatter.h)
-        self.the1B = Int(jsonBatter.the1B)
-        self.the2B = Int(jsonBatter.the2B)
-        self.the3B = Int(jsonBatter.the3B)
-        self.hr = Int(jsonBatter.hr)
-        self.r = Int(jsonBatter.r)
-        self.rbi = Int(jsonBatter.rbi)
-        self.bb = Int(jsonBatter.bb)
-        self.ibb = Int(jsonBatter.ibb)
-        self.so = Int(jsonBatter.so)
-        self.hbp = Int(jsonBatter.hbp)
-        self.sf = Int(jsonBatter.sf)
-        self.sh = Int(jsonBatter.sh)
-        self.sb = Int(jsonBatter.sb)
-        self.cs = Int(jsonBatter.cs)
-
-        self.avg = Double("0" + jsonBatter.avg.str) ?? 0
+        self.avg = Double("0" + (jsonBatter.avg?.str ?? "")) ?? 0
 
         self.positions = [pos]
 

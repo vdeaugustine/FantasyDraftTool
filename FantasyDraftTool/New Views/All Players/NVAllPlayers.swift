@@ -18,13 +18,13 @@ struct NVAllPlayers: View {
 
     var filteredPlayers: [ParsedBatter] {
         if let positionSelected = positionSelected {
-            return AllParsedBatters.batters(for: projectionSelected)
+            return AllExtendedBatters.batters(for: projectionSelected)
                 .filter {
                     $0.positions.contains(positionSelected)
                 }
         }
 
-        return AllParsedBatters.batters(for: projectionSelected)
+        return AllExtendedBatters.batters(for: projectionSelected)
     }
 
     var sortedPlayers: [ParsedBatter] {
