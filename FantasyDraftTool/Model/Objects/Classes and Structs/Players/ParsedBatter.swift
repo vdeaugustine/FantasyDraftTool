@@ -134,10 +134,10 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
     }
 
     func zScore(draft: Draft) -> Double {
-        guard let firstPost = positions.first,
-              let average = draft.playerPool.positionAveragesDict[firstPost],
-              let _ = draft.playerPool.battersDict[firstPost],
-              let stdDev: Double = draft.playerPool.standardDeviationDict[firstPost]
+        guard let firstPos = positions.first,
+              let average = draft.playerPool.positionAveragesDict[firstPos],
+              let _ = draft.playerPool.battersDict[firstPos],
+              let stdDev: Double = draft.playerPool.standardDeviationDict[firstPos]
         else {
             return (0 - .infinity)
         }
@@ -163,9 +163,18 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
 
         return points
     }
+    
+    func loadPoints(scoring: ScoringSettings, projection: ProjectionTypes) -> Double {
+        UserDefaults.pointsFor(player: self, scoring: scoring, projection: projection)
+    }
 
-    static func averagePoints(forThese batters: [ParsedBatter]) -> Double {
+    static func averagePoints(forThese batters: [ParsedBatter], model: MainModel? = nil) -> Double {
         guard !batters.isEmpty else { return 0 }
+        
+        if let model = model {
+            return (batters.reduce(Double(0)) { $0 + model.points(for: $1) } / Double(batters.count)).roundTo(places: 1)
+        }
+        
         return (batters.reduce(Double(0)) { $0 + $1.fantasyPoints(ScoringSettings.defaultPoints) } / Double(batters.count)).roundTo(places: 1)
     }
 

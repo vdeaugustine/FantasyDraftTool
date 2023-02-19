@@ -30,7 +30,7 @@ struct NVAllPlayers: View {
     var sortedPlayers: [ParsedBatter] {
         switch sortOptionSelected {
             case .points:
-                return filteredPlayers.sorted { $0.fantasyPoints(model.scoringSettings) > $1.fantasyPoints(model.scoringSettings) }
+            return filteredPlayers.sorted { model.points(for: $0) > model.points(for: $1) }
             case .score:
             return filteredPlayers.sorted { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) }
             case .hr:

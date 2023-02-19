@@ -14,7 +14,7 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     @Published var scoringSettings: ScoringSettings = .defaultPoints
 
-    @Published var draft: Draft = .exampleDraft(picksMade: 25)
+    @Published var draft: Draft = .init(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
 
     @Published var navPathForDrafting: [DraftPath] = []
 
@@ -23,6 +23,8 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
     @Published var myModifiedBatters: Set<ParsedBatter> = []
 
     @Published var defaultProjectionSystem: ProjectionTypes = .atc
+
+    var storedPoints: [String: Double] = [:]
 
     // MARK: - Stored Properties
 
@@ -36,7 +38,24 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     // MARK: - Static functions
 
+    static func keyFor(player: ParsedBatter, scoringSettings: ScoringSettings) -> String {
+        "\(player.projectionType.str)-\(player)-\(scoringSettings.defaultsKey)"
+    }
+
     // MARK: - Methods
+
+    func points(for player: ParsedBatter, scoring: ScoringSettings? = nil) -> Double {
+        let useScoring = scoring ?? self.scoringSettings
+        let key = MainModel.keyFor(player: player, scoringSettings: useScoring)
+        if let foundValue = storedPoints[key] {
+            print("For \(player.name), Found value: ", foundValue)
+            return foundValue
+        }
+        let points = player.fantasyPoints(useScoring)
+        print("For \(player.name), Generated value: ", points)
+        storedPoints[key] = points
+        return points
+    }
 
     func resetDraft() {
         let teams = draft.teams
@@ -62,6 +81,7 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
         self.draft = try values.decode(Draft.self, forKey: .draft)
         self.myStatsPlayers = try values.decode(MyStatsPlayers.self, forKey: .myStatsPlayers)
         self.myModifiedBatters = try values.decode(Set<ParsedBatter>.self, forKey: .myModifiedBatters)
+        self.storedPoints = try values.decode([String: Double].self, forKey: .storedPoints)
     }
 
     init() { }
@@ -71,7 +91,7 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
 extension MainModel {
     enum CodingKeys: CodingKey {
-        case scoringSettings, draft, myStatsPlayers, defaultProjectionSystem, myModifiedBatters
+        case scoringSettings, draft, myStatsPlayers, defaultProjectionSystem, myModifiedBatters, storedPoints
     }
 
     func encode(to encoder: Encoder) throws {
@@ -81,6 +101,7 @@ extension MainModel {
         try container.encode(myStatsPlayers, forKey: .myStatsPlayers)
         try container.encode(defaultProjectionSystem, forKey: .defaultProjectionSystem)
         try container.encode(myModifiedBatters, forKey: .myModifiedBatters)
+        try container.encode(storedPoints, forKey: .storedPoints)
     }
 
     func hash(into hasher: inout Hasher) {
@@ -89,6 +110,7 @@ extension MainModel {
         hasher.combine(myStatsPlayers)
         hasher.combine(defaultProjectionSystem)
         hasher.combine(myModifiedBatters)
+        hasher.combine(storedPoints)
     }
 
     static func == (lhs: MainModel, rhs: MainModel) -> Bool {
@@ -96,7 +118,6 @@ extension MainModel {
             lhs.draft == rhs.draft &&
             lhs.myStatsPlayers == rhs.myStatsPlayers &&
             lhs.defaultProjectionSystem == rhs.defaultProjectionSystem
-        
     }
 
     static func load() -> MainModel? {

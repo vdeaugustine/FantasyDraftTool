@@ -64,12 +64,12 @@ struct PlayerPool: Codable, Hashable, Equatable {
 
         for position in Position.batters {
             let battersForThisPosition = AllExtendedBatters.batters(for: .steamer, at: position)
-            tempDict[position] = battersForThisPosition.sortedByPoints
+            tempDict[position] = battersForThisPosition
         }
 
         for position in Position.batters {
             guard let players = tempDict[position] else { continue }
-            dict[position] = players.standardDeviation(for: position)
+            dict[position] = players.standardDeviation(for: position, model: nil)
         }
 
         return dict
@@ -123,7 +123,7 @@ struct PlayerPool: Codable, Hashable, Equatable {
     mutating func updateStandardDeviationDict() {
         for position in positionsOrder {
             guard let players = battersDict[position] else { continue }
-            standardDeviationDict[position] = players.standardDeviation(for: position)
+            standardDeviationDict[position] = players.standardDeviation(for: position, model: MainModel.shared)
         }
     }
 

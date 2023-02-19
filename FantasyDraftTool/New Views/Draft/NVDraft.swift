@@ -25,7 +25,7 @@ struct NVDraft: View {
 
     var filteredPlayers: [ParsedBatter] {
         if let positionSelected = positionSelected {
-            return model.draft.playerPool.batters(for: [positionSelected])
+            return model.draft.playerPool.batters(for: [positionSelected], draft: model.draft)
                 .filter {
                     $0.positions.contains(positionSelected)
                 }
@@ -37,7 +37,7 @@ struct NVDraft: View {
     var sortedPlayers: [ParsedBatter] {
         switch sortOptionSelected {
             case .points:
-                return filteredPlayers.sorted { $0.fantasyPoints(model.scoringSettings) > $1.fantasyPoints(model.scoringSettings) }
+            return filteredPlayers.sorted { model.points(for: $0) > model.points(for: $1) }
             case .score:
                 return filteredPlayers.sorted { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) }
             case .hr:
@@ -91,7 +91,7 @@ struct NVDraft: View {
                                     if let first = myTeam.recommendedBattersDesc(draft: model.draft).filter(for: pos).first {
                                         Text(first.name)
                                         Text(first.zScore(draft: model.draft).roundTo(places: 2).str)
-                                        Text(first.fantasyPoints(model.draft.settings.scoringSystem))
+                                        Text(model.points(for: first, scoring: model.draft.settings.scoringSystem).str)
                                     }
                                 }
                             }

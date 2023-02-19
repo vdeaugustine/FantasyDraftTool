@@ -20,4 +20,22 @@ extension UserDefaults {
     }
     
     
+    static func keyFor(player: ParsedBatter, scoringSettings: ScoringSettings, projection: ProjectionTypes) -> String {
+        "\(projection.str)-\(player)-\(scoringSettings.defaultsKey)"
+    }
+    
+    static func pointsFor(player: ParsedBatter, scoring: ScoringSettings, projection: ProjectionTypes) -> Double {
+        let key = keyFor(player: player, scoringSettings: scoring, projection: projection)
+        if let foundValue: Double = UserDefaults.standard.value(forKey: key) as? Double {
+            return foundValue
+        }
+        
+        let points = player.fantasyPoints(scoring)
+        
+        UserDefaults.standard.set(points, forKey: key)
+        
+        return points
+    }
+    
+    
 }

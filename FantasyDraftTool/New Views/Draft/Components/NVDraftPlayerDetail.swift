@@ -18,10 +18,10 @@ struct NVDraftPlayerDetail: View {
     @State private var position: Position? = nil
 
     @State private var notYourTurnAlert = false
-    
+
     @State private var draftedAlert = false
-    
-    @Environment (\.dismiss) private var dismiss
+
+    @Environment(\.dismiss) private var dismiss
 
     var numPicksTill: Int {
         let batters = model.draft.playerPool.batters.sorted(by: { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) })
@@ -55,7 +55,7 @@ struct NVDraftPlayerDetail: View {
                         .fontWeight(.bold)
                         .foregroundColor(.gray)
                 }
-                Text("\(batter.fantasyPoints(model.draft.settings.scoringSystem).str) pts")
+                Text("\(model.points(for: batter, scoring: model.draft.settings.scoringSystem).str) pts")
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
             }
@@ -141,17 +141,14 @@ struct NVDraftPlayerDetail: View {
                 }
 
                 Button("Draft") {
-                    
                     model.draft.makePick(.init(player: batter, draft: model.draft))
                     draftedAlert.toggle()
-                    
-                    
+
 //                    if model.draft.currentTeam == model.draft.myTeam {
 //                        model.draft.makePick(.init(player: batter, draft: model.draft))
 //                    } else {
 //                        notYourTurnAlert.toggle()
 //                    }
-                    
                 }
             }
         }
@@ -164,12 +161,10 @@ struct NVDraftPlayerDetail: View {
         }
         .alert("\(model.draft.previousTeam?.name ?? "") drafted \(batter.name)", isPresented: $draftedAlert) {
             Button("OK") {
-                
                 dismiss()
-                
             }
         }
-}
+    }
 }
 
 // MARK: - NVDraftPlayerDetail_Previews

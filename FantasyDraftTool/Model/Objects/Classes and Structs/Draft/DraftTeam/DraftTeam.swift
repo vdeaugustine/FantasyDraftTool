@@ -62,9 +62,15 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
 
     // MARK: - Calculations
 
-    func averagePoints() -> Double {
+    func averagePoints(model: MainModel? = nil) -> Double {
         let players = draftedPlayers
-        let val: Double = players.reduce(Double(0)) { $0 + $1.player.fantasyPoints(MainModel.shared.getScoringSettings()) }
+        let val: Double
+        if let model = model {
+            val = players.reduce(Double(0)) { $0 + model.points(for: $1.player, scoring: model.draft.settings.scoringSystem) }
+        } else {
+            val = players.reduce(Double(0)) { $0 + $1.player.fantasyPoints(MainModel.shared.getScoringSettings()) }
+        }
+        
         return (val / Double(players.count)).roundTo(places: 1)
     }
 

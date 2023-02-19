@@ -28,6 +28,8 @@ struct ScoringSettings: Codable, Hashable, Equatable {
     var walksAllowed: Double
     var strikeoutsAllowed: Double
     var qualityStarts: Double
+    
+    
 
     // MARK: - Computed Properties
 
@@ -39,6 +41,17 @@ struct ScoringSettings: Codable, Hashable, Equatable {
          Naming.cs.rawValue: cs,
          Naming.bb.rawValue: bb,
          Naming.so.rawValue: so]
+    }
+    
+    var defaultsKey: String {
+        var str: String = ""
+        for key in dict.keys {
+            if let value = dict[str] {
+                str += key + "="
+                str += value.str
+            }
+        }
+        return str
     }
 
     // MARK: - Static Properties

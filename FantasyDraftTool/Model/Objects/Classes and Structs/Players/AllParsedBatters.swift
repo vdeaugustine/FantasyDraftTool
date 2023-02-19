@@ -19,7 +19,7 @@ struct AllParsedBatters {
     static func batters(for projection: ProjectionTypes) -> [ParsedBatter] {
         switch projection {
             case .steamer:
-                return AllParsedBatters.steamer.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+            return AllParsedBatters.steamer.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .zips:
                 return AllParsedBatters.steamer.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .thebat:
