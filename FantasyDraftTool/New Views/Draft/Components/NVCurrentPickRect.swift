@@ -31,7 +31,10 @@ struct NVCurrentPickRect: View {
     }
     
     var prediction: ParsedBatter? {
-        draft.currentTeam.recommendedPlayer(draft: draft)
+        guard draft.playerPool.batters.isEmpty == false else {
+            return nil
+        }
+        return draft.currentTeam.recommendedPlayer(draft: draft)
     }
     
     var body: some View {
@@ -51,6 +54,8 @@ struct NVCurrentPickRect: View {
                     
                     Text(player.name.components(separatedBy: .whitespaces)[1])
                 }
+                
+                
             }
             .padding(10)
             .minimumScaleFactor(0.5)

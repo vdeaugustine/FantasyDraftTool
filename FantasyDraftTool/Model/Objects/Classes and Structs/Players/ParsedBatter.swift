@@ -17,9 +17,9 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
     var avg: Double
     let positions: [Position]
     var projectionType: ProjectionTypes
-    
+
     var description: String {
-        self.name + " \(projectionType.title)"
+        name + " \(projectionType.title)"
     }
 
     // MARK: Computed properties
@@ -84,7 +84,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
     // MARK: - Mutating Methods
 
     mutating func edit(_ stat: String, with newValue: Int) {
-        print("editing: \(stat) from \(self.dict[stat] as! Int) with \(newValue)")
+        print("editing: \(stat) from \(dict[stat] as! Int) with \(newValue)")
         switch stat {
             case "G":
                 g = newValue
@@ -138,7 +138,9 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
               let average = draft.playerPool.positionAveragesDict[firstPost],
               let playersAtPosition = draft.playerPool.battersDict[firstPost],
               let stdDev: Double = draft.playerPool.standardDeviationDict[firstPost]
-        else { return (0 - .infinity) }
+        else {
+            return (0 - .infinity)
+        }
 
         let zScore = (fantasyPoints(draft.settings.scoringSystem) - average) / stdDev
 
@@ -166,9 +168,9 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
         guard !batters.isEmpty else { return 0 }
         return (batters.reduce(Double(0)) { $0 + $1.fantasyPoints(ScoringSettings.defaultPoints) } / Double(batters.count)).roundTo(places: 1)
     }
-    
+
     func has(position: Position) -> Bool {
-        self.positions.contains(position)
+        positions.contains(position)
     }
 }
 
@@ -240,23 +242,19 @@ extension ParsedBatter {
 // MARK: - Functions
 
 extension ParsedBatter {
-    
-    
     func similarPlayers(_ numberOfPlayers: Int, for position: Position, and projection: ProjectionTypes) -> [ParsedBatter] {
         let preSortedBatters = AllParsedBatters.batters(for: projection, at: position).sortedByPoints
-        let selfPoints = self.fantasyPoints(MainModel.shared.scoringSettings)
+        let selfPoints = fantasyPoints(MainModel.shared.scoringSettings)
         let sortedBatters = preSortedBatters.sorted { firstBatter, secondBatter in
-            
-            let firstDifference = abs( selfPoints - firstBatter.fantasyPoints(MainModel.shared.scoringSettings) )
-            let secondDifference = abs( selfPoints - secondBatter.fantasyPoints(MainModel.shared.scoringSettings) )
-            
+
+            let firstDifference = abs(selfPoints - firstBatter.fantasyPoints(MainModel.shared.scoringSettings))
+            let secondDifference = abs(selfPoints - secondBatter.fantasyPoints(MainModel.shared.scoringSettings))
+
             return firstDifference > secondDifference
         }
-        
+
         return sortedBatters.prefixArray(numberOfPlayers)
     }
-    
-    
 }
 
 // MARK: Codable, Hashable, Equatable

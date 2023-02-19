@@ -23,8 +23,7 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
         .second: 1,
         .third: 1,
         .ss: 1,
-        .of: 3,
-        .dh: 1
+        .of: 3
     ]
     
     var positionsEmpty: Set<Position> {
@@ -96,12 +95,23 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
     }
     
     func recommendedPlayer(draft: Draft) -> ParsedBatter? {
-        recommendedBattersDesc(draft: draft).first
+        guard !draft.playerPool.batters.isEmpty else { return nil }
+        return recommendedBattersDesc(draft: draft).first
     }
     
+    /// Recommended batters descending
     func recommendedBattersDesc(draft: Draft) -> [ParsedBatter] {
         let positions = positionsNotMetMinimum()
-        let players = draft.playerPool.batters(for: positions, draft: draft)
+        var players: [ParsedBatter] = draft.playerPool.batters(for: positions, draft: draft)
+        
+        if players.isEmpty {
+            players = draft.playerPool.batters
+        }
+    
+        if players.isEmpty {
+//            MainModel.shared.draft.shouldEnd = true
+        }
+        
         return players.sortedByZscore(draft: draft)
     }
     

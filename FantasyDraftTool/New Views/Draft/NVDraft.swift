@@ -21,7 +21,7 @@ struct NVDraft: View {
 
     @State private var batterForDetail: ParsedBatter? = nil
     
-    @State private var numPicksToSim: Int = 5
+    @State private var numPicksToSim: Int = 50
 
     var filteredPlayers: [ParsedBatter] {
         if let positionSelected = positionSelected {
@@ -143,6 +143,11 @@ struct NVDraft: View {
         .sheet(isPresented: $showMyTeamQuickView) {
             NVMyTeamQuickView()
                 .putInNavView(displayMode: .inline)
+        }
+        .alert("Draft is over", isPresented: $model.draft.shouldEnd) {
+            Button("OK") {
+                
+            }
         }
     }
 }

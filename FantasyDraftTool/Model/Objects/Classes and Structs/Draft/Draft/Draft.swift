@@ -25,6 +25,8 @@ struct Draft: Codable, Hashable, Equatable {
     var bestPicksStack: Stack<BestPick> = .init()
     var totalPicksMade: Int = 1
     var projectedStack: Stack<DraftPlayer> = .init()
+    
+    var shouldEnd: Bool = false
 
     var myStarPlayers: Set<ParsedBatter> = []
 
@@ -318,17 +320,23 @@ extension Draft {
 
             print("Next available: ", availableBatters.prefixArray(5))
 
-            guard let chosenPlayer: ParsedBatter = draft.currentTeam.recommendedPlayer(draft: draft) else {
+            if availableBatters.count == 1 {
+                draft.makePick(.init(player: availableBatters[0], draft: draft))
+            } else if availableBatters.count < 1 {
+                
+                if MainModel.shared.draft.shouldEnd {
+                    break
+                }
+            }
+            
+            guard let chosenPlayer: ParsedBatter = availableBatters.first else {
                 break
             }
 
             print("Chosen player is \(chosenPlayer)")
 
-            let draftPlayer = DraftPlayer(player: chosenPlayer,
-                                          pickNumber: draft.totalPickNumber,
-                                          team: draft.currentTeam,
-                                          weightedScore: chosenPlayer.zScore(draft: draft))
-            draft.makePick(draftPlayer)
+            
+            draft.makePick(.init(player: chosenPlayer, draft: draft))
             picksMade += 1
         }
 
