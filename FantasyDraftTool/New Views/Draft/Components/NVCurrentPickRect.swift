@@ -73,7 +73,7 @@ struct NVCurrentPickRect: View {
 
 struct NVCurrentPickRect_Previews: PreviewProvider {
     static var previews: some View {
-        NVCurrentPickRect(draft: .exampleDraft())
+        NVCurrentPickRect(draft: .nullDraft)
         .frame(width: 150, height: 150)
         .previewLayout(.sizeThatFits)
     }

@@ -35,6 +35,9 @@ struct ContentView: View {
 
             NavigationView {
                 NVDraft()
+                    .onAppear {
+                        model.draftLoadProgress = 0
+                    }
             }
             .tag(1)
             .tabItem {

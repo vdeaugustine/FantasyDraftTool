@@ -20,8 +20,10 @@ struct NVDraft: View {
     @State private var showPlayerSheet = false
 
     @State private var batterForDetail: ParsedBatter? = nil
-    
+
     @State private var numPicksToSim: Int = 50
+
+    @State private var draftProgress: Double = -1
 
     var filteredPlayers: [ParsedBatter] {
         if let positionSelected = positionSelected {
@@ -52,97 +54,115 @@ struct NVDraft: View {
     }
 
     var body: some View {
-        List {
-            HStack {
-                if let prevPick = model.draft.pickStack.top() {
-                    NVPreviousPickRect(player: prevPick)
+        if draftProgress < 1,
+           draftProgress >= 0 {
+            LoadingDraft(progress: $draftProgress)
+                .padding()
+        } else {
+            List {
+                HStack {
+                    if let prevPick = model.draft.pickStack.top() {
+                        NVPreviousPickRect(player: prevPick)
+                    }
+                    NVCurrentPickRect(draft: model.draft)
+
+                    NavigationLink("All Picks") {
+                        NVDraftSummaryView()
+                    }
                 }
-                NVCurrentPickRect(draft: model.draft)
+                .listRowSeparator(.hidden)
+                .listSectionSeparator(.hidden)
+                .frame(maxWidth: .infinity)
 
-                NavigationLink("All Picks") {
-                    NVDraftSummaryView()
+                Section("Sim picks") {
+                    Stepper("Num picks \(numPicksToSim)", value: $numPicksToSim)
+                    Button("Sim") {
+                        draftProgress = 0
+                        var newDraft: Draft? {
+                            didSet {
+                                DispatchQueue.main.async {
+                                    if let newDraft = newDraft {
+                                        print("setting new model")
+                                        model.draft = newDraft
+                                    } else {
+                                        print("nil unfortunately>")
+                                    }
+                                }
+                            }
+                        }
+                        DispatchQueue.global().async {
+                            newDraft = model.draft.simulatePicks(numPicksToSim, progress: $draftProgress)
+                        }
+                    }
                 }
-            }
-            .listRowSeparator(.hidden)
-            .listSectionSeparator(.hidden)
-            .frame(maxWidth: .infinity)
-            
-            
-            Section("Sim picks") {
-                Stepper("Num picks \(numPicksToSim)", value: $numPicksToSim)
-                Button("Sim") {
-                    model.draft.simulatePicks(numPicksToSim)
-                }
-            }
-            
 
-            if let myTeam = model.draft.myTeam,
-               let recommended = myTeam.recommendedPlayer(draft: model.draft) {
-                VStack {
-                    Text("Recommended")
+                if let myTeam = model.draft.myTeam,
+                   let recommended = myTeam.recommendedPlayer(draft: model.draft) {
+                    VStack {
+                        Text("Recommended")
 
-                    GroupBox(recommended.name) {
-                        VStack(alignment: .leading) {
-                            ForEach(myTeam.positionsNotMetMinimum().corOrder, id: \.self) { pos in
+                        GroupBox(recommended.name) {
+                            VStack(alignment: .leading) {
+                                ForEach(myTeam.positionsNotMetMinimum().corOrder, id: \.self) { pos in
 
-                                HStack {
-                                    Text(pos.str.uppercased())
+                                    HStack {
+                                        Text(pos.str.uppercased())
 
-                                    if let first = myTeam.recommendedBattersDesc(draft: model.draft).filter(for: pos).first {
-                                        Text(first.name)
-                                        Text(first.zScore(draft: model.draft).roundTo(places: 2).str)
-                                        Text(first.fantasyPoints(model.draft.settings.scoringSystem))
+                                        if let first = myTeam.recommendedBattersDesc(draft: model.draft).filter(for: pos).first {
+                                            Text(first.name)
+                                            Text(first.zScore(draft: model.draft).roundTo(places: 2).str)
+                                            Text(first.fantasyPoints(model.draft.settings.scoringSystem))
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            Button("My team") {
-                showMyTeamQuickView.toggle()
-            }
+                Button("My team") {
+                    showMyTeamQuickView.toggle()
+                }
 
-            // MARK: - Available Players
+                // MARK: - Available Players
 
-            Section("Available Players") {
-                HStack {
-                    NVDropDownProjection(selection: $model.draft.projectionCurrentlyUsing)
-                    NVSortByDropDown(selection: $sortOptionSelected)
-                    NVDropDownPosition(selection: $positionSelected)
+                Section("Available Players") {
+                    HStack {
+                        NVDropDownProjection(selection: $model.draft.projectionCurrentlyUsing)
+                        NVSortByDropDown(selection: $sortOptionSelected)
+                        NVDropDownPosition(selection: $positionSelected)
+                    }
+                }
+
+                ForEach(sortedPlayers, id: \.self) { batter in
+
+                    NavigationLink {
+                        NVDraftPlayerDetail(batter: batter)
+
+                    } label: {
+                        NVAllPlayersRow(batter: batter)
+                    }
+                    .buttonStyle(.plain)
+                    .onTapGesture(count: 2) {
+                        model.draft.makePick(batter)
+                    }
                 }
             }
 
-            ForEach(sortedPlayers, id: \.self) { batter in
+            // MARK: - Start of main modifiers
 
-                NavigationLink {
-                    NVDraftPlayerDetail(batter: batter)
-
-                } label: {
-                    NVAllPlayersRow(batter: batter)
-                }
-                .buttonStyle(.plain)
-                .onTapGesture(count: 2) {
-                    model.draft.makePick(batter)
-                }
+            .listStyle(.plain)
+            .navigationTitle("Round \(model.draft.roundNumber)")
+//            .onAppear {
+//                model.draft = .exampleDraft(loadProgress: &model.draftLoadProgress)
+//            }
+            .sheet(isPresented: $showMyTeamQuickView) {
+                NVMyTeamQuickView()
+                    .putInNavView(displayMode: .inline)
             }
-        }
-
-        // MARK: - Start of main modifiers
-
-        .listStyle(.plain)
-        .navigationTitle("Round \(model.draft.roundNumber)")
-//        .onAppear {
-//            model.draft = .exampleDraft()
-//        }
-        .sheet(isPresented: $showMyTeamQuickView) {
-            NVMyTeamQuickView()
-                .putInNavView(displayMode: .inline)
-        }
-        .alert("Draft is over", isPresented: $model.draft.shouldEnd) {
-            Button("OK") {
-                
+            .alert("Draft is over", isPresented: $model.draft.shouldEnd) {
+                Button("OK") {
+                }
             }
         }
     }

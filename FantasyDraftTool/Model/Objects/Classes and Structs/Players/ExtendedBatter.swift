@@ -143,9 +143,12 @@ struct AllExtendedBatters: Codable {
     }
 
     static func batters(for projection: ProjectionTypes, at position: Position) -> [ParsedBatter] {
-        var batters = batters(for: projection)
-        batters = batters.filter { $0.positions.contains(position) }
-        return batters
+        
+            var batters = batters(for: projection)
+            batters = batters.filter { $0.positions.contains(position) }
+        
+            return batters
+        
     }
 
     static func batterVariants(for batter: ParsedBatter) -> [ParsedBatter] {

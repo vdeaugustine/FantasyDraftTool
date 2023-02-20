@@ -179,8 +179,6 @@ struct NVDraftPlayerDetail_Previews: PreviewProvider {
         NVDraftPlayerDetail(batter: AllExtendedBatters.batters(for: .zips, at: .of)[25])
             .environmentObject(MainModel.shared)
             .putInNavView()
-            .onAppear {
-                MainModel.shared.draft = .exampleDraft(picksMade: 89)
-            }
+            
     }
 }

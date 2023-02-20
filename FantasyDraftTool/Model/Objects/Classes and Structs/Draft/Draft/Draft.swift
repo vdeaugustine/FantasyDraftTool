@@ -25,17 +25,17 @@ struct Draft: Codable, Hashable, Equatable {
     var bestPicksStack: Stack<BestPick> = .init()
     var totalPicksMade: Int = 1
     var projectedStack: Stack<DraftPlayer> = .init()
-    
+
     var shouldEnd: Bool = false
 
     var myStarPlayers: Set<ParsedBatter> = []
 
     var projectionCurrentlyUsing: ProjectionTypes = .steamer
-    
+
     var previousTeam: DraftTeam? {
         pickStack.getArray().first?.draftedTeam
     }
-    
+
     var draftOver: Bool {
         let pickLimit = settings.numberOfRounds * settings.numberOfTeams
         return currentPickNumber >= pickLimit
@@ -127,9 +127,9 @@ struct Draft: Codable, Hashable, Equatable {
         setNextTeam()
         playerPool.setPositionsOrder()
     }
-    
+
     mutating func makePick(_ player: ParsedBatter) {
-        self.makePick(.init(player: player, draft: self))
+        makePick(.init(player: player, draft: self))
     }
 
     mutating func undoPick() {
@@ -310,8 +310,8 @@ extension Draft {
 
         return workingDraft.pickStack
     }
-    
-    mutating func simulatePicks(_ numPicks: Int) {
+
+    func simulatePicks(_ numPicks: Int, progress: Binding<Double>) -> Draft {
         var draft = self
         var picksMade: Int = 0
 
@@ -329,52 +329,68 @@ extension Draft {
             if availableBatters.count == 1 {
                 draft.makePick(.init(player: availableBatters[0], draft: draft))
             } else if availableBatters.count < 1 {
-                
-                if MainModel.shared.draft.shouldEnd {
-                    break
-                }
+                break
             }
-            
+
             guard let chosenPlayer: ParsedBatter = availableBatters.first else {
                 break
             }
 
             print("Chosen player is \(chosenPlayer)")
 
-            
             draft.makePick(.init(player: chosenPlayer, draft: draft))
             picksMade += 1
+
+            let progressMade = Double(picksMade) / Double(numPicks)
+
+            progress.wrappedValue = progressMade < 1 ? progressMade : 1
+            print("Progress", progress.wrappedValue)
         }
 
-        self = draft
+        return draft
     }
 
-    static func exampleDraft(picksMade: Int = 30) -> Draft {
+    static func exampleDraft(picksMade: Int = 30, model: MainModel) -> Draft {
         var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
 
         while draft.totalPicksMade <= picksMade {
-            print(draft.currentTeam.name + " is up. Their team looks like this")
-            for position in draft.currentTeam.minForPositions.keys {
-                print("\(position.str): \(draft.currentTeam.draftedPlayers.filter { $0.has(position: position) })")
-            }
+//            print(draft.currentTeam.name + " is up. Their team looks like this")
+//            for position in draft.currentTeam.minForPositions.keys {
+//                print("\(position.str): \(draft.currentTeam.draftedPlayers.filter { $0.has(position: position) })")
+//            }
 
             let availableBatters = draft.currentTeam.recommendedBattersDesc(draft: draft)
 
-            print("Next available: ", availableBatters.prefixArray(5))
+//            print("Next available: ", availableBatters.prefixArray(5))
 
             guard let chosenPlayer: ParsedBatter = draft.currentTeam.recommendedPlayer(draft: draft) else {
                 break
             }
 
-            print("Chosen player is \(chosenPlayer)")
+//            print("Chosen player is \(chosenPlayer)")
 
             let draftPlayer = DraftPlayer(player: chosenPlayer,
                                           pickNumber: draft.totalPickNumber,
                                           team: draft.currentTeam,
                                           weightedScore: chosenPlayer.zScore(draft: draft))
             draft.makePick(draftPlayer)
+            DispatchQueue.global().async {
+                print("changing load progress from: ", model.draftLoadProgress)
+
+                model.draftLoadProgress = Double(draft.totalPicksMade) / Double(picksMade)
+                print("changing load progress to: ", model.draftLoadProgress)
+            }
+        }
+
+        DispatchQueue.global().async {
+            print("changing load progress from: ", model.draftLoadProgress)
+
+            model.draftLoadProgress = 1
+            print("changing load progress to: ", model.draftLoadProgress)
         }
 
         return draft
     }
+
+    static let nullDraft: Draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
 }

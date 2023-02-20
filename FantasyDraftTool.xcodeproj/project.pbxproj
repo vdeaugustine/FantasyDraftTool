@@ -123,6 +123,7 @@
 		9CA24CE02988F57600A394B4 /* SelectProjectionTypeHScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CDF2988F57600A394B4 /* SelectProjectionTypeHScroll.swift */; };
 		9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */; };
 		9CA24CE62989E81400A394B4 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CE52989E81400A394B4 /* Stack.swift */; };
+		9CB997C829A32D79008CAFAF /* LoadingDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB997C729A32D79008CAFAF /* LoadingDraft.swift */; };
 		9CC80284298C7524005B438D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80283298C7524005B438D /* UserDefaults.swift */; };
 		9CC80286298CCD83005B438D /* MyStatsPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80285298CCD83005B438D /* MyStatsPlayers.swift */; };
 		9CC80288298D86CF005B438D /* StrongestAtEachPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */; };
@@ -259,6 +260,7 @@
 		9CA24CDF2988F57600A394B4 /* SelectProjectionTypeHScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProjectionTypeHScroll.swift; sourceTree = "<group>"; };
 		9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSinglePositionTypeHScroll.swift; sourceTree = "<group>"; };
 		9CA24CE52989E81400A394B4 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		9CB997C729A32D79008CAFAF /* LoadingDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDraft.swift; sourceTree = "<group>"; };
 		9CC80283298C7524005B438D /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9CC80285298CCD83005B438D /* MyStatsPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStatsPlayers.swift; sourceTree = "<group>"; };
 		9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongestAtEachPositionView.swift; sourceTree = "<group>"; };
@@ -291,7 +293,7 @@
 		9C1AE396297FA08F0016BF50 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9C762DEF29A2038600C3B804 /* ExtendedBatters */,
+				9C762DEF29A2038600C3B804 /* ExtendedBattersJSONs */,
 				9CC80285298CCD83005B438D /* MyStatsPlayers.swift */,
 				9C3B702C298B2CD900A1B42C /* Main Model */,
 				9CA24CB0298519A000A394B4 /* Deprecated Models */,
@@ -515,7 +517,7 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		9C762DEF29A2038600C3B804 /* ExtendedBatters */ = {
+		9C762DEF29A2038600C3B804 /* ExtendedBattersJSONs */ = {
 			isa = PBXGroup;
 			children = (
 				9C762DF629A2039900C3B804 /* Extended1bBatAtcStandard.json */,
@@ -549,7 +551,7 @@
 				9C762E0A29A2039A00C3B804 /* ExtendedSsBatThebatStandard.json */,
 				9C762DF229A2039900C3B804 /* ExtendedSsBatThebatxStandard.json */,
 			);
-			path = ExtendedBatters;
+			path = ExtendedBattersJSONs;
 			sourceTree = "<group>";
 		};
 		9CA24CAF2985190500A394B4 /* Deprecated View */ = {
@@ -718,6 +720,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		9CB997C629A32D64008CAFAF /* Loading Draft */ = {
+			isa = PBXGroup;
+			children = (
+				9CB997C729A32D79008CAFAF /* LoadingDraft.swift */,
+			);
+			path = "Loading Draft";
+			sourceTree = "<group>";
+		};
 		9CC80289298E3778005B438D /* BestPick */ = {
 			isa = PBXGroup;
 			children = (
@@ -804,6 +814,7 @@
 		9CE9F50F299C9F1B0015886D /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9CB997C629A32D64008CAFAF /* Loading Draft */,
 				9CE9F510299C9F400015886D /* NVPreviousPickRect.swift */,
 				9CE9F512299CA5C00015886D /* NVCurrentPickRect.swift */,
 				9C7CC794299DD4D800A95170 /* NVDraftPlayerDetail.swift */,
@@ -953,6 +964,7 @@
 				9C1AE3A42981F29D0016BF50 /* Position.swift in Sources */,
 				9C75B9EA296FD215003B35E6 /* ExtView.swift in Sources */,
 				9C7CC795299DD4D800A95170 /* NVDraftPlayerDetail.swift in Sources */,
+				9CB997C829A32D79008CAFAF /* LoadingDraft.swift in Sources */,
 				9CA24CC82985B83800A394B4 /* DraftTeam.swift in Sources */,
 				9CA24CD929889B1400A394B4 /* SelectPositionsHScroll.swift in Sources */,
 				9CE9F503299C5D700015886D /* NVPlayerDetail.swift in Sources */,

@@ -14,7 +14,7 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     @Published var scoringSettings: ScoringSettings = .defaultPoints
 
-    @Published var draft: Draft = .exampleDraft(picksMade: 25)
+    @Published var draft: Draft = .nullDraft
 
     @Published var navPathForDrafting: [DraftPath] = []
 
@@ -23,6 +23,8 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
     @Published var myModifiedBatters: Set<ParsedBatter> = []
 
     @Published var defaultProjectionSystem: ProjectionTypes = .atc
+    
+    @Published var draftLoadProgress: Double = 0
 
     // MARK: - Stored Properties
 
