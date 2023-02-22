@@ -99,6 +99,8 @@
 		9C762E2B29A2039A00C3B804 /* ExtendedCBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0D29A2039A00C3B804 /* ExtendedCBatThebatxStandard.json */; };
 		9C762E2E29A2133200C3B804 /* NVDraftSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C762E2D29A2133200C3B804 /* NVDraftSummary.swift */; };
 		9C7CC795299DD4D800A95170 /* NVDraftPlayerDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7CC794299DD4D800A95170 /* NVDraftPlayerDetail.swift */; };
+		9C82187429A6E03F007DA5D2 /* NVDownloadBatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82187329A6E03F007DA5D2 /* NVDownloadBatters.swift */; };
+		9C82187629A6E234007DA5D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9C82187529A6E234007DA5D2 /* GoogleService-Info.plist */; };
 		9C8643A829A1BB8300067B1A /* NVMyTeamQuickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8643A729A1BB8300067B1A /* NVMyTeamQuickView.swift */; };
 		9CA24CA62983915400A394B4 /* AllBattersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA52983915400A394B4 /* AllBattersListView.swift */; };
 		9CA24CA8298394EB00A394B4 /* ParsedBatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */; };
@@ -129,6 +131,7 @@
 		9CC80288298D86CF005B438D /* StrongestAtEachPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */; };
 		9CC8028B298E3785005B438D /* BestPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8028A298E3785005B438D /* BestPick.swift */; };
 		9CC8028D298E47EC005B438D /* RecommendedPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */; };
+		9CCF1B3B29A635F900A64C77 /* NVSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCF1B3A29A635F900A64C77 /* NVSettings.swift */; };
 		9CE9F4F4299B723B0015886D /* CreateModifiedPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */; };
 		9CE9F4F7299C4F420015886D /* NVAllPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4F6299C4F420015886D /* NVAllPlayers.swift */; };
 		9CE9F4FA299C502B0015886D /* NVDropDownProjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4F9299C502B0015886D /* NVDropDownProjection.swift */; };
@@ -236,6 +239,8 @@
 		9C762E0D29A2039A00C3B804 /* ExtendedCBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedCBatThebatxStandard.json; sourceTree = "<group>"; };
 		9C762E2D29A2133200C3B804 /* NVDraftSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDraftSummary.swift; sourceTree = "<group>"; };
 		9C7CC794299DD4D800A95170 /* NVDraftPlayerDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDraftPlayerDetail.swift; sourceTree = "<group>"; };
+		9C82187329A6E03F007DA5D2 /* NVDownloadBatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDownloadBatters.swift; sourceTree = "<group>"; };
+		9C82187529A6E234007DA5D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9C8643A729A1BB8300067B1A /* NVMyTeamQuickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVMyTeamQuickView.swift; sourceTree = "<group>"; };
 		9CA24CA52983915400A394B4 /* AllBattersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBattersListView.swift; sourceTree = "<group>"; };
 		9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedBatter.swift; sourceTree = "<group>"; };
@@ -266,6 +271,7 @@
 		9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongestAtEachPositionView.swift; sourceTree = "<group>"; };
 		9CC8028A298E3785005B438D /* BestPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestPick.swift; sourceTree = "<group>"; };
 		9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedPlayerView.swift; sourceTree = "<group>"; };
+		9CCF1B3A29A635F900A64C77 /* NVSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVSettings.swift; sourceTree = "<group>"; };
 		9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateModifiedPlayerView.swift; sourceTree = "<group>"; };
 		9CE9F4F6299C4F420015886D /* NVAllPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVAllPlayers.swift; sourceTree = "<group>"; };
 		9CE9F4F9299C502B0015886D /* NVDropDownProjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDropDownProjection.swift; sourceTree = "<group>"; };
@@ -483,6 +489,7 @@
 		9C75B9B6296F590F003B35E6 /* FantasyDraftTool */ = {
 			isa = PBXGroup;
 			children = (
+				9C82187529A6E234007DA5D2 /* GoogleService-Info.plist */,
 				9CE9F4F5299C4F160015886D /* New Views */,
 				9C1AE39F2980A7170016BF50 /* Views */,
 				9C1AE396297FA08F0016BF50 /* Model */,
@@ -739,6 +746,8 @@
 		9CE9F4F5299C4F160015886D /* New Views */ = {
 			isa = PBXGroup;
 			children = (
+				9C82187329A6E03F007DA5D2 /* NVDownloadBatters.swift */,
+				9CCF1B3A29A635F900A64C77 /* NVSettings.swift */,
 				9CE9F50C299C9ECE0015886D /* Draft */,
 				9CE9F509299C9DC10015886D /* All Players */,
 				9CE9F4F8299C50170015886D /* New Components */,
@@ -930,6 +939,7 @@
 				9C33F7F429838B2E0038A938 /* SsBatFangraphsdcStandard.json in Resources */,
 				9C33F7E429838B2E0038A938 /* OfBatSteamerStandard.json in Resources */,
 				9C762E1F29A2039A00C3B804 /* Extended3bBatFangraphsdcStandard.json in Resources */,
+				9C82187629A6E234007DA5D2 /* GoogleService-Info.plist in Resources */,
 				9C33F7DB29838B2E0038A938 /* CBatThebatxStandard.json in Resources */,
 				9C762E2429A2039A00C3B804 /* ExtendedCBatFangraphsdcStandard.json in Resources */,
 				9C762E2829A2039A00C3B804 /* ExtendedSsBatThebatStandard.json in Resources */,
@@ -958,6 +968,7 @@
 				9C73D089299573C4007C251F /* RemainingAnalysisPosition.swift in Sources */,
 				9CC8028D298E47EC005B438D /* RecommendedPlayerView.swift in Sources */,
 				9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */,
+				9CCF1B3B29A635F900A64C77 /* NVSettings.swift in Sources */,
 				9CE9F4FA299C502B0015886D /* NVDropDownProjection.swift in Sources */,
 				9CA24CCE2985B9F700A394B4 /* SetupDraftView.swift in Sources */,
 				9C73D0912996DC64007C251F /* ModifyStatsView.swift in Sources */,
@@ -968,6 +979,7 @@
 				9CA24CC82985B83800A394B4 /* DraftTeam.swift in Sources */,
 				9CA24CD929889B1400A394B4 /* SelectPositionsHScroll.swift in Sources */,
 				9CE9F503299C5D700015886D /* NVPlayerDetail.swift in Sources */,
+				9C82187429A6E03F007DA5D2 /* NVDownloadBatters.swift in Sources */,
 				9CA24CE62989E81400A394B4 /* Stack.swift in Sources */,
 				9C73D08D2995C801007C251F /* SimulateRemainingDraftView.swift in Sources */,
 				9CA24CBA29851A9900A394B4 /* AllParsedBatters.swift in Sources */,

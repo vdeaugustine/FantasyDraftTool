@@ -14,10 +14,10 @@ struct PositionAnalysisView: View {
     @State var position: Position = .of
     @State var projectionType: ProjectionTypes = .steamer
     var batters: [ParsedBatter] {
-        AllExtendedBatters.batters(for: projectionType, at: position)
+        AllExtendedBatters.batters(for: projectionType, at: position, limit: UserDefaults.positionLimit)
     }
     var allBatters: [ParsedBatter] {
-        AllExtendedBatters.batters(for: projectionType)
+        AllExtendedBatters.batters(for: projectionType, limit: UserDefaults.positionLimit)
     }
     
 
@@ -40,7 +40,7 @@ struct PositionAnalysisView: View {
                     Chart {
                         ForEach(Position.batters, id: \.self) { thisPosition in
                             BarMark(x: .value("Position", thisPosition.str.uppercased()),
-                                    y: .value("Average Fantasy Points", ParsedBatter.averagePoints(forThese: AllExtendedBatters.batters(for: projectionType).filter { $0.positions.contains(thisPosition) })))
+                                    y: .value("Average Fantasy Points", ParsedBatter.averagePoints(forThese: AllExtendedBatters.batters(for: projectionType, limit: UserDefaults.positionLimit).filter { $0.positions.contains(thisPosition) })))
                             .foregroundStyle(thisPosition == position ? .red : .blue)
                         }
 

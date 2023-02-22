@@ -273,7 +273,7 @@ extension ParsedBatter {
 
 extension ParsedBatter {
     func similarPlayers(_ numberOfPlayers: Int, for position: Position, and projection: ProjectionTypes) -> [ParsedBatter] {
-        let preSortedBatters = AllExtendedBatters.batters(for: projection, at: position).sortedByPoints
+        let preSortedBatters = AllExtendedBatters.batters(for: projection, at: position, limit: UserDefaults.positionLimit).sortedByPoints
         let selfPoints = fantasyPoints(MainModel.shared.scoringSettings)
         let sortedBatters = preSortedBatters.sorted { firstBatter, secondBatter in
 

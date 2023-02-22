@@ -176,7 +176,7 @@ struct NVDraftPlayerDetail: View {
 
 struct NVDraftPlayerDetail_Previews: PreviewProvider {
     static var previews: some View {
-        NVDraftPlayerDetail(batter: AllExtendedBatters.batters(for: .zips, at: .of)[25])
+        NVDraftPlayerDetail(batter: AllExtendedBatters.batters(for: .zips, at: .of, limit: UserDefaults.positionLimit)[25])
             .environmentObject(MainModel.shared)
             .putInNavView()
             

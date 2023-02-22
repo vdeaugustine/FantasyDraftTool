@@ -19,5 +19,17 @@ extension UserDefaults {
         }
     }
     
+    static var positionLimit: Int {
+        get {
+            let stored = UserDefaults.standard.integer(forKey: "positionLimit")
+            return stored > 0 ? stored : 150
+        }
+        set {
+            
+            UserDefaults.standard.set(newValue, forKey: "positionLimit")
+            print("Set \(newValue) for position limit. Proof: ", positionLimit)
+        }
+    }
+    
     
 }

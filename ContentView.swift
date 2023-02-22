@@ -44,6 +44,18 @@ struct ContentView: View {
                 Label("Draft", systemImage: "list.bullet")
             }
             .navigationBarTitleDisplayMode(.inline)
+            
+            NavigationView {
+                NVSettings()
+                    
+            }
+            .tag(2)
+            .tabItem {
+                Label("Settings", systemImage: "gear")
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            
+            
 
 //
 //            NavigationView {

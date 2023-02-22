@@ -38,4 +38,10 @@ extension Int {
         }
         return addSuffixToNumber(self)
     }
+    
+    public func isMultiple(of other: Int) -> Bool {
+        self % other == 0
+    }
+    
+    
 }

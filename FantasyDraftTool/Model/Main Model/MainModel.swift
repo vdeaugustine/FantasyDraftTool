@@ -23,10 +23,13 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
     @Published var myModifiedBatters: Set<ParsedBatter> = []
 
     @Published var defaultProjectionSystem: ProjectionTypes = .atc
-    
+
     @Published var draftLoadProgress: Double = 0
-    
+
     @Published var limitForEachPosition: Int = 50
+
+//    @Published var positionLimit: Int = 50
+//    @Published var outfieldLimit: Int = 150
 
     // MARK: - Stored Properties
 
@@ -100,7 +103,6 @@ extension MainModel {
             lhs.draft == rhs.draft &&
             lhs.myStatsPlayers == rhs.myStatsPlayers &&
             lhs.defaultProjectionSystem == rhs.defaultProjectionSystem
-        
     }
 
     static func load() -> MainModel? {

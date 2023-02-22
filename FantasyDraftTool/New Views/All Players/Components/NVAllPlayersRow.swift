@@ -46,7 +46,7 @@ struct NVAllPlayersRow: View {
 
 struct NVAllPlayersRow_Previews: PreviewProvider {
     static var previews: some View {
-        NVAllPlayersRow(batter: AllExtendedBatters.batters(for: .atc, at: .first)[0])
+        NVAllPlayersRow(batter: AllExtendedBatters.batters(for: .atc, at: .first, limit: UserDefaults.positionLimit)[0])
             .previewLayout(.sizeThatFits)
             .environmentObject(MainModel.shared)
     }
