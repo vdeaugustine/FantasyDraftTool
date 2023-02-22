@@ -33,7 +33,7 @@ struct PlayerPool: Codable, Hashable, Equatable {
                 let battersForThisPosition = AllExtendedBatters.batters(for: projectionType, at: position)
                 theseBatters += battersForThisPosition
             }
-            
+
             retDict[position] = theseBatters.sortedByPoints
         }
 

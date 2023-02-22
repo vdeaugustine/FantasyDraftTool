@@ -14,18 +14,16 @@ struct NVDraft: View {
     @State private var projection: ProjectionTypes = .atc
     @State private var sortOptionSelected: NVSortByDropDown.Options = .score
     @State private var positionSelected: Position? = nil
-
     @State private var showMyTeamQuickView = false
-
     @State private var showPlayerSheet = false
-
     @State private var batterForDetail: ParsedBatter? = nil
-
     @State private var numPicksToSim: Int = 50
-
     @State private var draftProgress: Double = -1
+    @State private var loadingDone: Bool = true
 
     var filteredPlayers: [ParsedBatter] {
+        // TODO: When switching
+//        loadingDone = false
         if let positionSelected = positionSelected {
             return model.draft.playerPool.batters(for: [positionSelected], projection: projection, draft: model.draft)
         }
@@ -34,20 +32,24 @@ struct NVDraft: View {
     }
 
     var sortedPlayers: [ParsedBatter] {
+        let retArr: [ParsedBatter]
         switch sortOptionSelected {
             case .points:
-                return filteredPlayers.sorted { $0.fantasyPoints(model.scoringSettings) > $1.fantasyPoints(model.scoringSettings) }
+                retArr = filteredPlayers.sorted { $0.fantasyPoints(model.scoringSettings) > $1.fantasyPoints(model.scoringSettings) }
             case .score:
-                return filteredPlayers.sorted { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) }
+                retArr = filteredPlayers.sorted { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) }
             case .hr:
-                return filteredPlayers.sorted { $0.hr > $1.hr }
+                retArr = filteredPlayers.sorted { $0.hr > $1.hr }
             case .rbi:
-                return filteredPlayers.sorted { $0.rbi > $1.rbi }
+                retArr = filteredPlayers.sorted { $0.rbi > $1.rbi }
             case .r:
-                return filteredPlayers.sorted { $0.r > $1.r }
+                retArr = filteredPlayers.sorted { $0.r > $1.r }
             case .sb:
-                return filteredPlayers.sorted { $0.sb > $1.sb }
+                retArr = filteredPlayers.sorted { $0.sb > $1.sb }
         }
+        
+//        loadingDone = true
+        return retArr
     }
 
     var body: some View {
@@ -55,6 +57,8 @@ struct NVDraft: View {
            draftProgress >= 0 {
             LoadingDraft(progress: $draftProgress)
                 .padding()
+        } else if !loadingDone {
+            Text("Loading")
         } else {
             List {
                 HStack {

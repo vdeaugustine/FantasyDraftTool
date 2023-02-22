@@ -34,7 +34,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "327"
             endingLineNumber = "327"
-            landmarkName = "simulatePicks(_:progress:)"
+            landmarkName = "simulatePicks(_:projection:progress:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -64,8 +64,8 @@
             filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/Player Pool/PlayerPool.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "batters(for:projection:draft:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,14 +74,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "9E914070-BDF1-42F8-974D-227E3B70C51C"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FantasyDraftTool/New Views/Draft/NVDraft.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
             landmarkName = "filteredPlayers"
             landmarkType = "24">
          </BreakpointContent>
@@ -96,8 +96,8 @@
             filePath = "FantasyDraftTool/New Views/Draft/NVDraft.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "filteredPlayers"
             landmarkType = "24">
          </BreakpointContent>
@@ -128,8 +128,8 @@
             filePath = "FantasyDraftTool/New Views/Draft/NVDraft.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "filteredPlayers"
             landmarkType = "24">
          </BreakpointContent>

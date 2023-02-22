@@ -64,7 +64,7 @@ struct Draft: Codable, Hashable, Equatable {
                 let prevArrCheck = previousArray
 
                 // Remove the player from the previous array, if present.
-                previousArray.removeAll(where: { $0 == player.player })
+                previousArray.removeAll(where: { $0.name == player.player.name })
 
                 // If the previous and updated arrays are the same, the player was not found in the array and we can exit early.
                 guard prevArrCheck != previousArray else {

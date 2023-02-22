@@ -333,7 +333,7 @@ extension ParsedBatter {
     static func == (lhs: ParsedBatter, rhs: ParsedBatter) -> Bool {
         return
             lhs.name.removingWhiteSpaces() == rhs.name.removingWhiteSpaces() &&
-            lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces() &&
-            lhs.projectionType == rhs.projectionType
+            lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces()
+        && lhs.projectionType == rhs.projectionType
     }
 }
