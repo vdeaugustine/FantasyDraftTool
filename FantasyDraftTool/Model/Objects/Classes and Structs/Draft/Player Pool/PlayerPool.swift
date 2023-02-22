@@ -28,19 +28,28 @@ struct PlayerPool: Codable, Hashable, Equatable {
         var retDict: [Position: [ParsedBatter]] = [:]
 
         for position in Position.batters {
-            let battersForThisPosition = AllExtendedBatters.batters(for: .steamer, at: position)
-            retDict[position] = battersForThisPosition.sortedByPoints
+            var theseBatters: [ParsedBatter] = []
+            for projectionType in ProjectionTypes.arr {
+                let battersForThisPosition = AllExtendedBatters.batters(for: projectionType, at: position)
+                theseBatters += battersForThisPosition
+            }
+            
+            retDict[position] = theseBatters.sortedByPoints
         }
 
         return retDict
     }()
 
-    func batters(for positions: [Position], draft: Draft = MainModel.shared.draft) -> [ParsedBatter] {
+    func batters(for positions: [Position], projection: ProjectionTypes, draft: Draft = MainModel.shared.draft) -> [ParsedBatter] {
         var retArr = [ParsedBatter]()
 
         for position in positions {
             if let battersArr = battersDict[position] {
-                retArr += battersArr
+                for batter in battersArr {
+                    if batter.projectionType == projection {
+                        retArr.append(batter)
+                    }
+                }
             }
         }
 

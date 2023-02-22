@@ -94,15 +94,15 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
         return pos
     }
     
-    func recommendedPlayer(draft: Draft) -> ParsedBatter? {
+    func recommendedPlayer(draft: Draft, projection: ProjectionTypes) -> ParsedBatter? {
         guard !draft.playerPool.batters.isEmpty else { return nil }
-        return recommendedBattersDesc(draft: draft).first
+        return recommendedBattersDesc(draft: draft, projection: projection).first
     }
     
     /// Recommended batters descending
-    func recommendedBattersDesc(draft: Draft) -> [ParsedBatter] {
+    func recommendedBattersDesc(draft: Draft, projection: ProjectionTypes) -> [ParsedBatter] {
         let positions = positionsNotMetMinimum()
-        var players: [ParsedBatter] = draft.playerPool.batters(for: positions, draft: draft)
+        var players: [ParsedBatter] = draft.playerPool.batters(for: positions, projection: projection, draft: draft)
         
         if players.isEmpty {
             players = draft.playerPool.batters

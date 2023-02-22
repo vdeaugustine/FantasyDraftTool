@@ -147,9 +147,6 @@ struct DraftView: View {
 
         model.draft.makePick(draftPlayer)
         model.save()
-
-        print(draftPlayer.id)
-        print("Pool contains: \(model.draft.playerPool.batters.count) players")
     }
 }
 

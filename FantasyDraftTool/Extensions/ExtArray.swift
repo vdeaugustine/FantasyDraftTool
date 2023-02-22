@@ -40,6 +40,12 @@ extension Array {
 }
 
 extension Array where Element == ParsedBatter {
+    
+    func prefixArray(_ num: Int) -> [Element] {
+        Array(self.sortedByPoints.prefix(num))
+    }
+
+    
     var sortedByPoints: [ParsedBatter] {
         removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
     }

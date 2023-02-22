@@ -11,6 +11,8 @@ struct NVCurrentPickRect: View {
     
     let draft: Draft
     
+    let projection: ProjectionTypes
+    
     var currentTeam: DraftTeam {
         draft.currentTeam
     }
@@ -34,7 +36,7 @@ struct NVCurrentPickRect: View {
         guard draft.playerPool.batters.isEmpty == false else {
             return nil
         }
-        return draft.currentTeam.recommendedPlayer(draft: draft)
+        return draft.currentTeam.recommendedPlayer(draft: draft, projection: projection)
     }
     
     var body: some View {
@@ -73,7 +75,7 @@ struct NVCurrentPickRect: View {
 
 struct NVCurrentPickRect_Previews: PreviewProvider {
     static var previews: some View {
-        NVCurrentPickRect(draft: .nullDraft)
+        NVCurrentPickRect(draft: .nullDraft, projection: .atc)
         .frame(width: 150, height: 150)
         .previewLayout(.sizeThatFits)
     }

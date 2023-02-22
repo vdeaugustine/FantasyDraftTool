@@ -84,7 +84,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
     // MARK: - Mutating Methods
 
     mutating func edit(_ stat: String, with newValue: Int) {
-        print("editing: \(stat) from \(dict[stat] as! Int) with \(newValue)")
+//        print("editing: \(stat) from \(dict[stat] as! Int) with \(newValue)")
         switch stat {
             case "G":
                 g = newValue
@@ -207,9 +207,7 @@ extension ParsedBatter {
 
         self.projectionType = projectionType
     }
-    
-    
-    
+
     init(from jsonBatter: ExtendedBatter, pos: Position, projectionType: ProjectionTypes) {
         self.empty = jsonBatter.empty ?? "NA"
         self.name = jsonBatter.playerName ?? "NA"
@@ -239,9 +237,6 @@ extension ParsedBatter {
 
         self.projectionType = projectionType
     }
-    
-    
-    
 
     // MARK: Codable initializer
 

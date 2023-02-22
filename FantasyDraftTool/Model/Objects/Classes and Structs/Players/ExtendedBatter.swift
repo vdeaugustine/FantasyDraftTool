@@ -18,12 +18,12 @@ struct ExtendedBatter: Codable, Hashable, Equatable, CustomStringConvertible {
         let the1B, the2B, the3B, hr: Int?
         let r, rbi, bb, ibb: Int?
         let so, hbp, sf, sh: Int?
-        let gdp: JSONNull?
+        let gdp: Int?
         let sb, cs: Int?
         let avg, obp, slg, ops: Double?
         let wOBA, extendedBatterBB, k, bbK: Double?
         let iso, spd, babip, ubr: Double?
-        let gdpRuns: JSONNull?
+        let gdpRuns: Int?
         let wRC, wRAA, uzr, wBsR: Double?
         let baseRunning, war, off, def: Double?
         let extendedBatterWRC, adp: Double?
@@ -126,17 +126,29 @@ struct AllExtendedBatters: Codable {
     static func batters(for projection: ProjectionTypes) -> [ParsedBatter] {
         switch projection {
             case .steamer:
-                return AllExtendedBatters.steamer.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+            return AllExtendedBatters.steamer.all
+//                .removingDuplicates()
+//                .sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .zips:
-                return AllExtendedBatters.steamer.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+                return AllExtendedBatters.steamer.all
+//                .removingDuplicates()
+//                .sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .thebat:
-                return AllExtendedBatters.theBat.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+                return AllExtendedBatters.theBat.all
+//                .removingDuplicates()
+//                .sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .thebatx:
-                return AllExtendedBatters.theBatx.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+                return AllExtendedBatters.theBatx.all
+//                .removingDuplicates()
+//                .sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .atc:
-                return AllExtendedBatters.atc.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+                return AllExtendedBatters.atc.all
+//                .removingDuplicates()
+//                .sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .depthCharts:
-                return AllExtendedBatters.depthCharts.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+                return AllExtendedBatters.depthCharts.all
+//                .removingDuplicates()
+//                .sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .myProjections:
                 return Array(MainModel.shared.myModifiedBatters)
         }
@@ -190,12 +202,12 @@ struct ExtensionProjection {
     }
 
     init(projectionType: ProjectionTypes) {
-        self.c = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .c)).map { ParsedBatter(from: $0, pos: .c, projectionType: projectionType) }
-        self.firstBase = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .first)).map { ParsedBatter(from: $0, pos: .first, projectionType: projectionType) }
-        self.secondBase = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .second)).map { ParsedBatter(from: $0, pos: .second, projectionType: projectionType) }
-        self.thirdBase = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .third)).map { ParsedBatter(from: $0, pos: .third, projectionType: projectionType) }
-        self.ss = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .ss)).map { ParsedBatter(from: $0, pos: .ss, projectionType: projectionType) }
-        self.of = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .of)).map { ParsedBatter(from: $0, pos: .of, projectionType: projectionType) }
+        self.c = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .c)).map { ParsedBatter(from: $0, pos: .c, projectionType: projectionType) }.prefixArray(50)
+        self.firstBase = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .first)).map { ParsedBatter(from: $0, pos: .first, projectionType: projectionType) }.prefixArray(50)
+        self.secondBase = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .second)).map { ParsedBatter(from: $0, pos: .second, projectionType: projectionType) }.prefixArray(50)
+        self.thirdBase = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .third)).map { ParsedBatter(from: $0, pos: .third, projectionType: projectionType) }.prefixArray(50)
+        self.ss = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .ss)).map { ParsedBatter(from: $0, pos: .ss, projectionType: projectionType) }.prefixArray(50)
+        self.of = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .of)).map { ParsedBatter(from: $0, pos: .of, projectionType: projectionType) }.prefixArray(200)
     }
     
     static func loadBatters(_ filename: String) -> [ExtendedBatter] {

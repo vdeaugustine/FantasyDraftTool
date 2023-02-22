@@ -25,6 +25,8 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
     @Published var defaultProjectionSystem: ProjectionTypes = .atc
     
     @Published var draftLoadProgress: Double = 0
+    
+    @Published var limitForEachPosition: Int = 50
 
     // MARK: - Stored Properties
 
