@@ -19,52 +19,100 @@ class ReaderManager: ObservableObject {
 // MARK: - NVDownloadBatters
 
 struct NVDownloadBatters: View {
-    @State private var battersDownloaded: [ExtendedBatter] = []
+    @State private var batters: [ExtendedBatter] = []
+    @State private var loadingError: Error?
     @State private var answerTest: String?
+    @State private var projection: ProjectionTypes = .steamer
+    @State private var position: Position = .ss
 
     var body: some View {
         List {
-            ForEach(battersDownloaded, id: \.self) { download in
+            ForEach(batters, id: \.self) { download in
                 Text(download.description)
             }
 
-            Text(answerTest ?? "Nothing yet")
-            Button("Read") {
-                readValue { battersDownloaded = $0 }
+            Picker("Projection", selection: $projection) {
+                ForEach(ProjectionTypes.arr, id: \.self) { proj in
+                    Text(proj.str).tag(proj)
+                }
             }
-        }
-        .onAppear {
-            
-        }
-    }
 
-    func readValue(_ completion: @escaping ([ExtendedBatter]) -> () ) {
-        let ref = Database.database().reference()
-        var batters = [ExtendedBatter]()
+            Picker("Position", selection: $position) {
+                ForEach(Position.batters, id: \.self) { pos in
+                    Text(pos.str).tag(pos)
+                }
+            }
 
-        var count = 0
-
-        ref.child("count").observeSingleEvent(of: .value) { snap in
-            guard let asInt = snap.value as? Int else { return }
-                count = asInt
-            
-            
-            for ind in 0 ... count {
-                ref.child(ind.str).observeSingleEvent(of: .value) { snap in
-                    if let batter = try? snap.data(as: ExtendedBatter.self) {
-                        batters.append(batter)
-                    }
-                    if ind == count {
-                        completion(batters)
+            Button("Read") {
+                getAllChildNodes(parentNode: projection.str) { result in
+                    switch result {
+                        case let .success(batters):
+                            self.batters = batters
+                        case let .failure(error):
+                            self.loadingError = error
                     }
                 }
             }
-            print("Batters is now", batters)
         }
-
-        
-        
     }
+
+    func getAllChildNodes(parentNode: String, completion: @escaping (Result<[ExtendedBatter], Error>) -> Void) {
+        let ref = Database.database().reference()
+        let parentRef = ref.child(parentNode).child(position.str)
+
+        parentRef.observeSingleEvent(of: .value) { snapshot in
+            var childNodes = [ExtendedBatter]()
+            for child in snapshot.children {
+                if let childSnapshot = child as? DataSnapshot {
+                    if let jsonData = try? JSONSerialization.data(withJSONObject: childSnapshot.value as Any),
+                       let batter = try? JSONDecoder().decode(ExtendedBatter.self, from: jsonData) {
+                        childNodes.append(batter)
+                    } else {
+                        print("cant do it")
+                    }
+                }
+            }
+            completion(.success(childNodes))
+        } withCancel: { error in
+            completion(.failure(error))
+        }
+    }
+
+//    func readValue(_ completion: @escaping ([ExtendedBatter]) -> Void) {
+//        let ref = Database.database().reference()
+//        var batters = [ExtendedBatter]()
+//
+//        var count = 0
+//
+//        let posArr = ref.child(projection.str).child(position.str)
+//
+//        posArr.getData { err, snapshot in
+//            guard let data = snapshot.obser else {
+//                return
+//            }
+//        }
+//
+//
+    ////        posArr.observeSingleEvent(of: .value) { snap, _ in
+    ////            guard let count = snap.childrenCount  else {
+    ////                return
+    ////            }
+    ////
+    ////
+    ////            for ind in 0 ... count {
+    ////
+    ////                ref.child("\(ind)").observeSingleEvent(of: .value) { secondSnap in
+    ////                    if let batter = try? secondSnap.data(as: ExtendedBatter.self) {
+    ////                        batters.append(batter)
+    ////                    }
+    ////                    if ind == count {
+    ////                        completion(batters)
+    ////                    }
+    ////                }
+    ////            }
+    ////            print("Batters is now", batters)
+    ////        }
+//    }
 }
 
 // MARK: - NVDownloadBatters_Previews
