@@ -14,80 +14,81 @@ import Foundation
 
 struct ExtendedBatter: Codable, Hashable, Equatable, CustomStringConvertible {
     let name, team, shortName: String?
-    let g, ab, pa, h: Int?
-    let the1B, the2B, the3B, hr: Int?
-    let r, rbi, bb, ibb: Int?
-    let so, hbp, sf, sh: Int?
-    let gdp: Int?
-    let sb, cs: Int?
-    let avg, obp, slg, ops: Double?
-    let wOBA, extendedBatterBB, k, bbK: Double?
-    let iso, spd, babip, ubr: Double?
-    let gdpRuns: Int?
-    let wRC, wRAA, uzr, wBsR: Double?
-    let baseRunning, war, off, def: Double?
-    let extendedBatterWRC, adp: Double?
-    let pos: Double?
-    let minpos: String?
-    let teamid: Int?
-    let league, playerName, playerids, empty: String?
-
+        let g, ab, pa, h: Int?
+        let the1B, the2B, the3B, hr: Int?
+        let r, rbi, bb, ibb: Int?
+        let so, hbp, sf, sh: Int?
+        let gdp, sb, cs: Int?
+        let avg, obp, slg, ops: Double?
+        let wOBA: Double?
+        let bBperc, kperc, bbk: String?
+        let iso, spd, babip, ubr: Double?
+        let wRC, wRAA, uzr, wBsR: Double?
+        let baseRunning, war, off, def: Double?
+        let extendedBatterWRC, interSD, interSK, intraSD: Double?
+        let adp: Double?
+        let pos: Double?
+        let minpos: String?
+        let teamid: Int?
+        let league, playerName, playerids: String?
+    
     var description: String {
-        "\(playerName ?? "NO NAME"): \(pos?.str ?? "") : \(team ?? "") "
+        playerName ?? "NO NAME ERROR"
     }
 
-    enum CodingKeys: String, CodingKey {
-        case name = "Name"
-        case team = "Team"
-        case shortName = "ShortName"
-        case g = "G"
-        case ab = "AB"
-        case pa = "PA"
-        case h = "H"
-        case the1B = "1B"
-        case the2B = "2B"
-        case the3B = "3B"
-        case hr = "HR"
-        case r = "R"
-        case rbi = "RBI"
-        case bb = "BB"
-        case ibb = "IBB"
-        case so = "SO"
-        case hbp = "HBP"
-        case sf = "SF"
-        case sh = "SH"
-        case gdp = "GDP"
-        case sb = "SB"
-        case cs = "CS"
-        case avg = "AVG"
-        case obp = "OBP"
-        case slg = "SLG"
-        case ops = "OPS"
-        case wOBA
-        case extendedBatterBB = "BB%"
-        case k = "K%"
-        case bbK = "BB/K"
-        case iso = "ISO"
-        case spd = "Spd"
-        case babip = "BABIP"
-        case ubr = "UBR"
-        case gdpRuns = "GDPRuns"
-        case wRC, wRAA
-        case uzr = "UZR"
-        case wBsR
-        case baseRunning = "BaseRunning"
-        case war = "WAR"
-        case off = "Off"
-        case def = "Def"
-        case extendedBatterWRC = "wRC+"
-        case adp = "ADP"
-        case pos = "Pos"
-        case minpos, teamid
-        case league = "League"
-        case playerName = "PlayerName"
-        case playerids
-        case empty = "."
-    }
+        enum CodingKeys: String, CodingKey {
+            case name = "Name"
+            case team = "Team"
+            case shortName = "ShortName"
+            case g = "G"
+            case ab = "AB"
+            case pa = "PA"
+            case h = "H"
+            case the1B = "1B"
+            case the2B = "2B"
+            case the3B = "3B"
+            case hr = "HR"
+            case r = "R"
+            case rbi = "RBI"
+            case bb = "BB"
+            case ibb = "IBB"
+            case so = "SO"
+            case hbp = "HBP"
+            case sf = "SF"
+            case sh = "SH"
+            case gdp = "GDP"
+            case sb = "SB"
+            case cs = "CS"
+            case avg = "AVG"
+            case obp = "OBP"
+            case slg = "SLG"
+            case ops = "OPS"
+            case wOBA
+            case bBperc = "BBperc"
+            case kperc = "Kperc"
+            case bbk = "BBK"
+            case iso = "ISO"
+            case spd = "Spd"
+            case babip = "BABIP"
+            case ubr = "UBR"
+            case wRC, wRAA
+            case uzr = "UZR"
+            case wBsR
+            case baseRunning = "BaseRunning"
+            case war = "WAR"
+            case off = "Off"
+            case def = "Def"
+            case extendedBatterWRC = "wRC+"
+            case interSD = "InterSD"
+            case interSK = "InterSK"
+            case intraSD = "IntraSD"
+            case adp = "ADP"
+            case pos = "Pos"
+            case minpos, teamid
+            case league = "League"
+            case playerName = "PlayerName"
+            case playerids
+        }
 
     static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.name == rhs.name &&

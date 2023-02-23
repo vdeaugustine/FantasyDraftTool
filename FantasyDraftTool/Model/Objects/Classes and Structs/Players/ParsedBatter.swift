@@ -209,7 +209,7 @@ extension ParsedBatter {
     }
 
     init(from jsonBatter: ExtendedBatter, pos: Position, projectionType: ProjectionTypes) {
-        self.empty = jsonBatter.empty ?? "NA"
+        self.empty = ""
         self.name = jsonBatter.playerName ?? "NA"
         self.team = jsonBatter.team ?? "NA"
         self.g = Int(jsonBatter.g ?? -99)

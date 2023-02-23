@@ -41,11 +41,11 @@ struct ModifyStatsView: View {
                     VStack {
                         Text( ProjectionTypes.arr[thisProjIndex].title)
                         
-                        if let val = AllExtendedBatters.batterVariants(for: myParsedBatter, limit: UserDefaults.positionLimit)[thisProjIndex].dict[stat] as? Double {
-                            Text(val.str)
-                        } else if let val = AllExtendedBatters.batterVariants(for: myParsedBatter, limit: UserDefaults.positionLimit)[thisProjIndex].dict[stat] as? Int {
-                            Text(val.str)
-                        }
+//                        if let val = AllExtendedBatters.batterVariants(for: myParsedBatter, limit: UserDefaults.positionLimit)[thisProjIndex].dict[stat] as? Double {
+//                            Text(val.str)
+//                        } else if let val = AllExtendedBatters.batterVariants(for: myParsedBatter, limit: UserDefaults.positionLimit)[thisProjIndex].dict[stat] as? Int {
+//                            Text(val.str)
+//                        }
                         
                         
                     }
