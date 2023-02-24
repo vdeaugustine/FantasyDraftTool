@@ -311,6 +311,32 @@ extension Draft {
         return workingDraft.pickStack
     }
 
+    func simulatePicks(_ numPicks: Int, projection: ProjectionTypes, completion: @escaping (Draft) -> Void ) {
+        var draft = self
+        var picksMade: Int = 0
+
+        while picksMade <= numPicks {
+            if draft.draftOver { break }
+
+            let availableBatters = draft.currentTeam.recommendedBattersDesc(draft: draft, projection: projection)
+
+            if availableBatters.count == 1 {
+                draft.makePick(.init(player: availableBatters[0], draft: draft))
+            } else if availableBatters.count < 1 {
+                break
+            }
+
+            guard let chosenPlayer: ParsedBatter = availableBatters.first else {
+                break
+            }
+
+            draft.makePick(.init(player: chosenPlayer, draft: draft))
+            picksMade += 1
+        }
+        
+        completion(draft)
+    }
+
     func simulatePicks(_ numPicks: Int, projection: ProjectionTypes, progress: Binding<Double>) -> Draft {
         var draft = self
         var picksMade: Int = 0
@@ -352,7 +378,7 @@ extension Draft {
 
     static func exampleDraft(picksMade: Int = 30, model: MainModel, projection: ProjectionTypes) -> Draft {
         let testStart: Date = .now
-       
+
         var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
 
         while draft.totalPicksMade <= picksMade {

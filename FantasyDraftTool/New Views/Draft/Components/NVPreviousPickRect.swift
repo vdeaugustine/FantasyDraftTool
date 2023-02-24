@@ -7,35 +7,45 @@
 
 import SwiftUI
 
-// MARK: - NVPreviousPickCircle
+// MARK: - NVPreviousPickRect
 
 struct NVPreviousPickRect: View {
     let player: DraftPlayer
 
     var body: some View {
-        VStack(spacing: 7) {
-            Text("Pick #\(player.pickNumber)")
-                .font(.headline)
-            Image(systemName: "chevron.down")
+        VStack(spacing: 0) {
+            Text("#\(player.pickNumber)")
+                .font(.footnote)
+
             VStack {
                 Text(player.player.name.components(separatedBy: .whitespaces)[0])
-
-                Text(player.player.name.components(separatedBy: .whitespaces)[1])
+                if let thirdName = player.player.name.components(separatedBy: .whitespaces).safeGet(at: 2) {
+                    Text(player.player.name.components(separatedBy: .whitespaces)[1] + " \(thirdName)")
+                } else {
+                    Text(player.player.name.components(separatedBy: .whitespaces)[1])
+                }
             }
+            .padding()
+            .background {
+                Color.hexStringToColor(hex: "EFEFF4").cornerRadius(8).shadow(radius: 0.75)
+            }
+
+            .font(.footnote)
             .padding(10)
             .minimumScaleFactor(0.5)
-            .overlay {
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke()
-            }
 
-            Text(player.draftedTeam?.name ?? "NA")
-                .font(.headline)
+//            .overlay {
+//                RoundedRectangle(cornerRadius: 10)
+//                    .stroke()
+//            }
+
+            Text(player.draftTeam.name)
+                .font(.footnote)
         }
     }
 }
 
-// MARK: - NVPreviousPickCircle_Previews
+// MARK: - NVPreviousPickRect_Previews
 
 struct NVPreviousPickRect_Previews: PreviewProvider {
     static var previews: some View {

@@ -24,34 +24,74 @@ struct NVDownloadBatters: View {
     @State private var answerTest: String?
     @State private var projection: ProjectionTypes = .steamer
     @State private var position: Position = .ss
+    @State private var showSpinner: Bool = false
 
     var body: some View {
-        List {
-            ForEach(batters, id: \.self) { download in
-                Text(download.description)
-            }
-
-            Picker("Projection", selection: $projection) {
-                ForEach(ProjectionTypes.arr, id: \.self) { proj in
-                    Text(proj.str).tag(proj)
-                }
-            }
-
-            Picker("Position", selection: $position) {
-                ForEach(Position.batters, id: \.self) { pos in
-                    Text(pos.str).tag(pos)
-                }
-            }
-
-            Button("Read") {
-                getAllChildNodes(parentNode: projection.str) { result in
-                    switch result {
-                        case let .success(batters):
-                            self.batters = batters
-                        case let .failure(error):
-                            self.loadingError = error
+        ZStack {
+            List {
+                Picker("Projection", selection: $projection) {
+                    ForEach(ProjectionTypes.arr, id: \.self) { proj in
+                        Text(proj.title).tag(proj)
                     }
                 }
+
+                Picker("Position", selection: $position) {
+                    ForEach(Position.batters, id: \.self) { pos in
+                        Text(pos.str.uppercased()).tag(pos)
+                    }
+                }
+                
+                Section("Last updated") {
+                    if let lastUpdated = UserDefaults.lastUpdated(for: projection, and: position) {
+                        Text(lastUpdated.getFormattedDate(format: .abreviatedMonth))
+                        
+                    } else {
+                        Text("Never")
+                    }
+                }
+                
+                Button("Read") {
+                    UserDefaults.updateIfNecessary(for: projection, and: position)
+                    
+                    DispatchQueue.main.async {
+                        showSpinner = true
+                    }
+                    
+                    DispatchQueue.global().async {
+                        getAllChildNodes(parentNode: projection.str) { result in
+                            switch result {
+                                case let .success(batters):
+                                    self.batters = batters
+                                case let .failure(error):
+                                    self.loadingError = error
+                            }
+                            DispatchQueue.main.async {
+                                showSpinner = false
+                            }
+                            
+                        }
+                    }
+                    
+                }
+                
+                Section("Positions needing update") {
+                    ForEach(UserDefaults.needingUpdate().indices, id: \.self) { index in
+                        
+                        return Text("\(UserDefaults.needingUpdate()[index].projection.title) \(UserDefaults.needingUpdate()[index].position.str.uppercased()) ")
+                    }
+                }
+
+                
+                
+                ForEach(batters, id: \.self) { download in
+                    Text(download.description)
+                }
+                
+                
+            }
+            
+            if showSpinner {
+                ProgressView()
             }
         }
     }

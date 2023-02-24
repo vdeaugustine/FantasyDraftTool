@@ -26,10 +26,12 @@ struct Stack<T>: Codable, Equatable, Hashable where T : Codable, T: Hashable, T:
         
     }
 
+    /// Oldest item. item on the bottom
     mutating func popLast() -> T? {
         return array.popLast()
     }
     
+    /// Most recent item
     mutating func popFirst() -> T? {
         return array.removeFirst()
     }
