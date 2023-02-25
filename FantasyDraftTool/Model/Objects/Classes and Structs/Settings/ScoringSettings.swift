@@ -19,14 +19,15 @@ struct ScoringSettings: Codable, Hashable, Equatable {
     var sb: Double
     var cs: Double
     var bb: Double
-    var so: Double
+    var batterK: Double
     var wins: Double
+    var losses: Double
     var saves: Double
     var earnedRuns: Double
+    var pitcherK: Double
     var inningsPitched: Double
     var hitsAllowed: Double
     var walksAllowed: Double
-    var strikeoutsAllowed: Double
     var qualityStarts: Double
 
     // MARK: - Computed Properties
@@ -38,12 +39,12 @@ struct ScoringSettings: Codable, Hashable, Equatable {
          Naming.sb.rawValue: sb,
          Naming.cs.rawValue: cs,
          Naming.bb.rawValue: bb,
-         Naming.so.rawValue: so]
+         Naming.so.rawValue: batterK]
     }
 
     // MARK: - Static Properties
 
-    static let defaultPoints = ScoringSettings(tb: 1, hr: 4, r: 1, rbi: 1, sb: 1, cs: -1, bb: 1, so: -1, wins: 5, saves: 3, earnedRuns: -1, inningsPitched: 1, hitsAllowed: -1, walksAllowed: -1, strikeoutsAllowed: 1, qualityStarts: 3)
+    static let defaultPoints = ScoringSettings(tb: 1, hr: 4, r: 1, rbi: 1, sb: 1, cs: -1, bb: 1, batterK: -1, wins: 5, losses: -3, saves: 3, earnedRuns: -1, pitcherK: 1, inningsPitched: 1, hitsAllowed: -1, walksAllowed: -1, qualityStarts: 3)
 
     // MARK: - Methods
 
@@ -62,7 +63,7 @@ struct ScoringSettings: Codable, Hashable, Equatable {
             case .bb:
                 bb = newValue
             case .so:
-                so = newValue
+                batterK = newValue
             default:
                 break
         }
@@ -78,7 +79,7 @@ struct ScoringSettings: Codable, Hashable, Equatable {
         points += Double(batter.sb) * sb
         points += Double(batter.cs) * cs
         points += Double(batter.bb) * bb
-        points += Double(batter.so) * so
+        points += Double(batter.so) * batterK
         return points
     }
 
@@ -105,7 +106,7 @@ struct ScoringSettings: Codable, Hashable, Equatable {
             case .bb:
                 return Double(batter.bb) * bb
             case .so:
-                return Double(batter.so) * so
+                return Double(batter.so) * batterK
         }
     }
 }
@@ -113,7 +114,6 @@ struct ScoringSettings: Codable, Hashable, Equatable {
 // MARK: - Codable, Hashable, Equatable
 
 extension ScoringSettings {
-
     enum CodingKeys: String, CodingKey {
         case tb
         case hr
@@ -124,12 +124,14 @@ extension ScoringSettings {
         case bb
         case so
         case wins
+        case losses
         case saves
         case earnedRuns
         case inningsPitched
         case hitsAllowed
         case walksAllowed
-        case strikeoutsAllowed
+        case pitcherK
+        case batterK
         case qualityStarts
     }
 
@@ -142,14 +144,15 @@ extension ScoringSettings {
         self.sb = try container.decode(Double.self, forKey: .sb)
         self.cs = try container.decode(Double.self, forKey: .cs)
         self.bb = try container.decode(Double.self, forKey: .bb)
-        self.so = try container.decode(Double.self, forKey: .so)
+        self.batterK = try container.decode(Double.self, forKey: .so)
         self.wins = try container.decode(Double.self, forKey: .wins)
+        self.losses = try container.decode(Double.self, forKey: .losses)
         self.saves = try container.decode(Double.self, forKey: .saves)
         self.earnedRuns = try container.decode(Double.self, forKey: .earnedRuns)
         self.inningsPitched = try container.decode(Double.self, forKey: .inningsPitched)
         self.hitsAllowed = try container.decode(Double.self, forKey: .hitsAllowed)
         self.walksAllowed = try container.decode(Double.self, forKey: .walksAllowed)
-        self.strikeoutsAllowed = try container.decode(Double.self, forKey: .strikeoutsAllowed)
+        self.pitcherK = try container.decode(Double.self, forKey: .pitcherK)
         self.qualityStarts = try container.decode(Double.self, forKey: .qualityStarts)
     }
 
@@ -162,14 +165,15 @@ extension ScoringSettings {
         try container.encode(sb, forKey: .sb)
         try container.encode(cs, forKey: .cs)
         try container.encode(bb, forKey: .bb)
-        try container.encode(so, forKey: .so)
+        try container.encode(batterK, forKey: .so)
         try container.encode(wins, forKey: .wins)
+        try container.encode(losses, forKey: .losses)
         try container.encode(saves, forKey: .saves)
         try container.encode(earnedRuns, forKey: .earnedRuns)
         try container.encode(inningsPitched, forKey: .inningsPitched)
         try container.encode(hitsAllowed, forKey: .hitsAllowed)
         try container.encode(walksAllowed, forKey: .walksAllowed)
-        try container.encode(strikeoutsAllowed, forKey: .strikeoutsAllowed)
+        try container.encode(pitcherK, forKey: .pitcherK)
         try container.encode(qualityStarts, forKey: .qualityStarts)
     }
 
@@ -181,17 +185,18 @@ extension ScoringSettings {
             lhs.sb == rhs.sb &&
             lhs.cs == rhs.cs &&
             lhs.bb == rhs.bb &&
-            lhs.so == rhs.so &&
+            lhs.batterK == rhs.batterK &&
             lhs.wins == rhs.wins &&
+            lhs.losses == rhs.losses &&
             lhs.saves == rhs.saves &&
             lhs.earnedRuns == rhs.earnedRuns &&
             lhs.inningsPitched == rhs.inningsPitched &&
             lhs.hitsAllowed == rhs.hitsAllowed &&
             lhs.walksAllowed == rhs.walksAllowed &&
-            lhs.strikeoutsAllowed == rhs.strikeoutsAllowed &&
+            lhs.pitcherK == rhs.pitcherK &&
             lhs.qualityStarts == rhs.qualityStarts
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(tb)
         hasher.combine(hr)
@@ -200,17 +205,17 @@ extension ScoringSettings {
         hasher.combine(sb)
         hasher.combine(cs)
         hasher.combine(bb)
-        hasher.combine(so)
+        hasher.combine(batterK)
         hasher.combine(wins)
+        hasher.combine(losses)
         hasher.combine(saves)
         hasher.combine(earnedRuns)
         hasher.combine(inningsPitched)
         hasher.combine(hitsAllowed)
         hasher.combine(walksAllowed)
-        hasher.combine(strikeoutsAllowed)
+        hasher.combine(pitcherK)
         hasher.combine(qualityStarts)
     }
-
 }
 
 extension ScoringSettings {

@@ -48,8 +48,8 @@
             filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/Player Pool/PlayerPool.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "batters(for:projection:draft:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -64,8 +64,8 @@
             filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/Player Pool/PlayerPool.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "batters(for:projection:draft:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -112,8 +112,8 @@
             filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/Player Pool/PlayerPool.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "batters(for:projection:draft:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -228,6 +228,38 @@
             endingLineNumber = "103"
             landmarkName = "getAllChildNodes(parentNode:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8E493301-7295-4478-8CC7-29C0410E7772 - 5e3be46f76693e9f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FantasyDraftTool.NVDownloadBatters.getAllChildNodes(parentNode: Swift.String, completion: (Swift.Result&lt;Swift.Array&lt;FantasyDraftTool.ExtendedBatter&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "FantasyDraftTool"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/New%20Views/NVDownloadBatters.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "428">
+               </Location>
+               <Location
+                  uuid = "8E493301-7295-4478-8CC7-29C0410E7772 - 6ba1325bfda3cf40"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRDataSnapshot) -&gt; () in FantasyDraftTool.NVDownloadBatters.getAllChildNodes(parentNode: Swift.String, completion: (Swift.Result&lt;Swift.Array&lt;FantasyDraftTool.ExtendedBatter&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "FantasyDraftTool"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/New%20Views/NVDownloadBatters.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "228">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -244,6 +276,38 @@
             endingLineNumber = "102"
             landmarkName = "getAllChildNodes(parentNode:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B6E18E61-FEDB-4DB3-A6F3-F6056FD4AA4C - 5e3be46f76693e9f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FantasyDraftTool.NVDownloadBatters.getAllChildNodes(parentNode: Swift.String, completion: (Swift.Result&lt;Swift.Array&lt;FantasyDraftTool.ExtendedBatter&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "FantasyDraftTool"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/New%20Views/NVDownloadBatters.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "428">
+               </Location>
+               <Location
+                  uuid = "B6E18E61-FEDB-4DB3-A6F3-F6056FD4AA4C - 6ba1325bfda3cf40"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRDataSnapshot) -&gt; () in FantasyDraftTool.NVDownloadBatters.getAllChildNodes(parentNode: Swift.String, completion: (Swift.Result&lt;Swift.Array&lt;FantasyDraftTool.ExtendedBatter&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "FantasyDraftTool"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/New%20Views/NVDownloadBatters.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "228">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

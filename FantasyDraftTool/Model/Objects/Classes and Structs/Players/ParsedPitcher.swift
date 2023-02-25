@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - ParsedPitcher
 
-struct ParsedPitcher: CustomStringConvertible {
+struct ParsedPitcher: CustomStringConvertible, Codable, Hashable {
     var name, team: String
     var w, l, gs, g, sv, hld, ip, tbf, h, r, er, hr, so, bb, ibb, hbp, qs: Int
     var era, fip, war, ra9War, adp: Double
@@ -21,6 +21,40 @@ struct ParsedPitcher: CustomStringConvertible {
         [name, team, projectionType.title].joined(separator: ", ")
     }
 //    var k9, bb9, kbb, hr9, kperc, gbperc: String
+    
+    func fantasyPoints(scoring: ScoringSettings) -> Double {
+        var sum: Double = 0
+        
+        sum += Double(w) * scoring.wins
+        sum += Double(sv) * scoring.saves
+        sum += Double(er) * scoring.earnedRuns
+        sum += Double(so) * scoring.pitcherK
+        sum += Double(ip) * scoring.inningsPitched
+        sum += Double(h) * scoring.hitsAllowed
+        sum += Double(bb) * scoring.walksAllowed
+        sum += Double(qs) * scoring.qualityStarts
+        sum += Double(l) * scoring.losses
+        
+        return sum
+        
+        
+    }
+    
+    func zScore(draft: Draft) -> Double {
+//        guard let firstPost = positions.first,
+//              let average = draft.playerPool.positionAveragesDict[firstPost],
+//              let _ = draft.playerPool.battersDict[firstPost],
+//              let stdDev: Double = draft.playerPool.standardDeviationDict[firstPost]
+//        else {
+//            return (0 - .infinity)
+//        }
+//
+//        let zScore = (fantasyPoints(draft.settings.scoringSystem) - average) / stdDev
+//
+//        return zScore
+        
+        return 0
+    }
 
     var id: String { name + team }
 

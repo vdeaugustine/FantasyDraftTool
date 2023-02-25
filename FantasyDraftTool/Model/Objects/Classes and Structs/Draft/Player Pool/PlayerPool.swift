@@ -39,6 +39,57 @@ struct PlayerPool: Codable, Hashable, Equatable {
 
         return retDict
     }()
+    
+    typealias PitchersByType = [PitcherType: [ParsedPitcher]]
+    typealias PitchersByTypeByProjection = [ProjectionTypes: PitchersByType]
+    
+    
+    var pitchersDict: PitchersByTypeByProjection = {
+        var retDict: PitchersByTypeByProjection = [:]
+        
+        
+        var serializedDict: [String: [String: [ParsedPitcher]]] = [:]
+        
+        for projection in ProjectionTypes.pitcherArr {
+            var byType: PitchersByType = [:]
+            let rel = AllExtendedPitchers.relievers(for: projection, limit: 100)
+            let sta = AllExtendedPitchers.starters(for: projection, limit: 100)
+            byType[.starter] = sta
+            byType[.reliever] = rel
+            var firstSerDict: [String: [ParsedPitcher]] = [:]
+            firstSerDict[PitcherType.starter.str] = sta
+            firstSerDict[PitcherType.reliever.str] = rel
+            serializedDict[projection.str] = firstSerDict
+            retDict[projection] = byType
+        }
+        
+
+        func printDictionaryAsJSON(_ dictionary: [String: Any], withIndent indent: Int = 0) {
+            let indentString = String(repeating: " ", count: indent * 4)
+            let comma = (indent > 0) ? "," : ""
+
+            print("{")
+            for (key, value) in dictionary.sorted(by: { $0.key < $1.key }) {
+                if let nestedDictionary = value as? [String: Any] {
+                    print("\(indentString)\"\(key)\":", terminator: " ")
+                    printDictionaryAsJSON(nestedDictionary, withIndent: indent + 1)
+                } else {
+                    let valueString = "\(value)".replacingOccurrences(of: "\"", with: "\\\"")
+                    print("\(indentString)\"\(key)\": \"\(valueString)\"\(comma)")
+                }
+            }
+            print("\(String(repeating: " ", count: (indent - 1) * 4))}")
+        }
+
+        
+        print(serializedDict)
+        
+        
+        
+        return retDict
+        
+        
+    }()
 
     func batters(for positions: [Position], projection: ProjectionTypes, draft: Draft = MainModel.shared.draft) -> [ParsedBatter] {
         var retArr = [ParsedBatter]()
@@ -157,14 +208,16 @@ extension PlayerPool {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(battersDict, forKey: .battersDict)
+        try container.encode(pitchersDict, forKey: .pitchersDict)
     }
 
     private enum CodingKeys: String, CodingKey {
-        case battersDict
+        case battersDict, pitchersDict
     }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(battersDict)
+        hasher.combine(pitchersDict)
     }
 
     static func == (lhs: PlayerPool, rhs: PlayerPool) -> Bool {
