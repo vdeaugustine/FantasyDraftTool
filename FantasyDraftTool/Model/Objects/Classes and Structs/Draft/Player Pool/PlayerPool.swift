@@ -29,7 +29,7 @@ struct PlayerPool: Codable, Hashable, Equatable {
 
         for position in Position.batters {
             var theseBatters: [ParsedBatter] = []
-            for projectionType in ProjectionTypes.arr {
+            for projectionType in ProjectionTypes.batterArr {
                 let battersForThisPosition = AllExtendedBatters.batters(for: projectionType, at: position, limit: 50)
                 theseBatters += battersForThisPosition
             }

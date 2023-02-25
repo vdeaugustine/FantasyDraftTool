@@ -43,7 +43,7 @@ struct AllParsedBatters {
 
     static func batterVariants(for batter: ParsedBatter) -> [ParsedBatter] {
         var retArr = [ParsedBatter]()
-        for projection in ProjectionTypes.arr {
+        for projection in ProjectionTypes.batterArr {
             let batters = batters(for: projection)
             if let foundBatter = batters.first(where: { $0 == batter }) {
                 retArr.append(foundBatter)

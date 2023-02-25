@@ -21,6 +21,11 @@
 		9C2C8DAE29AA861B00626232 /* ExtendedRelAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DAA29AA861B00626232 /* ExtendedRelAtcStandard.json */; };
 		9C2C8DAF29AA861B00626232 /* ExtendedRelFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DAB29AA861B00626232 /* ExtendedRelFangraphsdcStandard.json */; };
 		9C2C8DB029AA861B00626232 /* ExtendedRelSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DAC29AA861B00626232 /* ExtendedRelSteamerStandard.json */; };
+		9C2C8DB529AA864E00626232 /* ExtendedStaFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DB129AA864E00626232 /* ExtendedStaFangraphsdcStandard.json */; };
+		9C2C8DB629AA864E00626232 /* ExtendedStaSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DB229AA864E00626232 /* ExtendedStaSteamerStandard.json */; };
+		9C2C8DB729AA864E00626232 /* ExtendedStaThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DB329AA864E00626232 /* ExtendedStaThebatStandard.json */; };
+		9C2C8DB829AA864E00626232 /* ExtendedStaAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DB429AA864E00626232 /* ExtendedStaAtcStandard.json */; };
+		9C2C8DBA29AA872100626232 /* ParsedPitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C8DB929AA872100626232 /* ParsedPitcher.swift */; };
 		9C33F7DB29838B2E0038A938 /* CBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BD29838B2D0038A938 /* CBatThebatxStandard.json */; };
 		9C33F7DC29838B2E0038A938 /* 3bBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BE29838B2D0038A938 /* 3bBatThebatStandard.json */; };
 		9C33F7DD29838B2E0038A938 /* CBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BF29838B2D0038A938 /* CBatFangraphsdcStandard.json */; };
@@ -173,6 +178,11 @@
 		9C2C8DAA29AA861B00626232 /* ExtendedRelAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedRelAtcStandard.json; sourceTree = "<group>"; };
 		9C2C8DAB29AA861B00626232 /* ExtendedRelFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedRelFangraphsdcStandard.json; sourceTree = "<group>"; };
 		9C2C8DAC29AA861B00626232 /* ExtendedRelSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedRelSteamerStandard.json; sourceTree = "<group>"; };
+		9C2C8DB129AA864E00626232 /* ExtendedStaFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedStaFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C2C8DB229AA864E00626232 /* ExtendedStaSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedStaSteamerStandard.json; sourceTree = "<group>"; };
+		9C2C8DB329AA864E00626232 /* ExtendedStaThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedStaThebatStandard.json; sourceTree = "<group>"; };
+		9C2C8DB429AA864E00626232 /* ExtendedStaAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedStaAtcStandard.json; sourceTree = "<group>"; };
+		9C2C8DB929AA872100626232 /* ParsedPitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ParsedPitcher.swift; path = "FantasyDraftTool/Model/Objects/Classes and Structs/Players/ParsedPitcher.swift"; sourceTree = SOURCE_ROOT; };
 		9C33F7BD29838B2D0038A938 /* CBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatThebatxStandard.json; sourceTree = "<group>"; };
 		9C33F7BE29838B2D0038A938 /* 3bBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3bBatThebatStandard.json; sourceTree = "<group>"; };
 		9C33F7BF29838B2D0038A938 /* CBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatFangraphsdcStandard.json; sourceTree = "<group>"; };
@@ -444,6 +454,7 @@
 			children = (
 				9C762DED29A1FED100C3B804 /* ExtendedBatter.swift */,
 				9C2C8DA629AA850B00626232 /* ExtendedPitcher.swift */,
+				9C2C8DB929AA872100626232 /* ParsedPitcher.swift */,
 			);
 			path = Extended;
 			sourceTree = "<group>";
@@ -451,6 +462,10 @@
 		9C2C8DA829AA85FF00626232 /* ExtendedPitchersJSONs */ = {
 			isa = PBXGroup;
 			children = (
+				9C2C8DB429AA864E00626232 /* ExtendedStaAtcStandard.json */,
+				9C2C8DB129AA864E00626232 /* ExtendedStaFangraphsdcStandard.json */,
+				9C2C8DB229AA864E00626232 /* ExtendedStaSteamerStandard.json */,
+				9C2C8DB329AA864E00626232 /* ExtendedStaThebatStandard.json */,
 				9C2C8DAA29AA861B00626232 /* ExtendedRelAtcStandard.json */,
 				9C2C8DAB29AA861B00626232 /* ExtendedRelFangraphsdcStandard.json */,
 				9C2C8DAC29AA861B00626232 /* ExtendedRelSteamerStandard.json */,
@@ -991,8 +1006,10 @@
 				9C33F7E629838B2E0038A938 /* 1bBatThebatStandard.json in Resources */,
 				9C33F7F329838B2E0038A938 /* 3bBatAtcStandard.json in Resources */,
 				9C33F7F829838B2E0038A938 /* SsBatSteamerStandard.json in Resources */,
+				9C2C8DB529AA864E00626232 /* ExtendedStaFangraphsdcStandard.json in Resources */,
 				9C33F7F229838B2E0038A938 /* 3bBatThebatxStandard.json in Resources */,
 				9C762E2529A2039A00C3B804 /* ExtendedOfBatFangraphsdcStandard.json in Resources */,
+				9C2C8DB829AA864E00626232 /* ExtendedStaAtcStandard.json in Resources */,
 				9C33F7F129838B2E0038A938 /* 1bBatSteamerStandard.json in Resources */,
 				9C762E2229A2039A00C3B804 /* ExtendedCBatSteamerStandard.json in Resources */,
 				9C762E2029A2039A00C3B804 /* ExtendedSsBatFangraphsdcStandard.json in Resources */,
@@ -1030,6 +1047,7 @@
 				9C33F7DB29838B2E0038A938 /* CBatThebatxStandard.json in Resources */,
 				9C762E2429A2039A00C3B804 /* ExtendedCBatFangraphsdcStandard.json in Resources */,
 				9C2C8DAD29AA861B00626232 /* ExtendedRelThebatStandard.json in Resources */,
+				9C2C8DB729AA864E00626232 /* ExtendedStaThebatStandard.json in Resources */,
 				9C762E2829A2039A00C3B804 /* ExtendedSsBatThebatStandard.json in Resources */,
 				9C75B9BF296F5910003B35E6 /* Preview Assets.xcassets in Resources */,
 				9C33F7DF29838B2E0038A938 /* SsBatThebatxStandard.json in Resources */,
@@ -1043,6 +1061,7 @@
 				9C762E0E29A2039A00C3B804 /* Extended3bBatSteamerStandard.json in Resources */,
 				9C33F7E529838B2E0038A938 /* OfBatAtcStandard.json in Resources */,
 				9C762E1729A2039A00C3B804 /* Extended1bBatThebatxStandard.json in Resources */,
+				9C2C8DB629AA864E00626232 /* ExtendedStaSteamerStandard.json in Resources */,
 				9C2C8DB029AA861B00626232 /* ExtendedRelSteamerStandard.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1082,6 +1101,7 @@
 				9CA24CC62985B83200A394B4 /* Draft.swift in Sources */,
 				9CE9F506299C88320015886D /* RectPieChart.swift in Sources */,
 				9CA24CD729865F5D00A394B4 /* DraftSummaryView.swift in Sources */,
+				9C2C8DBA29AA872100626232 /* ParsedPitcher.swift in Sources */,
 				9C762DEC29A1D67700C3B804 /* NVDraftPlayerView.swift in Sources */,
 				9C75B9EF296FD215003B35E6 /* ExtText.swift in Sources */,
 				9CE9F513299CA5C00015886D /* NVCurrentPickRect.swift in Sources */,

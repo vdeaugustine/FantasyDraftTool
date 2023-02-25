@@ -10,7 +10,7 @@ import SwiftUI
 
 extension String {
     static let emptyString: String = ""
-    
+
     func removeExtraneousMarks() -> String {
         var temp = self
         while let first = temp.first,
@@ -22,6 +22,12 @@ extension String {
             temp.removeLast()
         }
         return temp
+    }
+
+    func join(with otherStrings: [String], _ separator: String = " ") -> String {
+        var arr = otherStrings
+        arr.insert(self, at: 0)
+        return arr.joined(separator: separator)
     }
 
     func removingWhiteSpaces() -> String {

@@ -14,7 +14,7 @@ struct NVDropDownProjection: View {
     var font: Font = .callout
     var body: some View {
         Menu {
-            ForEach(ProjectionTypes.arr, id: \.self) { projectionType in
+            ForEach(ProjectionTypes.batterArr, id: \.self) { projectionType in
                 Button {
                     selection = projectionType
                 } label: {

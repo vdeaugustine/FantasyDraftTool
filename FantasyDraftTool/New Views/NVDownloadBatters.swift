@@ -30,7 +30,7 @@ struct NVDownloadBatters: View {
         ZStack {
             List {
                 Picker("Projection", selection: $projection) {
-                    ForEach(ProjectionTypes.arr, id: \.self) { proj in
+                    ForEach(ProjectionTypes.batterArr, id: \.self) { proj in
                         Text(proj.title).tag(proj)
                     }
                 }

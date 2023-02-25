@@ -16,7 +16,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
     var g, ab, pa, h, the1B, the2B, the3B, hr, r, rbi, bb, ibb, so, hbp, sf, sh, sb, cs: Int
     var avg: Double
     let positions: [Position]
-    var projectionType: ProjectionTypes
+    let projectionType: ProjectionTypes
 
     var description: String {
         name + " \(projectionType.title)"

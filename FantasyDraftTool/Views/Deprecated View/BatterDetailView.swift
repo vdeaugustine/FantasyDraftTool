@@ -18,7 +18,7 @@ struct BatterDetailView: View {
     var body: some View {
         VStack {
             Picker("Projection Type", selection: $selectedProjType) {
-                ForEach(ProjectionTypes.arr, id: \.self) { type in
+                ForEach(ProjectionTypes.batterArr, id: \.self) { type in
                     Text(type.rawValue.uppercased())
                 }
             }

@@ -28,11 +28,11 @@ class Projection {
     }
 
     init(projectionType: ProjectionTypes) {
-        self.c = JSONBatter.loadBatters(projectionType.jsonFileName(position: .c)).map { ParsedBatter(from: $0, pos: .c, projectionType: projectionType) }
-        self.firstBase = JSONBatter.loadBatters(projectionType.jsonFileName(position: .first)).map { ParsedBatter(from: $0, pos: .first, projectionType: projectionType) }
-        self.secondBase = JSONBatter.loadBatters(projectionType.jsonFileName(position: .second)).map { ParsedBatter(from: $0, pos: .second, projectionType: projectionType) }
-        self.thirdBase = JSONBatter.loadBatters(projectionType.jsonFileName(position: .third)).map { ParsedBatter(from: $0, pos: .third, projectionType: projectionType) }
-        self.ss = JSONBatter.loadBatters(projectionType.jsonFileName(position: .ss)).map { ParsedBatter(from: $0, pos: .ss, projectionType: projectionType) }
-        self.of = JSONBatter.loadBatters(projectionType.jsonFileName(position: .of)).map { ParsedBatter(from: $0, pos: .of, projectionType: projectionType) }
+        self.c = JSONBatter.loadBatters(projectionType.jsonBatterFileName(position: .c)).map { ParsedBatter(from: $0, pos: .c, projectionType: projectionType) }
+        self.firstBase = JSONBatter.loadBatters(projectionType.jsonBatterFileName(position: .first)).map { ParsedBatter(from: $0, pos: .first, projectionType: projectionType) }
+        self.secondBase = JSONBatter.loadBatters(projectionType.jsonBatterFileName(position: .second)).map { ParsedBatter(from: $0, pos: .second, projectionType: projectionType) }
+        self.thirdBase = JSONBatter.loadBatters(projectionType.jsonBatterFileName(position: .third)).map { ParsedBatter(from: $0, pos: .third, projectionType: projectionType) }
+        self.ss = JSONBatter.loadBatters(projectionType.jsonBatterFileName(position: .ss)).map { ParsedBatter(from: $0, pos: .ss, projectionType: projectionType) }
+        self.of = JSONBatter.loadBatters(projectionType.jsonBatterFileName(position: .of)).map { ParsedBatter(from: $0, pos: .of, projectionType: projectionType) }
     }
 }

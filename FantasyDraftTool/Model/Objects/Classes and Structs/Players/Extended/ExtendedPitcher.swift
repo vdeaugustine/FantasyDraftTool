@@ -4,7 +4,6 @@
 //
 //  Created by Vincent DeAugustine on 2/25/23.
 
-
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
@@ -13,6 +12,7 @@
 import Foundation
 
 // MARK: - ExtendedPitcher
+
 struct ExtendedPitcher: Codable, Hashable, Equatable, CustomStringConvertible {
     let name, team, shortName: String?
     let w, l: Int?
@@ -32,7 +32,7 @@ struct ExtendedPitcher: Codable, Hashable, Equatable, CustomStringConvertible {
     let adp: Double?
     let teamid: Int?
     let league, playerName, playerids: String?
-    
+
     var description: String {
         playerName ?? "NO NAME ERROR"
     }
@@ -83,11 +83,11 @@ struct ExtendedPitcher: Codable, Hashable, Equatable, CustomStringConvertible {
         case playerName = "PlayerName"
         case playerids
     }
-    
+
     static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.name == rhs.name && lhs.team == rhs.team
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
         hasher.combine(team)
@@ -95,5 +95,80 @@ struct ExtendedPitcher: Codable, Hashable, Equatable, CustomStringConvertible {
         hasher.combine(bb)
         hasher.combine(r)
         hasher.combine(so)
+    }
+}
+
+// MARK: - AllExtendedPitchers
+
+struct AllExtendedPitchers: Codable {
+    static let steamer: ExtensionPitcherProjection = .init(projectionType: .steamer)
+    static let atc: ExtensionPitcherProjection = .init(projectionType: .atc)
+    static let theBat: ExtensionPitcherProjection = .init(projectionType: .thebat)
+    static let depthCharts: ExtensionPitcherProjection = .init(projectionType: .depthCharts)
+    
+    static func starters(for projection: ProjectionTypes, limit: Int) -> [ParsedPitcher] {
+        switch projection {
+        case .steamer:
+            return Self.steamer.starters.prefixArray(limit)
+        case .thebat:
+            return Self.theBat.starters.prefixArray(limit)
+        case .atc:
+            return Self.atc.starters.prefixArray(limit)
+        case .depthCharts:
+            return Self.depthCharts.starters.prefixArray(limit)
+        default:
+            return []
+        }
+    }
+    
+    static func relievers(for projection: ProjectionTypes, limit: Int) -> [ParsedPitcher] {
+        switch projection {
+        case .steamer:
+            return Self.steamer.relievers.prefixArray(limit)
+        case .thebat:
+            return Self.theBat.relievers.prefixArray(limit)
+        case .atc:
+            return Self.atc.relievers.prefixArray(limit)
+        case .depthCharts:
+            return Self.depthCharts.relievers.prefixArray(limit)
+        default:
+            return []
+        }
+    }
+    
+}
+
+// MARK: - ExtensionPitcherProjection
+
+struct ExtensionPitcherProjection {
+    let starters, relievers: [ParsedPitcher]
+    var all: [ParsedPitcher] { starters + relievers }
+
+    init(projectionType: ProjectionTypes) {
+        self.starters = Self.loadPitchers(projectionType.extendedFileName(pitcherType: .starter)).map { ParsedPitcher(from: $0, type: .starter, projection: projectionType) }
+        self.relievers = Self.loadPitchers(projectionType.extendedFileName(pitcherType: .reliever)).map { ParsedPitcher(from: $0, type: .reliever, projection: projectionType) }
+    }
+
+    static func loadPitchers(_ filename: String) -> [ExtendedPitcher] {
+        let data: Data
+
+        guard let file = Bundle.main.url(forResource: filename, withExtension: ".json")
+        else {
+            fatalError("Couldn't find \(filename) in main bundle.")
+        }
+
+        do {
+            data = try Data(contentsOf: file)
+        } catch {
+            fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            let arr = try decoder.decode([ExtendedPitcher].self, from: data)
+            return Array(Set<ExtendedPitcher>(arr))
+        } catch {
+            fatalError("Couldn't parse \(filename) as \(ExtendedBatter.self):\n\(error)")
+        }
     }
 }

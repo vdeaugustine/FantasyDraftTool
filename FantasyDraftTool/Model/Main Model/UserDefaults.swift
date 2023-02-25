@@ -47,7 +47,7 @@ extension UserDefaults {
     static func needingUpdate() -> [(projection: ProjectionTypes, position: Position)] {
         var retArr = [(projection: ProjectionTypes, position: Position)]()
         
-        for proj in ProjectionTypes.arr {
+        for proj in ProjectionTypes.batterArr {
             for pos in Position.batters {
                 guard let lastUpdate = lastUpdated(for: proj, and: pos),
                       lastUpdate.isSameDayAs(.now) else {

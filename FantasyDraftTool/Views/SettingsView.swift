@@ -14,7 +14,7 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Picker("My Projections Default to", selection: $model.defaultProjectionSystem) {
-                ForEach(ProjectionTypes.arr, id: \.self) { proj in
+                ForEach(ProjectionTypes.batterArr, id: \.self) { proj in
                     Text(proj.title)
                 }
             }

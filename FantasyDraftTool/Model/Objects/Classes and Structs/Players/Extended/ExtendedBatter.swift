@@ -116,11 +116,11 @@ struct ExtendedBatter: Codable, Hashable, Equatable, CustomStringConvertible {
 // MARK: - AllExtendedBatters
 
 struct AllExtendedBatters: Codable {
-    static let steamer: ExtensionProjection = .init(projectionType: .steamer)
-    static let atc: ExtensionProjection = .init(projectionType: .atc)
-    static let theBat: ExtensionProjection = .init(projectionType: .thebat)
-    static let theBatx: ExtensionProjection = .init(projectionType: .thebatx)
-    static let depthCharts: ExtensionProjection = .init(projectionType: .depthCharts)
+    static let steamer: ExtensionBatterProjection = .init(projectionType: .steamer)
+    static let atc: ExtensionBatterProjection = .init(projectionType: .atc)
+    static let theBat: ExtensionBatterProjection = .init(projectionType: .thebat)
+    static let theBatx: ExtensionBatterProjection = .init(projectionType: .thebatx)
+    static let depthCharts: ExtensionBatterProjection = .init(projectionType: .depthCharts)
 
     static func batters(for projection: ProjectionTypes, limit: Int) -> [ParsedBatter] {
         switch projection {
@@ -162,7 +162,7 @@ struct AllExtendedBatters: Codable {
 
     static func batterVariants(for batter: ParsedBatter, limit: Int) -> [ParsedBatter] {
         var retArr = [ParsedBatter]()
-        for projection in ProjectionTypes.arr {
+        for projection in ProjectionTypes.batterArr {
             let batters = batters(for: projection, limit: limit)
             if let foundBatter = batters.first(where: { $0 == batter }) {
                 retArr.append(foundBatter)
@@ -174,13 +174,8 @@ struct AllExtendedBatters: Codable {
 
 // MARK: - ExtensionProjection
 
-struct ExtensionProjection {
-    let c: [ParsedBatter]
-    let firstBase: [ParsedBatter]
-    let secondBase: [ParsedBatter]
-    let thirdBase: [ParsedBatter]
-    let ss: [ParsedBatter]
-    let of: [ParsedBatter]
+struct ExtensionBatterProjection {
+    let c, firstBase, secondBase, thirdBase, ss, of: [ParsedBatter]
     var all: [ParsedBatter] { c + firstBase + secondBase + thirdBase + ss + of }
 
     init(c: [ParsedBatter], firstBase: [ParsedBatter], secondBase: [ParsedBatter], thirdBase: [ParsedBatter], ss: [ParsedBatter], of: [ParsedBatter]) {
@@ -193,12 +188,12 @@ struct ExtensionProjection {
     }
 
     init(projectionType: ProjectionTypes) {
-        self.c = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .c)).map { ParsedBatter(from: $0, pos: .c, projectionType: projectionType) }
-        self.firstBase = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .first)).map { ParsedBatter(from: $0, pos: .first, projectionType: projectionType) }
-        self.secondBase = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .second)).map { ParsedBatter(from: $0, pos: .second, projectionType: projectionType) }
-        self.thirdBase = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .third)).map { ParsedBatter(from: $0, pos: .third, projectionType: projectionType) }
-        self.ss = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .ss)).map { ParsedBatter(from: $0, pos: .ss, projectionType: projectionType) }
-        self.of = ExtensionProjection.loadBatters(projectionType.extendedFileName(position: .of)).map { ParsedBatter(from: $0, pos: .of, projectionType: projectionType) }
+        self.c = ExtensionBatterProjection.loadBatters(projectionType.extendedFileName(position: .c)).map { ParsedBatter(from: $0, pos: .c, projectionType: projectionType) }
+        self.firstBase = ExtensionBatterProjection.loadBatters(projectionType.extendedFileName(position: .first)).map { ParsedBatter(from: $0, pos: .first, projectionType: projectionType) }
+        self.secondBase = ExtensionBatterProjection.loadBatters(projectionType.extendedFileName(position: .second)).map { ParsedBatter(from: $0, pos: .second, projectionType: projectionType) }
+        self.thirdBase = ExtensionBatterProjection.loadBatters(projectionType.extendedFileName(position: .third)).map { ParsedBatter(from: $0, pos: .third, projectionType: projectionType) }
+        self.ss = ExtensionBatterProjection.loadBatters(projectionType.extendedFileName(position: .ss)).map { ParsedBatter(from: $0, pos: .ss, projectionType: projectionType) }
+        self.of = ExtensionBatterProjection.loadBatters(projectionType.extendedFileName(position: .of)).map { ParsedBatter(from: $0, pos: .of, projectionType: projectionType) }
     }
 
     static func loadBatters(_ filename: String) -> [ExtendedBatter] {

@@ -105,6 +105,10 @@ struct ContentView: View {
         }
         .onAppear {
 //            print(batters)
+            for starter in AllExtendedPitchers.starters(for: .depthCharts, limit: 2) {
+                print(starter)
+            }
+            
         }
     }
 }

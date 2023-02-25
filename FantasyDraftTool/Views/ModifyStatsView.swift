@@ -37,9 +37,9 @@ struct ModifyStatsView: View {
         
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(ProjectionTypes.arr.indices, id: \.self) { thisProjIndex in
+                ForEach(ProjectionTypes.batterArr.indices, id: \.self) { thisProjIndex in
                     VStack {
-                        Text( ProjectionTypes.arr[thisProjIndex].title)
+                        Text( ProjectionTypes.batterArr[thisProjIndex].title)
                         
 //                        if let val = AllExtendedBatters.batterVariants(for: myParsedBatter, limit: UserDefaults.positionLimit)[thisProjIndex].dict[stat] as? Double {
 //                            Text(val.str)
