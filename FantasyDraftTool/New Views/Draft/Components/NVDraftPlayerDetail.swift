@@ -12,7 +12,8 @@ import SwiftUI
 struct NVDraftPlayerDetail: View {
     @EnvironmentObject private var model: MainModel
 
-    let batter: ParsedBatter
+    @State var batter: ParsedBatter
+    
     @State private var projection: ProjectionTypes = .steamer
 
     @State private var position: Position? = nil
@@ -47,6 +48,11 @@ struct NVDraftPlayerDetail: View {
         List {
             HStack(spacing: 20) {
                 NVDropDownProjection(selection: $projection)
+                    .onChange(of: projection) { newVal in
+                        if let foundBatter = AllParsedBatters.batters(for: newVal).first(where: {$0.name == batter.name}) {
+                            batter = foundBatter
+                        }
+                    }
 
                 Spacer()
                 if let position = position,
@@ -137,7 +143,8 @@ struct NVDraftPlayerDetail: View {
                 Button {
                     model.draft.addOrRemoveStar(batter)
                 } label: {
-                    Label("Star Player", systemImage: model.draft.isStar(batter) ? "diamond.fill" : "diamond")
+                    Label("Star Player", systemImage: model.draft.isStar(batter) ? "heart.fill" : "heart")
+                        .foregroundColor(model.draft.isStar(batter) ? .red : .blue)
                 }
 
                 Button("Draft") {

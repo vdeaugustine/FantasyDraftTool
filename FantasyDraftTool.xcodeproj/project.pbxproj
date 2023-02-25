@@ -15,6 +15,12 @@
 		9C1AE3A42981F29D0016BF50 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE3A32981F29D0016BF50 /* Position.swift */; };
 		9C2C8D9F29A94E3400626232 /* NVPicksSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C8D9E29A94E3400626232 /* NVPicksSection.swift */; };
 		9C2C8DA129A99C0500626232 /* SmallComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C8DA029A99C0500626232 /* SmallComponents.swift */; };
+		9C2C8DA329AA81B700626232 /* StatsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C8DA229AA81B700626232 /* StatsManager.swift */; };
+		9C2C8DA729AA850B00626232 /* ExtendedPitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C8DA629AA850B00626232 /* ExtendedPitcher.swift */; };
+		9C2C8DAD29AA861B00626232 /* ExtendedRelThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DA929AA861B00626232 /* ExtendedRelThebatStandard.json */; };
+		9C2C8DAE29AA861B00626232 /* ExtendedRelAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DAA29AA861B00626232 /* ExtendedRelAtcStandard.json */; };
+		9C2C8DAF29AA861B00626232 /* ExtendedRelFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DAB29AA861B00626232 /* ExtendedRelFangraphsdcStandard.json */; };
+		9C2C8DB029AA861B00626232 /* ExtendedRelSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DAC29AA861B00626232 /* ExtendedRelSteamerStandard.json */; };
 		9C33F7DB29838B2E0038A938 /* CBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BD29838B2D0038A938 /* CBatThebatxStandard.json */; };
 		9C33F7DC29838B2E0038A938 /* 3bBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BE29838B2D0038A938 /* 3bBatThebatStandard.json */; };
 		9C33F7DD29838B2E0038A938 /* CBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BF29838B2D0038A938 /* CBatFangraphsdcStandard.json */; };
@@ -161,6 +167,12 @@
 		9C1AE3A32981F29D0016BF50 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		9C2C8D9E29A94E3400626232 /* NVPicksSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVPicksSection.swift; sourceTree = "<group>"; };
 		9C2C8DA029A99C0500626232 /* SmallComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallComponents.swift; sourceTree = "<group>"; };
+		9C2C8DA229AA81B700626232 /* StatsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsManager.swift; sourceTree = "<group>"; };
+		9C2C8DA629AA850B00626232 /* ExtendedPitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedPitcher.swift; sourceTree = "<group>"; };
+		9C2C8DA929AA861B00626232 /* ExtendedRelThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedRelThebatStandard.json; sourceTree = "<group>"; };
+		9C2C8DAA29AA861B00626232 /* ExtendedRelAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedRelAtcStandard.json; sourceTree = "<group>"; };
+		9C2C8DAB29AA861B00626232 /* ExtendedRelFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedRelFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C2C8DAC29AA861B00626232 /* ExtendedRelSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedRelSteamerStandard.json; sourceTree = "<group>"; };
 		9C33F7BD29838B2D0038A938 /* CBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatThebatxStandard.json; sourceTree = "<group>"; };
 		9C33F7BE29838B2D0038A938 /* 3bBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3bBatThebatStandard.json; sourceTree = "<group>"; };
 		9C33F7BF29838B2D0038A938 /* CBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatFangraphsdcStandard.json; sourceTree = "<group>"; };
@@ -314,6 +326,8 @@
 		9C1AE396297FA08F0016BF50 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9C2C8DA429AA81C000626232 /* Stats */,
+				9C2C8DA829AA85FF00626232 /* ExtendedPitchersJSONs */,
 				9C762DEF29A2038600C3B804 /* ExtendedBattersJSONs */,
 				9CC80285298CCD83005B438D /* MyStatsPlayers.swift */,
 				9C3B702C298B2CD900A1B42C /* Main Model */,
@@ -417,6 +431,34 @@
 			path = "Predictions Section";
 			sourceTree = "<group>";
 		};
+		9C2C8DA429AA81C000626232 /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				9C2C8DA229AA81B700626232 /* StatsManager.swift */,
+			);
+			path = Stats;
+			sourceTree = "<group>";
+		};
+		9C2C8DA529AA850000626232 /* Extended */ = {
+			isa = PBXGroup;
+			children = (
+				9C762DED29A1FED100C3B804 /* ExtendedBatter.swift */,
+				9C2C8DA629AA850B00626232 /* ExtendedPitcher.swift */,
+			);
+			path = Extended;
+			sourceTree = "<group>";
+		};
+		9C2C8DA829AA85FF00626232 /* ExtendedPitchersJSONs */ = {
+			isa = PBXGroup;
+			children = (
+				9C2C8DAA29AA861B00626232 /* ExtendedRelAtcStandard.json */,
+				9C2C8DAB29AA861B00626232 /* ExtendedRelFangraphsdcStandard.json */,
+				9C2C8DAC29AA861B00626232 /* ExtendedRelSteamerStandard.json */,
+				9C2C8DA929AA861B00626232 /* ExtendedRelThebatStandard.json */,
+			);
+			path = ExtendedPitchersJSONs;
+			sourceTree = "<group>";
+		};
 		9C3B7026298B2C5400A1B42C /* Player Pool */ = {
 			isa = PBXGroup;
 			children = (
@@ -458,10 +500,10 @@
 		9C3B702A298B2C9C00A1B42C /* Players */ = {
 			isa = PBXGroup;
 			children = (
+				9C2C8DA529AA850000626232 /* Extended */,
 				9CA24CB929851A9900A394B4 /* AllParsedBatters.swift */,
 				9C33F7F929838BCD0038A938 /* JSONBatter.swift */,
 				9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */,
-				9C762DED29A1FED100C3B804 /* ExtendedBatter.swift */,
 			);
 			path = Players;
 			sourceTree = "<group>";
@@ -972,6 +1014,7 @@
 				9C762E1429A2039A00C3B804 /* Extended1bBatAtcStandard.json in Resources */,
 				9C762E1B29A2039A00C3B804 /* ExtendedOfBatAtcStandard.json in Resources */,
 				9C33F7E129838B2E0038A938 /* CBatThebatStandard.json in Resources */,
+				9C2C8DAE29AA861B00626232 /* ExtendedRelAtcStandard.json in Resources */,
 				9C762E1629A2039A00C3B804 /* Extended3bBatThebatStandard.json in Resources */,
 				9C762E2B29A2039A00C3B804 /* ExtendedCBatThebatxStandard.json in Resources */,
 				9C762E1029A2039A00C3B804 /* ExtendedSsBatThebatxStandard.json in Resources */,
@@ -986,18 +1029,21 @@
 				9C82187629A6E234007DA5D2 /* GoogleService-Info.plist in Resources */,
 				9C33F7DB29838B2E0038A938 /* CBatThebatxStandard.json in Resources */,
 				9C762E2429A2039A00C3B804 /* ExtendedCBatFangraphsdcStandard.json in Resources */,
+				9C2C8DAD29AA861B00626232 /* ExtendedRelThebatStandard.json in Resources */,
 				9C762E2829A2039A00C3B804 /* ExtendedSsBatThebatStandard.json in Resources */,
 				9C75B9BF296F5910003B35E6 /* Preview Assets.xcassets in Resources */,
 				9C33F7DF29838B2E0038A938 /* SsBatThebatxStandard.json in Resources */,
 				9C762E1229A2039A00C3B804 /* Extended2bBatThebatStandard.json in Resources */,
 				9C33F7E329838B2E0038A938 /* 2bBatSteamerStandard.json in Resources */,
 				9C75B9BC296F5910003B35E6 /* Assets.xcassets in Resources */,
+				9C2C8DAF29AA861B00626232 /* ExtendedRelFangraphsdcStandard.json in Resources */,
 				9C33F7EC29838B2E0038A938 /* CBatAtcStandard.json in Resources */,
 				9C1AE39A297FA7DC0016BF50 /* steamerStandard.json in Resources */,
 				9C762E2729A2039A00C3B804 /* ExtendedSsBatAtcStandard.json in Resources */,
 				9C762E0E29A2039A00C3B804 /* Extended3bBatSteamerStandard.json in Resources */,
 				9C33F7E529838B2E0038A938 /* OfBatAtcStandard.json in Resources */,
 				9C762E1729A2039A00C3B804 /* Extended1bBatThebatxStandard.json in Resources */,
+				9C2C8DB029AA861B00626232 /* ExtendedRelSteamerStandard.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1032,6 +1078,7 @@
 				9CE9F4FF299C56440015886D /* NVAllPlayersRow.swift in Sources */,
 				9CE9F511299C9F400015886D /* NVPreviousPickRect.swift in Sources */,
 				9C75B9EE296FD215003B35E6 /* ExtColor.swift in Sources */,
+				9C2C8DA729AA850B00626232 /* ExtendedPitcher.swift in Sources */,
 				9CA24CC62985B83200A394B4 /* Draft.swift in Sources */,
 				9CE9F506299C88320015886D /* RectPieChart.swift in Sources */,
 				9CA24CD729865F5D00A394B4 /* DraftSummaryView.swift in Sources */,
@@ -1069,6 +1116,7 @@
 				9CA24CCB2985B8F500A394B4 /* DraftSettings.swift in Sources */,
 				9CC80286298CCD83005B438D /* MyStatsPlayers.swift in Sources */,
 				9C75B9EB296FD215003B35E6 /* CoreDataExtensions.swift in Sources */,
+				9C2C8DA329AA81B700626232 /* StatsManager.swift in Sources */,
 				9CA24CB2298519E100A394B4 /* ProjectionTypes.swift in Sources */,
 				9CA24CB829851A7600A394B4 /* AverageStats.swift in Sources */,
 				9CC80284298C7524005B438D /* UserDefaults.swift in Sources */,

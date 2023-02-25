@@ -22,6 +22,7 @@ struct NVDraft: View {
     @State private var loadingDone: Bool = true
     @State private var showDraftConfirmation = false
     @State private var batterToDraft: ParsedBatter? = nil
+    @State private var showMenu: Bool = false
 
     var filteredPlayers: [ParsedBatter] {
         // TODO: When switching
@@ -140,9 +141,6 @@ struct NVDraft: View {
                             }
                         }
 
-//                        Button("My team") {
-//                            showMyTeamQuickView.toggle()
-//                        }
 
                         // MARK: - Available Players
 
@@ -191,14 +189,48 @@ struct NVDraft: View {
                         showDraftConfirmation = false
                     }
                 }
+                .toolbar {
+                    ToolbarItem {
+                        
+                        Menu {
+                            Button {
+                                model.draft.undoPick()
+                            } label: {
+                                HStack {
+                                    Image(systemName: "arrow.uturn.backward")
+                                    Text("Undo last pick")
+                                }
+                            }
+
+                            Button(role: .destructive) {
+                                model.resetDraft()
+                            } label: {
+                                Label("Restart draft", systemImage: "restart")
+                            }
+
+                           
+
+                        } label: {
+                            Label("Menu", systemImage: "line.3.horizontal")
+                            
+                        }
+                       
+                    }
+                }
             }
         }
     }
 }
 
+
+
+
+
 // MARK: - NVDraft_Previews
 
 struct NVDraft_Previews: PreviewProvider {
+    
+   
     static var previews: some View {
         NVDraft()
             .environmentObject(MainModel.shared)
