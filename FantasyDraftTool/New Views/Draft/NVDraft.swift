@@ -20,6 +20,8 @@ struct NVDraft: View {
     @State private var numPicksToSim: Int = 50
     @State private var draftProgress: Double = -1
     @State private var loadingDone: Bool = true
+    @State private var showDraftConfirmation = false
+    @State private var batterToDraft: ParsedBatter? = nil
 
     var filteredPlayers: [ParsedBatter] {
         // TODO: When switching
@@ -51,6 +53,56 @@ struct NVDraft: View {
         return retArr
     }
 
+    func bullet(_ text: String, color: Color? = nil) -> some View {
+        HStack(spacing: 5) {
+            Circle()
+                .foregroundColor(color ?? .black)
+                .height(5)
+            Text(text)
+        }
+    }
+    
+    var draftConfirmationMessage: String {
+        if let batter = batterToDraft {
+            return "Draft \(batter.name) for \(model.draft.currentTeam.name)?"
+        } else {
+            return "Error. Please hit cancel"
+        }
+    }
+
+    func isFav(_ player: ParsedBatter) -> Bool {
+        model.draft.myStarPlayers.contains(player)
+    }
+
+    func playerBox(_ player: ParsedBatter) -> some View {
+        HStack(alignment: .center) {
+            VStack(spacing: 10) {
+                Button {
+                    model.draft.addOrRemoveStar(player)
+                } label: {
+                    Image(systemName: isFav(player) ? "heart.fill" : "heart")
+                        .foregroundColor(isFav(player) ? Color.red : Color.black)
+                        .font(.subheadline)
+                }
+                Button {
+                    batterToDraft = player
+                    showDraftConfirmation.toggle()
+                } label: {
+                    Image(systemName: "checklist")
+                        
+                        .font(.subheadline)
+                }
+            }.frame(maxHeight: .infinity)
+            NVAllPlayersRow(batter: player)
+        }
+        .padding(.horizontal)
+        .background {
+            Color.listBackground
+                .cornerRadius(8)
+                .shadow(radius: 0.7)
+        }
+    }
+
     var body: some View {
         if draftProgress < 1,
            draftProgress >= 0 {
@@ -64,73 +116,50 @@ struct NVDraft: View {
                     VStack {
                         NVPicksSection()
 
+                        VStack(alignment: .leading) {
+                            Text("Filled")
                             HStack {
                                 ForEach(Position.batters, id: \.self) { pos in
 
                                     LabelAndValueRect(label: pos.str.uppercased(), value: myTeam.players(for: pos).count.str, color: .white)
-                                        
                                 }
                             }
                             .height(60)
-                            
-                        
-
-                        if let recommended = myTeam.recommendedPlayer(draft: model.draft, projection: projection) {
-                            VStack {
-                                VStack(alignment: .leading) {
-                                    ForEach(myTeam.positionsNotMetMinimum().corOrder, id: \.self) { pos in
-
-                                        HStack {
-                                            Text(pos.str.uppercased())
-
-                                            if let first = myTeam.recommendedBattersDesc(draft: model.draft, projection: projection).filter(for: pos).first {
-                                                Text(first.name)
-                                                Text(first.zScore(draft: model.draft).roundTo(places: 2).str)
-                                                Text(first.fantasyPoints(model.draft.settings.scoringSystem))
-                                            }
-                                        }
-                                        .padding(.horizontal)
-                                    }
-                                }
-                            }
                         }
-
-                        Button("My team") {
-                            showMyTeamQuickView.toggle()
-                        }
-                        
-                        
-
-                        // MARK: - Available Players
 
                         HStack {
                             NVDropDownProjection(selection: $projection)
                             NVSortByDropDown(selection: $sortOptionSelected)
                             NVDropDownPosition(selection: $positionSelected)
+                        }.pushLeft().padding(.top)
+
+                        if let recommended = myTeam.recommendedPlayer(draft: model.draft, projection: projection) {
+                            VStack(alignment: .leading) {
+                                Text("Recommended")
+                                playerBox(recommended)
+                            }
                         }
 
-                        LazyVStack {
-                            ForEach(sortedPlayers, id: \.self) { batter in
+//                        Button("My team") {
+//                            showMyTeamQuickView.toggle()
+//                        }
 
-                                Button {
-                                    model.navPathForDrafting.append(batter)
-                                } label: {
-                                    NVAllPlayersRow(batter: batter)
-                                        .padding(.horizontal)
-                                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                            Button("Draft") {
-                                                model.draft.makePick(batter)
-                                            }
-                                        }
-                                }
-                                .buttonStyle(.plain)
+                        // MARK: - Available Players
 
-                                .background {
-                                    Color.listBackground
-                                        .cornerRadius(8)
-                                        .shadow(radius: 0.7)
+                        VStack(alignment: .leading) {
+                            Text("Available")
+
+                            LazyVStack {
+                                ForEach(sortedPlayers, id: \.self) { batter in
+
+                                    Button {
+                                        model.navPathForDrafting.append(batter)
+                                    } label: {
+                                        playerBox(batter)
+                                            .padding(.vertical, 1)
+                                    }
+                                    .buttonStyle(.plain)
                                 }
-                                
                             }
                         }
                     }.padding()
@@ -150,6 +179,17 @@ struct NVDraft: View {
                 }
                 .navigationDestination(for: ParsedBatter.self) { batter in
                     NVDraftPlayerDetail(batter: batter)
+                }
+                .confirmationDialog(draftConfirmationMessage, isPresented: $showDraftConfirmation, titleVisibility: .visible) {
+                    Button("Draft", role: .destructive) {
+                        guard let batterToDraft = batterToDraft else { return }
+                        model.draft.makePick(batterToDraft)
+                        self.batterToDraft = nil
+                    }
+                    Button("Cancel", role: .cancel) {
+                        batterToDraft = nil
+                        showDraftConfirmation = false
+                    }
                 }
             }
         }
