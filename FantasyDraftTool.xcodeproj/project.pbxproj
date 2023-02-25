@@ -14,6 +14,7 @@
 		9C1AE39E29807C290016BF50 /* StandardNaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE39D29807C290016BF50 /* StandardNaming.swift */; };
 		9C1AE3A42981F29D0016BF50 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE3A32981F29D0016BF50 /* Position.swift */; };
 		9C2C8D9F29A94E3400626232 /* NVPicksSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C8D9E29A94E3400626232 /* NVPicksSection.swift */; };
+		9C2C8DA129A99C0500626232 /* SmallComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C8DA029A99C0500626232 /* SmallComponents.swift */; };
 		9C33F7DB29838B2E0038A938 /* CBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BD29838B2D0038A938 /* CBatThebatxStandard.json */; };
 		9C33F7DC29838B2E0038A938 /* 3bBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BE29838B2D0038A938 /* 3bBatThebatStandard.json */; };
 		9C33F7DD29838B2E0038A938 /* CBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BF29838B2D0038A938 /* CBatFangraphsdcStandard.json */; };
@@ -159,6 +160,7 @@
 		9C1AE39D29807C290016BF50 /* StandardNaming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardNaming.swift; sourceTree = "<group>"; };
 		9C1AE3A32981F29D0016BF50 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		9C2C8D9E29A94E3400626232 /* NVPicksSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVPicksSection.swift; sourceTree = "<group>"; };
+		9C2C8DA029A99C0500626232 /* SmallComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallComponents.swift; sourceTree = "<group>"; };
 		9C33F7BD29838B2D0038A938 /* CBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatThebatxStandard.json; sourceTree = "<group>"; };
 		9C33F7BE29838B2D0038A938 /* 3bBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3bBatThebatStandard.json; sourceTree = "<group>"; };
 		9C33F7BF29838B2D0038A938 /* CBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatFangraphsdcStandard.json; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 		9C75B9AB296F590F003B35E6 = {
 			isa = PBXGroup;
 			children = (
+				9C2C8DA029A99C0500626232 /* SmallComponents.swift */,
 				9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */,
 				9CA24CAB29850FE000A394B4 /* ContentView.swift */,
 				9C75B9B6296F590F003B35E6 /* FantasyDraftTool */,
@@ -1059,6 +1062,7 @@
 				9CE9F4F4299B723B0015886D /* CreateModifiedPlayerView.swift in Sources */,
 				9C1AE39E29807C290016BF50 /* StandardNaming.swift in Sources */,
 				9CA24CC42985B7F100A394B4 /* DraftPlayer.swift in Sources */,
+				9C2C8DA129A99C0500626232 /* SmallComponents.swift in Sources */,
 				9CA24CB429851A0800A394B4 /* All Batters.swift in Sources */,
 				9C3B7025298B2C3400A1B42C /* PlayerPool.swift in Sources */,
 				9CE9F4FC299C54BC0015886D /* NVDropDownPosition.swift in Sources */,

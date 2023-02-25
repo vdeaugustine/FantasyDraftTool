@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - MainModel
 
@@ -16,7 +17,7 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     @Published var draft: Draft = .nullDraft
 
-    @Published var navPathForDrafting: [DraftPath] = []
+    @Published var navPathForDrafting: NavigationPath = .init()
 
     @Published var myStatsPlayers: MyStatsPlayers = .init()
 

@@ -10,7 +10,9 @@ import SwiftUI
 // MARK: - NVPicksSection
 
 struct NVPicksSection: View {
-    let draft = Draft.exampleDraft(picksMade: 25, model: MainModel.shared, projection: .atc)
+    @EnvironmentObject private var model: MainModel
+
+    var draft: Draft { model.draft }
 
     @State private var pickOne = DraftPlayer(player: AllParsedBatters.steamer.of.sortedByPoints[3], pickNumber: 1, team: .init(name: "Vinnie", draftPosition: 1), weightedScore: 2.5)
 
@@ -70,7 +72,8 @@ struct NVPicksSection: View {
 
                             }.padding(.horizontal)
 
-                            NavigationLink {
+                            Button {
+                                model.navPathForDrafting.append("summary")
                             } label: {
                                 Text("Draft Summary")
                                     .font(.caption2)
@@ -92,7 +95,9 @@ struct NVPicksSection: View {
                                 NVPreviousPickRect(player: pickThree)
                             }
 
-                            NavigationLink {
+                            Button {
+                                model.navPathForDrafting.append("sim")
+
                             } label: {
                                 Image(systemName: "chevron.right")
                                     .font(.caption)
@@ -124,6 +129,14 @@ struct NVPicksSection: View {
                 }
             }
         }
+        .navigationDestination(for: String.self) { str in
+            if str == "sim" {
+                SimulateRemainingDraftView()
+            }
+            if str == "summary" {
+                DraftSummaryView()
+            }
+        }
     }
 }
 
@@ -132,5 +145,7 @@ struct NVPicksSection: View {
 struct NVPicksSection_Previews: PreviewProvider {
     static var previews: some View {
         NVPicksSection()
+            .environmentObject(MainModel.shared)
+            .putInNavView()
     }
 }

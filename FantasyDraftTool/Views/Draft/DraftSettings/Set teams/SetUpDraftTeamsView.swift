@@ -66,7 +66,7 @@ struct SetUpDraftTeamsView: View {
 
             Section {
                 Button {
-                    model.navPathForDrafting.append(.main)
+//                    model.navPathForDrafting.append(.main)
                 } label: {
                     Text("Start Draft")
                         .foregroundColor(.blue)

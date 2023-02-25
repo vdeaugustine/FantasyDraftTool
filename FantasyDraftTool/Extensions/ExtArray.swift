@@ -28,6 +28,10 @@ extension Array {
     func prefixArray(_ num: Int) -> [Element] {
         Array(prefix(num))
     }
+    
+    func suffixArray(_ num: Int) -> [Element] {
+        Array(suffix(num))
+    }
 
     func safeCheck(_ num: Int) -> Bool {
         return num >= 0 && num < count
