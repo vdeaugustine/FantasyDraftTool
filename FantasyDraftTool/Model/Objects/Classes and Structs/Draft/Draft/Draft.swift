@@ -58,26 +58,11 @@ struct Draft: Codable, Hashable, Equatable {
     mutating func removeFromPool(player: DraftPlayer) {
         // Loop through each position the player has.
         for position in player.player.positions {
-            // Check if there is an array of batters in the playerPool dictionary for the current position.
-            if var previousArray = playerPool.battersDict[position] {
-                // Save a copy of the previous array for later comparison.
-                let prevArrCheck = previousArray
-
-                // Remove the player from the previous array, if present.
-                previousArray.removeAll(where: { $0.name == player.player.name })
-
-                // If the previous and updated arrays are the same, the player was not found in the array and we can exit early.
-                guard prevArrCheck != previousArray else {
-                    return
-                }
-
-                // Update the playerPool dictionary with the updated array of batters.
-                playerPool.battersDict[position] = previousArray
-            }
+            self.playerPool.storedBatters.remove(player.player, from: player.player.projectionType)
         }
 
-        // Update the playerPool dictionaries with the updated list of players for each position.
-        playerPool.updateDicts(for: player.player.positions)
+//        // Update the playerPool dictionaries with the updated list of players for each position.
+//        playerPool.updateDicts(for: player.player.positions)
     }
 
     mutating func changeCurrentTeam(to team: DraftTeam) {
@@ -145,8 +130,9 @@ struct Draft: Codable, Hashable, Equatable {
 
     mutating func insertIntoPool(player: DraftPlayer) {
         for position in player.player.positions {
-            playerPool.battersDict[position]?.append(player.player)
-            playerPool.updateDicts(for: [position])
+            playerPool.storedBatters.add(player.player, to: player.player.projectionType, for: position)
+//            playerPool.battersDict[position]?.append(player.player)
+//            playerPool.updateDicts(for: [position])
         }
     }
 
@@ -295,7 +281,8 @@ extension Draft {
         var workingDraft: Draft = self
 
         while workingDraft.totalPicksMade <= workingDraft.settings.numberOfRounds * workingDraft.settings.numberOfTeams {
-            let sortedBatters = workingDraft.playerPool.batters.removingDuplicates().sorted(by: { $0.zScore(draft: workingDraft) > $1.zScore(draft: workingDraft) })
+//            let sortedBatters = workingDraft.playerPool.batters.removingDuplicates().sorted(by: { $0.zScore(draft: workingDraft) > $1.zScore(draft: workingDraft) })
+            let sortedBatters = workingDraft.playerPool.storedBatters.batters(for: workingDraft.projectionCurrentlyUsing).sortedByZscore(draft: workingDraft)
 
             guard let chosenPlayer: ParsedBatter = sortedBatters.first else {
                 break

@@ -25,8 +25,8 @@ struct NVDraftPlayerDetail: View {
     @Environment (\.dismiss) private var dismiss
 
     var numPicksTill: Int {
-        let batters = model.draft.playerPool.batters.sorted(by: { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) })
-
+//        let batters = model.draft.playerPool.batters.sorted(by: { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) })
+        let batters = model.draft.playerPool.storedBatters.batters(for: projection)
         guard let ind = batters.firstIndex(where: { $0.name == batter.name }) else { return 0 }
 
         return ind + 1

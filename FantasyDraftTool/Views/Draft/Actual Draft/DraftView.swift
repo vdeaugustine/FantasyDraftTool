@@ -14,9 +14,10 @@ struct DraftView: View {
     @EnvironmentObject private var model: MainModel
 
     var sortedBatters: [ParsedBatter] {
-        model.draft.playerPool.batters.removingDuplicates().sorted {
-            $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft)
-        }
+        model.draft.playerPool.storedBatters.batters(for: model.draft.projectionCurrentlyUsing)
+//        model.draft.playerPool.batters.removingDuplicates().sorted {
+//            $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft)
+//        }
     }
 
     var allPicksDone: Bool {
@@ -98,7 +99,7 @@ struct DraftView: View {
         .onAppear {
             UserDefaults.isCurrentlyInDraft = true
             model.draft.playerPool.setPositionsOrder()
-            model.draft.playerPool.updateDicts()
+//            model.draft.playerPool.storedBatters
         }
         .conditionalModifier(model.draft.totalPickNumber >= (model.draft.settings.numberOfTeams * model.draft.settings.numberOfRounds)) { selfView in
             selfView

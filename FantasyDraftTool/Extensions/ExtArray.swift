@@ -63,8 +63,8 @@ extension Array where Element == ParsedBatter {
         ParsedBatter.averagePoints(forThese: self)
     }
 
-    func standardDeviation(for: Position) -> Double {
-        map { $0.fantasyPoints(.defaultPoints) }.standardDeviation()
+    func standardDeviation(for: Position, scoring: ScoringSettings = .defaultPoints) -> Double {
+        map { $0.fantasyPoints(scoring) }.standardDeviation()
     }
 
     func filter(for position: Position) -> [ParsedBatter] {

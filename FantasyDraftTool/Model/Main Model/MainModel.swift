@@ -124,6 +124,7 @@ extension MainModel {
         do {
             let data = try encoder.encode(self)
             UserDefaults.standard.set(data, forKey: Self.key)
+            print(data)
         } catch {
             print(error)
         }

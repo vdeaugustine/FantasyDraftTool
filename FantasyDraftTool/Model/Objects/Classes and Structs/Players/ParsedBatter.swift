@@ -134,13 +134,11 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
     }
 
     func zScore(draft: Draft) -> Double {
-        guard let firstPost = positions.first,
-              let average = draft.playerPool.positionAveragesDict[firstPost],
-              let _ = draft.playerPool.battersDict[firstPost],
-              let stdDev: Double = draft.playerPool.standardDeviationDict[firstPost]
-        else {
+        guard let firstPos = positions.first else {
             return (0 - .infinity)
         }
+        let average = draft.playerPool.storedBatters.average(for: self.projectionType, at: firstPos)
+        let stdDev = draft.playerPool.storedBatters.stdDev(for: self.projectionType, at: firstPos)
 
         let zScore = (fantasyPoints(draft.settings.scoringSystem) - average) / stdDev
 

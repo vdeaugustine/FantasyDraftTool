@@ -95,7 +95,7 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
     }
     
     func recommendedPlayer(draft: Draft, projection: ProjectionTypes) -> ParsedBatter? {
-        guard !draft.playerPool.batters.isEmpty else { return nil }
+        guard !draft.playerPool.storedBatters.batters(for: projection).isEmpty else { return nil }
         return recommendedBattersDesc(draft: draft, projection: projection).first
     }
     
@@ -105,12 +105,9 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
         var players: [ParsedBatter] = draft.playerPool.batters(for: positions, projection: projection, draft: draft)
         
         if players.isEmpty {
-            players = draft.playerPool.batters
+            players = draft.playerPool.storedBatters.batters(for: projection)
         }
     
-        if players.isEmpty {
-//            MainModel.shared.draft.shouldEnd = true
-        }
         
         return players.sortedByZscore(draft: draft)
     }
