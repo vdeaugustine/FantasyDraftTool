@@ -55,6 +55,14 @@ extension View {
             return AnyView(self)
         }
     }
+    
+    func padding(_ optionalPadding: CGFloat?) -> some View {
+        if let padding = optionalPadding {
+            return self.padding(padding).anyView
+        } else {
+            return self.padding().anyView
+        }
+    }
 
     
 

@@ -13,6 +13,19 @@
 		9C1AE39C29804D4A0016BF50 /* ScoringSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */; };
 		9C1AE39E29807C290016BF50 /* StandardNaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE39D29807C290016BF50 /* StandardNaming.swift */; };
 		9C1AE3A42981F29D0016BF50 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE3A32981F29D0016BF50 /* Position.swift */; };
+		9C2C8D9F29A94E3400626232 /* NVPicksSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C8D9E29A94E3400626232 /* NVPicksSection.swift */; };
+		9C2C8DA129A99C0500626232 /* SmallComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C8DA029A99C0500626232 /* SmallComponents.swift */; };
+		9C2C8DA329AA81B700626232 /* StatsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C8DA229AA81B700626232 /* StatsManager.swift */; };
+		9C2C8DA729AA850B00626232 /* ExtendedPitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C8DA629AA850B00626232 /* ExtendedPitcher.swift */; };
+		9C2C8DAD29AA861B00626232 /* ExtendedRelThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DA929AA861B00626232 /* ExtendedRelThebatStandard.json */; };
+		9C2C8DAE29AA861B00626232 /* ExtendedRelAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DAA29AA861B00626232 /* ExtendedRelAtcStandard.json */; };
+		9C2C8DAF29AA861B00626232 /* ExtendedRelFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DAB29AA861B00626232 /* ExtendedRelFangraphsdcStandard.json */; };
+		9C2C8DB029AA861B00626232 /* ExtendedRelSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DAC29AA861B00626232 /* ExtendedRelSteamerStandard.json */; };
+		9C2C8DB529AA864E00626232 /* ExtendedStaFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DB129AA864E00626232 /* ExtendedStaFangraphsdcStandard.json */; };
+		9C2C8DB629AA864E00626232 /* ExtendedStaSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DB229AA864E00626232 /* ExtendedStaSteamerStandard.json */; };
+		9C2C8DB729AA864E00626232 /* ExtendedStaThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DB329AA864E00626232 /* ExtendedStaThebatStandard.json */; };
+		9C2C8DB829AA864E00626232 /* ExtendedStaAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C2C8DB429AA864E00626232 /* ExtendedStaAtcStandard.json */; };
+		9C2C8DBA29AA872100626232 /* ParsedPitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C8DB929AA872100626232 /* ParsedPitcher.swift */; };
 		9C33F7DB29838B2E0038A938 /* CBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BD29838B2D0038A938 /* CBatThebatxStandard.json */; };
 		9C33F7DC29838B2E0038A938 /* 3bBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BE29838B2D0038A938 /* 3bBatThebatStandard.json */; };
 		9C33F7DD29838B2E0038A938 /* CBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C33F7BF29838B2D0038A938 /* CBatFangraphsdcStandard.json */; };
@@ -65,6 +78,48 @@
 		9C75B9EE296FD215003B35E6 /* ExtColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9E6296FD215003B35E6 /* ExtColor.swift */; };
 		9C75B9EF296FD215003B35E6 /* ExtText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9E7296FD215003B35E6 /* ExtText.swift */; };
 		9C75B9F0296FD215003B35E6 /* ExtStr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75B9E8296FD215003B35E6 /* ExtStr.swift */; };
+		9C762DEC29A1D67700C3B804 /* NVDraftPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C762DEB29A1D67700C3B804 /* NVDraftPlayerView.swift */; };
+		9C762DEE29A1FED100C3B804 /* ExtendedBatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C762DED29A1FED100C3B804 /* ExtendedBatter.swift */; };
+		9C762E0E29A2039A00C3B804 /* Extended3bBatSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DF029A2039900C3B804 /* Extended3bBatSteamerStandard.json */; };
+		9C762E0F29A2039A00C3B804 /* Extended1bBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DF129A2039900C3B804 /* Extended1bBatFangraphsdcStandard.json */; };
+		9C762E1029A2039A00C3B804 /* ExtendedSsBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DF229A2039900C3B804 /* ExtendedSsBatThebatxStandard.json */; };
+		9C762E1129A2039A00C3B804 /* Extended2bBatAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DF329A2039900C3B804 /* Extended2bBatAtcStandard.json */; };
+		9C762E1229A2039A00C3B804 /* Extended2bBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DF429A2039900C3B804 /* Extended2bBatThebatStandard.json */; };
+		9C762E1329A2039A00C3B804 /* Extended2bBatSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DF529A2039900C3B804 /* Extended2bBatSteamerStandard.json */; };
+		9C762E1429A2039A00C3B804 /* Extended1bBatAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DF629A2039900C3B804 /* Extended1bBatAtcStandard.json */; };
+		9C762E1529A2039A00C3B804 /* Extended3bBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DF729A2039900C3B804 /* Extended3bBatThebatxStandard.json */; };
+		9C762E1629A2039A00C3B804 /* Extended3bBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DF829A2039900C3B804 /* Extended3bBatThebatStandard.json */; };
+		9C762E1729A2039A00C3B804 /* Extended1bBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DF929A2039900C3B804 /* Extended1bBatThebatxStandard.json */; };
+		9C762E1829A2039A00C3B804 /* ExtendedOfBatSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DFA29A2039900C3B804 /* ExtendedOfBatSteamerStandard.json */; };
+		9C762E1929A2039A00C3B804 /* ExtendedCBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DFB29A2039900C3B804 /* ExtendedCBatThebatStandard.json */; };
+		9C762E1A29A2039A00C3B804 /* Extended2bBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DFC29A2039A00C3B804 /* Extended2bBatThebatxStandard.json */; };
+		9C762E1B29A2039A00C3B804 /* ExtendedOfBatAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DFD29A2039A00C3B804 /* ExtendedOfBatAtcStandard.json */; };
+		9C762E1C29A2039A00C3B804 /* Extended1bBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DFE29A2039A00C3B804 /* Extended1bBatThebatStandard.json */; };
+		9C762E1D29A2039A00C3B804 /* Extended1bBatSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762DFF29A2039A00C3B804 /* Extended1bBatSteamerStandard.json */; };
+		9C762E1E29A2039A00C3B804 /* Extended2bBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0029A2039A00C3B804 /* Extended2bBatFangraphsdcStandard.json */; };
+		9C762E1F29A2039A00C3B804 /* Extended3bBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0129A2039A00C3B804 /* Extended3bBatFangraphsdcStandard.json */; };
+		9C762E2029A2039A00C3B804 /* ExtendedSsBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0229A2039A00C3B804 /* ExtendedSsBatFangraphsdcStandard.json */; };
+		9C762E2129A2039A00C3B804 /* ExtendedOfBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0329A2039A00C3B804 /* ExtendedOfBatThebatxStandard.json */; };
+		9C762E2229A2039A00C3B804 /* ExtendedCBatSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0429A2039A00C3B804 /* ExtendedCBatSteamerStandard.json */; };
+		9C762E2329A2039A00C3B804 /* ExtendedOfBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0529A2039A00C3B804 /* ExtendedOfBatThebatStandard.json */; };
+		9C762E2429A2039A00C3B804 /* ExtendedCBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0629A2039A00C3B804 /* ExtendedCBatFangraphsdcStandard.json */; };
+		9C762E2529A2039A00C3B804 /* ExtendedOfBatFangraphsdcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0729A2039A00C3B804 /* ExtendedOfBatFangraphsdcStandard.json */; };
+		9C762E2629A2039A00C3B804 /* Extended3bBatAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0829A2039A00C3B804 /* Extended3bBatAtcStandard.json */; };
+		9C762E2729A2039A00C3B804 /* ExtendedSsBatAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0929A2039A00C3B804 /* ExtendedSsBatAtcStandard.json */; };
+		9C762E2829A2039A00C3B804 /* ExtendedSsBatThebatStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0A29A2039A00C3B804 /* ExtendedSsBatThebatStandard.json */; };
+		9C762E2929A2039A00C3B804 /* ExtendedSsBatSteamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0B29A2039A00C3B804 /* ExtendedSsBatSteamerStandard.json */; };
+		9C762E2A29A2039A00C3B804 /* ExtendedCBatAtcStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0C29A2039A00C3B804 /* ExtendedCBatAtcStandard.json */; };
+		9C762E2B29A2039A00C3B804 /* ExtendedCBatThebatxStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C762E0D29A2039A00C3B804 /* ExtendedCBatThebatxStandard.json */; };
+		9C762E2E29A2133200C3B804 /* NVDraftSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C762E2D29A2133200C3B804 /* NVDraftSummary.swift */; };
+		9C7CC795299DD4D800A95170 /* NVDraftPlayerDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7CC794299DD4D800A95170 /* NVDraftPlayerDetail.swift */; };
+		9C82187429A6E03F007DA5D2 /* NVDownloadBatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82187329A6E03F007DA5D2 /* NVDownloadBatters.swift */; };
+		9C82187629A6E234007DA5D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9C82187529A6E234007DA5D2 /* GoogleService-Info.plist */; };
+		9C82187929A6E34F007DA5D2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9C82187829A6E34F007DA5D2 /* FirebaseAuth */; };
+		9C82187B29A6E34F007DA5D2 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9C82187A29A6E34F007DA5D2 /* FirebaseDatabase */; };
+		9C82187D29A6E34F007DA5D2 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9C82187C29A6E34F007DA5D2 /* FirebaseDatabaseSwift */; };
+		9C82187F29A6E34F007DA5D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 9C82187E29A6E34F007DA5D2 /* FirebaseFirestore */; };
+		9C82188129A6E34F007DA5D2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9C82188029A6E34F007DA5D2 /* FirebaseFirestoreSwift */; };
+		9C8643A829A1BB8300067B1A /* NVMyTeamQuickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8643A729A1BB8300067B1A /* NVMyTeamQuickView.swift */; };
 		9CA24CA62983915400A394B4 /* AllBattersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA52983915400A394B4 /* AllBattersListView.swift */; };
 		9CA24CA8298394EB00A394B4 /* ParsedBatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */; };
 		9CA24CAA2983A43500A394B4 /* ParsedBatterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA92983A43500A394B4 /* ParsedBatterDetailView.swift */; };
@@ -88,12 +143,24 @@
 		9CA24CE02988F57600A394B4 /* SelectProjectionTypeHScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CDF2988F57600A394B4 /* SelectProjectionTypeHScroll.swift */; };
 		9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */; };
 		9CA24CE62989E81400A394B4 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CE52989E81400A394B4 /* Stack.swift */; };
+		9CB997C829A32D79008CAFAF /* LoadingDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB997C729A32D79008CAFAF /* LoadingDraft.swift */; };
 		9CC80284298C7524005B438D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80283298C7524005B438D /* UserDefaults.swift */; };
 		9CC80286298CCD83005B438D /* MyStatsPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80285298CCD83005B438D /* MyStatsPlayers.swift */; };
 		9CC80288298D86CF005B438D /* StrongestAtEachPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */; };
 		9CC8028B298E3785005B438D /* BestPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8028A298E3785005B438D /* BestPick.swift */; };
 		9CC8028D298E47EC005B438D /* RecommendedPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */; };
+		9CCF1B3B29A635F900A64C77 /* NVSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCF1B3A29A635F900A64C77 /* NVSettings.swift */; };
 		9CE9F4F4299B723B0015886D /* CreateModifiedPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */; };
+		9CE9F4F7299C4F420015886D /* NVAllPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4F6299C4F420015886D /* NVAllPlayers.swift */; };
+		9CE9F4FA299C502B0015886D /* NVDropDownProjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4F9299C502B0015886D /* NVDropDownProjection.swift */; };
+		9CE9F4FC299C54BC0015886D /* NVDropDownPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4FB299C54BC0015886D /* NVDropDownPosition.swift */; };
+		9CE9F4FF299C56440015886D /* NVAllPlayersRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4FE299C56440015886D /* NVAllPlayersRow.swift */; };
+		9CE9F501299C5A4A0015886D /* NVSortByDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F500299C5A4A0015886D /* NVSortByDropDown.swift */; };
+		9CE9F503299C5D700015886D /* NVPlayerDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F502299C5D700015886D /* NVPlayerDetail.swift */; };
+		9CE9F506299C88320015886D /* RectPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F505299C88320015886D /* RectPieChart.swift */; };
+		9CE9F50E299C9ED80015886D /* NVDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F50D299C9ED80015886D /* NVDraft.swift */; };
+		9CE9F511299C9F400015886D /* NVPreviousPickRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F510299C9F400015886D /* NVPreviousPickRect.swift */; };
+		9CE9F513299CA5C00015886D /* NVCurrentPickRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F512299CA5C00015886D /* NVCurrentPickRect.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +170,19 @@
 		9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringSettingsView.swift; sourceTree = "<group>"; };
 		9C1AE39D29807C290016BF50 /* StandardNaming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardNaming.swift; sourceTree = "<group>"; };
 		9C1AE3A32981F29D0016BF50 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
+		9C2C8D9E29A94E3400626232 /* NVPicksSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVPicksSection.swift; sourceTree = "<group>"; };
+		9C2C8DA029A99C0500626232 /* SmallComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallComponents.swift; sourceTree = "<group>"; };
+		9C2C8DA229AA81B700626232 /* StatsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsManager.swift; sourceTree = "<group>"; };
+		9C2C8DA629AA850B00626232 /* ExtendedPitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedPitcher.swift; sourceTree = "<group>"; };
+		9C2C8DA929AA861B00626232 /* ExtendedRelThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedRelThebatStandard.json; sourceTree = "<group>"; };
+		9C2C8DAA29AA861B00626232 /* ExtendedRelAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedRelAtcStandard.json; sourceTree = "<group>"; };
+		9C2C8DAB29AA861B00626232 /* ExtendedRelFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedRelFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C2C8DAC29AA861B00626232 /* ExtendedRelSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedRelSteamerStandard.json; sourceTree = "<group>"; };
+		9C2C8DB129AA864E00626232 /* ExtendedStaFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedStaFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C2C8DB229AA864E00626232 /* ExtendedStaSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedStaSteamerStandard.json; sourceTree = "<group>"; };
+		9C2C8DB329AA864E00626232 /* ExtendedStaThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedStaThebatStandard.json; sourceTree = "<group>"; };
+		9C2C8DB429AA864E00626232 /* ExtendedStaAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedStaAtcStandard.json; sourceTree = "<group>"; };
+		9C2C8DB929AA872100626232 /* ParsedPitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ParsedPitcher.swift; path = "FantasyDraftTool/Model/Objects/Classes and Structs/Players/ParsedPitcher.swift"; sourceTree = SOURCE_ROOT; };
 		9C33F7BD29838B2D0038A938 /* CBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatThebatxStandard.json; sourceTree = "<group>"; };
 		9C33F7BE29838B2D0038A938 /* 3bBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3bBatThebatStandard.json; sourceTree = "<group>"; };
 		9C33F7BF29838B2D0038A938 /* CBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CBatFangraphsdcStandard.json; sourceTree = "<group>"; };
@@ -156,6 +236,44 @@
 		9C75B9E6296FD215003B35E6 /* ExtColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtColor.swift; sourceTree = "<group>"; };
 		9C75B9E7296FD215003B35E6 /* ExtText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtText.swift; sourceTree = "<group>"; };
 		9C75B9E8296FD215003B35E6 /* ExtStr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtStr.swift; sourceTree = "<group>"; };
+		9C762DEB29A1D67700C3B804 /* NVDraftPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDraftPlayerView.swift; sourceTree = "<group>"; };
+		9C762DED29A1FED100C3B804 /* ExtendedBatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedBatter.swift; sourceTree = "<group>"; };
+		9C762DF029A2039900C3B804 /* Extended3bBatSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended3bBatSteamerStandard.json; sourceTree = "<group>"; };
+		9C762DF129A2039900C3B804 /* Extended1bBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended1bBatFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C762DF229A2039900C3B804 /* ExtendedSsBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedSsBatThebatxStandard.json; sourceTree = "<group>"; };
+		9C762DF329A2039900C3B804 /* Extended2bBatAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended2bBatAtcStandard.json; sourceTree = "<group>"; };
+		9C762DF429A2039900C3B804 /* Extended2bBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended2bBatThebatStandard.json; sourceTree = "<group>"; };
+		9C762DF529A2039900C3B804 /* Extended2bBatSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended2bBatSteamerStandard.json; sourceTree = "<group>"; };
+		9C762DF629A2039900C3B804 /* Extended1bBatAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended1bBatAtcStandard.json; sourceTree = "<group>"; };
+		9C762DF729A2039900C3B804 /* Extended3bBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended3bBatThebatxStandard.json; sourceTree = "<group>"; };
+		9C762DF829A2039900C3B804 /* Extended3bBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended3bBatThebatStandard.json; sourceTree = "<group>"; };
+		9C762DF929A2039900C3B804 /* Extended1bBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended1bBatThebatxStandard.json; sourceTree = "<group>"; };
+		9C762DFA29A2039900C3B804 /* ExtendedOfBatSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedOfBatSteamerStandard.json; sourceTree = "<group>"; };
+		9C762DFB29A2039900C3B804 /* ExtendedCBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedCBatThebatStandard.json; sourceTree = "<group>"; };
+		9C762DFC29A2039A00C3B804 /* Extended2bBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended2bBatThebatxStandard.json; sourceTree = "<group>"; };
+		9C762DFD29A2039A00C3B804 /* ExtendedOfBatAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedOfBatAtcStandard.json; sourceTree = "<group>"; };
+		9C762DFE29A2039A00C3B804 /* Extended1bBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended1bBatThebatStandard.json; sourceTree = "<group>"; };
+		9C762DFF29A2039A00C3B804 /* Extended1bBatSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended1bBatSteamerStandard.json; sourceTree = "<group>"; };
+		9C762E0029A2039A00C3B804 /* Extended2bBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended2bBatFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C762E0129A2039A00C3B804 /* Extended3bBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended3bBatFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C762E0229A2039A00C3B804 /* ExtendedSsBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedSsBatFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C762E0329A2039A00C3B804 /* ExtendedOfBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedOfBatThebatxStandard.json; sourceTree = "<group>"; };
+		9C762E0429A2039A00C3B804 /* ExtendedCBatSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedCBatSteamerStandard.json; sourceTree = "<group>"; };
+		9C762E0529A2039A00C3B804 /* ExtendedOfBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedOfBatThebatStandard.json; sourceTree = "<group>"; };
+		9C762E0629A2039A00C3B804 /* ExtendedCBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedCBatFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C762E0729A2039A00C3B804 /* ExtendedOfBatFangraphsdcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedOfBatFangraphsdcStandard.json; sourceTree = "<group>"; };
+		9C762E0829A2039A00C3B804 /* Extended3bBatAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Extended3bBatAtcStandard.json; sourceTree = "<group>"; };
+		9C762E0929A2039A00C3B804 /* ExtendedSsBatAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedSsBatAtcStandard.json; sourceTree = "<group>"; };
+		9C762E0A29A2039A00C3B804 /* ExtendedSsBatThebatStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedSsBatThebatStandard.json; sourceTree = "<group>"; };
+		9C762E0B29A2039A00C3B804 /* ExtendedSsBatSteamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedSsBatSteamerStandard.json; sourceTree = "<group>"; };
+		9C762E0C29A2039A00C3B804 /* ExtendedCBatAtcStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedCBatAtcStandard.json; sourceTree = "<group>"; };
+		9C762E0D29A2039A00C3B804 /* ExtendedCBatThebatxStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExtendedCBatThebatxStandard.json; sourceTree = "<group>"; };
+		9C762E2D29A2133200C3B804 /* NVDraftSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDraftSummary.swift; sourceTree = "<group>"; };
+		9C7CC794299DD4D800A95170 /* NVDraftPlayerDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDraftPlayerDetail.swift; sourceTree = "<group>"; };
+		9C82187329A6E03F007DA5D2 /* NVDownloadBatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDownloadBatters.swift; sourceTree = "<group>"; };
+		9C82187529A6E234007DA5D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9C82188229A6F1DA007DA5D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9C8643A729A1BB8300067B1A /* NVMyTeamQuickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVMyTeamQuickView.swift; sourceTree = "<group>"; };
 		9CA24CA52983915400A394B4 /* AllBattersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBattersListView.swift; sourceTree = "<group>"; };
 		9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedBatter.swift; sourceTree = "<group>"; };
 		9CA24CA92983A43500A394B4 /* ParsedBatterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedBatterDetailView.swift; sourceTree = "<group>"; };
@@ -179,12 +297,24 @@
 		9CA24CDF2988F57600A394B4 /* SelectProjectionTypeHScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProjectionTypeHScroll.swift; sourceTree = "<group>"; };
 		9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSinglePositionTypeHScroll.swift; sourceTree = "<group>"; };
 		9CA24CE52989E81400A394B4 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		9CB997C729A32D79008CAFAF /* LoadingDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDraft.swift; sourceTree = "<group>"; };
 		9CC80283298C7524005B438D /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9CC80285298CCD83005B438D /* MyStatsPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStatsPlayers.swift; sourceTree = "<group>"; };
 		9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongestAtEachPositionView.swift; sourceTree = "<group>"; };
 		9CC8028A298E3785005B438D /* BestPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestPick.swift; sourceTree = "<group>"; };
 		9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedPlayerView.swift; sourceTree = "<group>"; };
+		9CCF1B3A29A635F900A64C77 /* NVSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVSettings.swift; sourceTree = "<group>"; };
 		9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateModifiedPlayerView.swift; sourceTree = "<group>"; };
+		9CE9F4F6299C4F420015886D /* NVAllPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVAllPlayers.swift; sourceTree = "<group>"; };
+		9CE9F4F9299C502B0015886D /* NVDropDownProjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDropDownProjection.swift; sourceTree = "<group>"; };
+		9CE9F4FB299C54BC0015886D /* NVDropDownPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDropDownPosition.swift; sourceTree = "<group>"; };
+		9CE9F4FE299C56440015886D /* NVAllPlayersRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVAllPlayersRow.swift; sourceTree = "<group>"; };
+		9CE9F500299C5A4A0015886D /* NVSortByDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVSortByDropDown.swift; sourceTree = "<group>"; };
+		9CE9F502299C5D700015886D /* NVPlayerDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVPlayerDetail.swift; sourceTree = "<group>"; };
+		9CE9F505299C88320015886D /* RectPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RectPieChart.swift; path = "FantasyDraftTool/New Views/New Components/Charts & Analyzing/RectPieChart.swift"; sourceTree = SOURCE_ROOT; };
+		9CE9F50D299C9ED80015886D /* NVDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVDraft.swift; sourceTree = "<group>"; };
+		9CE9F510299C9F400015886D /* NVPreviousPickRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVPreviousPickRect.swift; sourceTree = "<group>"; };
+		9CE9F512299CA5C00015886D /* NVCurrentPickRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVCurrentPickRect.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +322,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C82188129A6E34F007DA5D2 /* FirebaseFirestoreSwift in Frameworks */,
+				9C82187D29A6E34F007DA5D2 /* FirebaseDatabaseSwift in Frameworks */,
+				9C82187F29A6E34F007DA5D2 /* FirebaseFirestore in Frameworks */,
+				9C82187B29A6E34F007DA5D2 /* FirebaseDatabase in Frameworks */,
+				9C82187929A6E34F007DA5D2 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,9 +336,13 @@
 		9C1AE396297FA08F0016BF50 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9C2C8DA429AA81C000626232 /* Stats */,
+				9C2C8DA829AA85FF00626232 /* ExtendedPitchersJSONs */,
+				9C762DEF29A2038600C3B804 /* ExtendedBattersJSONs */,
+				9CC80285298CCD83005B438D /* MyStatsPlayers.swift */,
 				9C3B702C298B2CD900A1B42C /* Main Model */,
 				9CA24CB0298519A000A394B4 /* Deprecated Models */,
-				9C1AE3A72982239F0016BF50 /* Projection JSONS */,
+				9C1AE3A72982239F0016BF50 /* OriginalJSONs */,
 				9C1AE3A22981F1A90016BF50 /* Objects */,
 			);
 			path = Model;
@@ -212,6 +351,8 @@
 		9C1AE39F2980A7170016BF50 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */,
+				9C73D09229970BD8007C251F /* SettingsView.swift */,
 				9C73D09429970BDD007C251F /* Settings */,
 				9C73D08C2995C801007C251F /* SimulateRemainingDraftView.swift */,
 				9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */,
@@ -239,7 +380,7 @@
 			path = Objects;
 			sourceTree = "<group>";
 		};
-		9C1AE3A72982239F0016BF50 /* Projection JSONS */ = {
+		9C1AE3A72982239F0016BF50 /* OriginalJSONs */ = {
 			isa = PBXGroup;
 			children = (
 				9C33F7C429838B2D0038A938 /* 1bBatAtcStandard.json */,
@@ -273,7 +414,7 @@
 				9C33F7CC29838B2D0038A938 /* SsBatThebatStandard.json */,
 				9C33F7C129838B2D0038A938 /* SsBatThebatxStandard.json */,
 			);
-			path = "Projection JSONS";
+			path = OriginalJSONs;
 			sourceTree = "<group>";
 		};
 		9C1AE3A9298223BF0016BF50 /* Not used JSONs */ = {
@@ -283,6 +424,54 @@
 				9C1AE399297FA7DC0016BF50 /* steamerStandard.json */,
 			);
 			path = "Not used JSONs";
+			sourceTree = "<group>";
+		};
+		9C2C8D9C29A94E0700626232 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		9C2C8D9D29A94E1000626232 /* Predictions Section */ = {
+			isa = PBXGroup;
+			children = (
+				9C2C8D9E29A94E3400626232 /* NVPicksSection.swift */,
+			);
+			path = "Predictions Section";
+			sourceTree = "<group>";
+		};
+		9C2C8DA429AA81C000626232 /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				9C2C8DA229AA81B700626232 /* StatsManager.swift */,
+			);
+			path = Stats;
+			sourceTree = "<group>";
+		};
+		9C2C8DA529AA850000626232 /* Extended */ = {
+			isa = PBXGroup;
+			children = (
+				9C762DED29A1FED100C3B804 /* ExtendedBatter.swift */,
+				9C2C8DA629AA850B00626232 /* ExtendedPitcher.swift */,
+				9C2C8DB929AA872100626232 /* ParsedPitcher.swift */,
+			);
+			path = Extended;
+			sourceTree = "<group>";
+		};
+		9C2C8DA829AA85FF00626232 /* ExtendedPitchersJSONs */ = {
+			isa = PBXGroup;
+			children = (
+				9C2C8DB429AA864E00626232 /* ExtendedStaAtcStandard.json */,
+				9C2C8DB129AA864E00626232 /* ExtendedStaFangraphsdcStandard.json */,
+				9C2C8DB229AA864E00626232 /* ExtendedStaSteamerStandard.json */,
+				9C2C8DB329AA864E00626232 /* ExtendedStaThebatStandard.json */,
+				9C2C8DAA29AA861B00626232 /* ExtendedRelAtcStandard.json */,
+				9C2C8DAB29AA861B00626232 /* ExtendedRelFangraphsdcStandard.json */,
+				9C2C8DAC29AA861B00626232 /* ExtendedRelSteamerStandard.json */,
+				9C2C8DA929AA861B00626232 /* ExtendedRelThebatStandard.json */,
+			);
+			path = ExtendedPitchersJSONs;
 			sourceTree = "<group>";
 		};
 		9C3B7026298B2C5400A1B42C /* Player Pool */ = {
@@ -326,6 +515,7 @@
 		9C3B702A298B2C9C00A1B42C /* Players */ = {
 			isa = PBXGroup;
 			children = (
+				9C2C8DA529AA850000626232 /* Extended */,
 				9CA24CB929851A9900A394B4 /* AllParsedBatters.swift */,
 				9C33F7F929838BCD0038A938 /* JSONBatter.swift */,
 				9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */,
@@ -368,8 +558,9 @@
 		9C75B9AB296F590F003B35E6 = {
 			isa = PBXGroup;
 			children = (
-				9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */,
-				9CC80285298CCD83005B438D /* MyStatsPlayers.swift */,
+				9C2C8DA029A99C0500626232 /* SmallComponents.swift */,
+				9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */,
+				9CA24CAB29850FE000A394B4 /* ContentView.swift */,
 				9C75B9B6296F590F003B35E6 /* FantasyDraftTool */,
 				9C75B9B5296F590F003B35E6 /* Products */,
 			);
@@ -386,9 +577,9 @@
 		9C75B9B6296F590F003B35E6 /* FantasyDraftTool */ = {
 			isa = PBXGroup;
 			children = (
-				9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */,
-				9CA24CAB29850FE000A394B4 /* ContentView.swift */,
-				9C73D09229970BD8007C251F /* SettingsView.swift */,
+				9C82188229A6F1DA007DA5D2 /* Info.plist */,
+				9C82187529A6E234007DA5D2 /* GoogleService-Info.plist */,
+				9CE9F4F5299C4F160015886D /* New Views */,
 				9C1AE39F2980A7170016BF50 /* Views */,
 				9C1AE396297FA08F0016BF50 /* Model */,
 				9C75B9E0296FD215003B35E6 /* Extensions */,
@@ -420,6 +611,43 @@
 				9CA24CAD2985181A00A394B4 /* ExtArray.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9C762DEF29A2038600C3B804 /* ExtendedBattersJSONs */ = {
+			isa = PBXGroup;
+			children = (
+				9C762DF629A2039900C3B804 /* Extended1bBatAtcStandard.json */,
+				9C762DF129A2039900C3B804 /* Extended1bBatFangraphsdcStandard.json */,
+				9C762DFF29A2039A00C3B804 /* Extended1bBatSteamerStandard.json */,
+				9C762DFE29A2039A00C3B804 /* Extended1bBatThebatStandard.json */,
+				9C762DF929A2039900C3B804 /* Extended1bBatThebatxStandard.json */,
+				9C762DF329A2039900C3B804 /* Extended2bBatAtcStandard.json */,
+				9C762E0029A2039A00C3B804 /* Extended2bBatFangraphsdcStandard.json */,
+				9C762DF529A2039900C3B804 /* Extended2bBatSteamerStandard.json */,
+				9C762DF429A2039900C3B804 /* Extended2bBatThebatStandard.json */,
+				9C762DFC29A2039A00C3B804 /* Extended2bBatThebatxStandard.json */,
+				9C762E0829A2039A00C3B804 /* Extended3bBatAtcStandard.json */,
+				9C762E0129A2039A00C3B804 /* Extended3bBatFangraphsdcStandard.json */,
+				9C762DF029A2039900C3B804 /* Extended3bBatSteamerStandard.json */,
+				9C762DF829A2039900C3B804 /* Extended3bBatThebatStandard.json */,
+				9C762DF729A2039900C3B804 /* Extended3bBatThebatxStandard.json */,
+				9C762E0C29A2039A00C3B804 /* ExtendedCBatAtcStandard.json */,
+				9C762E0629A2039A00C3B804 /* ExtendedCBatFangraphsdcStandard.json */,
+				9C762E0429A2039A00C3B804 /* ExtendedCBatSteamerStandard.json */,
+				9C762DFB29A2039900C3B804 /* ExtendedCBatThebatStandard.json */,
+				9C762E0D29A2039A00C3B804 /* ExtendedCBatThebatxStandard.json */,
+				9C762DFD29A2039A00C3B804 /* ExtendedOfBatAtcStandard.json */,
+				9C762E0729A2039A00C3B804 /* ExtendedOfBatFangraphsdcStandard.json */,
+				9C762DFA29A2039900C3B804 /* ExtendedOfBatSteamerStandard.json */,
+				9C762E0529A2039A00C3B804 /* ExtendedOfBatThebatStandard.json */,
+				9C762E0329A2039A00C3B804 /* ExtendedOfBatThebatxStandard.json */,
+				9C762E0929A2039A00C3B804 /* ExtendedSsBatAtcStandard.json */,
+				9C762E0229A2039A00C3B804 /* ExtendedSsBatFangraphsdcStandard.json */,
+				9C762E0B29A2039A00C3B804 /* ExtendedSsBatSteamerStandard.json */,
+				9C762E0A29A2039A00C3B804 /* ExtendedSsBatThebatStandard.json */,
+				9C762DF229A2039900C3B804 /* ExtendedSsBatThebatxStandard.json */,
+			);
+			path = ExtendedBattersJSONs;
 			sourceTree = "<group>";
 		};
 		9CA24CAF2985190500A394B4 /* Deprecated View */ = {
@@ -588,12 +816,110 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		9CB997C629A32D64008CAFAF /* Loading Draft */ = {
+			isa = PBXGroup;
+			children = (
+				9CB997C729A32D79008CAFAF /* LoadingDraft.swift */,
+			);
+			path = "Loading Draft";
+			sourceTree = "<group>";
+		};
 		9CC80289298E3778005B438D /* BestPick */ = {
 			isa = PBXGroup;
 			children = (
 				9CC8028A298E3785005B438D /* BestPick.swift */,
 			);
 			path = BestPick;
+			sourceTree = "<group>";
+		};
+		9CE9F4F5299C4F160015886D /* New Views */ = {
+			isa = PBXGroup;
+			children = (
+				9C82187329A6E03F007DA5D2 /* NVDownloadBatters.swift */,
+				9CCF1B3A29A635F900A64C77 /* NVSettings.swift */,
+				9CE9F50C299C9ECE0015886D /* Draft */,
+				9CE9F509299C9DC10015886D /* All Players */,
+				9CE9F4F8299C50170015886D /* New Components */,
+			);
+			path = "New Views";
+			sourceTree = "<group>";
+		};
+		9CE9F4F8299C50170015886D /* New Components */ = {
+			isa = PBXGroup;
+			children = (
+				9CE9F507299C9D940015886D /* Charts & Analyzing */,
+				9CE9F504299C72EF0015886D /* DropDowns */,
+			);
+			path = "New Components";
+			sourceTree = "<group>";
+		};
+		9CE9F504299C72EF0015886D /* DropDowns */ = {
+			isa = PBXGroup;
+			children = (
+				9CE9F4F9299C502B0015886D /* NVDropDownProjection.swift */,
+				9CE9F500299C5A4A0015886D /* NVSortByDropDown.swift */,
+				9CE9F4FB299C54BC0015886D /* NVDropDownPosition.swift */,
+			);
+			path = DropDowns;
+			sourceTree = "<group>";
+		};
+		9CE9F507299C9D940015886D /* Charts & Analyzing */ = {
+			isa = PBXGroup;
+			children = (
+				9CE9F505299C88320015886D /* RectPieChart.swift */,
+			);
+			path = "Charts & Analyzing";
+			sourceTree = "<group>";
+		};
+		9CE9F509299C9DC10015886D /* All Players */ = {
+			isa = PBXGroup;
+			children = (
+				9CE9F50B299C9DD80015886D /* Player Detail */,
+				9CE9F50A299C9DCE0015886D /* Components */,
+				9CE9F4F6299C4F420015886D /* NVAllPlayers.swift */,
+			);
+			path = "All Players";
+			sourceTree = "<group>";
+		};
+		9CE9F50A299C9DCE0015886D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9CE9F4FE299C56440015886D /* NVAllPlayersRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		9CE9F50B299C9DD80015886D /* Player Detail */ = {
+			isa = PBXGroup;
+			children = (
+				9CE9F502299C5D700015886D /* NVPlayerDetail.swift */,
+			);
+			path = "Player Detail";
+			sourceTree = "<group>";
+		};
+		9CE9F50C299C9ECE0015886D /* Draft */ = {
+			isa = PBXGroup;
+			children = (
+				9C762DEB29A1D67700C3B804 /* NVDraftPlayerView.swift */,
+				9C8643A729A1BB8300067B1A /* NVMyTeamQuickView.swift */,
+				9CE9F50F299C9F1B0015886D /* Components */,
+				9CE9F50D299C9ED80015886D /* NVDraft.swift */,
+				9C2C8D9C29A94E0700626232 /* New Group */,
+				9C762E2D29A2133200C3B804 /* NVDraftSummary.swift */,
+			);
+			path = Draft;
+			sourceTree = "<group>";
+		};
+		9CE9F50F299C9F1B0015886D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9C2C8D9D29A94E1000626232 /* Predictions Section */,
+				9CB997C629A32D64008CAFAF /* Loading Draft */,
+				9CE9F510299C9F400015886D /* NVPreviousPickRect.swift */,
+				9CE9F512299CA5C00015886D /* NVCurrentPickRect.swift */,
+				9C7CC794299DD4D800A95170 /* NVDraftPlayerDetail.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -612,6 +938,13 @@
 			dependencies = (
 			);
 			name = FantasyDraftTool;
+			packageProductDependencies = (
+				9C82187829A6E34F007DA5D2 /* FirebaseAuth */,
+				9C82187A29A6E34F007DA5D2 /* FirebaseDatabase */,
+				9C82187C29A6E34F007DA5D2 /* FirebaseDatabaseSwift */,
+				9C82187E29A6E34F007DA5D2 /* FirebaseFirestore */,
+				9C82188029A6E34F007DA5D2 /* FirebaseFirestoreSwift */,
+			);
 			productName = FantasyDraftTool;
 			productReference = 9C75B9B4296F590F003B35E6 /* FantasyDraftTool.app */;
 			productType = "com.apple.product-type.application";
@@ -640,6 +973,9 @@
 				Base,
 			);
 			mainGroup = 9C75B9AB296F590F003B35E6;
+			packageReferences = (
+				9C82187729A6E34F007DA5D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 9C75B9B5296F590F003B35E6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -654,40 +990,79 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C762E1A29A2039A00C3B804 /* Extended2bBatThebatxStandard.json in Resources */,
+				9C762E1129A2039A00C3B804 /* Extended2bBatAtcStandard.json in Resources */,
 				9C75B9CC296F9386003B35E6 /* steamer.json in Resources */,
+				9C762E2629A2039A00C3B804 /* Extended3bBatAtcStandard.json in Resources */,
 				9C33F7DC29838B2E0038A938 /* 3bBatThebatStandard.json in Resources */,
+				9C762E2329A2039A00C3B804 /* ExtendedOfBatThebatStandard.json in Resources */,
+				9C762E1C29A2039A00C3B804 /* Extended1bBatThebatStandard.json in Resources */,
 				9C33F7F529838B2E0038A938 /* 1bBatFangraphsdcStandard.json in Resources */,
 				9C33F7EE29838B2E0038A938 /* 2bBatFangraphsdcStandard.json in Resources */,
 				9C33F7E729838B2E0038A938 /* 3bBatFangraphsdcStandard.json in Resources */,
+				9C762E1829A2039A00C3B804 /* ExtendedOfBatSteamerStandard.json in Resources */,
 				9C33F7DD29838B2E0038A938 /* CBatFangraphsdcStandard.json in Resources */,
+				9C762E0F29A2039A00C3B804 /* Extended1bBatFangraphsdcStandard.json in Resources */,
 				9C33F7E629838B2E0038A938 /* 1bBatThebatStandard.json in Resources */,
 				9C33F7F329838B2E0038A938 /* 3bBatAtcStandard.json in Resources */,
 				9C33F7F829838B2E0038A938 /* SsBatSteamerStandard.json in Resources */,
+				9C2C8DB529AA864E00626232 /* ExtendedStaFangraphsdcStandard.json in Resources */,
 				9C33F7F229838B2E0038A938 /* 3bBatThebatxStandard.json in Resources */,
+				9C762E2529A2039A00C3B804 /* ExtendedOfBatFangraphsdcStandard.json in Resources */,
+				9C2C8DB829AA864E00626232 /* ExtendedStaAtcStandard.json in Resources */,
 				9C33F7F129838B2E0038A938 /* 1bBatSteamerStandard.json in Resources */,
+				9C762E2229A2039A00C3B804 /* ExtendedCBatSteamerStandard.json in Resources */,
+				9C762E2029A2039A00C3B804 /* ExtendedSsBatFangraphsdcStandard.json in Resources */,
+				9C762E1E29A2039A00C3B804 /* Extended2bBatFangraphsdcStandard.json in Resources */,
+				9C762E1529A2039A00C3B804 /* Extended3bBatThebatxStandard.json in Resources */,
+				9C762E1329A2039A00C3B804 /* Extended2bBatSteamerStandard.json in Resources */,
 				9C33F7E029838B2E0038A938 /* 3bBatSteamerStandard.json in Resources */,
 				9C33F7EA29838B2E0038A938 /* SsBatThebatStandard.json in Resources */,
 				9C33F7E229838B2E0038A938 /* 1bBatAtcStandard.json in Resources */,
 				9C33F7F629838B2E0038A938 /* 2bBatThebatxStandard.json in Resources */,
 				9C33F7F729838B2E0038A938 /* OfBatThebatxStandard.json in Resources */,
+				9C762E1929A2039A00C3B804 /* ExtendedCBatThebatStandard.json in Resources */,
+				9C762E1D29A2039A00C3B804 /* Extended1bBatSteamerStandard.json in Resources */,
+				9C762E2929A2039A00C3B804 /* ExtendedSsBatSteamerStandard.json in Resources */,
+				9C762E2A29A2039A00C3B804 /* ExtendedCBatAtcStandard.json in Resources */,
 				9C33F7E829838B2E0038A938 /* 2bBatAtcStandard.json in Resources */,
 				9C33F7E929838B2E0038A938 /* 2bBatThebatStandard.json in Resources */,
 				9C33F7EF29838B2E0038A938 /* CBatSteamerStandard.json in Resources */,
+				9C762E1429A2039A00C3B804 /* Extended1bBatAtcStandard.json in Resources */,
+				9C762E1B29A2039A00C3B804 /* ExtendedOfBatAtcStandard.json in Resources */,
 				9C33F7E129838B2E0038A938 /* CBatThebatStandard.json in Resources */,
+				9C2C8DAE29AA861B00626232 /* ExtendedRelAtcStandard.json in Resources */,
+				9C762E1629A2039A00C3B804 /* Extended3bBatThebatStandard.json in Resources */,
+				9C762E2B29A2039A00C3B804 /* ExtendedCBatThebatxStandard.json in Resources */,
+				9C762E1029A2039A00C3B804 /* ExtendedSsBatThebatxStandard.json in Resources */,
+				9C762E2129A2039A00C3B804 /* ExtendedOfBatThebatxStandard.json in Resources */,
 				9C33F7F029838B2E0038A938 /* OfBatThebatStandard.json in Resources */,
 				9C33F7ED29838B2E0038A938 /* SsBatAtcStandard.json in Resources */,
 				9C33F7EB29838B2E0038A938 /* 1bBatThebatxStandard.json in Resources */,
 				9C33F7DE29838B2E0038A938 /* OfBatFangraphsdcStandard.json in Resources */,
 				9C33F7F429838B2E0038A938 /* SsBatFangraphsdcStandard.json in Resources */,
 				9C33F7E429838B2E0038A938 /* OfBatSteamerStandard.json in Resources */,
+				9C762E1F29A2039A00C3B804 /* Extended3bBatFangraphsdcStandard.json in Resources */,
+				9C82187629A6E234007DA5D2 /* GoogleService-Info.plist in Resources */,
 				9C33F7DB29838B2E0038A938 /* CBatThebatxStandard.json in Resources */,
+				9C762E2429A2039A00C3B804 /* ExtendedCBatFangraphsdcStandard.json in Resources */,
+				9C2C8DAD29AA861B00626232 /* ExtendedRelThebatStandard.json in Resources */,
+				9C2C8DB729AA864E00626232 /* ExtendedStaThebatStandard.json in Resources */,
+				9C762E2829A2039A00C3B804 /* ExtendedSsBatThebatStandard.json in Resources */,
 				9C75B9BF296F5910003B35E6 /* Preview Assets.xcassets in Resources */,
 				9C33F7DF29838B2E0038A938 /* SsBatThebatxStandard.json in Resources */,
+				9C762E1229A2039A00C3B804 /* Extended2bBatThebatStandard.json in Resources */,
 				9C33F7E329838B2E0038A938 /* 2bBatSteamerStandard.json in Resources */,
 				9C75B9BC296F5910003B35E6 /* Assets.xcassets in Resources */,
+				9C2C8DAF29AA861B00626232 /* ExtendedRelFangraphsdcStandard.json in Resources */,
 				9C33F7EC29838B2E0038A938 /* CBatAtcStandard.json in Resources */,
 				9C1AE39A297FA7DC0016BF50 /* steamerStandard.json in Resources */,
+				9C762E2729A2039A00C3B804 /* ExtendedSsBatAtcStandard.json in Resources */,
+				9C762E0E29A2039A00C3B804 /* Extended3bBatSteamerStandard.json in Resources */,
 				9C33F7E529838B2E0038A938 /* OfBatAtcStandard.json in Resources */,
+				9C762E1729A2039A00C3B804 /* Extended1bBatThebatxStandard.json in Resources */,
+				9C2C8DB629AA864E00626232 /* ExtendedStaSteamerStandard.json in Resources */,
+				9C2C8DB029AA861B00626232 /* ExtendedRelSteamerStandard.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,26 +1077,42 @@
 				9C73D089299573C4007C251F /* RemainingAnalysisPosition.swift in Sources */,
 				9CC8028D298E47EC005B438D /* RecommendedPlayerView.swift in Sources */,
 				9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */,
+				9CCF1B3B29A635F900A64C77 /* NVSettings.swift in Sources */,
+				9CE9F4FA299C502B0015886D /* NVDropDownProjection.swift in Sources */,
 				9CA24CCE2985B9F700A394B4 /* SetupDraftView.swift in Sources */,
 				9C73D0912996DC64007C251F /* ModifyStatsView.swift in Sources */,
 				9C1AE3A42981F29D0016BF50 /* Position.swift in Sources */,
 				9C75B9EA296FD215003B35E6 /* ExtView.swift in Sources */,
+				9C7CC795299DD4D800A95170 /* NVDraftPlayerDetail.swift in Sources */,
+				9CB997C829A32D79008CAFAF /* LoadingDraft.swift in Sources */,
 				9CA24CC82985B83800A394B4 /* DraftTeam.swift in Sources */,
 				9CA24CD929889B1400A394B4 /* SelectPositionsHScroll.swift in Sources */,
+				9CE9F503299C5D700015886D /* NVPlayerDetail.swift in Sources */,
+				9C82187429A6E03F007DA5D2 /* NVDownloadBatters.swift in Sources */,
 				9CA24CE62989E81400A394B4 /* Stack.swift in Sources */,
 				9C73D08D2995C801007C251F /* SimulateRemainingDraftView.swift in Sources */,
+				9C2C8D9F29A94E3400626232 /* NVPicksSection.swift in Sources */,
 				9CA24CBA29851A9900A394B4 /* AllParsedBatters.swift in Sources */,
 				9CC80288298D86CF005B438D /* StrongestAtEachPositionView.swift in Sources */,
+				9CE9F4FF299C56440015886D /* NVAllPlayersRow.swift in Sources */,
+				9CE9F511299C9F400015886D /* NVPreviousPickRect.swift in Sources */,
 				9C75B9EE296FD215003B35E6 /* ExtColor.swift in Sources */,
+				9C2C8DA729AA850B00626232 /* ExtendedPitcher.swift in Sources */,
 				9CA24CC62985B83200A394B4 /* Draft.swift in Sources */,
+				9CE9F506299C88320015886D /* RectPieChart.swift in Sources */,
 				9CA24CD729865F5D00A394B4 /* DraftSummaryView.swift in Sources */,
+				9C2C8DBA29AA872100626232 /* ParsedPitcher.swift in Sources */,
+				9C762DEC29A1D67700C3B804 /* NVDraftPlayerView.swift in Sources */,
 				9C75B9EF296FD215003B35E6 /* ExtText.swift in Sources */,
+				9CE9F513299CA5C00015886D /* NVCurrentPickRect.swift in Sources */,
+				9C762E2E29A2133200C3B804 /* NVDraftSummary.swift in Sources */,
 				9CC8028B298E3785005B438D /* BestPick.swift in Sources */,
 				9C0C9D122974CC460069703D /* EditDoubleView.swift in Sources */,
 				9C1AE398297FA0A20016BF50 /* ScoringSettings.swift in Sources */,
 				9CA24CAE2985181A00A394B4 /* ExtArray.swift in Sources */,
 				9CA24CA8298394EB00A394B4 /* ParsedBatter.swift in Sources */,
 				9C75B9BA296F590F003B35E6 /* OldJSONView.swift in Sources */,
+				9CE9F50E299C9ED80015886D /* NVDraft.swift in Sources */,
 				9CA24CD32985BD2200A394B4 /* SetUpDraftTeamsView.swift in Sources */,
 				9C73D09329970BD8007C251F /* SettingsView.swift in Sources */,
 				9C33F7FA29838BCD0038A938 /* JSONBatter.swift in Sources */,
@@ -729,25 +1120,32 @@
 				9CA24CBD29851C2C00A394B4 /* DraftView.swift in Sources */,
 				9C75B9CE296FD174003B35E6 /* BatterDetailView.swift in Sources */,
 				9C75B9ED296FD215003B35E6 /* ExtInt.swift in Sources */,
+				9CE9F501299C5A4A0015886D /* NVSortByDropDown.swift in Sources */,
 				9CA24CAC29850FE000A394B4 /* ContentView.swift in Sources */,
 				9C75B9C8296F8C7E003B35E6 /* Batter.swift in Sources */,
 				9C75B9B8296F590F003B35E6 /* FantasyDraftToolApp.swift in Sources */,
 				9CA24CB629851A5300A394B4 /* Projection.swift in Sources */,
+				9C762DEE29A1FED100C3B804 /* ExtendedBatter.swift in Sources */,
 				9CE9F4F4299B723B0015886D /* CreateModifiedPlayerView.swift in Sources */,
 				9C1AE39E29807C290016BF50 /* StandardNaming.swift in Sources */,
 				9CA24CC42985B7F100A394B4 /* DraftPlayer.swift in Sources */,
+				9C2C8DA129A99C0500626232 /* SmallComponents.swift in Sources */,
 				9CA24CB429851A0800A394B4 /* All Batters.swift in Sources */,
 				9C3B7025298B2C3400A1B42C /* PlayerPool.swift in Sources */,
+				9CE9F4FC299C54BC0015886D /* NVDropDownPosition.swift in Sources */,
 				9CA24CCB2985B8F500A394B4 /* DraftSettings.swift in Sources */,
 				9CC80286298CCD83005B438D /* MyStatsPlayers.swift in Sources */,
 				9C75B9EB296FD215003B35E6 /* CoreDataExtensions.swift in Sources */,
+				9C2C8DA329AA81B700626232 /* StatsManager.swift in Sources */,
 				9CA24CB2298519E100A394B4 /* ProjectionTypes.swift in Sources */,
 				9CA24CB829851A7600A394B4 /* AverageStats.swift in Sources */,
 				9CC80284298C7524005B438D /* UserDefaults.swift in Sources */,
+				9CE9F4F7299C4F420015886D /* NVAllPlayers.swift in Sources */,
 				9C75B9F0296FD215003B35E6 /* ExtStr.swift in Sources */,
 				9CA24CAA2983A43500A394B4 /* ParsedBatterDetailView.swift in Sources */,
 				9C75B9EC296FD215003B35E6 /* ExtDouble.swift in Sources */,
 				9C1AE39C29804D4A0016BF50 /* ScoringSettingsView.swift in Sources */,
+				9C8643A829A1BB8300067B1A /* NVMyTeamQuickView.swift in Sources */,
 				9CA24CE02988F57600A394B4 /* SelectProjectionTypeHScroll.swift in Sources */,
 				9C75B9E9296FD215003B35E6 /* ExtDate.swift in Sources */,
 				9CA24CDC2988F4FB00A394B4 /* PositionAnalysisView.swift in Sources */,
@@ -882,6 +1280,7 @@
 				DEVELOPMENT_TEAM = KR268MWQL4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FantasyDraftTool/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -911,6 +1310,7 @@
 				DEVELOPMENT_TEAM = KR268MWQL4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FantasyDraftTool/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -951,6 +1351,45 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9C82187729A6E34F007DA5D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9C82187829A6E34F007DA5D2 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9C82187729A6E34F007DA5D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		9C82187A29A6E34F007DA5D2 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9C82187729A6E34F007DA5D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		9C82187C29A6E34F007DA5D2 /* FirebaseDatabaseSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9C82187729A6E34F007DA5D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabaseSwift;
+		};
+		9C82187E29A6E34F007DA5D2 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9C82187729A6E34F007DA5D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		9C82188029A6E34F007DA5D2 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9C82187729A6E34F007DA5D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9C75B9AC296F590F003B35E6 /* Project object */;
 }

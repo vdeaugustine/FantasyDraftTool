@@ -14,9 +14,10 @@ struct DraftView: View {
     @EnvironmentObject private var model: MainModel
 
     var sortedBatters: [ParsedBatter] {
-        model.draft.playerPool.batters.removingDuplicates().sorted {
-            $0.zScore() > $1.zScore()
-        }
+        model.draft.playerPool.storedBatters.batters(for: model.draft.projectionCurrentlyUsing)
+//        model.draft.playerPool.batters.removingDuplicates().sorted {
+//            $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft)
+//        }
     }
 
     var allPicksDone: Bool {
@@ -90,7 +91,7 @@ struct DraftView: View {
                         makePick(player: batter)
                     } label: {
                         Text(batter.name)
-                            .spacedOut(text: batter.zScore().roundTo(places: 3).str)
+                            .spacedOut(text: batter.zScore(draft: model.draft).roundTo(places: 3).str)
                     }
                 }
             }
@@ -98,7 +99,7 @@ struct DraftView: View {
         .onAppear {
             UserDefaults.isCurrentlyInDraft = true
             model.draft.playerPool.setPositionsOrder()
-            model.draft.playerPool.updateDicts()
+//            model.draft.playerPool.storedBatters
         }
         .conditionalModifier(model.draft.totalPickNumber >= (model.draft.settings.numberOfTeams * model.draft.settings.numberOfRounds)) { selfView in
             selfView
@@ -147,9 +148,6 @@ struct DraftView: View {
 
         model.draft.makePick(draftPlayer)
         model.save()
-
-        print(draftPlayer.id)
-        print("Pool contains: \(model.draft.playerPool.batters.count) players")
     }
 }
 

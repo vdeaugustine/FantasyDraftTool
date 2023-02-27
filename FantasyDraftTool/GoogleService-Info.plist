@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>11655702728-rnf0vst7k6eu5rl37fttlcu0t2opd3vl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.11655702728-rnf0vst7k6eu5rl37fttlcu0t2opd3vl</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC_1vx6wvkWDWoilaQ7P1vEJyKuJ-wxfWo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>11655702728</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>vin.FantasyDraftTool</string>
+	<key>PROJECT_ID</key>
+	<string>fantasydrafttool</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fantasydrafttool.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:11655702728:ios:b15c316259b35701af5dfd</string>
+	<key>DATABASE_URL</key>
+	<string>https://fantasydrafttool-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

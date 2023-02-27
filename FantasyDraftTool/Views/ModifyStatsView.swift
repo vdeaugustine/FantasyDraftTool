@@ -37,15 +37,15 @@ struct ModifyStatsView: View {
         
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(ProjectionTypes.arr.indices, id: \.self) { thisProjIndex in
+                ForEach(ProjectionTypes.batterArr.indices, id: \.self) { thisProjIndex in
                     VStack {
-                        Text( ProjectionTypes.arr[thisProjIndex].title)
+                        Text( ProjectionTypes.batterArr[thisProjIndex].title)
                         
-                        if let val = AllParsedBatters.batterVariants(for: myParsedBatter)[thisProjIndex].dict[stat] as? Double {
-                            Text(val.str)
-                        } else if let val = AllParsedBatters.batterVariants(for: myParsedBatter)[thisProjIndex].dict[stat] as? Int {
-                            Text(val.str)
-                        }
+//                        if let val = AllExtendedBatters.batterVariants(for: myParsedBatter, limit: UserDefaults.positionLimit)[thisProjIndex].dict[stat] as? Double {
+//                            Text(val.str)
+//                        } else if let val = AllExtendedBatters.batterVariants(for: myParsedBatter, limit: UserDefaults.positionLimit)[thisProjIndex].dict[stat] as? Int {
+//                            Text(val.str)
+//                        }
                         
                         
                     }
@@ -63,7 +63,7 @@ struct ModifyStatsView: View {
 
 struct ModifyStatsView_Previews: PreviewProvider {
     static var previews: some View {
-        ModifyStatsView(batter: AllParsedBatters.atc.firstBase.first!)
+        ModifyStatsView(batter: AllExtendedBatters.atc.firstBase.first!)
             .environmentObject(MainModel.shared)
             .putInNavView(displayMode: .inline)
     }

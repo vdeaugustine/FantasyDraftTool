@@ -48,7 +48,7 @@ struct SetupDraftView: View {
 
             Section {
                 Button {
-                    model.navPathForDrafting.append(.setUpTeams)
+//                    model.navPathForDrafting.append(.setUpTeams)
                 } label: {
                     Text("Proceed to set up teams")
                         .foregroundColor(.blue)

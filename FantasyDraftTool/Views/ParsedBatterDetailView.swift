@@ -22,7 +22,7 @@ struct ParsedBatterDetailView: View {
     @State private var myModifiedBatter: ParsedBatter = .nullBatter
 
     var thisBat: ParsedBatter? {
-        AllParsedBatters.batters(for: projection).first(where: { $0.name == batter.name })
+        AllExtendedBatters.batters(for: projection, limit: UserDefaults.positionLimit).first(where: { $0.name == batter.name })
     }
 
     var body: some View {
@@ -70,7 +70,7 @@ struct ParsedBatterDetailView: View {
                             ForEach(AverageStats.arr) { stat in
                                 StatRect(stat: stat.str, value: AverageStats.average(stat: stat, for: position, projectionType: projection))
                             }
-                            StatRect(stat: "Points", value: ParsedBatter.averagePoints(forThese: AllParsedBatters.batters(for: projection).filter { $0.positions.contains(position) }))
+                            StatRect(stat: "Points", value: ParsedBatter.averagePoints(forThese: AllExtendedBatters.batters(for: projection, limit: UserDefaults.positionLimit).filter { $0.positions.contains(position) }))
                         }
                     }
                     .listRowBackground(Color.clear)
@@ -86,7 +86,7 @@ struct ParsedBatterDetailView: View {
                             BarMark(x: .value(position.str.uppercased(),
                                               "Average " + position.str.uppercased()),
                                     y: .value("Fantasy Points",
-                                              ParsedBatter.averagePoints(forThese: AllParsedBatters.batters(for: projection).filter { $0.positions.contains(position) })))
+                                              ParsedBatter.averagePoints(forThese: AllExtendedBatters.batters(for: projection, limit: UserDefaults.positionLimit).filter { $0.positions.contains(position) })))
                         }
                     }
                     .padding()
@@ -172,7 +172,7 @@ struct StatRect: View {
 
 struct ParsedBatterDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ParsedBatterDetailView(batter: AllParsedBatters.theBat.all[3])
+        ParsedBatterDetailView(batter: AllExtendedBatters.theBat.all[3])
             .environmentObject(MainModel.shared)
             .putInNavView()
     }

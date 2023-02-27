@@ -14,10 +14,7 @@ struct RecommendedPlayerView: View {
     let bestPick: BestPick
     var numberOnePlayer: ParsedBatter { bestPick.topPlayer }
     var nextBestOption: ParsedBatter? {
-        guard let posArray = bestPick.draftState.playerPool.battersDict[numberOnePlayer.positions.first!] else {
-            return nil
-        }
-        return posArray[1]
+        bestPick.draftState.playerPool.batters(for: numberOnePlayer.positions, projection: model.draft.projectionCurrentlyUsing, draft: model.draft).first
     }
     var body: some View {
         List {

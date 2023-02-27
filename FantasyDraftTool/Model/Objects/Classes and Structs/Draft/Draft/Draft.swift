@@ -26,6 +26,23 @@ struct Draft: Codable, Hashable, Equatable {
     var totalPicksMade: Int = 1
     var projectedStack: Stack<DraftPlayer> = .init()
 
+    var shouldEnd: Bool = false
+
+    var myStarBatters: Set<ParsedBatter> = []
+    var myStarPitchers: Set<ParsedPitcher> = []
+    var myStarPlayers: [any ParsedPlayer] { Array(myStarBatters) + Array(myStarPitchers) }
+
+    var projectionCurrentlyUsing: ProjectionTypes = .steamer
+
+    var previousTeam: DraftTeam? {
+        pickStack.getArray().first?.draftedTeam
+    }
+
+    var draftOver: Bool {
+        let pickLimit = settings.numberOfRounds * settings.numberOfTeams
+        return currentPickNumber >= pickLimit
+    }
+
     /// This should be = teamPickOrder - 1
     var myTeamIndex: Int
 
@@ -38,20 +55,16 @@ struct Draft: Codable, Hashable, Equatable {
     }
 
     // MARK: - Mutating functions
-    
-    mutating func removeFromPool(player: DraftPlayer) {
-        for position in player.player.positions {
-            if var previousArray = playerPool.battersDict[position] {
-                let prevArrCheck = previousArray
-                previousArray.removeAll(where: { $0 == player.player })
-                guard prevArrCheck != previousArray else {
-                    return
-                }
 
-                playerPool.battersDict[position] = previousArray
-            }
+    /// This is a mutating function that removes a player from the playerPool object based on their positions.
+    mutating func removeFromPool(player: DraftPlayer) {
+        // Loop through each position the player has.
+        for position in player.player.positions {
+            self.playerPool.storedBatters.remove(player.player, from: player.player.projectionType)
         }
-        playerPool.updateDicts(for: player.player.positions)
+
+//        // Update the playerPool dictionaries with the updated list of players for each position.
+//        playerPool.updateDicts(for: player.player.positions)
     }
 
     mutating func changeCurrentTeam(to team: DraftTeam) {
@@ -67,14 +80,29 @@ struct Draft: Codable, Hashable, Equatable {
     }
 
     mutating func changeCurrentIndex() {
+        // Set the currentIndex to the total number of picks made minus 1.
         currentIndex = totalPicksMade - 1
+
+        // Calculate the current round number based on the total number of picks made and the number of teams.
         let roundNumber: Int = Int(floor(Double(totalPicksMade) / Double(teams.count)) + 1)
+
+        // Determine whether the draft is currently going up or down the list of teams.
         let goingUp: Bool = roundNumber % 2 != 0
+
+        // Get the total number of teams.
         let numberOfTeams: Int = teams.count
+
+        // Calculate the pick number for the current round.
         let pickNumber = goingUp ? totalPicksMade % numberOfTeams + 1 : numberOfTeams - totalPicksMade % numberOfTeams
+
+        // Print the total number of picks made, the current round number, and the current pick number.
         print("total pick:", totalPicksMade, "round: ", roundNumber, "pick", pickNumber)
+
+        // Set the currentIndex to the index of the team that is currently picking.
         currentIndex = pickNumber - 1
-        print("team: ", teams[pickNumber - 1])
+
+        // Print the name of the team that is currently picking.
+//        print("team: ", teams[pickNumber - 1])
     }
 
     mutating func makePick(_ player: DraftPlayer) {
@@ -85,6 +113,10 @@ struct Draft: Codable, Hashable, Equatable {
         teams[currentIndex].draftedPlayers.append(player)
         setNextTeam()
         playerPool.setPositionsOrder()
+    }
+
+    mutating func makePick(_ player: ParsedBatter) {
+        makePick(.init(player: player, draft: self))
     }
 
     mutating func undoPick() {
@@ -98,13 +130,12 @@ struct Draft: Codable, Hashable, Equatable {
         playerPool.setPositionsOrder()
     }
 
-
     mutating func insertIntoPool(player: DraftPlayer) {
         for position in player.player.positions {
-            playerPool.battersDict[position]?.append(player.player)
-            playerPool.updateDicts(for: [position])
+            playerPool.storedBatters.add(player.player, to: player.player.projectionType, for: position)
+//            playerPool.battersDict[position]?.append(player.player)
+//            playerPool.updateDicts(for: [position])
         }
-        
     }
 
     mutating func setNextTeam() {
@@ -138,9 +169,6 @@ struct Draft: Codable, Hashable, Equatable {
                                                    scoringSystem: .defaultPoints),
                                    myTeamIndex: 0)
 
-
-    
-
     // MARK: - Calculating Methods / Calculations
 
     func strongestTeam(for position: Position) -> DraftTeam {
@@ -166,6 +194,37 @@ struct Draft: Codable, Hashable, Equatable {
         return (sum / Double(batters.count)).roundTo(places: 1)
     }
 
+    func isStar(_ player: ParsedPlayer) -> Bool {
+        myStarPlayers.contains(where: { $0.name == player.name })
+    }
+
+    mutating func addOrRemoveStar(_ player: ParsedPlayer) {
+        
+        
+        if isStar(player) {
+            removeStar(player)
+        } else {
+            if let batter = player as? ParsedBatter {
+                myStarBatters.insert(batter)
+            }
+            if let pitcher = player as? ParsedPitcher {
+                myStarPitchers.insert(pitcher)
+            }
+        }
+       
+    }
+
+    mutating func removeStar(_ player: ParsedPlayer) {
+        
+        if let batter = player as? ParsedBatter {
+            myStarBatters.remove(batter)
+        }
+        if let pitcher = player as? ParsedPitcher {
+            myStarPitchers.remove(pitcher)
+        }
+        
+    }
+
     // MARK: - Initializers
 
     init(from decoder: Decoder) throws {
@@ -178,6 +237,9 @@ struct Draft: Codable, Hashable, Equatable {
         self.playerPool = try values.decode(PlayerPool.self, forKey: .playerPool)
         self.pickStack = try values.decode(Stack<DraftPlayer>.self, forKey: .pickStack)
         self.myTeamIndex = try values.decode(Int.self, forKey: .myTeamIndex)
+        self.myStarBatters = try values.decode(Set<ParsedBatter>.self, forKey: .myStarBatters)
+        self.myStarPitchers = try values.decode(Set<ParsedPitcher>.self, forKey: .myStarPitchers)
+        print("Stars: ", myStarPlayers)
     }
 
     init(teams: [DraftTeam], currentPickNumber: Int = 0, settings: DraftSettings, myTeamIndex: Int = 0) {
@@ -202,6 +264,8 @@ extension Draft {
         case playerPool
         case pickStack
         case myTeamIndex
+        case myStarPlayers
+        case myStarBatters, myStarPitchers
     }
 
     func encode(to encoder: Encoder) throws {
@@ -232,36 +296,136 @@ extension Draft {
 }
 
 extension Draft {
-    
-    
     func simulateRemainingDraft() -> Stack<DraftPlayer> {
         var workingDraft: Draft = self
-        
+
         while workingDraft.totalPicksMade <= workingDraft.settings.numberOfRounds * workingDraft.settings.numberOfTeams {
-            
-            let sortedBatters = workingDraft.playerPool.batters.removingDuplicates().sorted(by: {$0.zScore() > $1.zScore()})
-            
-            
+//            let sortedBatters = workingDraft.playerPool.batters.removingDuplicates().sorted(by: { $0.zScore(draft: workingDraft) > $1.zScore(draft: workingDraft) })
+            let sortedBatters = workingDraft.playerPool.storedBatters.batters(for: workingDraft.projectionCurrentlyUsing).sortedByZscore(draft: workingDraft)
+
             guard let chosenPlayer: ParsedBatter = sortedBatters.first else {
                 break
             }
-            
+
             let draftPlayer = DraftPlayer(player: chosenPlayer,
                                           pickNumber: workingDraft.totalPickNumber,
                                           team: workingDraft.currentTeam,
-                                          weightedScore: chosenPlayer.zScore())
+                                          weightedScore: chosenPlayer.zScore(draft: workingDraft))
             workingDraft.makePick(draftPlayer)
-           
         }
-//        DispatchQueue.main.async {
-//            showSpinning.wrappedValue = false
-//        }
-        
-    
+
         return workingDraft.pickStack
-        
-        
     }
-    
-    
+
+    func simulatePicks(_ numPicks: Int, projection: ProjectionTypes, completion: @escaping (Draft) -> Void ) {
+        var draft = self
+        var picksMade: Int = 0
+
+        while picksMade <= numPicks {
+            if draft.draftOver { break }
+
+            let availableBatters = draft.currentTeam.recommendedBattersDesc(draft: draft, projection: projection)
+
+            if availableBatters.count == 1 {
+                draft.makePick(.init(player: availableBatters[0], draft: draft))
+            } else if availableBatters.count < 1 {
+                break
+            }
+
+            guard let chosenPlayer: ParsedBatter = availableBatters.first else {
+                break
+            }
+
+            draft.makePick(.init(player: chosenPlayer, draft: draft))
+            picksMade += 1
+        }
+        
+        completion(draft)
+    }
+
+    func simulatePicks(_ numPicks: Int, projection: ProjectionTypes, progress: Binding<Double>) -> Draft {
+        var draft = self
+        var picksMade: Int = 0
+
+        while picksMade <= numPicks {
+            if draft.draftOver { break }
+//            print(draft.currentTeam.name + " is up. Their team looks like this")
+//            for position in draft.currentTeam.minForPositions.keys {
+//                print("\(position.str): \(draft.currentTeam.draftedPlayers.filter { $0.has(position: position) })")
+//            }
+
+            let availableBatters = draft.currentTeam.recommendedBattersDesc(draft: draft, projection: projection)
+
+//            print("Next available: ", availableBatters.prefixArray(5))
+
+            if availableBatters.count == 1 {
+                draft.makePick(.init(player: availableBatters[0], draft: draft))
+            } else if availableBatters.count < 1 {
+                break
+            }
+
+            guard let chosenPlayer: ParsedBatter = availableBatters.first else {
+                break
+            }
+
+//            print("Chosen player is \(chosenPlayer)")
+
+            draft.makePick(.init(player: chosenPlayer, draft: draft))
+            picksMade += 1
+
+            let progressMade = Double(picksMade) / Double(numPicks)
+
+            progress.wrappedValue = progressMade < 1 ? progressMade : 1
+//            print("Progress", progress.wrappedValue)
+        }
+
+        return draft
+    }
+
+    static func exampleDraft(picksMade: Int = 30, model: MainModel, projection: ProjectionTypes) -> Draft {
+        let testStart: Date = .now
+
+        var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
+
+        while draft.totalPicksMade <= picksMade {
+//            print(draft.currentTeam.name + " is up. Their team looks like this")
+//            for position in draft.currentTeam.minForPositions.keys {
+//                print("\(position.str): \(draft.currentTeam.draftedPlayers.filter { $0.has(position: position) })")
+//            }
+
+//            let availableBatters = draft.currentTeam.recommendedBattersDesc(draft: draft)
+
+//            print("Next available: ", availableBatters.prefixArray(5))
+
+            guard let chosenPlayer: ParsedBatter = draft.currentTeam.recommendedPlayer(draft: draft, projection: projection) else {
+                break
+            }
+
+//            print("Chosen player is \(chosenPlayer)")
+
+            let draftPlayer = DraftPlayer(player: chosenPlayer,
+                                          pickNumber: draft.totalPickNumber,
+                                          team: draft.currentTeam,
+                                          weightedScore: chosenPlayer.zScore(draft: draft))
+            draft.makePick(draftPlayer)
+            DispatchQueue.global().async {
+//                print("changing load progress from: ", model.draftLoadProgress)
+
+                model.draftLoadProgress = Double(draft.totalPicksMade) / Double(picksMade)
+//                print("changing load progress to: ", model.draftLoadProgress)
+            }
+        }
+
+        DispatchQueue.global().async {
+//            print("changing load progress from: ", model.draftLoadProgress)
+
+            model.draftLoadProgress = 1
+//            print("changing load progress to: ", model.draftLoadProgress)
+        }
+
+        print("time for draft simulation: \(Date.now - testStart)")
+        return draft
+    }
+
+    static let nullDraft: Draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
 }

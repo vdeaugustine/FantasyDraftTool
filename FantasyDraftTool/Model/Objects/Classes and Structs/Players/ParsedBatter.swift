@@ -7,16 +7,30 @@
 
 import Foundation
 
+protocol ParsedPlayer {
+    var name: String { get set }
+    var team: String { get set }
+    
+    var projectionType: ProjectionTypes { get }
+    
+    func zScore(draft: Draft) -> Double
+    func fantasyPoints(_ scoringSettings: ScoringSettings) -> Double
+}
+
 // MARK: - ParsedBatter
 
-struct ParsedBatter: Hashable, Codable, Identifiable {
+struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, ParsedPlayer {
     // MARK: Stored Properties
 
     var empty, name, team: String
     var g, ab, pa, h, the1B, the2B, the3B, hr, r, rbi, bb, ibb, so, hbp, sf, sh, sb, cs: Int
     var avg: Double
     let positions: [Position]
-    var projectionType: ProjectionTypes
+    let projectionType: ProjectionTypes
+
+    var description: String {
+        name + " \(projectionType.title)"
+    }
 
     // MARK: Computed properties
 
@@ -80,7 +94,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
     // MARK: - Mutating Methods
 
     mutating func edit(_ stat: String, with newValue: Int) {
-        print("editing: \(stat) from \(self.dict[stat] as! Int) with \(newValue)")
+//        print("editing: \(stat) from \(dict[stat] as! Int) with \(newValue)")
         switch stat {
             case "G":
                 g = newValue
@@ -129,13 +143,14 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
         fantasyPoints(MainModel.shared.getScoringSettings()) / positionAverage * fantasyPoints(MainModel.shared.getScoringSettings())
     }
 
-    func zScore() -> Double {
-        guard let firstPost = positions.first,
-              let average = MainModel.shared.draft.playerPool.positionAveragesDict[firstPost],
-              let playersAtPosition = MainModel.shared.draft.playerPool.battersDict[firstPost]
-        else { return (0 - .infinity) }
+    func zScore(draft: Draft) -> Double {
+        guard let firstPos = positions.first else {
+            return (0 - .infinity)
+        }
+        let average = draft.playerPool.storedBatters.average(for: self.projectionType, at: firstPos)
+        let stdDev = draft.playerPool.storedBatters.stdDev(for: self.projectionType, at: firstPos)
 
-        let zScore = (fantasyPoints(MainModel.shared.getScoringSettings()) - average) / playersAtPosition.standardDeviation(for: firstPost)
+        let zScore = (fantasyPoints(draft.settings.scoringSystem) - average) / stdDev
 
         return zScore
     }
@@ -160,6 +175,10 @@ struct ParsedBatter: Hashable, Codable, Identifiable {
     static func averagePoints(forThese batters: [ParsedBatter]) -> Double {
         guard !batters.isEmpty else { return 0 }
         return (batters.reduce(Double(0)) { $0 + $1.fantasyPoints(ScoringSettings.defaultPoints) } / Double(batters.count)).roundTo(places: 1)
+    }
+
+    func has(position: Position) -> Bool {
+        positions.contains(position)
     }
 }
 
@@ -191,6 +210,36 @@ extension ParsedBatter {
         self.cs = Int(jsonBatter.cs) ?? 0
 
         self.avg = Double("0" + jsonBatter.avg) ?? 0
+
+        self.positions = [pos]
+
+        self.projectionType = projectionType
+    }
+
+    init(from jsonBatter: ExtendedBatter, pos: Position, projectionType: ProjectionTypes) {
+        self.empty = ""
+        self.name = jsonBatter.playerName ?? "NA"
+        self.team = jsonBatter.team ?? "NA"
+        self.g = Int(jsonBatter.g ?? -99)
+        self.ab = Int(jsonBatter.ab ?? -99)
+        self.pa = Int(jsonBatter.pa ?? -99)
+        self.h = Int(jsonBatter.h ?? -99)
+        self.the1B = Int(jsonBatter.the1B ?? -99)
+        self.the2B = Int(jsonBatter.the2B ?? -99)
+        self.the3B = Int(jsonBatter.the3B ?? -99)
+        self.hr = Int(jsonBatter.hr ?? -99)
+        self.r = Int(jsonBatter.r ?? -99)
+        self.rbi = Int(jsonBatter.rbi ?? -99)
+        self.bb = Int(jsonBatter.bb ?? -99)
+        self.ibb = Int(jsonBatter.ibb ?? -99)
+        self.so = Int(jsonBatter.so ?? -99)
+        self.hbp = Int(jsonBatter.hbp ?? -99)
+        self.sf = Int(jsonBatter.sf ?? -99)
+        self.sh = Int(jsonBatter.sh ?? -99)
+        self.sb = Int(jsonBatter.sb ?? -99)
+        self.cs = Int(jsonBatter.cs ?? -99)
+
+        self.avg = Double("0" + (jsonBatter.avg?.str ?? "")) ?? 0
 
         self.positions = [pos]
 
@@ -231,6 +280,19 @@ extension ParsedBatter {
 // MARK: - Functions
 
 extension ParsedBatter {
+    func similarPlayers(_ numberOfPlayers: Int, for position: Position, and projection: ProjectionTypes) -> [ParsedBatter] {
+        let preSortedBatters = AllExtendedBatters.batters(for: projection, at: position, limit: UserDefaults.positionLimit).sortedByPoints
+        let selfPoints = fantasyPoints(MainModel.shared.scoringSettings)
+        let sortedBatters = preSortedBatters.sorted { firstBatter, secondBatter in
+
+            let firstDifference = abs(selfPoints - firstBatter.fantasyPoints(MainModel.shared.scoringSettings))
+            let secondDifference = abs(selfPoints - secondBatter.fantasyPoints(MainModel.shared.scoringSettings))
+
+            return firstDifference > secondDifference
+        }
+
+        return sortedBatters.prefixArray(numberOfPlayers)
+    }
 }
 
 // MARK: Codable, Hashable, Equatable
@@ -279,7 +341,7 @@ extension ParsedBatter {
     static func == (lhs: ParsedBatter, rhs: ParsedBatter) -> Bool {
         return
             lhs.name.removingWhiteSpaces() == rhs.name.removingWhiteSpaces() &&
-            lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces() &&
-            lhs.projectionType == rhs.projectionType
+            lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces()
+        && lhs.projectionType == rhs.projectionType
     }
 }

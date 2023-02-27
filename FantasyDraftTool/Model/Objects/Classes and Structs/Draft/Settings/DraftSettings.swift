@@ -16,6 +16,13 @@ struct DraftSettings: Codable, Equatable, Hashable {
     var rosterRequirements: RosterRequirements = .init()
     
     
+    static let defaultSettings: DraftSettings = .init(
+        numberOfTeams: 10,
+        snakeDraft: true,
+        numberOfRounds: 25,
+        scoringSystem: .defaultPoints
+    )
+    
 }
 
 struct RosterRequirements: Codable, Equatable, Hashable {

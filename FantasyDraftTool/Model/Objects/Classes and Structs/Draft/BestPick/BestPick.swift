@@ -15,7 +15,7 @@ struct BestPick: Codable, Equatable, Hashable {
         var theseBatters: [ParsedBatter] = []
         
         for position in positionsNotFilled {
-            theseBatters += draftState.playerPool.batters.filter(for: position)
+            theseBatters += draftState.playerPool.storedBatters.batters(for: draftState.projectionCurrentlyUsing, at: position)
         }
         
         theseBatters.sort { firstBatter, secondBatter in
@@ -39,11 +39,12 @@ struct BestPick: Codable, Equatable, Hashable {
     }
 
     func getTopPlayers(number: Int = 1) -> [ParsedBatter] {
-        Array(draftState.playerPool.batters.sortedByPoints.prefix(number))
+        let players = draftState.playerPool.storedBatters.batters(for: draftState.projectionCurrentlyUsing)
+        return players.sortedByZscore(draft: draftState).prefixArray(number)
     }
     
     var topPlayer: ParsedBatter {
-        getTopPlayers(number: 1).first ?? draftState.playerPool.batters[0]
+        getTopPlayers(number: 1).first ?? draftState.playerPool.storedBatters.batters(for: draftState.projectionCurrentlyUsing)[0]
     }
     
     

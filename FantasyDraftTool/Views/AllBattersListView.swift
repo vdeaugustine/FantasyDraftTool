@@ -15,11 +15,11 @@ struct AllBattersListView: View {
 
     var batters: [ParsedBatter] {
         if selectedPositions.isEmpty {
-            return AllParsedBatters.batters(for: projection).removingDuplicates().sorted(by: { $0.fantasyPoints(MainModel.shared.getScoringSettings()) > $1.fantasyPoints(MainModel.shared.getScoringSettings()) })
+            return AllExtendedBatters.batters(for: projection, limit: 50).removingDuplicates().sorted(by: { $0.fantasyPoints(MainModel.shared.getScoringSettings()) > $1.fantasyPoints(MainModel.shared.getScoringSettings()) })
         }
 
         return selectedPositions.reduce([ParsedBatter]()) { partialResult, pos in
-            partialResult + AllParsedBatters.batters(for: projection, at: pos)
+            partialResult + AllExtendedBatters.batters(for: projection, at: pos, limit: 50)
         }
         .removingDuplicates()
         .sorted(by: { $0.fantasyPoints(MainModel.shared.getScoringSettings()) > $1.fantasyPoints(MainModel.shared.getScoringSettings()) })

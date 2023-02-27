@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - MainModel
 
@@ -14,21 +15,22 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     @Published var scoringSettings: ScoringSettings = .defaultPoints
 
-    @Published var draft: Draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10),
-                                        currentPickNumber: 1,
-                                        settings: .init(numberOfTeams: 10,
-                                                        snakeDraft: true,
-                                                        numberOfRounds: 25,
-                                                        scoringSystem: .defaultPoints),
-                                        myTeamIndex: 10)
+    @Published var draft: Draft = .nullDraft
 
-    @Published var navPathForDrafting: [DraftPath] = []
+    @Published var navPathForDrafting: NavigationPath = .init()
 
     @Published var myStatsPlayers: MyStatsPlayers = .init()
 
     @Published var myModifiedBatters: Set<ParsedBatter> = []
 
     @Published var defaultProjectionSystem: ProjectionTypes = .atc
+
+    @Published var draftLoadProgress: Double = 0
+
+    @Published var limitForEachPosition: Int = 50
+
+//    @Published var positionLimit: Int = 50
+//    @Published var outfieldLimit: Int = 150
 
     // MARK: - Stored Properties
 
@@ -102,7 +104,6 @@ extension MainModel {
             lhs.draft == rhs.draft &&
             lhs.myStatsPlayers == rhs.myStatsPlayers &&
             lhs.defaultProjectionSystem == rhs.defaultProjectionSystem
-        
     }
 
     static func load() -> MainModel? {
@@ -123,6 +124,7 @@ extension MainModel {
         do {
             let data = try encoder.encode(self)
             UserDefaults.standard.set(data, forKey: Self.key)
+            print(data)
         } catch {
             print(error)
         }

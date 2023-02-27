@@ -48,12 +48,33 @@ enum ProjectionTypes: String, CaseIterable, Codable {
         }
     }
 
-    static let arr: [ProjectionTypes] = [.steamer, .thebat, .thebatx, .atc, .depthCharts]
+    static let batterArr: [ProjectionTypes] = [.steamer, .thebat, .thebatx, .atc, .depthCharts]
     static let allArr: [ProjectionTypes] = [.steamer, .thebat, .thebatx, .atc, .depthCharts, .myProjections]
+    static let pitcherArr: [ProjectionTypes] = [.steamer, .thebat, .atc, .depthCharts]
 
     var jsonFile: String { "\(rawValue)Standard" }
     
-    func jsonFileName(position: Position) -> String {
+    var extendedFile: String { "Extended" + jsonFile }
+    
+    func extendedFileName(position: Position) -> String {
+        "Extended" + jsonBatterFileName(position: position)
+    }
+    
+    func extendedFileName(pitcherType: PitcherType) -> String {
+        "Extended" + jsonPitcherFileName(type: pitcherType)
+    }
+    
+    func jsonBatterFileName(position: Position) -> String {
         position.str + "Bat" + self.str + "Standard"
+    }
+    
+    func jsonPitcherFileName(type: PitcherType) -> String {
+        switch type {
+        case .starter:
+            return "Sta" + self.str + "Standard"
+        case .reliever:
+            return "Rel" + self.str + "Standard"
+        }
+        
     }
 }
