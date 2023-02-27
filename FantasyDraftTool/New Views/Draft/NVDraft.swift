@@ -33,26 +33,36 @@ struct NVDraft: View {
 
         return model.draft.playerPool.batters(for: Position.batters, projection: projection)
     }
-
-    var sortedPlayers: [ParsedBatter] {
-        let retArr: [ParsedBatter]
-        switch sortOptionSelected {
-            case .points:
-                retArr = filteredPlayers.sorted { $0.fantasyPoints(model.scoringSettings) > $1.fantasyPoints(model.scoringSettings) }
-            case .score:
-                retArr = filteredPlayers.sorted { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) }
-            case .hr:
-                retArr = filteredPlayers.sorted { $0.hr > $1.hr }
-            case .rbi:
-                retArr = filteredPlayers.sorted { $0.rbi > $1.rbi }
-            case .r:
-                retArr = filteredPlayers.sorted { $0.r > $1.r }
-            case .sb:
-                retArr = filteredPlayers.sorted { $0.sb > $1.sb }
-        }
-
-        return retArr
+    
+    var pitchersAndBatters: [any ParsedPlayer] {
+        let filtered = filteredPlayers
+        let pitchers = model.draft.playerPool.storedPitchers.pitchers(for: projection)
+        let before = model.draft.playerPool.allStoredPlayers(projection: projection)
+        let sorted = before.sorted(by: {$0.zScore(draft: model.draft) > $1.zScore(draft: model.draft)})
+        
+        return sorted
+        
     }
+
+//    var sortedPlayers: [ParsedBatter] {
+//        let retArr: [ParsedBatter]
+//        switch sortOptionSelected {
+//            case .points:
+//                retArr = filteredPlayers.sorted { $0.fantasyPoints(model.scoringSettings) > $1.fantasyPoints(model.scoringSettings) }
+//            case .score:
+//                retArr = filteredPlayers.sorted { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) }
+//            case .hr:
+//                retArr = filteredPlayers.sorted { $0.hr > $1.hr }
+//            case .rbi:
+//                retArr = filteredPlayers.sorted { $0.rbi > $1.rbi }
+//            case .r:
+//                retArr = filteredPlayers.sorted { $0.r > $1.r }
+//            case .sb:
+//                retArr = filteredPlayers.sorted { $0.sb > $1.sb }
+//        }
+//
+//        return retArr
+//    }
 
     func bullet(_ text: String, color: Color? = nil) -> some View {
         HStack(spacing: 5) {
@@ -71,22 +81,22 @@ struct NVDraft: View {
         }
     }
 
-    func isFav(_ player: ParsedBatter) -> Bool {
-        model.draft.myStarPlayers.contains(player)
-    }
+//    func isFav(_ player: ParsedBatter) -> Bool {
+//        model.draft.myStarPlayers.contains(player)
+//    }
 
-    func playerBox(_ player: ParsedBatter) -> some View {
+    func playerBox<T: ParsedPlayer>(_ player: T) -> some View {
         HStack(alignment: .center) {
             VStack(spacing: 10) {
                 Button {
                     model.draft.addOrRemoveStar(player)
                 } label: {
-                    Image(systemName: isFav(player) ? "heart.fill" : "heart")
-                        .foregroundColor(isFav(player) ? Color.red : Color.black)
+                    Image(systemName: model.draft.isStar(player) ? "heart.fill" : "heart")
+                        .foregroundColor(model.draft.isStar(player) ? Color.red : Color.black)
                         .font(.subheadline)
                 }
                 Button {
-                    batterToDraft = player
+//                    batterToDraft = player
                     showDraftConfirmation.toggle()
                 } label: {
                     Image(systemName: "checklist")
@@ -94,7 +104,7 @@ struct NVDraft: View {
                         .font(.subheadline)
                 }
             }.frame(maxHeight: .infinity)
-            NVAllPlayersRow(batter: player)
+            NVAllPlayersRow(player: player)
         }
         .padding(.horizontal)
         .background {
@@ -103,6 +113,8 @@ struct NVDraft: View {
                 .shadow(radius: 0.7)
         }
     }
+    
+    
 
     var body: some View {
         if draftProgress < 1,
@@ -148,15 +160,33 @@ struct NVDraft: View {
                             Text("Available")
 
                             LazyVStack {
-                                ForEach(sortedPlayers, id: \.self) { batter in
-
-                                    Button {
-                                        model.navPathForDrafting.append(batter)
-                                    } label: {
+                                ForEach(pitchersAndBatters.indices, id: \.self) { playerInd in
+                                    
+                                    if let batter = pitchersAndBatters.safeGet(at: playerInd) as? ParsedBatter {
                                         playerBox(batter)
-                                            .padding(.vertical, 1)
+                                        .padding(.vertical, 1)
                                     }
-                                    .buttonStyle(.plain)
+                                    
+                                    if let pitcher = pitchersAndBatters.safeGet(at: playerInd) as? ParsedPitcher {
+                                        playerBox(pitcher)
+                                        .padding(.vertical, 1)
+                                    }
+                                    
+//                                    if let pitcher = pitchersAndBatters.safeGet(at: playerInd) as? ParsedPitcher {
+//
+//                                    }
+                                    
+//                                    if let batter = pitchersAndBatters.safeGet(at: playerInd) as? ParsedBatter {
+//
+//                                    }
+                                    
+//                                    Button {
+//                                        model.navPathForDrafting.append(batter)
+//                                    } label: {
+//                                        playerBox(batter)
+//                                            .padding(.vertical, 1)
+//                                    }
+//                                    .buttonStyle(.plain)
                                 }
                             }
                         }

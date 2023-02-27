@@ -28,7 +28,9 @@ struct Draft: Codable, Hashable, Equatable {
 
     var shouldEnd: Bool = false
 
-    var myStarPlayers: Set<ParsedBatter> = []
+    var myStarBatters: Set<ParsedBatter> = []
+    var myStarPitchers: Set<ParsedPitcher> = []
+    var myStarPlayers: [any ParsedPlayer] { Array(myStarBatters) + Array(myStarPitchers) }
 
     var projectionCurrentlyUsing: ProjectionTypes = .steamer
 
@@ -192,20 +194,35 @@ struct Draft: Codable, Hashable, Equatable {
         return (sum / Double(batters.count)).roundTo(places: 1)
     }
 
-    func isStar(_ player: ParsedBatter) -> Bool {
+    func isStar(_ player: ParsedPlayer) -> Bool {
         myStarPlayers.contains(where: { $0.name == player.name })
     }
 
-    mutating func addOrRemoveStar(_ player: ParsedBatter) {
+    mutating func addOrRemoveStar(_ player: ParsedPlayer) {
+        
+        
         if isStar(player) {
             removeStar(player)
         } else {
-            myStarPlayers.insert(player)
+            if let batter = player as? ParsedBatter {
+                myStarBatters.insert(batter)
+            }
+            if let pitcher = player as? ParsedPitcher {
+                myStarPitchers.insert(pitcher)
+            }
         }
+       
     }
 
-    mutating func removeStar(_ player: ParsedBatter) {
-        myStarPlayers.remove(player)
+    mutating func removeStar(_ player: ParsedPlayer) {
+        
+        if let batter = player as? ParsedBatter {
+            myStarBatters.remove(batter)
+        }
+        if let pitcher = player as? ParsedPitcher {
+            myStarPitchers.remove(pitcher)
+        }
+        
     }
 
     // MARK: - Initializers
@@ -220,7 +237,9 @@ struct Draft: Codable, Hashable, Equatable {
         self.playerPool = try values.decode(PlayerPool.self, forKey: .playerPool)
         self.pickStack = try values.decode(Stack<DraftPlayer>.self, forKey: .pickStack)
         self.myTeamIndex = try values.decode(Int.self, forKey: .myTeamIndex)
-        self.myStarPlayers = try values.decode(Set<ParsedBatter>.self, forKey: .myStarPlayers)
+        self.myStarBatters = try values.decode(Set<ParsedBatter>.self, forKey: .myStarBatters)
+        self.myStarPitchers = try values.decode(Set<ParsedPitcher>.self, forKey: .myStarPitchers)
+        print("Stars: ", myStarPlayers)
     }
 
     init(teams: [DraftTeam], currentPickNumber: Int = 0, settings: DraftSettings, myTeamIndex: Int = 0) {
@@ -246,6 +265,7 @@ extension Draft {
         case pickStack
         case myTeamIndex
         case myStarPlayers
+        case myStarBatters, myStarPitchers
     }
 
     func encode(to encoder: Encoder) throws {
@@ -258,7 +278,6 @@ extension Draft {
         try container.encode(playerPool, forKey: .playerPool)
         try container.encode(pickStack, forKey: .pickStack)
         try container.encode(myTeamIndex, forKey: .myTeamIndex)
-        try container.encode(myStarPlayers, forKey: .myStarPlayers)
     }
 
     static func == (lhs: Draft, rhs: Draft) -> Bool {

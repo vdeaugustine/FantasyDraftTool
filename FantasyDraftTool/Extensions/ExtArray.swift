@@ -76,6 +76,17 @@ extension Array where Element == ParsedBatter {
     }
 }
 
+extension Array where Element == ParsedPitcher {
+    func standardDeviation( scoring: ScoringSettings = .defaultPoints) -> Double {
+        map { $0.fantasyPoints(scoring) }.standardDeviation()
+    }
+    
+    func sortedByZscore(draft: Draft) -> [ParsedPitcher] {
+        let removedDuplicates = removingDuplicates()
+        return removedDuplicates.sorted(by: { $0.zScore(draft: draft) > $1.zScore(draft: draft) })
+    }
+}
+
 
 extension Array where Element == DraftPlayer {
     

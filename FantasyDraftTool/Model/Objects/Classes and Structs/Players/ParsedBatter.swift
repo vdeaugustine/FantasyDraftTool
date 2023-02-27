@@ -7,9 +7,19 @@
 
 import Foundation
 
+protocol ParsedPlayer {
+    var name: String { get set }
+    var team: String { get set }
+    
+    var projectionType: ProjectionTypes { get }
+    
+    func zScore(draft: Draft) -> Double
+    func fantasyPoints(_ scoringSettings: ScoringSettings) -> Double
+}
+
 // MARK: - ParsedBatter
 
-struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible {
+struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, ParsedPlayer {
     // MARK: Stored Properties
 
     var empty, name, team: String

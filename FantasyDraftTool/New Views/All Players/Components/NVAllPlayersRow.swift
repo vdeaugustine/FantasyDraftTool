@@ -9,30 +9,44 @@ import SwiftUI
 
 // MARK: - NVAllPlayersRow
 
-struct NVAllPlayersRow: View {
+struct NVAllPlayersRow<T>: View where T: ParsedPlayer {
     
     @EnvironmentObject private var model: MainModel
     
     
-    let batter: ParsedBatter
+    let player: T
+    
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Text(batter.name)
+                Text(player.name)
                     .fontWeight(.bold)
                 Spacer()
-                Text(batter.fantasyPoints(.defaultPoints).str + " pts")
+                Text(player.fantasyPoints(.defaultPoints).str + " pts")
                     .font(.callout)
             }
             
+            
+            
             HStack {
-                Text(batter.hr.str + " HR")
-                Text(batter.rbi.str + " RBI")
-                Text(batter.r.str + " R")
-                Text(batter.sb.str + " SB")
-                Spacer()
-                Text("score: \(batter.zScore(draft: model.draft).roundTo(places: 1).str)")
+                if let batter = player as? ParsedBatter {
+                    Text(batter.hr.str + " HR")
+                    Text(batter.rbi.str + " RBI")
+                    Text(batter.r.str + " R")
+                    Text(batter.sb.str + " SB")
+                    Spacer()
+                    Text("score: \(batter.zScore(draft: model.draft).roundTo(places: 1).str)")
+                }
+                
+                if let pitcher = player as? ParsedPitcher {
+                    Text(pitcher.ip.str + " IP")
+                    Text(pitcher.w.str + " W")
+                    Text(pitcher.l.str + " L")
+                    Text(pitcher.so.str + " SO")
+                    Spacer()
+                    Text("score: \(pitcher.zScore(draft: model.draft).roundTo(places: 1).str)")
+                }
                 
             }
             .font(.caption)
@@ -46,7 +60,7 @@ struct NVAllPlayersRow: View {
 
 struct NVAllPlayersRow_Previews: PreviewProvider {
     static var previews: some View {
-        NVAllPlayersRow(batter: AllExtendedBatters.batters(for: .atc, at: .first, limit: UserDefaults.positionLimit)[0])
+        NVAllPlayersRow(player: AllExtendedBatters.batters(for: .atc, at: .first, limit: UserDefaults.positionLimit)[0])
             .previewLayout(.sizeThatFits)
             .environmentObject(MainModel.shared)
     }
