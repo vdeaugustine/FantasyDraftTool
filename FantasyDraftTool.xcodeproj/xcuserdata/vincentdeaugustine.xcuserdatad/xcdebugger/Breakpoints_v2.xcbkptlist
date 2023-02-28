@@ -41,38 +41,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F38F2330-90F1-425C-8120-9E2DF68CA49A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/Player Pool/PlayerPool.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "PlayerPool"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B72F1401-208C-4AA4-BD8F-7EC3540CD8D4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/Player Pool/PlayerPool.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
-            landmarkName = "PlayerPool"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "E9D673BC-A55E-450D-8FFF-4B4F5ED9807F"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -80,8 +48,8 @@
             filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/Player Pool/PlayerPool.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "PlayerPool"
             landmarkType = "14">
          </BreakpointContent>
@@ -272,8 +240,8 @@
             filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/Player Pool/PlayerPool.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "764"
-            endingLineNumber = "764"
+            startingLineNumber = "646"
+            endingLineNumber = "646"
             landmarkName = "pitchers(for:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -288,8 +256,8 @@
             filePath = "FantasyDraftTool/New Views/Draft/NVDraft.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
             landmarkName = "updatePlayers()"
             landmarkType = "7">
             <Locations>
@@ -351,8 +319,8 @@
             filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/Player Pool/PlayerPool.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "allStoredPlayers(projection:scoring:batterLimit:pitcherLimit:sort:)"
             landmarkType = "7">
          </BreakpointContent>

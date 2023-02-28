@@ -7,42 +7,18 @@
 
 import Foundation
 
-typealias PitchersByType = [PitcherType: [ParsedPitcher]]
-typealias PitchersByTypeByProjection = [ProjectionTypes: PitchersByType]
+
 
 // MARK: - PlayerPool
 
 struct PlayerPool: Codable, Hashable, Equatable {
     // MARK: - Stored Properties
 
-//    var batters: [ParsedBatter] {
-//        return self.storedBatters
-//        var retArr: [ParsedBatter] = []
-//        for position in Position.batters {
-//            if let battersAtPosition = battersDict[position] {
-//                retArr += battersAtPosition
-//            }
-//        }
-//        return retArr.removingDuplicates()
-//    }
+
 
     var positionsOrder: [Position] = Position.batters
 
-//    var battersDict: [Position: [ParsedBatter]] = {
-//        var retDict: [Position: [ParsedBatter]] = [:]
-//
-//        for position in Position.batters {
-//            var theseBatters: [ParsedBatter] = []
-//            for projectionType in ProjectionTypes.batterArr {
-//                let battersForThisPosition = AllExtendedBatters.batters(for: projectionType, at: position, limit: 50)
-//                theseBatters += battersForThisPosition
-//            }
-//
-//            retDict[position] = theseBatters.sortedByPoints
-//        }
-//
-//        return retDict
-//    }()
+
 
     var storedBatters: StoredBatters
     var storedPitchers: StoredPitchers
@@ -76,61 +52,13 @@ struct PlayerPool: Codable, Hashable, Equatable {
         return sorted
     }
 
-//    func allStoredPlayers(projection: ProjectionTypes) [any ParsedPlayer] {
-    ////        storedBatters.batters(for: projection) + storedPitchers.
-//    }
-
-//    var pitchersDict: [ProjectionTypes]
-
-//    var allPlayers: [ProjectionTypes: Any]
-
-//    var battersByProjection: [ProjectionTypes: [Position: [ParsedBatter]]] = {
-//        var retDict: [ProjectionTypes: [Position: [ParsedBatter]]] = [:]
-//
-//        return retDict
-//
-//
-//    }()
-//
-
-    var pitchersByProjection: PitchersByTypeByProjection = {
-        var retDict: PitchersByTypeByProjection = [:]
-
-        var serializedDict: [String: [String: [ParsedPitcher]]] = [:]
-
-        for projection in ProjectionTypes.pitcherArr {
-            var byType: PitchersByType = [:]
-            let rel = AllExtendedPitchers.relievers(for: projection, limit: 100)
-            let sta = AllExtendedPitchers.starters(for: projection, limit: 100)
-            byType[.starter] = sta
-            byType[.reliever] = rel
-            var firstSerDict: [String: [ParsedPitcher]] = [:]
-            firstSerDict[PitcherType.starter.str] = sta
-            firstSerDict[PitcherType.reliever.str] = rel
-            serializedDict[projection.str] = firstSerDict
-            retDict[projection] = byType
+    func pitchers(types: [PitcherType], projection: ProjectionTypes) async -> [ParsedPitcher] {
+        var retArr: [ParsedPitcher] = []
+        for type in types {
+            retArr += storedPitchers.pitchers(for: projection, at: type)
         }
-
-        func printDictionaryAsJSON(_ dictionary: [String: Any], withIndent indent: Int = 0) {
-            let indentString = String(repeating: " ", count: indent * 4)
-            let comma = (indent > 0) ? "," : ""
-
-            print("{")
-            for (key, value) in dictionary.sorted(by: { $0.key < $1.key }) {
-                if let nestedDictionary = value as? [String: Any] {
-                    print("\(indentString)\"\(key)\":", terminator: " ")
-                    printDictionaryAsJSON(nestedDictionary, withIndent: indent + 1)
-                } else {
-                    let valueString = "\(value)".replacingOccurrences(of: "\"", with: "\\\"")
-                    print("\(indentString)\"\(key)\": \"\(valueString)\"\(comma)")
-                }
-            }
-            print("\(String(repeating: " ", count: (indent - 1) * 4))}")
-        }
-
-        return retDict
-
-    }()
+        return retArr
+    }
 
     func batters(for positions: [Position], projection: ProjectionTypes, draft: Draft = MainModel.shared.draft) -> [ParsedBatter] {
         var retArr = [ParsedBatter]()
@@ -138,104 +66,30 @@ struct PlayerPool: Codable, Hashable, Equatable {
         for position in positions {
             retArr += storedBatters.batters(for: projection, at: position)
 
-//            if let battersArr = battersDict[position] {
-//                for batter in battersArr {
-//                    if batter.projectionType == projection {
-//                        retArr.append(batter)
-//                    }
-//                }
-//            }
+
         }
 
         return retArr.sortedByZscore(draft: draft)
     }
+    
+   
+    
+    
 
-//    func getBattersDict() -> [Position: [ParsedBatter]] {
-//        battersDict
-//    }
 
-//    func getPositionAveragesDict() -> [Position: Double] {
-//        positionAveragesDict
-//    }
-
-//    var positionAveragesDict: [Position: Double] = emptyPosAverageDict()
-
-//    var standardDeviationDict: [Position: Double] = {
-//        var dict: [Position: Double] = [:]
-//
-//        var tempDict: [Position: [ParsedBatter]] = [:]
-//
-//        for position in Position.batters {
-//            let battersForThisPosition = AllExtendedBatters.batters(for: .steamer, at: position, limit: UserDefaults.positionLimit)
-//            tempDict[position] = battersForThisPosition.sortedByPoints
-//        }
-//
-//        for position in Position.batters {
-//            guard let players = tempDict[position] else { continue }
-//            dict[position] = players.standardDeviation(for: position)
-//        }
-//
-//        return dict
-//
-//    }()
 
     func positionRank(for player: ParsedBatter, at position: Position) -> Int? {
-//        guard let batters = battersDict[position]?.sortedByPoints,
-//              let indexFound = batters.firstIndex(of: player) else {
-//            return nil
-//        }
+
         let batters = storedBatters.batters(for: player.projectionType, at: position)
         guard let indexFound = batters.firstIndex(of: player) else { return nil }
         return indexFound + 1
     }
 
-//    static func emptyPosAverageDict() -> [Position: Double] {
-//        var retDict: [Position: Double] = [:]
-//
-//        for position in Position.batters {
-//            let battersForThisPosition = AllExtendedBatters.batters(for: .steamer, at: position, limit: UserDefaults.positionLimit)
-//            retDict[position] = ParsedBatter.averagePoints(forThese: battersForThisPosition, scoring: <#ScoringSettings#>)
-//        }
-//
-//        return retDict
-//    }
+
 
     // MARK: - Methods
 
-//    mutating func updateDicts(for positions: [Position]? = nil) {
-//        updateStandardDeviationDict()
-//        if let positions = positions {
-//            recalculateDict(for: positions)
-//        }
-//    }
-//
-//    mutating func recalculateDict() {
-//        for pos in battersDict.keys {
-//            if let posBatters = battersDict[pos] {
-//                positionAveragesDict[pos] = ParsedBatter.averagePoints(forThese: posBatters)
-//            }
-//        }
-//    }
 
-//    mutating func recalculateDict(for positions: [Position]) {
-//        for pos in positions {
-//            if let posBatters = battersDict[pos] {
-//                positionAveragesDict[pos] = ParsedBatter.averagePoints(forThese: posBatters)
-//            }
-//        }
-//    }
-
-//    mutating func updateStandardDeviationDict() {
-//        for position in positionsOrder {
-//            guard let players = battersDict[position] else { continue }
-//            standardDeviationDict[position] = players.standardDeviation(for: position)
-//        }
-//    }
-
-//    mutating func setPositionsOrder() {
-//        let v = positionsOrder
-//        positionsOrder = v.sorted(by: { positionAveragesDict[$0] ?? 0 > positionAveragesDict[$1] ?? 0 })
-//    }
 
     // MARK: - Initializers
 
@@ -269,7 +123,7 @@ extension PlayerPool {
 
     func hash(into hasher: inout Hasher) {
 //        hasher.combine(battersDict)
-        hasher.combine(pitchersByProjection)
+//        hasher.combine(pitchersByProjection)
     }
 
     static func == (lhs: PlayerPool, rhs: PlayerPool) -> Bool {
@@ -746,8 +600,36 @@ extension PlayerPool {
             }
         }
 
-        func batters(for projection: ProjectionTypes, at type: PitcherType) -> [ParsedPitcher] {
-            pitchers(for: projection).filter { $0.type == type }
+        func pitchers(for projection: ProjectionTypes, at type: PitcherType) -> [ParsedPitcher] {
+            
+            if type == .starter {
+                switch projection {
+                case .steamer:
+                    return self.steamer.starters
+                case .thebat:
+                    return self.thebat.starters
+                case .atc:
+                    return self.atc.starters
+                case .depthCharts:
+                    return self.depthCharts.starters
+                default:
+                    return []
+                }
+            } else  {
+                switch projection {
+                case .steamer:
+                    return self.steamer.relievers
+                case .thebat:
+                    return self.thebat.relievers
+                case .atc:
+                    return self.atc.relievers
+                case .depthCharts:
+                    return self.depthCharts.relievers
+                default:
+                    return []
+                }
+            }
+            
         }
 
         func pitchers(for projection: ProjectionTypes) -> [ParsedPitcher] {
