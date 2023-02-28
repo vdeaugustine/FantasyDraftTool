@@ -16,23 +16,33 @@ struct AllParsedBatters {
     static let theBatx: Projection = .init(projectionType: .thebatx)
     static let depthCharts: Projection = .init(projectionType: .depthCharts)
 
-    static func batters(for projection: ProjectionTypes) -> [ParsedBatter] {
+    static func batters(for projection: ProjectionTypes, scoring: ScoringSettings? = nil) -> [ParsedBatter] {
+        
+        var players: [ParsedBatter] = []
+        
         switch projection {
             case .steamer:
-                return AllParsedBatters.steamer.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+                players = AllParsedBatters.steamer.all.removingDuplicates()
             case .zips:
-                return AllParsedBatters.steamer.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+                players = AllParsedBatters.steamer.all.removingDuplicates()
             case .thebat:
-                return AllParsedBatters.theBat.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+                players = AllParsedBatters.theBat.all.removingDuplicates()
             case .thebatx:
-                return AllParsedBatters.theBatx.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+                players = AllParsedBatters.theBatx.all.removingDuplicates()
             case .atc:
-                return AllParsedBatters.atc.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+                players = AllParsedBatters.atc.all.removingDuplicates()
             case .depthCharts:
-                return AllParsedBatters.depthCharts.all.removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+                players = AllParsedBatters.depthCharts.all.removingDuplicates()
             case .myProjections:
-                return Array(MainModel.shared.myModifiedBatters)
+                players = Array(MainModel.shared.myModifiedBatters)
         }
+        
+        if let scoring = scoring {
+            return players.sorted(by: { $0.fantasyPoints(scoring) > $1.fantasyPoints(scoring) })
+        } else {
+            return players
+        }
+        
     }
 
     static func batters(for projection: ProjectionTypes, at position: Position) -> [ParsedBatter] {

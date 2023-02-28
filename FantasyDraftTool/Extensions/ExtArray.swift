@@ -45,13 +45,13 @@ extension Array {
 
 extension Array where Element == ParsedBatter {
     
-    func prefixArray(_ num: Int) -> [Element] {
-        Array(self.sortedByPoints.prefix(num))
+    func prefixArray(_ num: Int, scoring: ScoringSettings) -> [Element] {
+        Array(self.sortedByPoints(scoring: scoring).prefix(num))
     }
 
     
-    var sortedByPoints: [ParsedBatter] {
-        removingDuplicates().sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
+    func sortedByPoints(scoring: ScoringSettings) -> [ParsedBatter] {
+        removingDuplicates().sorted(by: { $0.fantasyPoints(scoring) > $1.fantasyPoints(scoring) })
     }
 
     func sortedByZscore(draft: Draft) -> [ParsedBatter] {
@@ -59,31 +59,35 @@ extension Array where Element == ParsedBatter {
         return removedDuplicates.sorted(by: { $0.zScore(draft: draft) > $1.zScore(draft: draft) })
     }
 
-    func averagePoints(for: Position) -> Double {
-        ParsedBatter.averagePoints(forThese: self)
+    func averagePoints(for: Position, scoring: ScoringSettings) -> Double {
+        ParsedBatter.averagePoints(forThese: self, scoring: scoring)
     }
 
-    func standardDeviation(for: Position, scoring: ScoringSettings = .defaultPoints) -> Double {
+    func standardDeviation(for: Position, scoring: ScoringSettings) -> Double {
         map { $0.fantasyPoints(scoring) }.standardDeviation()
     }
 
-    func filter(for position: Position) -> [ParsedBatter] {
-        removingDuplicates().sortedByPoints.filter { $0.positions.contains(position) }
+    func filter(for position: Position, scoring: ScoringSettings) -> [ParsedBatter] {
+        removingDuplicates().filter { $0.positions.contains(position) }
     }
 
     func filter(for positions: [Position]) -> [ParsedBatter] {
-        removingDuplicates().sortedByPoints.filter { $0.positions.intersects(with: positions) }
+        removingDuplicates().filter { $0.positions.intersects(with: positions) }
     }
 }
 
 extension Array where Element == ParsedPitcher {
-    func standardDeviation( scoring: ScoringSettings = .defaultPoints) -> Double {
+    func standardDeviation( scoring: ScoringSettings) -> Double {
         map { $0.fantasyPoints(scoring) }.standardDeviation()
     }
     
     func sortedByZscore(draft: Draft) -> [ParsedPitcher] {
         let removedDuplicates = removingDuplicates()
         return removedDuplicates.sorted(by: { $0.zScore(draft: draft) > $1.zScore(draft: draft) })
+    }
+    
+    func sortedByPoints(scoring: ScoringSettings) -> [ParsedPitcher] {
+        removingDuplicates().sorted(by: { $0.fantasyPoints(scoring) > $1.fantasyPoints(scoring) })
     }
 }
 
@@ -98,8 +102,8 @@ extension Array where Element == DraftPlayer {
         removingDuplicates().filter { $0.player.positions.intersects(with: positions) }
     }
     
-    var sortedByPoints: [DraftPlayer] {
-        removingDuplicates().sorted(by: { $0.player.fantasyPoints(.defaultPoints) > $1.player.fantasyPoints(.defaultPoints) })
+    func sortedByPoints(scoring: ScoringSettings) -> [DraftPlayer] {
+        removingDuplicates().sorted(by: { $0.player.fantasyPoints(scoring) > $1.player.fantasyPoints(scoring) })
     }
 
     func sortedByZscore(draft: Draft) -> [DraftPlayer] {

@@ -22,7 +22,11 @@ struct NVPreviousPickRect: View {
                 if let thirdName = player.player.name.components(separatedBy: .whitespaces).safeGet(at: 2) {
                     Text(player.player.name.components(separatedBy: .whitespaces)[1] + " \(thirdName)")
                 } else {
-                    Text(player.player.name.components(separatedBy: .whitespaces)[1])
+                    
+                    if let secondName = player.player.name.components(separatedBy: .whitespaces).safeGet(at: 1) {
+                        Text(secondName)
+                    }
+                    
                 }
             }
             .padding()

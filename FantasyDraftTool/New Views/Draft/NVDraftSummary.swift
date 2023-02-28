@@ -57,7 +57,7 @@ struct NVDraftSummaryView: View {
             }
 
             Section("Team average points per position") {
-                TeamsChart(label: "Team Points", data: $model.draft.teams)
+//                TeamsChart(label: "Team Points", data: $model.draft.teams)
             }
 
             SelectPositionsHScroll(selectedPositions: $selectedPositions)
@@ -91,7 +91,7 @@ struct NVDraftSummaryView: View {
 
 struct NVDraftSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        DraftSummaryView()
+        NVDraftSummaryView()
             .environmentObject(MainModel.shared)
             .putInNavView()
     }

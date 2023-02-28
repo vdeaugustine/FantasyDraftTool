@@ -33,20 +33,20 @@ struct PositionAnalysisView: View {
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
                 
-                Text("Average Fantasy Points")
-                    .spacedOut(text: ParsedBatter.averagePoints(forThese: batters).str)
+//                Text("Average Fantasy Points")
+//                    .spacedOut(text: ParsedBatter.averagePoints(forThese: batters, scoring: <#ScoringSettings#>).str)
 
-                Section {
-                    Chart {
-                        ForEach(Position.batters, id: \.self) { thisPosition in
-                            BarMark(x: .value("Position", thisPosition.str.uppercased()),
-                                    y: .value("Average Fantasy Points", ParsedBatter.averagePoints(forThese: AllExtendedBatters.batters(for: projectionType, limit: UserDefaults.positionLimit).filter { $0.positions.contains(thisPosition) })))
-                            .foregroundStyle(thisPosition == position ? .red : .blue)
-                        }
-
-                    }
-                    .padding()
-                }
+//                Section {
+//                    Chart {
+//                        ForEach(Position.batters, id: \.self) { thisPosition in
+//                            BarMark(x: .value("Position", thisPosition.str.uppercased()),
+//                                    y: .value("Average Fantasy Points", ParsedBatter.averagePoints(forThese: AllExtendedBatters.batters(for: projectionType, limit: UserDefaults.positionLimit).filter { $0.positions.contains(thisPosition) }, scoring: <#ScoringSettings#>)))
+//                            .foregroundStyle(thisPosition == position ? .red : .blue)
+//                        }
+//
+//                    }
+//                    .padding()
+//                }
             }
         }
     }

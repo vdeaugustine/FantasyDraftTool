@@ -44,13 +44,23 @@ struct PlayerPool: Codable, Hashable, Equatable {
 //        return retDict
 //    }()
 
-    var storedBatters: StoredBatters = .init()
-    var storedPitchers: StoredPitchers = .init()
+    var storedBatters: StoredBatters
+    var storedPitchers: StoredPitchers
 
-    func allStoredPlayers(projection: ProjectionTypes) -> [any ParsedPlayer] {
-        let batters = storedBatters.batters(for: projection)
-        let pitchers = storedPitchers.pitchers(for: projection)
-        return batters + pitchers
+    func allStoredPlayers(projection: ProjectionTypes, scoring: ScoringSettings, batterLimit: Int, pitcherLimit: Int, completion: @escaping ([any ParsedPlayer]) -> ()) {
+        
+        DispatchQueue.global().async {
+            let batters = storedBatters.batters(for: projection).sortedByPoints(scoring: scoring).prefixArray(batterLimit)
+            let pitchers = storedPitchers.pitchers(for: projection).sortedByPoints(scoring: scoring).prefixArray(pitcherLimit)
+            let union: [any ParsedPlayer] = (batters + pitchers)
+            let sorted = union.sorted { player1, player2 in
+                player1.fantasyPoints(scoring) > player2.fantasyPoints(scoring)
+            }
+            completion(sorted)
+        }
+        
+        
+        
     }
 
 //    func allStoredPlayers(projection: ProjectionTypes) [any ParsedPlayer] {
@@ -131,30 +141,30 @@ struct PlayerPool: Codable, Hashable, Equatable {
 //        battersDict
 //    }
 
-    func getPositionAveragesDict() -> [Position: Double] {
-        positionAveragesDict
-    }
+//    func getPositionAveragesDict() -> [Position: Double] {
+//        positionAveragesDict
+//    }
 
-    var positionAveragesDict: [Position: Double] = emptyPosAverageDict()
+//    var positionAveragesDict: [Position: Double] = emptyPosAverageDict()
 
-    var standardDeviationDict: [Position: Double] = {
-        var dict: [Position: Double] = [:]
-
-        var tempDict: [Position: [ParsedBatter]] = [:]
-
-        for position in Position.batters {
-            let battersForThisPosition = AllExtendedBatters.batters(for: .steamer, at: position, limit: UserDefaults.positionLimit)
-            tempDict[position] = battersForThisPosition.sortedByPoints
-        }
-
-        for position in Position.batters {
-            guard let players = tempDict[position] else { continue }
-            dict[position] = players.standardDeviation(for: position)
-        }
-
-        return dict
-
-    }()
+//    var standardDeviationDict: [Position: Double] = {
+//        var dict: [Position: Double] = [:]
+//
+//        var tempDict: [Position: [ParsedBatter]] = [:]
+//
+//        for position in Position.batters {
+//            let battersForThisPosition = AllExtendedBatters.batters(for: .steamer, at: position, limit: UserDefaults.positionLimit)
+//            tempDict[position] = battersForThisPosition.sortedByPoints
+//        }
+//
+//        for position in Position.batters {
+//            guard let players = tempDict[position] else { continue }
+//            dict[position] = players.standardDeviation(for: position)
+//        }
+//
+//        return dict
+//
+//    }()
 
     func positionRank(for player: ParsedBatter, at position: Position) -> Int? {
 //        guard let batters = battersDict[position]?.sortedByPoints,
@@ -166,16 +176,16 @@ struct PlayerPool: Codable, Hashable, Equatable {
         return indexFound + 1
     }
 
-    static func emptyPosAverageDict() -> [Position: Double] {
-        var retDict: [Position: Double] = [:]
-
-        for position in Position.batters {
-            let battersForThisPosition = AllExtendedBatters.batters(for: .steamer, at: position, limit: UserDefaults.positionLimit)
-            retDict[position] = ParsedBatter.averagePoints(forThese: battersForThisPosition)
-        }
-
-        return retDict
-    }
+//    static func emptyPosAverageDict() -> [Position: Double] {
+//        var retDict: [Position: Double] = [:]
+//
+//        for position in Position.batters {
+//            let battersForThisPosition = AllExtendedBatters.batters(for: .steamer, at: position, limit: UserDefaults.positionLimit)
+//            retDict[position] = ParsedBatter.averagePoints(forThese: battersForThisPosition, scoring: <#ScoringSettings#>)
+//        }
+//
+//        return retDict
+//    }
 
     // MARK: - Methods
 
@@ -209,19 +219,23 @@ struct PlayerPool: Codable, Hashable, Equatable {
 //        }
 //    }
 
-    mutating func setPositionsOrder() {
-        let v = positionsOrder
-        positionsOrder = v.sorted(by: { positionAveragesDict[$0] ?? 0 > positionAveragesDict[$1] ?? 0 })
-    }
+//    mutating func setPositionsOrder() {
+//        let v = positionsOrder
+//        positionsOrder = v.sorted(by: { positionAveragesDict[$0] ?? 0 > positionAveragesDict[$1] ?? 0 })
+//    }
 
     // MARK: - Initializers
 
-    init() {
+    init(scoring: ScoringSettings) {
+        
+        self.storedPitchers = .init(scoring: scoring)
+        self.storedBatters = .init(scoring: scoring)
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.storedBatters = try container.decode(StoredBatters.self, forKey: .storedBatters)
+        self.storedPitchers = try container.decode(StoredPitchers.self, forKey: .storedPitchers)
 //        self.battersDict = try container.decode([Position: [ParsedBatter]].self, forKey: .battersDict)
     }
 }
@@ -233,11 +247,12 @@ extension PlayerPool {
         var container = encoder.container(keyedBy: CodingKeys.self)
 //        try container.encode(battersDict, forKey: .battersDict)
         try container.encode(storedBatters, forKey: .storedBatters)
+        try container.encode(storedPitchers, forKey: .storedPitchers)
 //        try container.encode(pitchersByProjection, forKey: .pitchersDict)
     }
 
     private enum CodingKeys: String, CodingKey {
-        case battersDict, pitchersDict, storedBatters
+        case battersDict, pitchersDict, storedBatters, storedPitchers
     }
 
     func hash(into hasher: inout Hasher) {
@@ -284,12 +299,12 @@ extension PlayerPool {
             self.thebatx = try container.decode(StoreProjectionBatters.self, forKey: .thebatx)
         }
 
-        init() {
-            self.atc = .init(projectionType: .atc)
-            self.steamer = .init(projectionType: .steamer)
-            self.theBat = .init(projectionType: .thebat)
-            self.depthCharts = .init(projectionType: .depthCharts)
-            self.thebatx = .init(projectionType: .thebatx)
+        init(scoring: ScoringSettings) {
+            self.atc = .init(projectionType: .atc, scoring: scoring)
+            self.steamer = .init(projectionType: .steamer, scoring: scoring)
+            self.theBat = .init(projectionType: .thebat, scoring: scoring)
+            self.depthCharts = .init(projectionType: .depthCharts, scoring: scoring)
+            self.thebatx = .init(projectionType: .thebatx, scoring: scoring)
         }
 
         func average(for projection: ProjectionTypes, at position: Position) -> Double {
@@ -364,7 +379,7 @@ extension PlayerPool {
             return storedProjection.all
         }
 
-        mutating func add(_ batter: ParsedBatter, to projection: ProjectionTypes, for position: Position) {
+        mutating func add(_ batter: ParsedBatter, to projection: ProjectionTypes, for position: Position, scoring: ScoringSettings) {
             var storedProjection: StoreProjectionBatters
             switch projection {
                 case .steamer:
@@ -380,7 +395,7 @@ extension PlayerPool {
                 case .depthCharts:
                     storedProjection = depthCharts
             }
-            storedProjection.add(batter: batter, to: position)
+            storedProjection.add(batter: batter, to: position, scoring: scoring)
             switch projection {
                 case .steamer:
                     steamer = storedProjection
@@ -397,7 +412,7 @@ extension PlayerPool {
             }
         }
 
-        mutating func remove(_ batter: ParsedBatter, from projection: ProjectionTypes) {
+        mutating func remove(_ batter: ParsedBatter, from projection: ProjectionTypes, scoring: ScoringSettings) {
             var storedProjection: StoreProjectionBatters
             switch projection {
                 case .steamer:
@@ -413,7 +428,7 @@ extension PlayerPool {
                 case .depthCharts:
                     storedProjection = depthCharts
             }
-            storedProjection.remove(batter: batter)
+            storedProjection.remove(batter: batter, scoring: scoring)
             switch projection {
                 case .steamer:
                     steamer = storedProjection
@@ -527,7 +542,7 @@ extension PlayerPool {
             }
         }
 
-        init(projectionType: ProjectionTypes) {
+        init(projectionType: ProjectionTypes, scoring: ScoringSettings) {
             let firstBase = AllParsedBatters.batters(for: projectionType, at: .first)
             let secondBase = AllParsedBatters.batters(for: projectionType, at: .second)
             let thirdBase = AllParsedBatters.batters(for: projectionType, at: .third)
@@ -542,22 +557,22 @@ extension PlayerPool {
             self.outfield = outfield
             self.catcher = catcher
 
-            self.averages = .init(first: ParsedBatter.averagePoints(forThese: firstBase),
-                                  second: ParsedBatter.averagePoints(forThese: secondBase),
-                                  third: ParsedBatter.averagePoints(forThese: thirdBase),
-                                  short: ParsedBatter.averagePoints(forThese: shortstop),
-                                  catcher: ParsedBatter.averagePoints(forThese: catcher),
-                                  outfield: ParsedBatter.averagePoints(forThese: outfield))
+            self.averages = .init(first: ParsedBatter.averagePoints(forThese: firstBase, scoring: scoring),
+                                  second: ParsedBatter.averagePoints(forThese: secondBase, scoring: scoring),
+                                  third: ParsedBatter.averagePoints(forThese: thirdBase, scoring: scoring),
+                                  short: ParsedBatter.averagePoints(forThese: shortstop, scoring: scoring),
+                                  catcher: ParsedBatter.averagePoints(forThese: catcher, scoring: scoring),
+                                  outfield: ParsedBatter.averagePoints(forThese: outfield, scoring: scoring))
 
-            self.stdDevs = .init(first: firstBase.standardDeviation(for: .first),
-                                 second: secondBase.standardDeviation(for: .second),
-                                 third: thirdBase.standardDeviation(for: .third),
-                                 short: shortstop.standardDeviation(for: .ss),
-                                 catcher: catcher.standardDeviation(for: .c),
-                                 outfield: outfield.standardDeviation(for: .of))
+            self.stdDevs = .init(first: firstBase.standardDeviation(for: .first, scoring: scoring),
+                                 second: secondBase.standardDeviation(for: .second, scoring: scoring),
+                                 third: thirdBase.standardDeviation(for: .third, scoring: scoring),
+                                 short: shortstop.standardDeviation(for: .ss, scoring: scoring),
+                                 catcher: catcher.standardDeviation(for: .c, scoring: scoring),
+                                 outfield: outfield.standardDeviation(for: .of, scoring: scoring))
         }
 
-        mutating func add(batter: ParsedBatter, to position: Position) {
+        mutating func add(batter: ParsedBatter, to position: Position, scoring: ScoringSettings) {
             switch position {
                 case .c:
                     catcher.append(batter)
@@ -576,10 +591,10 @@ extension PlayerPool {
                 case .rp, .sp:
                     return
             }
-            update(position: position)
+            update(position: position, scoring: scoring)
         }
 
-        mutating func remove(batter: ParsedBatter) {
+        mutating func remove(batter: ParsedBatter, scoring: ScoringSettings) {
             for position in batter.positions {
                 switch position {
                     case .c:
@@ -597,31 +612,31 @@ extension PlayerPool {
                     default:
                         break
                 }
-                update(position: position)
+                update(position: position, scoring: scoring)
             }
         }
 
         /// To be called after the position array has been mutated
-        mutating func update(position: Position) {
+        mutating func update(position: Position, scoring: ScoringSettings) {
             switch position {
                 case .c:
-                    averages.catcher = ParsedBatter.averagePoints(forThese: catcher)
-                    stdDevs.catcher = catcher.standardDeviation(for: .c)
+                averages.catcher = ParsedBatter.averagePoints(forThese: catcher, scoring: scoring)
+                stdDevs.catcher = catcher.standardDeviation(for: .c, scoring: scoring)
                 case .first:
-                    averages.first = ParsedBatter.averagePoints(forThese: firstBase)
-                    stdDevs.first = catcher.standardDeviation(for: .first)
+                averages.first = ParsedBatter.averagePoints(forThese: firstBase, scoring: scoring)
+                stdDevs.first = catcher.standardDeviation(for: .first, scoring: scoring)
                 case .second:
-                    averages.second = ParsedBatter.averagePoints(forThese: secondBase)
-                    stdDevs.second = catcher.standardDeviation(for: .second)
+                averages.second = ParsedBatter.averagePoints(forThese: secondBase, scoring: scoring)
+                stdDevs.second = catcher.standardDeviation(for: .second, scoring: scoring)
                 case .third:
-                    averages.third = ParsedBatter.averagePoints(forThese: thirdBase)
-                    stdDevs.third = catcher.standardDeviation(for: .third)
+                averages.third = ParsedBatter.averagePoints(forThese: thirdBase, scoring: scoring)
+                stdDevs.third = catcher.standardDeviation(for: .third, scoring: scoring)
                 case .ss:
-                    averages.short = ParsedBatter.averagePoints(forThese: shortstop)
-                    stdDevs.short = catcher.standardDeviation(for: .ss)
+                averages.short = ParsedBatter.averagePoints(forThese: shortstop, scoring: scoring)
+                stdDevs.short = catcher.standardDeviation(for: .ss, scoring: scoring)
                 case .of:
-                    averages.outfield = ParsedBatter.averagePoints(forThese: outfield)
-                    stdDevs.outfield = catcher.standardDeviation(for: .of)
+                averages.outfield = ParsedBatter.averagePoints(forThese: outfield, scoring: scoring)
+                stdDevs.outfield = catcher.standardDeviation(for: .of, scoring: scoring)
                 default:
                     return
             }
@@ -651,14 +666,14 @@ extension PlayerPool {
         }
     }
 
-    struct StoredPitchers {
+    struct StoredPitchers: Codable {
         var atc, steamer, thebat, depthCharts: StoredProjectionPitchers
 
-        init() {
-            self.atc = .init(projectionType: .atc)
-            self.steamer = .init(projectionType: .steamer)
-            self.thebat = .init(projectionType: .thebat)
-            self.depthCharts = .init(projectionType: .depthCharts)
+        init(scoring: ScoringSettings) {
+            self.atc = .init(projectionType: .atc, scoring: scoring)
+            self.steamer = .init(projectionType: .steamer, scoring: scoring)
+            self.thebat = .init(projectionType: .thebat, scoring: scoring)
+            self.depthCharts = .init(projectionType: .depthCharts, scoring: scoring)
         }
 
         // Coding keys for the struct's properties
@@ -723,7 +738,7 @@ extension PlayerPool {
             pitchers(for: projection).filter { $0.type == type }
         }
 
-        func pitchers(for projection: ProjectionTypes) -> [ParsedPitcher] {
+         func pitchers(for projection: ProjectionTypes) -> [ParsedPitcher] {
             let storedProjection: StoredProjectionPitchers
             switch projection {
                 case .steamer:
@@ -742,7 +757,7 @@ extension PlayerPool {
             return storedProjection.all
         }
 
-        mutating func add(_ pitcher: ParsedPitcher, to projection: ProjectionTypes) {
+        mutating func add(_ pitcher: ParsedPitcher, to projection: ProjectionTypes, scoring: ScoringSettings) {
             var storedProjection: StoredProjectionPitchers
             switch projection {
                 case .steamer:
@@ -758,7 +773,7 @@ extension PlayerPool {
                 default:
                     return
             }
-            storedProjection.add(pitcher: pitcher)
+            storedProjection.add(pitcher: pitcher, scoring: scoring)
             switch projection {
                 case .steamer:
                     steamer = storedProjection
@@ -775,7 +790,7 @@ extension PlayerPool {
             }
         }
 
-        mutating func remove(_ pitcher: ParsedPitcher, from projection: ProjectionTypes) {
+        mutating func remove(_ pitcher: ParsedPitcher, from projection: ProjectionTypes, scoring: ScoringSettings) {
             var storedProjection: StoredProjectionPitchers
             switch projection {
                 case .steamer:
@@ -791,7 +806,7 @@ extension PlayerPool {
                 default:
                     return
             }
-            storedProjection.remove(pitcher: pitcher)
+            storedProjection.remove(pitcher: pitcher, scoring: scoring)
             switch projection {
                 case .steamer:
                     steamer = storedProjection
@@ -852,7 +867,7 @@ extension PlayerPool {
             var sp, rp: Double
         }
 
-        init(projectionType: ProjectionTypes) {
+        init(projectionType: ProjectionTypes, scoring: ScoringSettings) {
             let sp = AllExtendedPitchers.starters(for: projectionType, limit: 150)
             let rp = AllExtendedPitchers.relievers(for: projectionType, limit: 150)
             
@@ -860,40 +875,40 @@ extension PlayerPool {
             self.relievers = rp
             
             
-            self.averages = .init(sp: ParsedPitcher.averagePoints(forThese: sp), rp: ParsedPitcher.averagePoints(forThese: rp))
+            self.averages = .init(sp: ParsedPitcher.averagePoints(forThese: sp, scoringSettings: scoring), rp: ParsedPitcher.averagePoints(forThese: rp, scoringSettings: scoring))
 
-            self.stdDevs = .init(sp: sp.standardDeviation(), rp: rp.standardDeviation())
+            self.stdDevs = .init(sp: sp.standardDeviation(scoring: scoring), rp: rp.standardDeviation(scoring: scoring))
         }
 
-        mutating func add(pitcher: ParsedPitcher) {
+        mutating func add(pitcher: ParsedPitcher, scoring: ScoringSettings) {
             switch pitcher.type {
                 case .reliever:
                     relievers.append(pitcher)
                 case .starter:
                     relievers.append(pitcher)
             }
-            update(type: pitcher.type)
+            update(type: pitcher.type, scoring: scoring)
         }
 
-        mutating func remove(pitcher: ParsedPitcher) {
+        mutating func remove(pitcher: ParsedPitcher, scoring: ScoringSettings) {
             switch pitcher.type {
                 case .reliever:
                     relievers.removeAll(where: { $0.name == pitcher.name })
                 case .starter:
                     starters.removeAll(where: { $0.name == pitcher.name })
             }
-            update(type: pitcher.type)
+            update(type: pitcher.type, scoring: scoring)
         }
 
         /// To be called after the position array has been mutated
-        mutating func update(type: PitcherType) {
+        mutating func update(type: PitcherType, scoring: ScoringSettings) {
             switch type {
                 case .starter:
-                    averages.sp = ParsedPitcher.averagePoints(forThese: starters)
-                    stdDevs.sp = starters.standardDeviation()
+                averages.sp = ParsedPitcher.averagePoints(forThese: starters, scoringSettings: scoring)
+                stdDevs.sp = starters.standardDeviation(scoring: scoring)
                 case .reliever:
-                    averages.rp = ParsedPitcher.averagePoints(forThese: starters)
-                    stdDevs.rp = starters.standardDeviation()
+                averages.rp = ParsedPitcher.averagePoints(forThese: starters, scoringSettings: scoring)
+                stdDevs.rp = starters.standardDeviation(scoring: scoring)
             }
         }
 

@@ -70,7 +70,7 @@ struct ParsedBatterDetailView: View {
                             ForEach(AverageStats.arr) { stat in
                                 StatRect(stat: stat.str, value: AverageStats.average(stat: stat, for: position, projectionType: projection))
                             }
-                            StatRect(stat: "Points", value: ParsedBatter.averagePoints(forThese: AllExtendedBatters.batters(for: projection, limit: UserDefaults.positionLimit).filter { $0.positions.contains(position) }))
+//                            StatRect(stat: "Points", value: ParsedBatter.averagePoints(forThese: AllExtendedBatters.batters(for: projection, limit: UserDefaults.positionLimit).filter { $0.positions.contains(position) }, scoring: <#ScoringSettings#>))
                         }
                     }
                     .listRowBackground(Color.clear)
@@ -81,13 +81,13 @@ struct ParsedBatterDetailView: View {
                     Chart {
                         BarMark(x: .value("Batter", batter.name),
                                 y: .value("Fantasy Points", batter.fantasyPoints(MainModel.shared.getScoringSettings())))
-
-                        ForEach(batter.positions, id: \.self) { position in
-                            BarMark(x: .value(position.str.uppercased(),
-                                              "Average " + position.str.uppercased()),
-                                    y: .value("Fantasy Points",
-                                              ParsedBatter.averagePoints(forThese: AllExtendedBatters.batters(for: projection, limit: UserDefaults.positionLimit).filter { $0.positions.contains(position) })))
-                        }
+//
+//                        ForEach(batter.positions, id: \.self) { position in
+//                            BarMark(x: .value(position.str.uppercased(),
+//                                              "Average " + position.str.uppercased()),
+//                                    y: .value("Fantasy Points",
+//                                              ParsedBatter.averagePoints(forThese: AllExtendedBatters.batters(for: projection, limit: UserDefaults.positionLimit).filter { $0.positions.contains(position) })))
+//                        }
                     }
                     .padding()
                 }

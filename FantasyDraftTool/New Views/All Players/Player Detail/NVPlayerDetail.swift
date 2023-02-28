@@ -22,19 +22,19 @@ struct NVPlayerDetail: View {
     var top5Position: [ParsedBatter] {
         guard let position = playerPosition else { return [] }
         let batters: [ParsedBatter] = AllExtendedBatters.batters(for: projectionSelected, at: position, limit: UserDefaults.positionLimit)
-        let sorted = batters.sortedByPoints.prefixArray(5)
+        let sorted = batters.sortedByPoints(scoring: MainModel.shared.draft.settings.scoringSystem).prefixArray(5)
         return sorted
     }
 
     var top5Average: Double {
-        let answer = ParsedBatter.averagePoints(forThese: top5Position).roundTo(places: 2)
+        let answer = ParsedBatter.averagePoints(forThese: top5Position, scoring: MainModel.shared.draft.settings.scoringSystem).roundTo(places: 2)
         return answer
     }
 
     var positionAverage: Double {
         guard let position = playerPosition else { return 0 }
         let batters = AllExtendedBatters.batters(for: projectionSelected, at: position, limit: UserDefaults.positionLimit)
-        let answer = ParsedBatter.averagePoints(forThese: batters).roundTo(places: 2)
+        let answer = ParsedBatter.averagePoints(forThese: batters, scoring: MainModel.shared.draft.settings.scoringSystem).roundTo(places: 2)
         return answer
     }
 
@@ -152,7 +152,7 @@ struct NVPlayerDetail: View {
                                               .red,
                                               .green],
                                      height: 40)
-                        .cornerRadius(5)
+                            .cornerRadius(5)
                     }
                 }
             }

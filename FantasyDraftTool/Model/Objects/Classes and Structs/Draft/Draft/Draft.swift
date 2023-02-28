@@ -18,11 +18,11 @@ struct Draft: Codable, Hashable, Equatable {
     var currentTeam: DraftTeam
     var currentPickNumber: Int
     var totalPickNumber: Int
-    var playerPool: PlayerPool = PlayerPool()
+    var playerPool: PlayerPool = PlayerPool(scoring: .defaultPoints)
     var pickStack: Stack<DraftPlayer> = .init()
     var currentIndex: Int = 0
     var previousIndex: Int = 0
-    var bestPicksStack: Stack<BestPick> = .init()
+//    var bestPicksStack: Stack<BestPick> = .init()
     var totalPicksMade: Int = 1
     var projectedStack: Stack<DraftPlayer> = .init()
 
@@ -60,7 +60,7 @@ struct Draft: Codable, Hashable, Equatable {
     mutating func removeFromPool(player: DraftPlayer) {
         // Loop through each position the player has.
         for position in player.player.positions {
-            self.playerPool.storedBatters.remove(player.player, from: player.player.projectionType)
+            self.playerPool.storedBatters.remove(player.player, from: player.player.projectionType, scoring: settings.scoringSystem)
         }
 
 //        // Update the playerPool dictionaries with the updated list of players for each position.
@@ -112,7 +112,7 @@ struct Draft: Codable, Hashable, Equatable {
         totalPicksMade = pickStack.getArray().count
         teams[currentIndex].draftedPlayers.append(player)
         setNextTeam()
-        playerPool.setPositionsOrder()
+//        playerPool.setPositionsOrder()
     }
 
     mutating func makePick(_ player: ParsedBatter) {
@@ -127,12 +127,12 @@ struct Draft: Codable, Hashable, Equatable {
         changeCurrentIndex()
         guard currentIndex > 0 && currentIndex < teams.count else { return }
         currentTeam = teams[currentIndex]
-        playerPool.setPositionsOrder()
+//        playerPool.setPositionsOrder()
     }
 
     mutating func insertIntoPool(player: DraftPlayer) {
         for position in player.player.positions {
-            playerPool.storedBatters.add(player.player, to: player.player.projectionType, for: position)
+            playerPool.storedBatters.add(player.player, to: player.player.projectionType, for: position, scoring: settings.scoringSystem)
 //            playerPool.battersDict[position]?.append(player.player)
 //            playerPool.updateDicts(for: [position])
         }

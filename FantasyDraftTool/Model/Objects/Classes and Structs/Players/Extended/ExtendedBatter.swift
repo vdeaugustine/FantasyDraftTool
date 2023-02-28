@@ -126,28 +126,16 @@ struct AllExtendedBatters: Codable {
         switch projection {
             case .steamer:
                 return AllExtendedBatters.steamer.all.prefixArray(limit)
-//                .removingDuplicates()
-//                .sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .zips:
                 return AllExtendedBatters.steamer.all.prefixArray(limit)
-//                .removingDuplicates()
-//                .sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .thebat:
                 return AllExtendedBatters.theBat.all.prefixArray(limit)
-//                .removingDuplicates()
-//                .sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .thebatx:
                 return AllExtendedBatters.theBatx.all.prefixArray(limit)
-//                .removingDuplicates()
-//                .sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .atc:
                 return AllExtendedBatters.atc.all.prefixArray(limit)
-//                .removingDuplicates()
-//                .sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .depthCharts:
                 return AllExtendedBatters.depthCharts.all.prefixArray(limit)
-//                .removingDuplicates()
-//                .sorted(by: { $0.fantasyPoints(.defaultPoints) > $1.fantasyPoints(.defaultPoints) })
             case .myProjections:
                 return Array(MainModel.shared.myModifiedBatters).prefixArray(limit)
         }

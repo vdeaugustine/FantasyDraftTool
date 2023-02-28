@@ -15,7 +15,7 @@ struct SetupDraftView: View {
     @State private var numberOfTeams: Int = 10
     @State private var snakeDraft: Bool = true
     @State private var numberOfRounds: Int = 25
-    @State private var scoringSystem: ScoringSettings = .defaultPoints
+    @State private var scoringSystem: ScoringSettings = MainModel.shared.scoringSettings
     
     var body: some View {
         Form {

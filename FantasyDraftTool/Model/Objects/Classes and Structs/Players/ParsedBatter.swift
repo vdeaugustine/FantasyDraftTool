@@ -20,6 +20,8 @@ protocol ParsedPlayer {
 // MARK: - ParsedBatter
 
 struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, ParsedPlayer {
+    
+    
     // MARK: Stored Properties
 
     var empty, name, team: String
@@ -172,9 +174,9 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
         return points
     }
 
-    static func averagePoints(forThese batters: [ParsedBatter]) -> Double {
+    static func averagePoints(forThese batters: [ParsedBatter], scoring: ScoringSettings) -> Double {
         guard !batters.isEmpty else { return 0 }
-        return (batters.reduce(Double(0)) { $0 + $1.fantasyPoints(ScoringSettings.defaultPoints) } / Double(batters.count)).roundTo(places: 1)
+        return (batters.reduce(Double(0)) { $0 + $1.fantasyPoints(scoring) } / Double(batters.count)).roundTo(places: 1)
     }
 
     func has(position: Position) -> Bool {
@@ -281,7 +283,7 @@ extension ParsedBatter {
 
 extension ParsedBatter {
     func similarPlayers(_ numberOfPlayers: Int, for position: Position, and projection: ProjectionTypes) -> [ParsedBatter] {
-        let preSortedBatters = AllExtendedBatters.batters(for: projection, at: position, limit: UserDefaults.positionLimit).sortedByPoints
+        let preSortedBatters = AllExtendedBatters.batters(for: projection, at: position, limit: UserDefaults.positionLimit)
         let selfPoints = fantasyPoints(MainModel.shared.scoringSettings)
         let sortedBatters = preSortedBatters.sorted { firstBatter, secondBatter in
 

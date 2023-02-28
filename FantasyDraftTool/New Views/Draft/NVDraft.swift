@@ -23,6 +23,19 @@ struct NVDraft: View {
     @State private var showDraftConfirmation = false
     @State private var batterToDraft: ParsedBatter? = nil
     @State private var showMenu: Bool = false
+    @State private var playerLimit: Int = 20
+    @State private var pitchersAndBatters: [any ParsedPlayer] = []
+    @State private var showSpinning = true
+    
+    func updatePlayers() {
+        model.draft.playerPool.allStoredPlayers(projection: projection, scoring: model.draft.settings.scoringSystem, batterLimit: playerLimit, pitcherLimit: playerLimit) { playersArr in
+
+            DispatchQueue.main.async {
+                pitchersAndBatters = playersArr
+                showSpinning = false
+            }
+        }
+    }
 
     var filteredPlayers: [ParsedBatter] {
         // TODO: When switching
@@ -33,16 +46,16 @@ struct NVDraft: View {
 
         return model.draft.playerPool.batters(for: Position.batters, projection: projection)
     }
-    
-    var pitchersAndBatters: [any ParsedPlayer] {
-        let filtered = filteredPlayers
-        let pitchers = model.draft.playerPool.storedPitchers.pitchers(for: projection)
-        let before = model.draft.playerPool.allStoredPlayers(projection: projection)
-        let sorted = before.sorted(by: {$0.zScore(draft: model.draft) > $1.zScore(draft: model.draft)})
-        
-        return sorted
-        
-    }
+
+//    var pitchersAndBatters: [any ParsedPlayer] {
+//        let filtered = filteredPlayers
+//        let pitchers = model.draft.playerPool.storedPitchers.pitchers(for: projection)
+//        let before = model.draft.playerPool.allStoredPlayers(projection: projection)
+//        let sorted = before.sorted(by: {$0.zScore(draft: model.draft) > $1.zScore(draft: model.draft)})
+//
+//        return sorted
+//
+//    }
 
 //    var sortedPlayers: [ParsedBatter] {
 //        let retArr: [ParsedBatter]
@@ -72,7 +85,7 @@ struct NVDraft: View {
             Text(text)
         }
     }
-    
+
     var draftConfirmationMessage: String {
         if let batter = batterToDraft {
             return "Draft \(batter.name) for \(model.draft.currentTeam.name)?"
@@ -100,7 +113,7 @@ struct NVDraft: View {
                     showDraftConfirmation.toggle()
                 } label: {
                     Image(systemName: "checklist")
-                        
+
                         .font(.subheadline)
                 }
             }.frame(maxHeight: .infinity)
@@ -113,8 +126,6 @@ struct NVDraft: View {
                 .shadow(radius: 0.7)
         }
     }
-    
-    
 
     var body: some View {
         if draftProgress < 1,
@@ -153,33 +164,34 @@ struct NVDraft: View {
                             }
                         }
 
-
                         // MARK: - Available Players
 
                         VStack(alignment: .leading) {
                             Text("Available")
-
+                            if showSpinning {
+                                ProgressView()
+                            }
                             LazyVStack {
                                 ForEach(pitchersAndBatters.indices, id: \.self) { playerInd in
-                                    
+
                                     if let batter = pitchersAndBatters.safeGet(at: playerInd) as? ParsedBatter {
                                         playerBox(batter)
-                                        .padding(.vertical, 1)
+                                            .padding(.vertical, 1)
                                     }
-                                    
+
                                     if let pitcher = pitchersAndBatters.safeGet(at: playerInd) as? ParsedPitcher {
                                         playerBox(pitcher)
-                                        .padding(.vertical, 1)
+                                            .padding(.vertical, 1)
                                     }
-                                    
+
 //                                    if let pitcher = pitchersAndBatters.safeGet(at: playerInd) as? ParsedPitcher {
 //
 //                                    }
-                                    
+
 //                                    if let batter = pitchersAndBatters.safeGet(at: playerInd) as? ParsedBatter {
 //
 //                                    }
-                                    
+
 //                                    Button {
 //                                        model.navPathForDrafting.append(batter)
 //                                    } label: {
@@ -189,12 +201,22 @@ struct NVDraft: View {
 //                                    .buttonStyle(.plain)
                                 }
                             }
+                            
+                            Button("Load more") {
+                                playerLimit += 20
+                                updatePlayers()
+                            }
                         }
                     }.padding()
                 }
 
                 // MARK: - Start of main modifiers
 
+                .onAppear {
+                    if pitchersAndBatters.isEmpty { showSpinning = true }
+
+                    updatePlayers()
+                }
                 .listStyle(.plain)
                 .navigationTitle("Round \(model.draft.roundNumber)")
                 .sheet(isPresented: $showMyTeamQuickView) {
@@ -221,7 +243,6 @@ struct NVDraft: View {
                 }
                 .toolbar {
                     ToolbarItem {
-                        
                         Menu {
                             Button {
                                 model.draft.undoPick()
@@ -238,13 +259,9 @@ struct NVDraft: View {
                                 Label("Restart draft", systemImage: "restart")
                             }
 
-                           
-
                         } label: {
                             Label("Menu", systemImage: "line.3.horizontal")
-                            
                         }
-                       
                     }
                 }
             }
@@ -252,15 +269,9 @@ struct NVDraft: View {
     }
 }
 
-
-
-
-
 // MARK: - NVDraft_Previews
 
 struct NVDraft_Previews: PreviewProvider {
-    
-   
     static var previews: some View {
         NVDraft()
             .environmentObject(MainModel.shared)

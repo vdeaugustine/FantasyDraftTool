@@ -23,7 +23,7 @@ struct NVAllPlayersRow<T>: View where T: ParsedPlayer {
                 Text(player.name)
                     .fontWeight(.bold)
                 Spacer()
-                Text(player.fantasyPoints(.defaultPoints).str + " pts")
+                Text(player.fantasyPoints(model.draft.settings.scoringSystem).str + " pts")
                     .font(.callout)
             }
             

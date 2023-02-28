@@ -10,6 +10,8 @@ import Foundation
 // MARK: - ParsedPitcher
 
 struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
+    
+    
     var name, team: String
     var w, l, gs, g, sv, hld, ip, tbf, h, r, er, hr, so, bb, ibb, hbp, qs: Int
     var era, fip, war, ra9War, adp: Double
@@ -40,18 +42,19 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
         
     }
     
-    static func averagePoints(forThese pitchers: [ParsedPitcher]) -> Double {
+    static func averagePoints(forThese pitchers: [ParsedPitcher], scoringSettings: ScoringSettings) -> Double {
         guard !pitchers.isEmpty else { return 0 }
-        return (pitchers.reduce(Double(0)) { $0 + $1.fantasyPoints(ScoringSettings.defaultPoints) } / Double(pitchers.count)).roundTo(places: 1)
+        return (pitchers.reduce(Double(0)) { $0 + $1.fantasyPoints(scoringSettings) } / Double(pitchers.count)).roundTo(places: 1)
     }
     
     func zScore(draft: Draft) -> Double {
-
+        
         let average = draft.playerPool.storedPitchers.average(for: self.projectionType, at: self.type)
         let stdDev = draft.playerPool.storedPitchers.stdDev(for: self.projectionType, type: self.type)
         return (fantasyPoints(draft.settings.scoringSystem) - average) / stdDev
-
     }
+    
+    
 
     var id: String { name + team }
 
@@ -77,12 +80,6 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
         self.qs = Int(jsonPitcher.qs ?? -99)
         self.playerids = jsonPitcher.playerids ?? "NA"
         self.era = Double(jsonPitcher.era ?? -99)
-//        k9 = Double(jsonPitcher.k9 ?? -99)
-//        bb9 = Double(jsonPitcher.bb9 ?? -99)
-//        kbb = Double(jsonPitcher.kbb ?? -99)
-//        hr9 = Double(jsonPitcher.hr9 ?? -99)
-//        kperc = Double(jsonPitcher.kperc ?? -99)
-//        gbperc = Double(jsonPitcher.gBperc ?? -99)
         self.fip = Double(jsonPitcher.fip ?? -99)
         self.war = Double(jsonPitcher.war ?? -99)
         self.ra9War = Double(jsonPitcher.ra9War ?? -99)
