@@ -12,7 +12,11 @@ import SwiftUI
 struct NVDraft: View {
     @EnvironmentObject private var model: MainModel
     @State private var projection: ProjectionTypes = .atc
-    @State private var sortOptionSelected: NVSortByDropDown.Options = .score
+    @State private var sortOptionSelected: NVSortByDropDown.Options = .score {
+        didSet {
+            updatePlayers()
+        }
+    }
     @State private var positionSelected: Position? = nil
     @State private var showMyTeamQuickView = false
     @State private var showPlayerSheet = false
@@ -28,13 +32,16 @@ struct NVDraft: View {
     @State private var showSpinning = true
     
     func updatePlayers() {
-        model.draft.playerPool.allStoredPlayers(projection: projection, scoring: model.draft.settings.scoringSystem, batterLimit: playerLimit, pitcherLimit: playerLimit) { playersArr in
-
-            DispatchQueue.main.async {
-                pitchersAndBatters = playersArr
-                showSpinning = false
-            }
+        
+        Task {
+            print("Updating")
+            
+            let presorted = await model.draft.playerPool.allStoredPlayers(projection: projection, scoring: model.draft.settings.scoringSystem, batterLimit: playerLimit, pitcherLimit: playerLimit, sort: false)
+            pitchersAndBatters = await sortedPlayers(presorted)
+            showSpinning = false
         }
+        
+
     }
 
     var filteredPlayers: [ParsedBatter] {
@@ -57,25 +64,29 @@ struct NVDraft: View {
 //
 //    }
 
-//    var sortedPlayers: [ParsedBatter] {
-//        let retArr: [ParsedBatter]
-//        switch sortOptionSelected {
-//            case .points:
-//                retArr = filteredPlayers.sorted { $0.fantasyPoints(model.scoringSettings) > $1.fantasyPoints(model.scoringSettings) }
-//            case .score:
-//                retArr = filteredPlayers.sorted { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) }
+    func sortedPlayers(_ presorted: [any ParsedPlayer]) async -> [any ParsedPlayer] {
+        let retArr: [any ParsedPlayer]
+        switch sortOptionSelected {
+        case .points:
+            retArr =  presorted.sorted { $0.fantasyPoints(model.scoringSettings) > $1.fantasyPoints(model.scoringSettings) }
+        case .score:
+            retArr =  presorted.sorted { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) }
+        default:
+            return presorted
+        }
 //            case .hr:
-//                retArr = filteredPlayers.sorted { $0.hr > $1.hr }
+//                retArr = await presorted.sorted { $0.hr > $1.hr }
 //            case .rbi:
-//                retArr = filteredPlayers.sorted { $0.rbi > $1.rbi }
+//                retArr = await presorted.sorted { $0.rbi > $1.rbi }
 //            case .r:
-//                retArr = filteredPlayers.sorted { $0.r > $1.r }
+//                retArr = await presorted.sorted { $0.r > $1.r }
 //            case .sb:
-//                retArr = filteredPlayers.sorted { $0.sb > $1.sb }
-//        }
-//
-//        return retArr
-//    }
+//                retArr = await presorted.sorted { $0.sb > $1.sb }
+        
+
+        
+        return retArr
+    }
 
     func bullet(_ text: String, color: Color? = nil) -> some View {
         HStack(spacing: 5) {
@@ -109,7 +120,6 @@ struct NVDraft: View {
                         .font(.subheadline)
                 }
                 Button {
-//                    batterToDraft = player
                     showDraftConfirmation.toggle()
                 } label: {
                     Image(systemName: "checklist")
@@ -154,6 +164,9 @@ struct NVDraft: View {
                         HStack {
                             NVDropDownProjection(selection: $projection)
                             NVSortByDropDown(selection: $sortOptionSelected)
+                                .onChange(of: sortOptionSelected) { _ in
+                                    updatePlayers()
+                                }
                             NVDropDownPosition(selection: $positionSelected)
                         }.pushLeft().padding(.top)
 

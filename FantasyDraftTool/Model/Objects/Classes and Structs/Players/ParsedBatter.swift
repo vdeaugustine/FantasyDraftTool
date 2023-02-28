@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+
 protocol ParsedPlayer {
     var name: String { get set }
     var team: String { get set }
@@ -15,6 +17,10 @@ protocol ParsedPlayer {
     
     func zScore(draft: Draft) -> Double
     func fantasyPoints(_ scoringSettings: ScoringSettings) -> Double
+}
+
+struct AnyParsedPlayer<T: ParsedPlayer> {
+    
 }
 
 // MARK: - ParsedBatter
