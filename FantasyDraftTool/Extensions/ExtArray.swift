@@ -51,7 +51,7 @@ extension Array where Element == ParsedBatter {
 
     
     func sortedByPoints(scoring: ScoringSettings) -> [ParsedBatter] {
-        removingDuplicates().sorted(by: { $0.fantasyPoints(scoring) > $1.fantasyPoints(scoring) })
+        sorted(by: { $0.fantasyPoints(scoring) > $1.fantasyPoints(scoring) })
     }
 
     func sortedByZscore(draft: Draft) -> [ParsedBatter] {

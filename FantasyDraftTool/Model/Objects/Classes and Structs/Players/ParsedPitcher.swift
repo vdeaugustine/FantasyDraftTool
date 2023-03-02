@@ -10,6 +10,16 @@ import Foundation
 // MARK: - ParsedPitcher
 
 struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
+    func averageForPosition(limit: Int, draft: Draft) -> Double {
+        let allPlayers = draft.playerPool.storedPitchers.pitchers(for: self.projectionType, at: self.type)
+        let sorted = allPlayers.sortedByPoints(scoring: draft.settings.scoringSystem)
+        let top = sorted.prefixArray(limit)
+        let sum: Double = top.reduce(0) { partial, element in
+            partial + element.fantasyPoints(draft.settings.scoringSystem)
+        }
+        return sum / Double(top.count)
+        
+    }
     
     
     var name, team: String
@@ -40,6 +50,17 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
         return sum
         
         
+    }
+    
+    func weightedFantasyPoints(draft: Draft, limit: Int = 100) -> Double {
+        
+        
+        let average = averageForPosition(limit: limit, draft: draft)
+        guard average != 0 else { return 0 }
+//        let average = draft.playerPool.storedBatters.average(for: self.projectionType, at: firstPos)
+        let points = self.fantasyPoints(draft.settings.scoringSystem)
+        
+        return (points / average * points).roundTo(places: 1)
     }
     
     static func averagePoints(forThese pitchers: [ParsedPitcher], scoringSettings: ScoringSettings) -> Double {

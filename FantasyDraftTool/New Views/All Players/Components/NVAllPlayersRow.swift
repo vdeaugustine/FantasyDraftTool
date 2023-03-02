@@ -10,12 +10,9 @@ import SwiftUI
 // MARK: - NVAllPlayersRow
 
 struct NVAllPlayersRow<T>: View where T: ParsedPlayer {
-    
     @EnvironmentObject private var model: MainModel
-    
-    
+
     let player: T
-    
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -23,12 +20,12 @@ struct NVAllPlayersRow<T>: View where T: ParsedPlayer {
                 Text(player.name)
                     .fontWeight(.bold)
                 Spacer()
+
                 Text(player.fantasyPoints(model.draft.settings.scoringSystem).str + " pts")
+
                     .font(.callout)
             }
-            
-            
-            
+
             HStack {
                 if let batter = player as? ParsedBatter {
                     Text(batter.hr.str + " HR")
@@ -36,21 +33,38 @@ struct NVAllPlayersRow<T>: View where T: ParsedPlayer {
                     Text(batter.r.str + " R")
                     Text(batter.sb.str + " SB")
                     Spacer()
-                    Text("score: \(batter.zScore(draft: model.draft).roundTo(places: 1).str)")
+                    VStack {
+                        Text("score: \(batter.zScore(draft: model.draft).roundTo(places: 1).str)")
+                        if let adp = batter.adp {
+                            Text("ADP: \(adp.roundTo(places: 1))")
+                        }
+                    }
                 }
-                
+
                 if let pitcher = player as? ParsedPitcher {
                     Text(pitcher.ip.str + " IP")
                     Text(pitcher.w.str + " W")
                     Text(pitcher.l.str + " L")
                     Text(pitcher.so.str + " SO")
                     Spacer()
-                    Text("score: \(pitcher.zScore(draft: model.draft).roundTo(places: 1).str)")
+                    VStack {
+                        Text("score: \(pitcher.zScore(draft: model.draft).roundTo(places: 1).str)")
+                        if let adp = pitcher.adp {
+                            Text("ADP: \(adp)")
+                        }
+                        if let batter = player as? ParsedBatter {
+                            Text("Weighted" + batter.weightedFantasyPoints(draft: model.draft, limit: 50).roundTo(places: 2).str)
+                            Text("Position average " + batter.averageForPosition(limit: 50, draft: model.draft).roundTo(places: 1).str)
+                        }
+                        
+                        if let pitcher = player as? ParsedPitcher {
+                            Text("Weighted" + pitcher.weightedFantasyPoints(draft: model.draft, limit: 100).roundTo(places: 2).str)
+                            Text("Position average " + pitcher.averageForPosition(limit: 50, draft: model.draft).roundTo(places: 1).str)
+                        }  
+                    } .font(.caption)
                 }
-                
             }
             .font(.caption)
-            
         }
         .padding(.vertical)
     }

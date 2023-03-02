@@ -59,34 +59,26 @@ struct NVDraft: View {
         return retaArr
     }
 
-//    var pitchersAndBatters: [any ParsedPlayer] {
-//        let filtered = filteredPlayers
-//        let pitchers = model.draft.playerPool.storedPitchers.pitchers(for: projection)
-//        let before = model.draft.playerPool.allStoredPlayers(projection: projection)
-//        let sorted = before.sorted(by: {$0.zScore(draft: model.draft) > $1.zScore(draft: model.draft)})
-//
-//        return sorted
-//
-//    }
-
     func sortedPlayers(_ presorted: [any ParsedPlayer]) async -> [any ParsedPlayer] {
         let retArr: [any ParsedPlayer]
         switch sortOptionSelected {
             case .points:
-                retArr = presorted.sorted { $0.fantasyPoints(model.scoringSettings) > $1.fantasyPoints(model.scoringSettings) }
+
+                retArr = presorted.sorted { firstPlayer, secondPlayer in
+                    let firstLimit = firstPlayer is ParsedBatter ? 50 : 100
+                    let secLimit = secondPlayer is ParsedBatter ? 50 : 100
+                    
+                    return firstPlayer.weightedFantasyPoints(draft: model.draft, limit: firstLimit) > secondPlayer.weightedFantasyPoints(draft: model.draft, limit: secLimit)
+                    
+                    
+                    
+                }
+//
             case .score:
                 retArr = presorted.sorted { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) }
             default:
                 return presorted
         }
-//            case .hr:
-//                retArr = await presorted.sorted { $0.hr > $1.hr }
-//            case .rbi:
-//                retArr = await presorted.sorted { $0.rbi > $1.rbi }
-//            case .r:
-//                retArr = await presorted.sorted { $0.r > $1.r }
-//            case .sb:
-//                retArr = await presorted.sorted { $0.sb > $1.sb }
 
         return retArr
     }

@@ -43,8 +43,11 @@ struct NVPreviousPickRect: View {
 //                    .stroke()
 //            }
 
-            Text(player.draftTeam.name)
-                .font(.footnote)
+            if let draftedTeam = player.draftedTeam {
+                Text(draftedTeam.name)
+                    .font(.footnote)
+            }
+            
         }
     }
 }

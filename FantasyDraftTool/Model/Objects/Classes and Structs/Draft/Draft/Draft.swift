@@ -205,12 +205,20 @@ struct Draft: Codable, Hashable, Equatable {
             removeStar(player)
         } else {
             if let batter = player as? ParsedBatter {
+                print("inserting ", batter.name)
                 myStarBatters.insert(batter)
+                print(myStarBatters)
             }
             if let pitcher = player as? ParsedPitcher {
+                print("inserting ", pitcher.name)
                 myStarPitchers.insert(pitcher)
+                print(myStarPitchers)
             }
         }
+        
+        
+        
+        MainModel.shared.save()
        
     }
 
@@ -222,6 +230,8 @@ struct Draft: Codable, Hashable, Equatable {
         if let pitcher = player as? ParsedPitcher {
             myStarPitchers.remove(pitcher)
         }
+        
+        MainModel.shared.save()
         
     }
 
@@ -239,7 +249,7 @@ struct Draft: Codable, Hashable, Equatable {
         self.myTeamIndex = try values.decode(Int.self, forKey: .myTeamIndex)
         self.myStarBatters = try values.decode(Set<ParsedBatter>.self, forKey: .myStarBatters)
         self.myStarPitchers = try values.decode(Set<ParsedPitcher>.self, forKey: .myStarPitchers)
-        print("Stars: ", myStarPlayers)
+        print("Stars: ", myStarBatters, myStarPitchers)
     }
 
     init(teams: [DraftTeam], currentPickNumber: Int = 0, settings: DraftSettings, myTeamIndex: Int = 0) {
@@ -278,6 +288,9 @@ extension Draft {
         try container.encode(playerPool, forKey: .playerPool)
         try container.encode(pickStack, forKey: .pickStack)
         try container.encode(myTeamIndex, forKey: .myTeamIndex)
+        try container.encode(myStarPitchers, forKey: .myStarPitchers)
+        try container.encode(myStarBatters, forKey: .myStarBatters)
+        
     }
 
     static func == (lhs: Draft, rhs: Draft) -> Bool {

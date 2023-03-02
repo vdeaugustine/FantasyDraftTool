@@ -29,6 +29,8 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     @Published var limitForEachPosition: Int = 50
 
+    @Published var mainSettings: MainSettings = MainSettings()
+
 //    @Published var positionLimit: Int = 50
 //    @Published var outfieldLimit: Int = 150
 
@@ -38,7 +40,15 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     // MARK: - Static Properties
 
-    static var shared: MainModel = { MainModel.load() ?? MainModel() }()
+    static var shared: MainModel = {
+        if let loaded = MainModel.load() {
+            print("loaded", loaded)
+            return loaded
+        } else {
+            print("new")
+            return MainModel()
+        }
+    }()
 
     static let key = "mainModelKey"
 
@@ -70,6 +80,7 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
         self.draft = try values.decode(Draft.self, forKey: .draft)
         self.myStatsPlayers = try values.decode(MyStatsPlayers.self, forKey: .myStatsPlayers)
         self.myModifiedBatters = try values.decode(Set<ParsedBatter>.self, forKey: .myModifiedBatters)
+        self.mainSettings = try values.decode(MainSettings.self, forKey: .mainSettings)
     }
 
     init() { }
@@ -79,7 +90,7 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
 extension MainModel {
     enum CodingKeys: CodingKey {
-        case scoringSettings, draft, myStatsPlayers, defaultProjectionSystem, myModifiedBatters
+        case scoringSettings, draft, myStatsPlayers, defaultProjectionSystem, myModifiedBatters, mainSettings
     }
 
     func encode(to encoder: Encoder) throws {
@@ -89,6 +100,7 @@ extension MainModel {
         try container.encode(myStatsPlayers, forKey: .myStatsPlayers)
         try container.encode(defaultProjectionSystem, forKey: .defaultProjectionSystem)
         try container.encode(myModifiedBatters, forKey: .myModifiedBatters)
+        try container.encode(mainSettings, forKey: .mainSettings)
     }
 
     func hash(into hasher: inout Hasher) {
@@ -97,6 +109,7 @@ extension MainModel {
         hasher.combine(myStatsPlayers)
         hasher.combine(defaultProjectionSystem)
         hasher.combine(myModifiedBatters)
+        hasher.combine(mainSettings)
     }
 
     static func == (lhs: MainModel, rhs: MainModel) -> Bool {
@@ -124,7 +137,7 @@ extension MainModel {
         do {
             let data = try encoder.encode(self)
             UserDefaults.standard.set(data, forKey: Self.key)
-            print(data)
+
         } catch {
             print(error)
         }

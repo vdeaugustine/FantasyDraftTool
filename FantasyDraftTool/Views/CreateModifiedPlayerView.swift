@@ -181,7 +181,7 @@ struct CreateModifiedPlayerView: View {
         .toolbarSave {
             model.myModifiedBatters.remove(batter)
             model.myModifiedBatters.insert(
-                ParsedBatter(empty: batter.empty, name: batter.name, team: batter.team, g: g, ab: batter.ab, pa: pa, h: h, the1B: singles, the2B: doubles, the3B: triples, hr: hr, r: r, rbi: rbi, bb: bb, ibb: batter.ibb, so: k, hbp: hbp, sf: batter.sf, sh: batter.sh, sb: sb, cs: cs, avg: batter.avg, positions: batter.positions, projectionType: .myProjections)
+                ParsedBatter(empty: batter.empty, name: batter.name, team: batter.team, g: g, ab: batter.ab, pa: pa, h: h, the1B: singles, the2B: doubles, the3B: triples, hr: hr, r: r, rbi: rbi, bb: bb, ibb: batter.ibb, so: k, hbp: hbp, sf: batter.sf, sh: batter.sh, sb: sb, cs: cs, avg: batter.avg, positions: batter.positions, projectionType: .myProjections, adp: nil)
             )
 
             model.save()

@@ -17,6 +17,8 @@ protocol ParsedPlayer {
     
     func zScore(draft: Draft) -> Double
     func fantasyPoints(_ scoringSettings: ScoringSettings) -> Double
+    func weightedFantasyPoints(draft: Draft, limit: Int) -> Double
+    func averageForPosition(limit: Int, draft: Draft) -> Double
 }
 
 struct AnyParsedPlayer<T: ParsedPlayer> {
@@ -28,6 +30,20 @@ struct AnyParsedPlayer<T: ParsedPlayer> {
 struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, ParsedPlayer {
     
     
+    func averageForPosition(limit: Int, draft: Draft) -> Double {
+        guard let firstPos = self.positions.first else { return 0 }
+        let allPlayers = draft.playerPool.storedBatters.batters(for: projectionType, at: firstPos)
+        let sorted = allPlayers.sortedByPoints(scoring: draft.settings.scoringSystem)
+        let top = sorted.prefixArray(limit)
+        let sum: Double = top.reduce(0) { partial, element in
+            partial + element.fantasyPoints(draft.settings.scoringSystem)
+        }
+        return sum / Double(top.count)
+        
+    }
+    
+    
+    
     // MARK: Stored Properties
 
     var empty, name, team: String
@@ -35,6 +51,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
     var avg: Double
     let positions: [Position]
     let projectionType: ProjectionTypes
+    let adp: Double?
 
     var description: String {
         name + " \(projectionType.title)"
@@ -97,7 +114,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
 
     // MARK: - Static Properties
 
-    static let nullBatter: ParsedBatter = .init(empty: "", name: "", team: "", g: 0, ab: 0, pa: 0, h: 0, the1B: 0, the2B: 0, the3B: 0, hr: 0, r: 0, rbi: 0, bb: 0, ibb: 0, so: 0, hbp: 0, sf: 0, sh: 0, sb: 0, cs: 0, avg: 0, positions: [], projectionType: .steamer)
+    static let nullBatter: ParsedBatter = .init(empty: "", name: "", team: "", g: 0, ab: 0, pa: 0, h: 0, the1B: 0, the2B: 0, the3B: 0, hr: 0, r: 0, rbi: 0, bb: 0, ibb: 0, so: 0, hbp: 0, sf: 0, sh: 0, sb: 0, cs: 0, avg: 0, positions: [], projectionType: .steamer, adp: nil)
 
     // MARK: - Mutating Methods
 
@@ -169,6 +186,23 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
         else { return 0 }
         return (fantasyPoints(MainModel.shared.getScoringSettings()) / average * fantasyPoints(MainModel.shared.getScoringSettings())).roundTo(places: 1)
     }
+    
+    
+    
+    func weightedFantasyPoints(draft: Draft, limit: Int = 50) -> Double {
+     
+        let average = averageForPosition(limit: limit, draft: draft)
+        guard average != 0 else { return 0 }
+              
+//        let players = draft.playerPool.storedBatters.batters(for: self.projectionType, at: firstPos).prefixArray(limit)
+//        let sum = players.reduce(Double(0), {$0 + $1.fantasyPoints(draft.settings.scoringSystem)})
+//        let average = sum / Double(players.count)
+//        let average = draft.playerPool.storedBatters.average(for: self.projectionType, at: firstPos)
+        let points = self.fantasyPoints(draft.settings.scoringSystem)
+        
+        return (points / average * points).roundTo(places: 1)
+    }
+    
 
     func fantasyPoints(_ scoringSettings: ScoringSettings) -> Double {
         var points: Double = 0
@@ -222,6 +256,7 @@ extension ParsedBatter {
         self.positions = [pos]
 
         self.projectionType = projectionType
+        self.adp = nil
     }
 
     init(from jsonBatter: ExtendedBatter, pos: Position, projectionType: ProjectionTypes) {
@@ -252,6 +287,7 @@ extension ParsedBatter {
         self.positions = [pos]
 
         self.projectionType = projectionType
+        self.adp = jsonBatter.adp
     }
 
     // MARK: Codable initializer
@@ -282,6 +318,7 @@ extension ParsedBatter {
         self.avg = try container.decode(Double.self, forKey: .avg)
         self.positions = try container.decode([Position].self, forKey: .positions)
         self.projectionType = try container.decode(ProjectionTypes.self, forKey: .projectionType)
+        self.adp = try container.decodeIfPresent(Double.self, forKey: .adp)
     }
 }
 
@@ -309,7 +346,7 @@ extension ParsedBatter {
     enum CodingKeys: CodingKey {
         case empty, name, team
         case g, ab, pa, h, the1B, the2B, the3B, hr, r, rbi, bb, ibb, so, hbp, sf, sh, sb, cs
-        case avg, positions, projectionType
+        case avg, positions, projectionType, adp
     }
 
     func encode(to encoder: Encoder) throws {
@@ -338,6 +375,7 @@ extension ParsedBatter {
         try container.encode(avg, forKey: .avg)
         try container.encode(positions, forKey: .positions)
         try container.encode(projectionType, forKey: .projectionType)
+        try container.encode(adp, forKey: .adp)
     }
 
     func hash(into hasher: inout Hasher) {
