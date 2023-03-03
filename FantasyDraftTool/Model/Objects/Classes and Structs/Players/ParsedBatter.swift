@@ -15,7 +15,7 @@ protocol ParsedPlayer {
     
     var projectionType: ProjectionTypes { get }
     
-    func zScore(draft: Draft) -> Double
+    func zScore(draft: Draft, limit: Int) -> Double
     func fantasyPoints(_ scoringSettings: ScoringSettings) -> Double
     func weightedFantasyPoints(draft: Draft, limit: Int) -> Double
     func averageForPosition(limit: Int, draft: Draft) -> Double
@@ -168,7 +168,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
         fantasyPoints(MainModel.shared.getScoringSettings()) / positionAverage * fantasyPoints(MainModel.shared.getScoringSettings())
     }
 
-    func zScore(draft: Draft) -> Double {
+    func zScore(draft: Draft, limit: Int) -> Double {
         guard let firstPos = positions.first else {
             return (0 - .infinity)
         }

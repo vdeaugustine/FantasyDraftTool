@@ -50,8 +50,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "79"
             endingLineNumber = "79"
-            landmarkName = "PlayerPool"
-            landmarkType = "14">
+            landmarkName = "init(scoring:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -240,73 +240,10 @@
             filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/Player Pool/PlayerPool.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "647"
-            endingLineNumber = "647"
-            landmarkName = "pitchers(for:)"
+            startingLineNumber = "685"
+            endingLineNumber = "685"
+            landmarkName = "add(_:to:scoring:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D7714DD7-858C-4BED-A30F-A9318D110F91"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FantasyDraftTool/New Views/Draft/NVDraft.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "updatePlayers()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D7714DD7-858C-4BED-A30F-A9318D110F91 - 1fd35741f04176a6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async -&gt; () in FantasyDraftTool.NVDraft.updatePlayers() -&gt; ()"
-                  moduleName = "FantasyDraftTool"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/New%20Views/Draft/NVDraft.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "300">
-               </Location>
-               <Location
-                  uuid = "D7714DD7-858C-4BED-A30F-A9318D110F91 - b7acfd9965d0c708"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for closure #1 @Sendable () async -&gt; () in FantasyDraftTool.NVDraft.updatePlayers() -&gt; ()"
-                  moduleName = "FantasyDraftTool"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/New%20Views/Draft/NVDraft.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "44">
-               </Location>
-               <Location
-                  uuid = "D7714DD7-858C-4BED-A30F-A9318D110F91 - ab40831d4a682aa4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in FantasyDraftTool.NVDraft.updatePlayers() -&gt; ()"
-                  moduleName = "FantasyDraftTool"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/New%20Views/Draft/NVDraft.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "44">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -322,6 +259,70 @@
             startingLineNumber = "43"
             endingLineNumber = "43"
             landmarkName = "allStoredPlayers(projection:scoring:batterLimit:pitcherLimit:sort:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CAA04301-E2EB-4644-BA48-B538909F6C81 - 7883cb35cd0246b2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for FantasyDraftTool.PlayerPool.allStoredPlayers(projection: FantasyDraftTool.ProjectionTypes, scoring: FantasyDraftTool.ScoringSettings, batterLimit: Swift.Int, pitcherLimit: Swift.Int, sort: Swift.Bool) async -&gt; Swift.Array&lt;FantasyDraftTool.ParsedPlayer&gt;"
+                  moduleName = "FantasyDraftTool"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/Model/Objects/Classes%20and%20Structs/Draft/Player%20Pool/PlayerPool.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "752">
+               </Location>
+               <Location
+                  uuid = "CAA04301-E2EB-4644-BA48-B538909F6C81 - 959ef4bc7177c498"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (FantasyDraftTool.ParsedPlayer, FantasyDraftTool.ParsedPlayer) -&gt; Swift.Bool in FantasyDraftTool.PlayerPool.allStoredPlayers(projection: FantasyDraftTool.ProjectionTypes, scoring: FantasyDraftTool.ScoringSettings, batterLimit: Swift.Int, pitcherLimit: Swift.Int, sort: Swift.Bool) async -&gt; Swift.Array&lt;FantasyDraftTool.ParsedPlayer&gt;"
+                  moduleName = "FantasyDraftTool"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/Model/Objects/Classes%20and%20Structs/Draft/Player%20Pool/PlayerPool.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3630736D-3296-4072-8A87-E6A344102146"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FantasyDraftTool/New Views/Draft/NVDraft.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "playerBox(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "138C2178-A587-45A3-8DF5-032A1D7F7C5E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FantasyDraftTool/New Views/Draft/NVDraft.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "playerBox(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

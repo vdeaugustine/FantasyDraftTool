@@ -10,8 +10,10 @@ import Foundation
 // MARK: - ParsedPitcher
 
 struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
+    
+    
     func averageForPosition(limit: Int, draft: Draft) -> Double {
-        let allPlayers = draft.playerPool.storedPitchers.pitchers(for: self.projectionType, at: self.type)
+        let allPlayers = draft.playerPool.storedPitchers.pitchers(for: self.projectionType, at: self.type, scoring: draft.settings.scoringSystem)
         let sorted = allPlayers.sortedByPoints(scoring: draft.settings.scoringSystem)
         let top = sorted.prefixArray(limit)
         let sum: Double = top.reduce(0) { partial, element in
@@ -35,17 +37,30 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
 //    var k9, bb9, kbb, hr9, kperc, gbperc: String
     
     func fantasyPoints(_ scoring: ScoringSettings) -> Double {
+//        print("Getting points for", self.name)
         var sum: Double = 0
         
-        sum += Double(w) * scoring.wins
-        sum += Double(sv) * scoring.saves
-        sum += Double(er) * scoring.earnedRuns
-        sum += Double(so) * scoring.pitcherK
-        sum += Double(ip) * scoring.inningsPitched
-        sum += Double(h) * scoring.hitsAllowed
-        sum += Double(bb) * scoring.walksAllowed
-        sum += Double(qs) * scoring.qualityStarts
-        sum += Double(l) * scoring.losses
+        let wins = Double(w) * scoring.wins
+        let sv = Double(sv) * scoring.saves
+        let er = Double(er) * scoring.earnedRuns
+        let k = Double(so) * scoring.pitcherK
+        let ip = Double(ip) * scoring.inningsPitched
+        let h = Double(h) * scoring.hitsAllowed
+        let bb = Double(bb) * scoring.walksAllowed
+        let qs = qs > 0 ? Double(qs) * scoring.qualityStarts : 0
+        let l = Double(l) * scoring.losses
+
+        
+        
+        sum += wins
+        sum += sv
+        sum += er
+        sum += k
+        sum += ip
+        sum += h
+        sum += bb
+        sum += qs
+        sum += l
         
         return sum
         
@@ -68,11 +83,26 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
         return (pitchers.reduce(Double(0)) { $0 + $1.fantasyPoints(scoringSettings) } / Double(pitchers.count)).roundTo(places: 1)
     }
     
-    func zScore(draft: Draft) -> Double {
+    func zScore(draft: Draft, limit: Int = 40) -> Double {
         
-        let average = draft.playerPool.storedPitchers.average(for: self.projectionType, at: self.type)
-        let stdDev = draft.playerPool.storedPitchers.stdDev(for: self.projectionType, type: self.type)
-        return (fantasyPoints(draft.settings.scoringSystem) - average) / stdDev
+//        print(player.name, "points", self.fantasyPoints(draft.settings.scoringSystem).str())
+        let otherPlayers = draft.playerPool.storedPitchers.pitchers(for: projectionType, at: type, scoring: draft.settings.scoringSystem).prefixArray(limit)
+//        print("Position: \(player.type.str)")
+//        for otherPlayer in otherPlayers {
+//            print(otherPlayer.name, "\(otherPlayer.fantasyPoints(model.draft.settings.scoringSystem))")
+//        }
+        let average = ParsedPitcher.averagePoints(forThese: otherPlayers, scoringSettings: draft.settings.scoringSystem)
+//        print("average for this position: ", average.str())
+        let stdDev = otherPlayers.standardDeviation(scoring: draft.settings.scoringSystem)
+//        print("std: ", stdDev.str())
+
+        let zScore = (fantasyPoints(draft.settings.scoringSystem) - average) / stdDev
+//        print("Z score", zScore.str())
+        
+        return zScore
+//        let average = draft.playerPool.storedPitchers.average(for: self.projectionType, at: self.type)
+//        let stdDev = draft.playerPool.storedPitchers.stdDev(for: self.projectionType, type: self.type)
+//        return (fantasyPoints(draft.settings.scoringSystem) - average) / stdDev
     }
     
     

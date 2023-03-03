@@ -323,7 +323,7 @@ extension Draft {
             let draftPlayer = DraftPlayer(player: chosenPlayer,
                                           pickNumber: workingDraft.totalPickNumber,
                                           team: workingDraft.currentTeam,
-                                          weightedScore: chosenPlayer.zScore(draft: workingDraft))
+                                          weightedScore: chosenPlayer.zScore(draft: workingDraft, limit: 150))
             workingDraft.makePick(draftPlayer)
         }
 
@@ -419,7 +419,7 @@ extension Draft {
             let draftPlayer = DraftPlayer(player: chosenPlayer,
                                           pickNumber: draft.totalPickNumber,
                                           team: draft.currentTeam,
-                                          weightedScore: chosenPlayer.zScore(draft: draft))
+                                          weightedScore: chosenPlayer.zScore(draft: draft, limit: 150))
             draft.makePick(draftPlayer)
             DispatchQueue.global().async {
 //                print("changing load progress from: ", model.draftLoadProgress)

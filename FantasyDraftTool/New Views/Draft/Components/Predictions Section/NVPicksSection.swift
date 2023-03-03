@@ -116,7 +116,7 @@ struct NVPicksSection: View {
             }
 
             if let recommended = draft.currentTeam.recommendedPlayer(draft: draft, projection: .steamer) {
-                pickTwo = DraftPlayer(player: recommended, pickNumber: draft.totalPickNumber, team: draft.currentTeam, weightedScore: recommended.zScore(draft: draft))
+                pickTwo = DraftPlayer(player: recommended, pickNumber: draft.totalPickNumber, team: draft.currentTeam, weightedScore: recommended.zScore(draft: draft, limit: 50))
             }
 
             previousViewingIndex = draft.currentPickNumber

@@ -46,10 +46,10 @@ struct PlayerPool: Codable, Hashable, Equatable {
         return sorted
     }
 
-    func pitchers(types: [PitcherType], projection: ProjectionTypes) async -> [ParsedPitcher] {
+    func pitchers(types: [PitcherType], projection: ProjectionTypes, scoring: ScoringSettings) async -> [ParsedPitcher] {
         var retArr: [ParsedPitcher] = []
         for type in types {
-            retArr += storedPitchers.pitchers(for: projection, at: type)
+            retArr += storedPitchers.pitchers(for: projection, at: type, scoring: scoring)
         }
         return retArr
     }
@@ -154,21 +154,41 @@ extension PlayerPool {
             self.thebatx = .init(projectionType: .thebatx, scoring: scoring)
         }
 
-        func average(for projection: ProjectionTypes, at position: Position) -> Double {
+        func average(for projection: ProjectionTypes, at position: Position, limit: Int? = nil, draft: Draft? = nil) -> Double {
+            guard let limit = limit,
+                  let draft = draft else {
+                switch projection {
+                    case .steamer:
+                        return steamer.averages.forPosition(position)
+                    case .thebat:
+                        return theBat.averages.forPosition(position)
+                    case .thebatx:
+                        return thebatx.averages.forPosition(position)
+                    case .atc:
+                        return atc.averages.forPosition(position)
+                    case .depthCharts:
+                        return depthCharts.averages.forPosition(position)
+                    default:
+                        return -99
+                }
+            }
+            
             switch projection {
                 case .steamer:
-                    return steamer.averages.forPosition(position)
+                return steamer.averages.forPosition(position, limit: limit, draft: draft, projection: projection)
                 case .thebat:
-                    return theBat.averages.forPosition(position)
+                    return theBat.averages.forPosition(position, limit: limit, draft: draft, projection: projection)
                 case .thebatx:
-                    return thebatx.averages.forPosition(position)
+                    return thebatx.averages.forPosition(position, limit: limit, draft: draft, projection: projection)
                 case .atc:
-                    return atc.averages.forPosition(position)
+                    return atc.averages.forPosition(position, limit: limit, draft: draft, projection: projection)
                 case .depthCharts:
-                    return depthCharts.averages.forPosition(position)
+                    return depthCharts.averages.forPosition(position, limit: limit, draft: draft, projection: projection)
                 default:
                     return -99
             }
+            
+            
         }
 
         func stdDev(for projection: ProjectionTypes, at position: Position) -> Double {
@@ -345,24 +365,47 @@ extension PlayerPool {
 
         struct Averages: Codable {
             var first, second, third, short, catcher, outfield: Double
+            /// To reduce calculations. First value is the number limiting the players to compare to. The second is that average
+            var firstDict: [Int: Double] = [:]
 
-            func forPosition(_ position: Position) -> Double {
-                switch position {
-                    case .c:
-                        return catcher
-                    case .first:
-                        return first
-                    case .second:
-                        return second
-                    case .third:
-                        return third
-                    case .ss:
-                        return short
-                    case .of:
-                        return outfield
-                    default:
-                        return -99
+            func forPosition(_ position: Position, limit: Int? = nil, draft: Draft? = nil, projection: ProjectionTypes? = nil) -> Double {
+                let startTime = Date.now
+                guard let limit = limit,
+                      let draft = draft,
+                      let projection = projection
+                else {
+                    switch position {
+                        case .c:
+                            return catcher
+                        case .first:
+                            return first
+                        case .second:
+                            return second
+                        case .third:
+                            return third
+                        case .ss:
+                            return short
+                        case .of:
+                            return outfield
+                        default:
+                            return -99
+                    }
                 }
+
+                if let atLimit = firstDict[limit] {
+                    print("Got from dict. Time: ", Date.now - startTime)
+                    return atLimit
+                }
+
+                let otherPlayers = draft.playerPool.storedBatters.batters(for: projection, at: position)
+                let limitPlayers = otherPlayers.prefixArray(limit)
+                let average = ParsedBatter.averagePoints(forThese: limitPlayers, scoring: draft.settings.scoringSystem)
+                print("Calculated. Time: ", Date.now - startTime)
+                return average
+                
+                
+                
+                
             }
         }
 
@@ -587,30 +630,30 @@ extension PlayerPool {
             }
         }
 
-        func pitchers(for projection: ProjectionTypes, at type: PitcherType) -> [ParsedPitcher] {
+        func pitchers(for projection: ProjectionTypes, at type: PitcherType, scoring: ScoringSettings) -> [ParsedPitcher] {
             if type == .starter {
                 switch projection {
                     case .steamer:
-                        return steamer.starters
+                    return steamer.starters.sortedByPoints(scoring: scoring)
                     case .thebat:
-                        return thebat.starters
+                        return thebat.starters.sortedByPoints(scoring: scoring)
                     case .atc:
-                        return atc.starters
+                        return atc.starters.sortedByPoints(scoring: scoring)
                     case .depthCharts:
-                        return depthCharts.starters
+                        return depthCharts.starters.sortedByPoints(scoring: scoring)
                     default:
                         return []
                 }
             } else {
                 switch projection {
                     case .steamer:
-                        return steamer.relievers
+                        return steamer.relievers.sortedByPoints(scoring: scoring)
                     case .thebat:
-                        return thebat.relievers
+                        return thebat.relievers.sortedByPoints(scoring: scoring)
                     case .atc:
-                        return atc.relievers
+                        return atc.relievers.sortedByPoints(scoring: scoring)
                     case .depthCharts:
-                        return depthCharts.relievers
+                        return depthCharts.relievers.sortedByPoints(scoring: scoring)
                     default:
                         return []
                 }

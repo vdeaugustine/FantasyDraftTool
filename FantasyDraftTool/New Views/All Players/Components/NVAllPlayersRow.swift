@@ -24,7 +24,7 @@ struct NVAllPlayersRow<T>: View where T: ParsedPlayer {
             }
             return firstIndex + 1
         } else if let pitcher = player as? ParsedPitcher {
-            let otherPitchers = draft.playerPool.storedPitchers.pitchers(for: pitcher.projectionType, at: pitcher.type)
+            let otherPitchers = draft.playerPool.storedPitchers.pitchers(for: pitcher.projectionType, at: pitcher.type, scoring: draft.settings.scoringSystem)
             guard let firstIndex = otherPitchers.firstIndex(of: pitcher) else { return 0 }
             return firstIndex + 1
         }
@@ -36,7 +36,7 @@ struct NVAllPlayersRow<T>: View where T: ParsedPlayer {
             return nil
         }
 
-        let otherPitchers: [ParsedPitcher] = draft.playerPool.storedPitchers.pitchers(for: pitcher.projectionType, at: pitcher.type)
+        let otherPitchers: [ParsedPitcher] = draft.playerPool.storedPitchers.pitchers(for: pitcher.projectionType, at: pitcher.type, scoring: draft.settings.scoringSystem)
         guard let firstIndex = otherPitchers.firstIndex(of: pitcher) else {
             return nil
         }
@@ -81,7 +81,7 @@ struct NVAllPlayersRow<T>: View where T: ParsedPlayer {
                         }
 
                         HStack(spacing: 2) {
-                            Text("\(batter.zScore(draft: model.draft).roundTo(places: 1).str)")
+                            Text("\(batter.zScore(draft: model.draft, limit: 50).roundTo(places: 1).str)")
                             Text("Pos Score")
                         }.padding(5)
                         //                        .overlay {

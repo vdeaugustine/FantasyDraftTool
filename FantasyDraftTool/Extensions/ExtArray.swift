@@ -56,7 +56,7 @@ extension Array where Element == ParsedBatter {
 
     func sortedByZscore(draft: Draft) -> [ParsedBatter] {
         let removedDuplicates = removingDuplicates()
-        return removedDuplicates.sorted(by: { $0.zScore(draft: draft) > $1.zScore(draft: draft) })
+        return removedDuplicates.sorted(by: { $0.zScore(draft: draft, limit: 50) > $1.zScore(draft: draft, limit: 50) })
     }
 
     func averagePoints(for: Position, scoring: ScoringSettings) -> Double {
@@ -64,6 +64,10 @@ extension Array where Element == ParsedBatter {
     }
 
     func standardDeviation(for: Position, scoring: ScoringSettings) -> Double {
+        map { $0.fantasyPoints(scoring) }.standardDeviation()
+    }
+    
+    func standardDeviation(scoring: ScoringSettings) -> Double {
         map { $0.fantasyPoints(scoring) }.standardDeviation()
     }
 
@@ -108,7 +112,7 @@ extension Array where Element == DraftPlayer {
 
     func sortedByZscore(draft: Draft) -> [DraftPlayer] {
         let removedDuplicates = removingDuplicates()
-        return removedDuplicates.sorted(by: { $0.player.zScore(draft: draft) > $1.player.zScore(draft: draft) })
+        return removedDuplicates.sorted(by: { $0.player.zScore(draft: draft, limit: 50) > $1.player.zScore(draft: draft, limit: 50) })
     }
     
     
