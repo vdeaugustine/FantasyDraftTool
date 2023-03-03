@@ -12,7 +12,7 @@ extension Data {
         let bcf = ByteCountFormatter()
         bcf.allowedUnits = [.useBytes]
         bcf.countStyle = .file
-        return bcf.string(fromByteCount: Int64(self.count))
+        return bcf.string(fromByteCount: Int64(count))
     }
 }
 
@@ -55,7 +55,7 @@ extension Double {
               let unicodeScalar = Unicode.Scalar(currencySymbol.unicodeScalars.first?.value ?? 36) else { return "" }
         func cleanDollarAmount(amount: String, decimals: Int) -> String {
             var decimalPlaces = decimals
-            let dollarAmount = amount.trimmingCharacters(in: [ unicodeScalar ])
+            let dollarAmount = amount.trimmingCharacters(in: [unicodeScalar])
             if dollarAmount.isEmpty {
                 return "$0"
             } else {
@@ -81,7 +81,6 @@ extension Double {
                     }
                 }
 
-                
                 var retVar: String
 
                 if roundedAmount.hasSuffix(".00") {
@@ -89,23 +88,18 @@ extension Double {
                 } else {
                     retVar = "$" + roundedAmount
                 }
-                
+
                 var strFollowingDecimal = decimalSubstring(amount: retVar)
                 let strBeforeDecimal = integerSubstring(amount: retVar)
-                
-                
-                while strFollowingDecimal.count > 2 && strFollowingDecimal.hasSuffix("0"){
-                        _ = strFollowingDecimal.popLast()
-                    
+
+                while strFollowingDecimal.count > 2 && strFollowingDecimal.hasSuffix("0") {
+                    _ = strFollowingDecimal.popLast()
                 }
-                
+
                 return strBeforeDecimal + "." + strFollowingDecimal
             }
-            
-            
-}
+        }
 
-        
 //        if rounded == roundTo(places: 1) {
 //            return dollarType ?? "" + "\(rounded)" + "0"
 //        }
@@ -120,6 +114,16 @@ extension Double {
         let roundTens = roundTo(places: 1)
         let roundHundreds = roundTo(places: 2)
         if roundTens == roundHundreds {
+            return "\(self)0"
+        }
+        return "\(self)"
+    }
+
+    func str(includeSecondZero: Bool = false) -> String {
+        let roundTens = roundTo(places: 1)
+        let roundHundreds = roundTo(places: 2)
+        if roundTens == roundHundreds,
+           includeSecondZero {
             return "\(self)0"
         }
         return "\(self)"

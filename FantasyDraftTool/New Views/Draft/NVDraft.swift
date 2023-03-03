@@ -73,7 +73,6 @@ struct NVDraft: View {
                     
                     
                 }
-//
             case .score:
                 retArr = presorted.sorted { $0.zScore(draft: model.draft) > $1.zScore(draft: model.draft) }
             default:
@@ -122,7 +121,7 @@ struct NVDraft: View {
                         .font(.subheadline)
                 }
             }.frame(maxHeight: .infinity)
-            NVAllPlayersRow(player: player)
+            NVAllPlayersRow(player: player, draft: model.draft)
         }
         .padding(.horizontal)
         .background {
@@ -192,21 +191,6 @@ struct NVDraft: View {
                                             .padding(.vertical, 1)
                                     }
 
-//                                    if let pitcher = pitchersAndBatters.safeGet(at: playerInd) as? ParsedPitcher {
-//
-//                                    }
-
-//                                    if let batter = pitchersAndBatters.safeGet(at: playerInd) as? ParsedBatter {
-//
-//                                    }
-
-//                                    Button {
-//                                        model.navPathForDrafting.append(batter)
-//                                    } label: {
-//                                        playerBox(batter)
-//                                            .padding(.vertical, 1)
-//                                    }
-//                                    .buttonStyle(.plain)
                                 }
                             }
 

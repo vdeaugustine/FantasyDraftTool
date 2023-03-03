@@ -98,7 +98,7 @@ struct NVAllPlayers: View {
                         NavigationLink {
                             NVPlayerDetail(batter: player)
                         } label: {
-                            NVAllPlayersRow(player: player)
+                            NVAllPlayersRow(player: player, draft: model.draft)
                         }
                     }
                 }

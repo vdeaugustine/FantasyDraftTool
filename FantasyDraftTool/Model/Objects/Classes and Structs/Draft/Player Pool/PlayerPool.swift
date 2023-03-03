@@ -7,18 +7,12 @@
 
 import Foundation
 
-
-
 // MARK: - PlayerPool
 
 struct PlayerPool: Codable, Hashable, Equatable {
     // MARK: - Stored Properties
 
-
-
     var positionsOrder: [Position] = Position.batters
-
-
 
     var storedBatters: StoredBatters
     var storedPitchers: StoredPitchers
@@ -40,15 +34,15 @@ struct PlayerPool: Codable, Hashable, Equatable {
     }
 
     func allStoredPlayers(projection: ProjectionTypes, scoring: ScoringSettings, batterLimit: Int, pitcherLimit: Int, sort: Bool) async -> [any ParsedPlayer] {
-        let batters =  storedBatters.batters(for: projection).sortedByPoints(scoring: scoring).prefixArray(batterLimit)
+        let batters = storedBatters.batters(for: projection).sortedByPoints(scoring: scoring).prefixArray(batterLimit)
         let pitchers = storedPitchers.pitchers(for: projection).sortedByPoints(scoring: scoring).prefixArray(pitcherLimit)
         let union: [any ParsedPlayer] = (batters + pitchers)
         if !sort {
             return union
         }
-        let sorted =  union.sorted { player1, player2 in
+        let sorted = union.sorted { player1, player2 in
             player1.fantasyPoints(scoring) > player2.fantasyPoints(scoring)
-        } 
+        }
         return sorted
     }
 
@@ -65,31 +59,18 @@ struct PlayerPool: Codable, Hashable, Equatable {
 
         for position in positions {
             retArr += storedBatters.batters(for: projection, at: position)
-
-
         }
 
         return retArr.sortedByZscore(draft: draft)
     }
-    
-   
-    
-    
-
-
 
     func positionRank(for player: ParsedBatter, at position: Position) -> Int? {
-
         let batters = storedBatters.batters(for: player.projectionType, at: position)
         guard let indexFound = batters.firstIndex(of: player) else { return nil }
         return indexFound + 1
     }
 
-
-
     // MARK: - Methods
-
-
 
     // MARK: - Initializers
 
@@ -409,12 +390,12 @@ extension PlayerPool {
         }
 
         init(projectionType: ProjectionTypes, scoring: ScoringSettings) {
-            let firstBase = AllParsedBatters.batters(for: projectionType, at: .first)
-            let secondBase = AllParsedBatters.batters(for: projectionType, at: .second)
-            let thirdBase = AllParsedBatters.batters(for: projectionType, at: .third)
-            let shortstop = AllParsedBatters.batters(for: projectionType, at: .ss)
-            let outfield = AllParsedBatters.batters(for: projectionType, at: .of)
-            let catcher = AllParsedBatters.batters(for: projectionType, at: .c)
+            let firstBase = AllParsedBatters.batters(for: projectionType, at: .first).sortedByPoints(scoring: scoring)
+            let secondBase = AllParsedBatters.batters(for: projectionType, at: .second).sortedByPoints(scoring: scoring)
+            let thirdBase = AllParsedBatters.batters(for: projectionType, at: .third).sortedByPoints(scoring: scoring)
+            let shortstop = AllParsedBatters.batters(for: projectionType, at: .ss).sortedByPoints(scoring: scoring)
+            let outfield = AllParsedBatters.batters(for: projectionType, at: .of).sortedByPoints(scoring: scoring)
+            let catcher = AllParsedBatters.batters(for: projectionType, at: .c).sortedByPoints(scoring: scoring)
 
             self.firstBase = firstBase
             self.secondBase = secondBase
@@ -442,16 +423,22 @@ extension PlayerPool {
             switch position {
                 case .c:
                     catcher.append(batter)
+                    catcher = catcher.sortedByPoints(scoring: scoring)
                 case .first:
                     firstBase.append(batter)
+                    firstBase = firstBase.sortedByPoints(scoring: scoring)
                 case .second:
                     secondBase.append(batter)
+                    secondBase = secondBase.sortedByPoints(scoring: scoring)
                 case .third:
                     thirdBase.append(batter)
+                    thirdBase = thirdBase.sortedByPoints(scoring: scoring)
                 case .ss:
                     shortstop.append(batter)
+                    shortstop = shortstop.sortedByPoints(scoring: scoring)
                 case .of:
                     outfield.append(batter)
+                    outfield = outfield.sortedByPoints(scoring: scoring)
                 case .dh:
                     return
                 case .rp, .sp:
@@ -601,35 +588,33 @@ extension PlayerPool {
         }
 
         func pitchers(for projection: ProjectionTypes, at type: PitcherType) -> [ParsedPitcher] {
-            
             if type == .starter {
                 switch projection {
-                case .steamer:
-                    return self.steamer.starters
-                case .thebat:
-                    return self.thebat.starters
-                case .atc:
-                    return self.atc.starters
-                case .depthCharts:
-                    return self.depthCharts.starters
-                default:
-                    return []
+                    case .steamer:
+                        return steamer.starters
+                    case .thebat:
+                        return thebat.starters
+                    case .atc:
+                        return atc.starters
+                    case .depthCharts:
+                        return depthCharts.starters
+                    default:
+                        return []
                 }
-            } else  {
+            } else {
                 switch projection {
-                case .steamer:
-                    return self.steamer.relievers
-                case .thebat:
-                    return self.thebat.relievers
-                case .atc:
-                    return self.atc.relievers
-                case .depthCharts:
-                    return self.depthCharts.relievers
-                default:
-                    return []
+                    case .steamer:
+                        return steamer.relievers
+                    case .thebat:
+                        return thebat.relievers
+                    case .atc:
+                        return atc.relievers
+                    case .depthCharts:
+                        return depthCharts.relievers
+                    default:
+                        return []
                 }
             }
-            
         }
 
         func pitchers(for projection: ProjectionTypes) -> [ParsedPitcher] {
@@ -777,8 +762,10 @@ extension PlayerPool {
             switch pitcher.type {
                 case .reliever:
                     relievers.append(pitcher)
+                    relievers = relievers.sortedByPoints(scoring: scoring)
                 case .starter:
-                    relievers.append(pitcher)
+                    starters.append(pitcher)
+                    starters = starters.sortedByPoints(scoring: scoring)
             }
             update(type: pitcher.type, scoring: scoring)
         }
