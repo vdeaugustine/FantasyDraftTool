@@ -99,11 +99,21 @@ extension Array where Element == ParsedPitcher {
 extension Array where Element == DraftPlayer {
     
     func filter(for position: Position) -> [DraftPlayer] {
-        removingDuplicates().filter { $0.player.positions.contains(position) }
+        
+        removingDuplicates().filter {
+            guard let batter = $0.player as? ParsedBatter else { return false }
+            return batter.positions.contains(position)
+            
+            
+        }
     }
 
     func filter(for positions: [Position]) -> [DraftPlayer] {
-        removingDuplicates().filter { $0.player.positions.intersects(with: positions) }
+        removingDuplicates().filter {
+            guard let batter = $0.player as? ParsedBatter else { return false }
+            return batter.positions.intersects(with: positions)
+            
+        }
     }
     
     func sortedByPoints(scoring: ScoringSettings) -> [DraftPlayer] {

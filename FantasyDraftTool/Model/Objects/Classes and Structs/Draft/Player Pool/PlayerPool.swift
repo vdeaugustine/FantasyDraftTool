@@ -46,12 +46,19 @@ struct PlayerPool: Codable, Hashable, Equatable {
         return sorted
     }
 
-    func pitchers(types: [PitcherType], projection: ProjectionTypes, scoring: ScoringSettings) async -> [ParsedPitcher] {
-        var retArr: [ParsedPitcher] = []
-        for type in types {
-            retArr += storedPitchers.pitchers(for: projection, at: type, scoring: scoring)
+    func pitchers(types: [PitcherType], projection: ProjectionTypes, scoring: ScoringSettings) async -> Task<[ParsedPitcher], Never> {
+        Task {
+            var retArr: [ParsedPitcher] = []
+            for type in types {
+                retArr += storedPitchers.pitchers(for: projection, at: type, scoring: scoring)
+            }
+           
+//            DispatchQueue.main.async {
+//                LoadingManager.shared.displayString = "Done gtting pitchers"
+//                LoadingManager.shared.taskPercentage = 0.5
+//            }
+            return retArr
         }
-        return retArr
     }
 
     func batters(for positions: [Position], projection: ProjectionTypes, draft: Draft = MainModel.shared.draft) -> [ParsedBatter] {

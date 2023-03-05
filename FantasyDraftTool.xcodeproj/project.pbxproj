@@ -60,6 +60,8 @@
 		9C3B7025298B2C3400A1B42C /* PlayerPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B7024298B2C3400A1B42C /* PlayerPool.swift */; };
 		9C3B702E298B2CE100A1B42C /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B702D298B2CE100A1B42C /* MainModel.swift */; };
 		9C48E31129B1A3840017149D /* NVPlayerDraftRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C48E31029B1A3840017149D /* NVPlayerDraftRow.swift */; };
+		9C48E31329B292320017149D /* LoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C48E31229B292320017149D /* LoadingManager.swift */; };
+		9C48E31529B293110017149D /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C48E31429B293110017149D /* LoadingScreen.swift */; };
 		9C73D089299573C4007C251F /* RemainingAnalysisPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C73D088299573C4007C251F /* RemainingAnalysisPosition.swift */; };
 		9C73D08D2995C801007C251F /* SimulateRemainingDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C73D08C2995C801007C251F /* SimulateRemainingDraftView.swift */; };
 		9C73D0912996DC64007C251F /* ModifyStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C73D0902996DC64007C251F /* ModifyStatsView.swift */; };
@@ -218,6 +220,8 @@
 		9C3B7024298B2C3400A1B42C /* PlayerPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPool.swift; sourceTree = "<group>"; };
 		9C3B702D298B2CE100A1B42C /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		9C48E31029B1A3840017149D /* NVPlayerDraftRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVPlayerDraftRow.swift; sourceTree = "<group>"; };
+		9C48E31229B292320017149D /* LoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingManager.swift; sourceTree = "<group>"; };
+		9C48E31429B293110017149D /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		9C73D088299573C4007C251F /* RemainingAnalysisPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingAnalysisPosition.swift; sourceTree = "<group>"; };
 		9C73D08C2995C801007C251F /* SimulateRemainingDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulateRemainingDraftView.swift; sourceTree = "<group>"; };
 		9C73D0902996DC64007C251F /* ModifyStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyStatsView.swift; sourceTree = "<group>"; };
@@ -457,6 +461,8 @@
 				9C762DED29A1FED100C3B804 /* ExtendedBatter.swift */,
 				9C2C8DA629AA850B00626232 /* ExtendedPitcher.swift */,
 				9C2C8DB929AA872100626232 /* ParsedPitcher.swift */,
+				9C48E31229B292320017149D /* LoadingManager.swift */,
+				9C48E31429B293110017149D /* LoadingScreen.swift */,
 			);
 			path = Extended;
 			sourceTree = "<group>";
@@ -1114,12 +1120,14 @@
 				9C48E31129B1A3840017149D /* NVPlayerDraftRow.swift in Sources */,
 				9C1AE398297FA0A20016BF50 /* ScoringSettings.swift in Sources */,
 				9CA24CAE2985181A00A394B4 /* ExtArray.swift in Sources */,
+				9C48E31529B293110017149D /* LoadingScreen.swift in Sources */,
 				9CA24CA8298394EB00A394B4 /* ParsedBatter.swift in Sources */,
 				9C75B9BA296F590F003B35E6 /* OldJSONView.swift in Sources */,
 				9CE9F50E299C9ED80015886D /* NVDraft.swift in Sources */,
 				9CA24CD32985BD2200A394B4 /* SetUpDraftTeamsView.swift in Sources */,
 				9C73D09329970BD8007C251F /* SettingsView.swift in Sources */,
 				9C33F7FA29838BCD0038A938 /* JSONBatter.swift in Sources */,
+				9C48E31329B292320017149D /* LoadingManager.swift in Sources */,
 				9CA24CA62983915400A394B4 /* AllBattersListView.swift in Sources */,
 				9CA24CBD29851C2C00A394B4 /* DraftView.swift in Sources */,
 				9C75B9CE296FD174003B35E6 /* BatterDetailView.swift in Sources */,

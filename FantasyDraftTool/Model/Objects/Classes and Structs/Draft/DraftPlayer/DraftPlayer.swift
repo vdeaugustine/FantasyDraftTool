@@ -12,7 +12,7 @@ import Foundation
 class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConvertible {
     // MARK: - Stored Properties
 
-    var player: ParsedBatter
+    var player: ParsedPlayer
     var pickNumber: Int
     
     /// Team that is assigned to the player. Not the computed property 
@@ -20,7 +20,7 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
     var weightedScoreWhenDrafted: Double
 
     var description: String {
-        player.description
+        player.name + " \(player.projectionType.title)"
     }
 
     /// Computed property that tells you what team this player is found on within the draft 
@@ -43,14 +43,14 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
         self.weightedScoreWhenDrafted = try values.decode(Double.self, forKey: .weightedScoreWhenDrafted)
     }
 
-    init(player: ParsedBatter, pickNumber: Int, team: DraftTeam, weightedScore: Double) {
+    init(player: ParsedPlayer, pickNumber: Int, team: DraftTeam, weightedScore: Double) {
         self.player = player
         self.pickNumber = pickNumber
 //        self.draftTeam = team
         self.weightedScoreWhenDrafted = weightedScore
     }
 
-    convenience init(player: ParsedBatter, draft: Draft) {
+    convenience init(player: ParsedPlayer, draft: Draft) {
         self.init(player: player,
                   pickNumber: draft.totalPickNumber,
                   team: draft.currentTeam,
@@ -61,8 +61,9 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
 // MARK: - Functions
 
 extension DraftPlayer {
-    func has(position: Position) -> Bool {
-        player.positions.contains(position)
+    func has(position: Position) -> Bool  {
+        guard let batter = player as? ParsedBatter else { return false }
+        return batter.positions.contains(position)
     }
 
     // MARK: - Static functions
@@ -82,13 +83,11 @@ extension DraftPlayer {
     }
 
     static func == (lhs: DraftPlayer, rhs: DraftPlayer) -> Bool {
-        return lhs.player == rhs.player &&
-            lhs.pickNumber == rhs.pickNumber
-        //        lhs.draftTeam == rhs.draftTeam
+        return lhs.pickNumber == rhs.pickNumber && lhs.player.name == rhs.player.name
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(player)
+        hasher.combine(player.name)
         hasher.combine(pickNumber)
         ////hasher.combine(draftTeam)
     }

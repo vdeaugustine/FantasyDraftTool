@@ -30,7 +30,8 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
         var included: Set<Position> = []
         for position in Position.batters {
             for player in draftedPlayers {
-                if player.player.positions.contains(position) {
+                guard let player = player.player as? ParsedBatter else { continue }
+                if player.positions.contains(position) {
                     included.insert(position)
                 }
             }
@@ -69,7 +70,12 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
     }
 
     func points(for position: Position) -> Double {
-        let theseBatters = draftedPlayers.filter { $0.player.positions.contains(position) }
+        let theseBatters = draftedPlayers.filter {
+            
+            guard let player = $0.player as? ParsedBatter else { return false }
+            return player.positions.contains(position)
+            
+        }
         guard !theseBatters.isEmpty else {
             return 0
         }
@@ -78,7 +84,15 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
     }
     
     func players(for position: Position) -> [DraftPlayer] {
-        draftedPlayers.filter{$0.player.positions.contains(position)}
+        
+        draftedPlayers.filter{
+            
+            guard let player = $0.player as? ParsedBatter else { return false }
+            
+            return player.positions.contains(position)
+            
+            
+        }
     }
     
     

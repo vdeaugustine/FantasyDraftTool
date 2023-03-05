@@ -59,8 +59,12 @@ struct Draft: Codable, Hashable, Equatable {
     /// This is a mutating function that removes a player from the playerPool object based on their positions.
     mutating func removeFromPool(player: DraftPlayer) {
         // Loop through each position the player has.
-        for position in player.player.positions {
-            self.playerPool.storedBatters.remove(player.player, from: player.player.projectionType, scoring: settings.scoringSystem)
+        if let batter = player.player as? ParsedBatter {
+            playerPool.storedBatters.remove(batter, from: batter.projectionType, scoring: settings.scoringSystem)
+        }
+
+        if let pitcher = player.player as? ParsedPitcher {
+            playerPool.storedPitchers.remove(pitcher, from: pitcher.projectionType, scoring: settings.scoringSystem)
         }
 
 //        // Update the playerPool dictionaries with the updated list of players for each position.
@@ -115,7 +119,7 @@ struct Draft: Codable, Hashable, Equatable {
 //        playerPool.setPositionsOrder()
     }
 
-    mutating func makePick(_ player: ParsedBatter) {
+    mutating func makePick(_ player: ParsedPlayer) {
         makePick(.init(player: player, draft: self))
     }
 
@@ -131,10 +135,10 @@ struct Draft: Codable, Hashable, Equatable {
     }
 
     mutating func insertIntoPool(player: DraftPlayer) {
-        for position in player.player.positions {
-            playerPool.storedBatters.add(player.player, to: player.player.projectionType, for: position, scoring: settings.scoringSystem)
-//            playerPool.battersDict[position]?.append(player.player)
-//            playerPool.updateDicts(for: [position])
+        if let batter = player.player as? ParsedBatter {
+            for position in batter.positions {
+                playerPool.storedBatters.add(batter, to: batter.projectionType, for: position, scoring: settings.scoringSystem)
+            }
         }
     }
 
@@ -187,7 +191,10 @@ struct Draft: Codable, Hashable, Equatable {
         }
 
         let batters: [DraftPlayer] = teamsToUse.reduce([DraftPlayer]()) {
-            $0 + $1.draftedPlayers.filter { $0.player.positions.contains(position) }
+            $0 + $1.draftedPlayers.filter {
+                guard let batter = $0.player as? ParsedBatter else { return false }
+                return batter.positions.contains(position)
+            }
         }
 
         let sum: Double = batters.reduce(0) { $0 + $1.player.fantasyPoints(MainModel.shared.getScoringSettings()) }
@@ -199,8 +206,6 @@ struct Draft: Codable, Hashable, Equatable {
     }
 
     mutating func addOrRemoveStar(_ player: ParsedPlayer) {
-        
-        
         if isStar(player) {
             removeStar(player)
         } else {
@@ -215,24 +220,19 @@ struct Draft: Codable, Hashable, Equatable {
                 print(myStarPitchers)
             }
         }
-        
-        
-        
+
         MainModel.shared.save()
-       
     }
 
     mutating func removeStar(_ player: ParsedPlayer) {
-        
         if let batter = player as? ParsedBatter {
             myStarBatters.remove(batter)
         }
         if let pitcher = player as? ParsedPitcher {
             myStarPitchers.remove(pitcher)
         }
-        
+
         MainModel.shared.save()
-        
     }
 
     // MARK: - Initializers
@@ -290,7 +290,6 @@ extension Draft {
         try container.encode(myTeamIndex, forKey: .myTeamIndex)
         try container.encode(myStarPitchers, forKey: .myStarPitchers)
         try container.encode(myStarBatters, forKey: .myStarBatters)
-        
     }
 
     static func == (lhs: Draft, rhs: Draft) -> Bool {
@@ -330,7 +329,7 @@ extension Draft {
         return workingDraft.pickStack
     }
 
-    func simulatePicks(_ numPicks: Int, projection: ProjectionTypes, completion: @escaping (Draft) -> Void ) {
+    func simulatePicks(_ numPicks: Int, projection: ProjectionTypes, completion: @escaping (Draft) -> Void) {
         var draft = self
         var picksMade: Int = 0
 
@@ -352,7 +351,7 @@ extension Draft {
             draft.makePick(.init(player: chosenPlayer, draft: draft))
             picksMade += 1
         }
-        
+
         completion(draft)
     }
 

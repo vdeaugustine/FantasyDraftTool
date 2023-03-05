@@ -11,12 +11,9 @@ import SwiftUI
 
 struct NVDraft: View {
     @EnvironmentObject private var model: MainModel
+    @EnvironmentObject private var lm: LoadingManager
     @State private var projection: ProjectionTypes = .atc
-    @State private var sortOptionSelected: NVSortByDropDown.Options = .score {
-        didSet {
-            updatePlayers()
-        }
-    }
+    @State private var sortOptionSelected: NVSortByDropDown.Options = .score
 
     @State private var positionSelected: Position? = nil
     @State private var showMyTeamQuickView = false
@@ -32,54 +29,75 @@ struct NVDraft: View {
     @State private var pitchersAndBatters: [any ParsedPlayer] = []
     @State private var showSpinning = true
 
-    func updatePlayers() {
-        Task {
-            print("Updating")
+    func updatePlayers() async {
+        print("Updating")
 
-            let filteredBatters = await filteredPlayers()
-            let filteredPitchers = await model.draft.playerPool.pitchers(types: [.starter, .reliever], projection: projection, scoring: model.draft.settings.scoringSystem)
+        let filteredBatters = await filteredPlayers().value
+        let filteredPitchers = await model.draft.playerPool.pitchers(types: [.starter, .reliever], projection: projection, scoring: model.draft.settings.scoringSystem).value
 
-            let union: [any ParsedPlayer] = (filteredBatters + filteredPitchers)
+        let union: [any ParsedPlayer] = (filteredBatters + filteredPitchers)
 
-            pitchersAndBatters = await sortedPlayers(union)
-            showSpinning = false
+        let sorted = await sortedPlayers(union).value
+        pitchersAndBatters = sorted
+        DispatchQueue.main.async {
+            lm.taskPercentage = 1
+        }
+        showSpinning = false
+        lm.shouldShow = false
+    }
+
+    func filteredPlayers() async -> Task<[ParsedBatter], Never> {
+//        DispatchQueue.main.async {
+//            lm.displayString = "Filtering Players"
+//        }
+        return Task {
+            
+            // TODO: When switching
+            var retaArr: [ParsedBatter] = []
+
+            if let positionSelected = positionSelected {
+                retaArr = model.draft.playerPool.batters(for: [positionSelected], projection: projection, draft: model.draft)
+                
+            } else {
+                retaArr = model.draft.playerPool.batters(for: Position.batters, projection: projection, draft: model.draft)
+                
+            }
+
+//            DispatchQueue.main.async {
+//                lm.taskPercentage = 0.25
+//                lm.displayString = "Done filtering"
+//            }
+            return retaArr
         }
     }
 
-    func filteredPlayers() async -> [ParsedBatter] {
-        // TODO: When switching
-        var retaArr: [ParsedBatter] = []
-
-        if let positionSelected = positionSelected {
-            retaArr = model.draft.playerPool.batters(for: [positionSelected], projection: projection, draft: model.draft)
-        } else {
-            retaArr = model.draft.playerPool.batters(for: Position.batters, projection: projection, draft: model.draft)
+    func sortedPlayers(_ presorted: [any ParsedPlayer]) -> Task<[any ParsedPlayer], Never> {
+        DispatchQueue.main.async {
+            lm.taskPercentage = 0.75
+            lm.displayString = "Sorting..."
         }
+        
+        return Task {
+           
+            let retArr: [any ParsedPlayer]
+            switch sortOptionSelected {
+                case .points:
+                    retArr = presorted.sorted { firstPlayer, secondPlayer in
+                        let firstLimit = firstPlayer is ParsedBatter ? 50 : 100
+                        let secLimit = secondPlayer is ParsedBatter ? 50 : 100
 
-        return retaArr
-    }
-
-    func sortedPlayers(_ presorted: [any ParsedPlayer]) async -> [any ParsedPlayer] {
-        let retArr: [any ParsedPlayer]
-        switch sortOptionSelected {
-            case .points:
-
-                retArr = presorted.sorted { firstPlayer, secondPlayer in
-                    let firstLimit = firstPlayer is ParsedBatter ? 50 : 100
-                    let secLimit = secondPlayer is ParsedBatter ? 50 : 100
-                    
-                    return firstPlayer.weightedFantasyPoints(draft: model.draft, limit: firstLimit) > secondPlayer.weightedFantasyPoints(draft: model.draft, limit: secLimit)
-                    
-                    
-                    
-                }
-            case .score:
-                retArr = presorted.sorted { $0.zScore(draft: model.draft, limit: 100) > $1.zScore(draft: model.draft, limit: 100) }
-            default:
-                return presorted
+                        return firstPlayer.weightedFantasyPoints(draft: model.draft, limit: firstLimit) > secondPlayer.weightedFantasyPoints(draft: model.draft, limit: secLimit)
+                    }
+                case .score:
+                    retArr = presorted.sorted {
+                            lm.taskPercentage += 0.1
+                        return $0.zScore(draft: model.draft, limit: 100) > $1.zScore(draft: model.draft, limit: 100)
+                    }
+                default:
+                    return presorted
+            }
+            return retArr
         }
-
-        return retArr
     }
 
     func bullet(_ text: String, color: Color? = nil) -> some View {
@@ -92,8 +110,8 @@ struct NVDraft: View {
     }
 
     var draftConfirmationMessage: String {
-        if let batter = batterToDraft {
-            return "Draft \(batter.name) for \(model.draft.currentTeam.name)?"
+        if let player = playerToDraft {
+            return "Draft \(player.name) for \(model.draft.currentTeam.name)?"
         } else {
             return "Error. Please hit cancel"
         }
@@ -114,12 +132,13 @@ struct NVDraft: View {
                         .font(.subheadline)
                 }
                 Button {
+                    playerToDraft = player
                     showDraftConfirmation.toggle()
-                    
+
                     if let player = player as? ParsedBatter {
                         guard let firstPos = player.positions.first else {
-                                return
-                            }
+                            return
+                        }
                         print(player.name, "points", player.fantasyPoints(model.draft.settings.scoringSystem).str())
                         let otherPlayers = model.draft.playerPool.storedBatters.batters(for: player.projectionType, at: firstPos).prefixArray(10)
                         print("Position: \(firstPos.str)")
@@ -127,7 +146,7 @@ struct NVDraft: View {
                             print(otherPlayer.name, "\(otherPlayer.fantasyPoints(model.draft.settings.scoringSystem))")
                         }
                         let average = ParsedBatter.averagePoints(forThese: otherPlayers, scoring: model.draft.settings.scoringSystem)
-                       let secondAverage = model.draft.playerPool.storedBatters.average(for: player.projectionType, at: firstPos)
+                        let secondAverage = model.draft.playerPool.storedBatters.average(for: player.projectionType, at: firstPos)
                         print("average for this position: ", average.str())
                         print("second for this position: ", secondAverage.str())
                         let stdDev = otherPlayers.standardDeviation(scoring: model.draft.settings.scoringSystem)
@@ -136,9 +155,8 @@ struct NVDraft: View {
                         let zScore = (player.fantasyPoints(model.draft.settings.scoringSystem) - average) / stdDev
 //                        print("Z score", zScore.str())
                     }
-                    
+
                     if let player = player as? ParsedPitcher {
-                        
                         print(player.name, "points", player.fantasyPoints(model.draft.settings.scoringSystem).str())
                         let otherPlayers = model.draft.playerPool.storedPitchers.pitchers(for: player.projectionType, at: player.type, scoring: model.draft.settings.scoringSystem).prefixArray(40)
                         print("Position: \(player.type.str)")
@@ -154,11 +172,6 @@ struct NVDraft: View {
 //                        print("Z score", zScore.str())
                     }
 
-                        
-                    
-                    
-                    
-                    
                 } label: {
                     Image(systemName: "checklist")
 
@@ -186,6 +199,7 @@ struct NVDraft: View {
             if let myTeam = model.draft.myTeam {
                 ScrollView {
                     VStack {
+                        Text("Total players = \(pitchersAndBatters.count)")
                         NVPicksSection()
 
                         VStack(alignment: .leading) {
@@ -197,13 +211,11 @@ struct NVDraft: View {
                                         .onChange(of: myTeam.players(for: pos)) { _ in
                                             print("myteam: ", myTeam.draftedPlayers)
                                             print(myTeam.players(for: pos))
-                                            
                                         }
                                         .onAppear {
                                             print("Pick stack", model.draft.pickStack.getArray())
                                         }
                                 }
-                                
                             }
                             .height(60)
                         }
@@ -211,11 +223,18 @@ struct NVDraft: View {
                         HStack {
                             NVDropDownProjection(selection: $projection)
                                 .onChange(of: projection) { _ in
-                                    updatePlayers()
+                                    Task {
+                                        await updatePlayers()
+                                    }
+//                                    Task(priority: . ) {
+//                                        await updatePlayers()
+//                                    }
                                 }
                             NVSortByDropDown(selection: $sortOptionSelected)
                                 .onChange(of: sortOptionSelected) { _ in
-                                    updatePlayers()
+                                    Task {
+                                        await updatePlayers()
+                                    }
                                 }
                             NVDropDownPosition(selection: $positionSelected)
                         }.pushLeft().padding(.top)
@@ -238,21 +257,27 @@ struct NVDraft: View {
                                 ForEach(pitchersAndBatters.indices, id: \.self) { playerInd in
 
                                     if let batter = pitchersAndBatters.safeGet(at: playerInd) as? ParsedBatter {
-                                        playerBox(batter)
-                                            .padding(.vertical, 1)
+                                        Button {
+                                            model.navPathForDrafting.append(batter)
+                                        }
+                                    label: {
+                                            playerBox(batter)
+                                                .padding(.vertical, 1)
+                                        }
                                     }
 
                                     if let pitcher = pitchersAndBatters.safeGet(at: playerInd) as? ParsedPitcher {
                                         playerBox(pitcher)
                                             .padding(.vertical, 1)
                                     }
-
                                 }
                             }
 
                             Button("Load more") {
                                 playerLimit += 20
-                                updatePlayers()
+                                Task {
+                                    await updatePlayers()
+                                }
                             }
                         }
                     }.padding()
@@ -263,7 +288,9 @@ struct NVDraft: View {
                 .onAppear {
                     if pitchersAndBatters.isEmpty { showSpinning = true }
                     model.resetDraft()
-                    updatePlayers()
+                    Task {
+                        await updatePlayers()
+                    }
                 }
                 .listStyle(.plain)
                 .navigationTitle("Round \(model.draft.roundNumber)")
@@ -281,8 +308,8 @@ struct NVDraft: View {
                 .confirmationDialog(draftConfirmationMessage, isPresented: $showDraftConfirmation, titleVisibility: .visible) {
                     Button("Draft", role: .destructive) {
                         guard let playerToDraft = playerToDraft else { return }
-                        model.draft.makePick(batterToDraft)
-                        self.batterToDraft = nil
+                        model.draft.makePick(playerToDraft)
+                        self.playerToDraft = nil
                     }
                     Button("Cancel", role: .cancel) {
                         playerToDraft = nil
@@ -312,6 +339,12 @@ struct NVDraft: View {
                         }
                     }
                 }
+                .blur(radius: lm.shouldShow ? 3 : 0)
+                .overlay {
+                    if lm.shouldShow {
+                        LoadingScreen()
+                    }
+                }
             }
         }
     }
@@ -321,8 +354,12 @@ struct NVDraft: View {
 
 struct NVDraft_Previews: PreviewProvider {
     static var previews: some View {
-        NVDraft()
-            .environmentObject(MainModel.shared)
-            .putInNavView(displayMode: .inline)
+        NavigationStack {
+            NVDraft()
+                .environmentObject(MainModel.shared)
+                .environmentObject(LoadingManager.shared)
+        }
+        
+//            .putInNavView(displayMode: .inline)
     }
 }

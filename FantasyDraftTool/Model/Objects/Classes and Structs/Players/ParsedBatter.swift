@@ -9,7 +9,7 @@ import Foundation
 
 
 
-protocol ParsedPlayer {
+protocol ParsedPlayer: Codable {
     var name: String { get set }
     var team: String { get set }
     
@@ -19,6 +19,8 @@ protocol ParsedPlayer {
     func fantasyPoints(_ scoringSettings: ScoringSettings) -> Double
     func weightedFantasyPoints(draft: Draft, limit: Int) -> Double
     func averageForPosition(limit: Int, draft: Draft) -> Double
+    
+    
 }
 
 struct AnyParsedPlayer<T: ParsedPlayer> {
@@ -382,12 +384,15 @@ extension ParsedBatter {
         hasher.combine(name.removingWhiteSpaces())
         hasher.combine(team.removingWhiteSpaces())
         hasher.combine(projectionType)
+        hasher.combine(sb)
+        hasher.combine(rbi)
+        hasher.combine(avg)
     }
 
     static func == (lhs: ParsedBatter, rhs: ParsedBatter) -> Bool {
         return
             lhs.name.removingWhiteSpaces() == rhs.name.removingWhiteSpaces() &&
-            lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces()
-        && lhs.projectionType == rhs.projectionType
+            lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces() &&
+        lhs.sb == rhs.sb && lhs.avg == rhs.avg && lhs.rbi == rhs.rbi
     }
 }

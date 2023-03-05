@@ -14,9 +14,9 @@ struct NVPicksSection: View {
 
     var draft: Draft { model.draft }
 
-    @State private var pickOne = DraftPlayer(player: .nullBatter, pickNumber: 1, team: .someDefaultTeams(amount: 1)[0], weightedScore: 1)
+    @State private var pickOne = DraftPlayer(player: ParsedBatter.nullBatter, pickNumber: 1, team: .someDefaultTeams(amount: 1)[0], weightedScore: 1)
 
-    @State private var pickTwo = DraftPlayer(player: .nullBatter, pickNumber: 1, team: .someDefaultTeams(amount: 1)[0], weightedScore: 1)
+    @State private var pickTwo = DraftPlayer(player: ParsedBatter.nullBatter, pickNumber: 1, team: .someDefaultTeams(amount: 1)[0], weightedScore: 1)
 
     @State var projection: ProjectionTypes = .steamer
     let pastColor = Color.red.opacity(0.1)

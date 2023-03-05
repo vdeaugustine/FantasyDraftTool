@@ -70,7 +70,12 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
     func weightedFantasyPoints(draft: Draft, limit: Int = 100) -> Double {
         
         
-        let average = averageForPosition(limit: limit, draft: draft)
+        let otherPlayers = draft.playerPool.storedPitchers.pitchers(for: projectionType, at: type, scoring: draft.settings.scoringSystem).prefixArray(limit)
+//        print("Position: \(player.type.str)")
+//        for otherPlayer in otherPlayers {
+//            print(otherPlayer.name, "\(otherPlayer.fantasyPoints(model.draft.settings.scoringSystem))")
+//        }
+        let average = ParsedPitcher.averagePoints(forThese: otherPlayers, scoringSettings: draft.settings.scoringSystem)
         guard average != 0 else { return 0 }
 //        let average = draft.playerPool.storedBatters.average(for: self.projectionType, at: firstPos)
         let points = self.fantasyPoints(draft.settings.scoringSystem)
