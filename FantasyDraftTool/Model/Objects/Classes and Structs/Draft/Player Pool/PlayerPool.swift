@@ -54,7 +54,10 @@ struct PlayerPool: Codable, Hashable, Equatable {
             }
 
             let totalPicks = draft.settings.numberOfTeams * draft.settings.numberOfRounds
-            let trimmed = retArr.sortedByADP.prefixArray(totalPicks + 1)
+            let trimmed = retArr.filter {
+                guard let adp = $0.adp else { return false }
+                return Int(adp) <= draft.settings.totalPicksWillBeMade
+            }
             completion(trimmed)
         }
             

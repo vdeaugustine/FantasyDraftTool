@@ -15,6 +15,7 @@ struct DraftSettings: Codable, Equatable, Hashable {
     var scoringSystem: ScoringSettings
     var rosterRequirements: RosterRequirements = .init()
     
+    var totalPicksWillBeMade: Int { numberOfTeams * numberOfRounds }
     
     static let defaultSettings: DraftSettings = .init(
         numberOfTeams: 10,

@@ -86,7 +86,12 @@ struct NVDraft: View {
                 retaArr = model.draft.playerPool.batters(for: Position.batters, projection: projection, draft: model.draft)
             }
             
-            comletion(retaArr)
+            let filtered = retaArr.filter {
+                guard let adp = $0.adp else { return false }
+                return Int(adp) <= model.draft.settings.totalPicksWillBeMade
+            }
+            
+            comletion(filtered)
         }
         
     }
