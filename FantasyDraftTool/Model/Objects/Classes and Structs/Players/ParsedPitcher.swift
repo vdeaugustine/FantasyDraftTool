@@ -33,7 +33,7 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
     let adp: Double?
 
     var description: String {
-        [name, team, projectionType.title].joined(separator: ", ")
+        [name, team, projectionType.title, (adp?.str ?? "NO ADP")].joined(separator: ", ")
     }
 //    var k9, bb9, kbb, hr9, kperc, gbperc: String
     
@@ -111,12 +111,24 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
 //        return (fantasyPoints(draft.settings.scoringSystem) - average) / stdDev
     }
     
+    func peers(draft: Draft) -> [ParsedPitcher] {
+        let totalPicksInDraft = draft.settings.numberOfRounds * draft.settings.numberOfTeams
+        let pool = draft.playerPool.storedPitchers.pitchers(for: self.projectionType, at: self.type)
+        let smallerPool = pool.filter {
+            guard let adp = $0.adp else { return false }
+            return adp <= Double(totalPicksInDraft)
+        }
+        return smallerPool.sortedByADP
+    }
+    
+    
+   
+    
+    /// Limit ADP
     func zScore(draft: Draft) -> Double {
         
         
-        let totalPicksInDraft = draft.settings.numberOfRounds * draft.settings.numberOfTeams
-        let pool = draft.playerPool.storedPitchers.pitchers(for: self.projectionType, at: self.type).sortedByADP
-        let smallerPool = pool.prefixArray(totalPicksInDraft)
+        let smallerPool: [ParsedPitcher] = peers(draft: draft) 
         
         let average = ParsedPitcher.averagePoints(forThese: smallerPool, scoringSettings: draft.settings.scoringSystem)
         let stdDev = smallerPool.standardDeviation(scoring: draft.settings.scoringSystem)
@@ -126,6 +138,9 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
         return zScore
     }
     
+    
+    
+    
     func wPointsZScore(draft: Draft) -> Double {
         let zscore = self.zScore(draft: draft)
         let points = self.fantasyPoints(draft.settings.scoringSystem)
@@ -133,6 +148,8 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
         return zscore * points
         
     }
+    
+    
     
     
 

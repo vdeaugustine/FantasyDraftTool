@@ -21,7 +21,7 @@ protocol ParsedPlayer: Codable {
     func averageForPosition(limit: Int, draft: Draft) -> Double
     
     
-    func wPointsZScore(draft: Draft) -> Double 
+    func wPointsZScore(draft: Draft) -> Double
     
 }
 
@@ -32,6 +32,11 @@ struct AnyParsedPlayer<T: ParsedPlayer> {
 // MARK: - ParsedBatter
 
 struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, ParsedPlayer {
+    
+      
+    
+    
+    
     
     
     func averageForPosition(limit: Int, draft: Draft) -> Double {
@@ -58,7 +63,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
     let adp: Double?
 
     var description: String {
-        name + " \(projectionType.title)"
+        [name, team, projectionType.title, (adp?.str ?? "NO ADP")].joined(separator: ", ")
     }
 
     // MARK: Computed properties
@@ -186,13 +191,8 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
     
         /// Limit ADP
     func zScore(draft: Draft) -> Double {
-        guard let firstPos = positions.first else {
-            return (0 - .infinity)
-        }
         
-        let totalPicksInDraft = draft.settings.numberOfRounds * draft.settings.numberOfTeams
-        let pool = draft.playerPool.batters(for: [firstPos], projection: self.projectionType, draft: draft).sortedByADP
-        let smallerPool = pool.prefixArray(totalPicksInDraft)
+        let smallerPool: [ParsedBatter] = peers(draft: draft)
         
         let average = ParsedBatter.averagePoints(forThese: smallerPool, scoring: draft.settings.scoringSystem)
         let stdDev = smallerPool.standardDeviation(scoring: draft.settings.scoringSystem)
@@ -201,6 +201,26 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
 
         return zScore
     }
+    
+    func peers(draft: Draft) -> [ParsedBatter] {
+        guard let firstPos = positions.first else {
+            return []
+        }
+        let totalPicksInDraft = draft.settings.numberOfRounds * draft.settings.numberOfTeams
+        let pool = draft.playerPool.batters(for: [firstPos], projection: self.projectionType, draft: draft)
+        let smallerPool = pool.filter {
+            guard let adp = $0.adp else {
+                return false
+                
+            }
+            return adp <= Double(totalPicksInDraft)
+        }
+        return smallerPool.sortedByADP
+    }
+    
+    
+    
+    
     
     func wPointsZScore(draft: Draft) -> Double {
         let zscore = self.zScore(draft: draft)
@@ -260,37 +280,37 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
 // MARK: Initializers
 
 extension ParsedBatter {
-    init(from jsonBatter: JSONBatter, pos: Position, projectionType: ProjectionTypes) {
-        self.empty = jsonBatter.empty
-        self.name = jsonBatter.name
-        self.team = jsonBatter.team
-
-        self.g = Int(jsonBatter.g) ?? 0
-        self.ab = Int(jsonBatter.ab) ?? 0
-        self.pa = Int(jsonBatter.pa) ?? 0
-        self.h = Int(jsonBatter.h) ?? 0
-        self.the1B = Int(jsonBatter.the1B) ?? 0
-        self.the2B = Int(jsonBatter.the2B) ?? 0
-        self.the3B = Int(jsonBatter.the3B) ?? 0
-        self.hr = Int(jsonBatter.hr) ?? 0
-        self.r = Int(jsonBatter.r) ?? 0
-        self.rbi = Int(jsonBatter.rbi) ?? 0
-        self.bb = Int(jsonBatter.bb) ?? 0
-        self.ibb = Int(jsonBatter.ibb) ?? 0
-        self.so = Int(jsonBatter.so) ?? 0
-        self.hbp = Int(jsonBatter.hbp) ?? 0
-        self.sf = Int(jsonBatter.sf) ?? 0
-        self.sh = Int(jsonBatter.sh) ?? 0
-        self.sb = Int(jsonBatter.sb) ?? 0
-        self.cs = Int(jsonBatter.cs) ?? 0
-
-        self.avg = Double("0" + jsonBatter.avg) ?? 0
-
-        self.positions = [pos]
-
-        self.projectionType = projectionType
-        self.adp = nil
-    }
+//    init(from jsonBatter: JSONBatter, pos: Position, projectionType: ProjectionTypes) {
+//        self.empty = jsonBatter.empty
+//        self.name = jsonBatter.name
+//        self.team = jsonBatter.team
+//
+//        self.g = Int(jsonBatter.g) ?? 0
+//        self.ab = Int(jsonBatter.ab) ?? 0
+//        self.pa = Int(jsonBatter.pa) ?? 0
+//        self.h = Int(jsonBatter.h) ?? 0
+//        self.the1B = Int(jsonBatter.the1B) ?? 0
+//        self.the2B = Int(jsonBatter.the2B) ?? 0
+//        self.the3B = Int(jsonBatter.the3B) ?? 0
+//        self.hr = Int(jsonBatter.hr) ?? 0
+//        self.r = Int(jsonBatter.r) ?? 0
+//        self.rbi = Int(jsonBatter.rbi) ?? 0
+//        self.bb = Int(jsonBatter.bb) ?? 0
+//        self.ibb = Int(jsonBatter.ibb) ?? 0
+//        self.so = Int(jsonBatter.so) ?? 0
+//        self.hbp = Int(jsonBatter.hbp) ?? 0
+//        self.sf = Int(jsonBatter.sf) ?? 0
+//        self.sh = Int(jsonBatter.sh) ?? 0
+//        self.sb = Int(jsonBatter.sb) ?? 0
+//        self.cs = Int(jsonBatter.cs) ?? 0
+//
+//        self.avg = Double("0" + jsonBatter.avg) ?? 0
+//
+//        self.positions = [pos]
+//
+//        self.projectionType = projectionType
+//        self.adp = 91281
+//    }
 
     init(from jsonBatter: ExtendedBatter, pos: Position, projectionType: ProjectionTypes) {
         self.empty = ""

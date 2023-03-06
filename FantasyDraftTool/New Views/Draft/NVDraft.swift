@@ -155,7 +155,19 @@ struct NVDraft: View {
         HStack(alignment: .center) {
             VStack(spacing: 10) {
                 Button {
-                    model.draft.addOrRemoveStar(player)
+                    
+                    if let pitcher = player as? ParsedPitcher {
+                        print("peers", pitcher.peers(draft: model.draft).count, pitcher.peers(draft: model.draft))
+                    } else if let batter = player as? ParsedBatter {
+                        print("peers", batter.peers(draft: model.draft).count, batter.peers(draft: model.draft) )
+                    } else {
+                        print("uh oh ")
+                    }
+                    
+                    
+                    
+                    
+//                    model.draft.addOrRemoveStar(player)
                 } label: {
                     Image(systemName: model.draft.isStar(player) ? "heart.fill" : "heart")
                         .foregroundColor(model.draft.isStar(player) ? Color.red : Color.black)
