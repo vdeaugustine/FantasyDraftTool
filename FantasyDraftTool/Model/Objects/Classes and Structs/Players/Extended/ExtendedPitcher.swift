@@ -147,6 +147,8 @@ struct ExtensionPitcherProjection {
     init(projectionType: ProjectionTypes) {
         self.starters = Self.loadPitchers(projectionType.extendedFileName(pitcherType: .starter)).map { ParsedPitcher(from: $0, type: .starter, projection: projectionType) }
         self.relievers = Self.loadPitchers(projectionType.extendedFileName(pitcherType: .reliever)).map { ParsedPitcher(from: $0, type: .reliever, projection: projectionType) }
+        
+        print("\(projectionType.title): Starters - \(starters.count), Relievers - \(relievers.count), All - \(all.count)")
     }
 
     static func loadPitchers(_ filename: String) -> [ExtendedPitcher] {

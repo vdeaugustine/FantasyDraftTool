@@ -54,7 +54,7 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
         self.init(player: player,
                   pickNumber: draft.totalPickNumber,
                   team: draft.currentTeam,
-                  weightedScore: player.zScore(draft: draft, limit: 150))
+                  weightedScore: player.zScore(draft: draft))
     }
 }
 

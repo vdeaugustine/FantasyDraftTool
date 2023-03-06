@@ -9,10 +9,16 @@ import SwiftUI
 
 // MARK: - NVDraft
 
+typealias BatterCompletion = ([ParsedBatter]) -> Void
+typealias PitcherCompletion = ([ParsedPitcher]) -> Void
+typealias PlayerCompletion = ([any ParsedPlayer]) -> Void
+
+// MARK: - NVDraft
+
 struct NVDraft: View {
     @EnvironmentObject private var model: MainModel
     @EnvironmentObject private var lm: LoadingManager
-    @State private var projection: ProjectionTypes = .atc
+    @State private var projection: ProjectionTypes = .steamer
     @State private var sortOptionSelected: NVSortByDropDown.Options = .score
 
     @State private var positionSelected: Position? = nil
@@ -31,73 +37,97 @@ struct NVDraft: View {
 
     func updatePlayers() async {
         print("Updating")
-
-        let filteredBatters = await filteredPlayers().value
-        let filteredPitchers = await model.draft.playerPool.pitchers(types: [.starter, .reliever], projection: projection, scoring: model.draft.settings.scoringSystem).value
-
-        let union: [any ParsedPlayer] = (filteredBatters + filteredPitchers)
-
-        let sorted = await sortedPlayers(union).value
-        pitchersAndBatters = sorted
-        DispatchQueue.main.async {
-            lm.taskPercentage = 1
+        
+            lm.shouldShow = true
+        
+        
+        filteredPlayers { filteredBatters in
+            
+            model.draft.playerPool.pitchers(types: [.starter, .reliever], projection: projection, draft: model.draft) { filteredPitchers in
+                print("pitchers", filteredPitchers.count)
+                
+                let union: [any ParsedPlayer] = filteredBatters + filteredPitchers
+                
+                sortedPlayers(union) { sorted in
+                    print("setting sorted", sorted.count)
+                    pitchersAndBatters = sorted
+                    DispatchQueue.main.async {
+                        lm.taskPercentage = 1
+                        showSpinning = false
+                        lm.shouldShow = false
+                    }
+                }
+                
+                
+            }
+            
+            
+            
         }
-        showSpinning = false
-        lm.shouldShow = false
+
+        
+        
     }
 
-    func filteredPlayers() async -> Task<[ParsedBatter], Never> {
-//        DispatchQueue.main.async {
-//            lm.displayString = "Filtering Players"
-//        }
-        return Task {
-            
+    func filteredPlayers(comletion: @escaping BatterCompletion) {
+        print("starting filtering")
+        DispatchQueue.main.async {
+            lm.displayString = "Filtering Players"
+        }
+
+        DispatchQueue.global().async {
             // TODO: When switching
             var retaArr: [ParsedBatter] = []
 
             if let positionSelected = positionSelected {
                 retaArr = model.draft.playerPool.batters(for: [positionSelected], projection: projection, draft: model.draft)
-                
+
             } else {
                 retaArr = model.draft.playerPool.batters(for: Position.batters, projection: projection, draft: model.draft)
-                
             }
-
-//            DispatchQueue.main.async {
-//                lm.taskPercentage = 0.25
-//                lm.displayString = "Done filtering"
-//            }
-            return retaArr
+            
+            comletion(retaArr)
         }
+        
     }
 
-    func sortedPlayers(_ presorted: [any ParsedPlayer]) -> Task<[any ParsedPlayer], Never> {
+    func sortedPlayers(_ presorted: [any ParsedPlayer], completion: @escaping PlayerCompletion)  {
+        print("starting sorting")
         DispatchQueue.main.async {
-            lm.taskPercentage = 0.75
+            lm.taskPercentage = 0
             lm.displayString = "Sorting..."
         }
         
-        return Task {
-           
+        let n: Double = Double(presorted.count)
+        let totalPossible: Double = n * log2(n)
+
+        
+        DispatchQueue.global().async {
+            
             let retArr: [any ParsedPlayer]
             switch sortOptionSelected {
                 case .points:
                     retArr = presorted.sorted { firstPlayer, secondPlayer in
                         let firstLimit = firstPlayer is ParsedBatter ? 50 : 100
                         let secLimit = secondPlayer is ParsedBatter ? 50 : 100
+                        lm.incrementPercentage(1 / totalPossible)
 
                         return firstPlayer.weightedFantasyPoints(draft: model.draft, limit: firstLimit) > secondPlayer.weightedFantasyPoints(draft: model.draft, limit: secLimit)
                     }
                 case .score:
                     retArr = presorted.sorted {
-                            lm.taskPercentage += 0.1
-                        return $0.zScore(draft: model.draft, limit: 100) > $1.zScore(draft: model.draft, limit: 100)
+                        lm.incrementPercentage(1 / totalPossible)
+                        return $0.wPointsZScore(draft: model.draft) > $1.wPointsZScore(draft: model.draft)
                     }
                 default:
-                    return presorted
+                retArr = presorted
             }
-            return retArr
+            completion(retArr)
+            
         }
+                
+            
+        
     }
 
     func bullet(_ text: String, color: Color? = nil) -> some View {
@@ -226,9 +256,6 @@ struct NVDraft: View {
                                     Task {
                                         await updatePlayers()
                                     }
-//                                    Task(priority: . ) {
-//                                        await updatePlayers()
-//                                    }
                                 }
                             NVSortByDropDown(selection: $sortOptionSelected)
                                 .onChange(of: sortOptionSelected) { _ in
@@ -359,7 +386,7 @@ struct NVDraft_Previews: PreviewProvider {
                 .environmentObject(MainModel.shared)
                 .environmentObject(LoadingManager.shared)
         }
-        
+
 //            .putInNavView(displayMode: .inline)
     }
 }

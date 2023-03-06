@@ -26,10 +26,11 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
     
     var name, team: String
     var w, l, gs, g, sv, hld, ip, tbf, h, r, er, hr, so, bb, ibb, hbp, qs: Int
-    var era, fip, war, ra9War, adp: Double
+    var era, fip, war, ra9War: Double
     let playerids: String
     let projectionType: ProjectionTypes
     let type: PitcherType
+    let adp: Double?
 
     var description: String {
         [name, team, projectionType.title].joined(separator: ", ")
@@ -110,6 +111,29 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
 //        return (fantasyPoints(draft.settings.scoringSystem) - average) / stdDev
     }
     
+    func zScore(draft: Draft) -> Double {
+        
+        
+        let totalPicksInDraft = draft.settings.numberOfRounds * draft.settings.numberOfTeams
+        let pool = draft.playerPool.storedPitchers.pitchers(for: self.projectionType, at: self.type).sortedByADP
+        let smallerPool = pool.prefixArray(totalPicksInDraft)
+        
+        let average = ParsedPitcher.averagePoints(forThese: smallerPool, scoringSettings: draft.settings.scoringSystem)
+        let stdDev = smallerPool.standardDeviation(scoring: draft.settings.scoringSystem)
+
+        let zScore = (fantasyPoints(draft.settings.scoringSystem) - average) / stdDev
+
+        return zScore
+    }
+    
+    func wPointsZScore(draft: Draft) -> Double {
+        let zscore = self.zScore(draft: draft)
+        let points = self.fantasyPoints(draft.settings.scoringSystem)
+        
+        return zscore * points
+        
+    }
+    
     
 
     var id: String { name + team }
@@ -139,7 +163,7 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
         self.fip = Double(jsonPitcher.fip ?? -99)
         self.war = Double(jsonPitcher.war ?? -99)
         self.ra9War = Double(jsonPitcher.ra9War ?? -99)
-        self.adp = Double(jsonPitcher.adp ?? -99)
+        self.adp = jsonPitcher.adp
         self.projectionType = projection
         self.type = type
     }

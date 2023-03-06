@@ -12,14 +12,16 @@ import Foundation
 protocol ParsedPlayer: Codable {
     var name: String { get set }
     var team: String { get set }
-    
+    var adp: Double? { get }
     var projectionType: ProjectionTypes { get }
     
-    func zScore(draft: Draft, limit: Int) -> Double
+    func zScore(draft: Draft) -> Double
     func fantasyPoints(_ scoringSettings: ScoringSettings) -> Double
     func weightedFantasyPoints(draft: Draft, limit: Int) -> Double
     func averageForPosition(limit: Int, draft: Draft) -> Double
     
+    
+    func wPointsZScore(draft: Draft) -> Double 
     
 }
 
@@ -181,6 +183,32 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
 
         return zScore
     }
+    
+        /// Limit ADP
+    func zScore(draft: Draft) -> Double {
+        guard let firstPos = positions.first else {
+            return (0 - .infinity)
+        }
+        
+        let totalPicksInDraft = draft.settings.numberOfRounds * draft.settings.numberOfTeams
+        let pool = draft.playerPool.batters(for: [firstPos], projection: self.projectionType, draft: draft).sortedByADP
+        let smallerPool = pool.prefixArray(totalPicksInDraft)
+        
+        let average = ParsedBatter.averagePoints(forThese: smallerPool, scoring: draft.settings.scoringSystem)
+        let stdDev = smallerPool.standardDeviation(scoring: draft.settings.scoringSystem)
+
+        let zScore = (fantasyPoints(draft.settings.scoringSystem) - average) / stdDev
+
+        return zScore
+    }
+    
+    func wPointsZScore(draft: Draft) -> Double {
+        let zscore = self.zScore(draft: draft)
+        let points = self.fantasyPoints(draft.settings.scoringSystem)
+        
+        return zscore * points
+        
+    }
 
     func weightedFantasyPoints(dict: [Position: Double]) -> Double {
         guard let firstPos = positions.first,
@@ -204,6 +232,9 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
         
         return (points / average * points).roundTo(places: 1)
     }
+    
+    
+   
     
 
     func fantasyPoints(_ scoringSettings: ScoringSettings) -> Double {
@@ -290,6 +321,9 @@ extension ParsedBatter {
 
         self.projectionType = projectionType
         self.adp = jsonBatter.adp
+        if adp == nil {
+            print("\(name) for \(projectionType) has no ADP")
+        }
     }
 
     // MARK: Codable initializer

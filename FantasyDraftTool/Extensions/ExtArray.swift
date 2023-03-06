@@ -28,7 +28,7 @@ extension Array {
     func prefixArray(_ num: Int) -> [Element] {
         Array(prefix(num))
     }
-    
+
     func suffixArray(_ num: Int) -> [Element] {
         Array(suffix(num))
     }
@@ -44,12 +44,10 @@ extension Array {
 }
 
 extension Array where Element == ParsedBatter {
-    
     func prefixArray(_ num: Int, scoring: ScoringSettings) -> [Element] {
-        Array(self.sortedByPoints(scoring: scoring).prefix(num))
+        Array(sortedByPoints(scoring: scoring).prefix(num))
     }
 
-    
     func sortedByPoints(scoring: ScoringSettings) -> [ParsedBatter] {
         sorted(by: { $0.fantasyPoints(scoring) > $1.fantasyPoints(scoring) })
     }
@@ -66,7 +64,7 @@ extension Array where Element == ParsedBatter {
     func standardDeviation(for: Position, scoring: ScoringSettings) -> Double {
         map { $0.fantasyPoints(scoring) }.standardDeviation()
     }
-    
+
     func standardDeviation(scoring: ScoringSettings) -> Double {
         map { $0.fantasyPoints(scoring) }.standardDeviation()
     }
@@ -78,33 +76,69 @@ extension Array where Element == ParsedBatter {
     func filter(for positions: [Position]) -> [ParsedBatter] {
         removingDuplicates().filter { $0.positions.intersects(with: positions) }
     }
+    
+    var sortedByADP: [ParsedBatter] {
+        self.sorted { firstPlayer, secondPlayer in
+            guard let adp1 = firstPlayer.adp,
+                  let adp2 = secondPlayer.adp
+            else {
+                // if one of them doesn't have adp, or both, then just keep them in the order they're already in
+                return true
+            }
+
+            return adp1 < adp2
+        }
+    }
 }
 
 extension Array where Element == ParsedPitcher {
-    func standardDeviation( scoring: ScoringSettings) -> Double {
+    func standardDeviation(scoring: ScoringSettings) -> Double {
         map { $0.fantasyPoints(scoring) }.standardDeviation()
     }
-    
+
     func sortedByZscore(draft: Draft) -> [ParsedPitcher] {
         let removedDuplicates = removingDuplicates()
         return removedDuplicates.sorted(by: { $0.zScore(draft: draft) > $1.zScore(draft: draft) })
     }
-    
+
     func sortedByPoints(scoring: ScoringSettings) -> [ParsedPitcher] {
         removingDuplicates().sorted(by: { $0.fantasyPoints(scoring) > $1.fantasyPoints(scoring) })
     }
+    
+    var sortedByADP: [ParsedPitcher] {
+        self.sorted { firstPlayer, secondPlayer in
+            guard let adp1 = firstPlayer.adp,
+                  let adp2 = secondPlayer.adp
+            else {
+                // if one of them doesn't have adp, or both, then just keep them in the order they're already in
+                return true
+            }
+
+            return adp1 < adp2
+        }
+    }
 }
 
+extension Array where Element == ParsedPlayer {
+    var sortedByADP: [any ParsedPlayer] {
+        self.sorted { firstPlayer, secondPlayer in
+            guard let adp1 = firstPlayer.adp,
+                  let adp2 = secondPlayer.adp
+            else {
+                // if one of them doesn't have adp, or both, then just keep them in the order they're already in
+                return true
+            }
+
+            return adp1 > adp2
+        }
+    }
+}
 
 extension Array where Element == DraftPlayer {
-    
     func filter(for position: Position) -> [DraftPlayer] {
-        
         removingDuplicates().filter {
             guard let batter = $0.player as? ParsedBatter else { return false }
             return batter.positions.contains(position)
-            
-            
         }
     }
 
@@ -112,20 +146,17 @@ extension Array where Element == DraftPlayer {
         removingDuplicates().filter {
             guard let batter = $0.player as? ParsedBatter else { return false }
             return batter.positions.intersects(with: positions)
-            
         }
     }
-    
+
     func sortedByPoints(scoring: ScoringSettings) -> [DraftPlayer] {
         removingDuplicates().sorted(by: { $0.player.fantasyPoints(scoring) > $1.player.fantasyPoints(scoring) })
     }
 
     func sortedByZscore(draft: Draft) -> [DraftPlayer] {
         let removedDuplicates = removingDuplicates()
-        return removedDuplicates.sorted(by: { $0.player.zScore(draft: draft, limit: 50) > $1.player.zScore(draft: draft, limit: 50) })
+        return removedDuplicates.sorted(by: { $0.player.zScore(draft: draft) > $1.player.zScore(draft: draft) })
     }
-    
-    
 }
 
 extension Sequence where Iterator.Element: Hashable {

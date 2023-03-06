@@ -46,19 +46,19 @@ struct PlayerPool: Codable, Hashable, Equatable {
         return sorted
     }
 
-    func pitchers(types: [PitcherType], projection: ProjectionTypes, scoring: ScoringSettings) async -> Task<[ParsedPitcher], Never> {
-        Task {
+    func pitchers(types: [PitcherType], projection: ProjectionTypes, draft: Draft, completion: @escaping PitcherCompletion) {
+        DispatchQueue.global().async {
             var retArr: [ParsedPitcher] = []
             for type in types {
-                retArr += storedPitchers.pitchers(for: projection, at: type, scoring: scoring)
+                retArr += storedPitchers.pitchers(for: projection, at: type, scoring: draft.settings.scoringSystem)
             }
-           
-//            DispatchQueue.main.async {
-//                LoadingManager.shared.displayString = "Done gtting pitchers"
-//                LoadingManager.shared.taskPercentage = 0.5
-//            }
-            return retArr
+
+            let totalPicks = draft.settings.numberOfTeams * draft.settings.numberOfRounds
+            let trimmed = retArr.sortedByADP.prefixArray(totalPicks + 1)
+            completion(trimmed)
         }
+            
+        
     }
 
     func batters(for positions: [Position], projection: ProjectionTypes, draft: Draft = MainModel.shared.draft) -> [ParsedBatter] {
@@ -68,7 +68,7 @@ struct PlayerPool: Codable, Hashable, Equatable {
             retArr += storedBatters.batters(for: projection, at: position)
         }
 
-        return retArr.sortedByZscore(draft: draft)
+        return retArr.sortedByADP
     }
 
     func positionRank(for player: ParsedBatter, at position: Position) -> Int? {
@@ -99,10 +99,8 @@ struct PlayerPool: Codable, Hashable, Equatable {
 extension PlayerPool {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(battersDict, forKey: .battersDict)
         try container.encode(storedBatters, forKey: .storedBatters)
         try container.encode(storedPitchers, forKey: .storedPitchers)
-//        try container.encode(pitchersByProjection, forKey: .pitchersDict)
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -115,7 +113,7 @@ extension PlayerPool {
     }
 
     static func == (lhs: PlayerPool, rhs: PlayerPool) -> Bool {
-        true
+        false
 //        return lhs.battersDict == rhs.battersDict
     }
 }
@@ -179,10 +177,10 @@ extension PlayerPool {
                         return -99
                 }
             }
-            
+
             switch projection {
                 case .steamer:
-                return steamer.averages.forPosition(position, limit: limit, draft: draft, projection: projection)
+                    return steamer.averages.forPosition(position, limit: limit, draft: draft, projection: projection)
                 case .thebat:
                     return theBat.averages.forPosition(position, limit: limit, draft: draft, projection: projection)
                 case .thebatx:
@@ -194,8 +192,6 @@ extension PlayerPool {
                 default:
                     return -99
             }
-            
-            
         }
 
         func stdDev(for projection: ProjectionTypes, at position: Position) -> Double {
@@ -409,10 +405,6 @@ extension PlayerPool {
                 let average = ParsedBatter.averagePoints(forThese: limitPlayers, scoring: draft.settings.scoringSystem)
                 print("Calculated. Time: ", Date.now - startTime)
                 return average
-                
-                
-                
-                
             }
         }
 
@@ -440,12 +432,12 @@ extension PlayerPool {
         }
 
         init(projectionType: ProjectionTypes, scoring: ScoringSettings) {
-            let firstBase = AllParsedBatters.batters(for: projectionType, at: .first).sortedByPoints(scoring: scoring)
-            let secondBase = AllParsedBatters.batters(for: projectionType, at: .second).sortedByPoints(scoring: scoring)
-            let thirdBase = AllParsedBatters.batters(for: projectionType, at: .third).sortedByPoints(scoring: scoring)
-            let shortstop = AllParsedBatters.batters(for: projectionType, at: .ss).sortedByPoints(scoring: scoring)
-            let outfield = AllParsedBatters.batters(for: projectionType, at: .of).sortedByPoints(scoring: scoring)
-            let catcher = AllParsedBatters.batters(for: projectionType, at: .c).sortedByPoints(scoring: scoring)
+            let firstBase = AllParsedBatters.batters(for: projectionType, at: .first).sortedByADP
+            let secondBase = AllParsedBatters.batters(for: projectionType, at: .second).sortedByADP
+            let thirdBase = AllParsedBatters.batters(for: projectionType, at: .third).sortedByADP
+            let shortstop = AllParsedBatters.batters(for: projectionType, at: .ss).sortedByADP
+            let outfield = AllParsedBatters.batters(for: projectionType, at: .of).sortedByADP
+            let catcher = AllParsedBatters.batters(for: projectionType, at: .c).sortedByADP
 
             self.firstBase = firstBase
             self.secondBase = secondBase
@@ -641,7 +633,7 @@ extension PlayerPool {
             if type == .starter {
                 switch projection {
                     case .steamer:
-                    return steamer.starters.sortedByPoints(scoring: scoring)
+                        return steamer.starters.sortedByPoints(scoring: scoring)
                     case .thebat:
                         return thebat.starters.sortedByPoints(scoring: scoring)
                     case .atc:
@@ -661,6 +653,36 @@ extension PlayerPool {
                         return atc.relievers.sortedByPoints(scoring: scoring)
                     case .depthCharts:
                         return depthCharts.relievers.sortedByPoints(scoring: scoring)
+                    default:
+                        return []
+                }
+            }
+        }
+        
+        func pitchers(for projection: ProjectionTypes, at type: PitcherType) -> [ParsedPitcher] {
+            if type == .starter {
+                switch projection {
+                    case .steamer:
+                        return steamer.starters
+                    case .thebat:
+                        return thebat.starters
+                    case .atc:
+                        return atc.starters
+                    case .depthCharts:
+                        return depthCharts.starters
+                    default:
+                        return []
+                }
+            } else {
+                switch projection {
+                    case .steamer:
+                        return steamer.relievers
+                    case .thebat:
+                        return thebat.relievers
+                    case .atc:
+                        return atc.relievers
+                    case .depthCharts:
+                        return depthCharts.relievers
                     default:
                         return []
                 }
@@ -797,8 +819,8 @@ extension PlayerPool {
         }
 
         init(projectionType: ProjectionTypes, scoring: ScoringSettings) {
-            let sp = AllExtendedPitchers.starters(for: projectionType, limit: 150)
-            let rp = AllExtendedPitchers.relievers(for: projectionType, limit: 150)
+            let sp = AllExtendedPitchers.starters(for: projectionType, limit: 150).sortedByADP
+            let rp = AllExtendedPitchers.relievers(for: projectionType, limit: 150).sortedByADP
 
             self.starters = sp
             self.relievers = rp
