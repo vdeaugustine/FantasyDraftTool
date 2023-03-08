@@ -7,40 +7,32 @@
 
 import Foundation
 
-
+// MARK: - ParsedPlayer
 
 protocol ParsedPlayer: Codable {
     var name: String { get set }
     var team: String { get set }
     var adp: Double? { get }
     var projectionType: ProjectionTypes { get }
-    
+
     func zScore(draft: Draft) -> Double
     func fantasyPoints(_ scoringSettings: ScoringSettings) -> Double
     func weightedFantasyPoints(draft: Draft, limit: Int) -> Double
     func averageForPosition(limit: Int, draft: Draft) -> Double
-    
-    
+
     func wPointsZScore(draft: Draft) -> Double
-    
 }
 
+// MARK: - AnyParsedPlayer
+
 struct AnyParsedPlayer<T: ParsedPlayer> {
-    
 }
 
 // MARK: - ParsedBatter
 
 struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, ParsedPlayer {
-    
-      
-    
-    
-    
-    
-    
     func averageForPosition(limit: Int, draft: Draft) -> Double {
-        guard let firstPos = self.positions.first else { return 0 }
+        guard let firstPos = positions.first else { return 0 }
         let allPlayers = draft.playerPool.storedBatters.batters(for: projectionType, at: firstPos)
         let sorted = allPlayers.sortedByPoints(scoring: draft.settings.scoringSystem)
         let top = sorted.prefixArray(limit)
@@ -48,11 +40,8 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
             partial + element.fantasyPoints(draft.settings.scoringSystem)
         }
         return sum / Double(top.count)
-        
     }
-    
-    
-    
+
     // MARK: Stored Properties
 
     var empty, name, team: String
@@ -63,7 +52,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
     let adp: Double?
 
     var description: String {
-        [name, team, projectionType.title, (adp?.str ?? "NO ADP")].joined(separator: ", ")
+        [name, team, projectionType.title, adp?.str ?? "NO ADP"].joined(separator: ", ")
     }
 
     // MARK: Computed properties
@@ -181,19 +170,18 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
         guard let firstPos = positions.first else {
             return (0 - .infinity)
         }
-        let average = draft.playerPool.storedBatters.average(for: self.projectionType, at: firstPos)
-        let stdDev = draft.playerPool.storedBatters.stdDev(for: self.projectionType, at: firstPos)
+        let average = draft.playerPool.storedBatters.average(for: projectionType, at: firstPos)
+        let stdDev = draft.playerPool.storedBatters.stdDev(for: projectionType, at: firstPos)
 
         let zScore = (fantasyPoints(draft.settings.scoringSystem) - average) / stdDev
 
         return zScore
     }
-    
-        /// Limit ADP
+
+    /// Limit ADP
     func zScore(draft: Draft) -> Double {
-        
         let smallerPool: [ParsedBatter] = peers(draft: draft)
-        
+
         let average = ParsedBatter.averagePoints(forThese: smallerPool, scoring: draft.settings.scoringSystem)
         let stdDev = smallerPool.standardDeviation(scoring: draft.settings.scoringSystem)
 
@@ -201,33 +189,27 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
 
         return zScore
     }
-    
+
     func peers(draft: Draft) -> [ParsedBatter] {
         guard let firstPos = positions.first else {
             return []
         }
         let totalPicksInDraft = draft.settings.numberOfRounds * draft.settings.numberOfTeams
-        let pool = draft.playerPool.batters(for: [firstPos], projection: self.projectionType, draft: draft)
+        let pool = draft.playerPool.batters(for: [firstPos], projection: projectionType, draft: draft)
         let smallerPool = pool.filter {
             guard let adp = $0.adp else {
                 return false
-                
             }
             return adp <= Double(totalPicksInDraft)
         }
         return smallerPool.sortedByADP
     }
-    
-    
-    
-    
-    
+
     func wPointsZScore(draft: Draft) -> Double {
-        let zscore = self.zScore(draft: draft)
-        let points = self.fantasyPoints(draft.settings.scoringSystem)
-        
+        let zscore = zScore(draft: draft)
+        let points = fantasyPoints(draft.settings.scoringSystem)
+
         return zscore * points
-        
     }
 
     func weightedFantasyPoints(dict: [Position: Double]) -> Double {
@@ -236,26 +218,19 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
         else { return 0 }
         return (fantasyPoints(MainModel.shared.getScoringSettings()) / average * fantasyPoints(MainModel.shared.getScoringSettings())).roundTo(places: 1)
     }
-    
-    
-    
+
     func weightedFantasyPoints(draft: Draft, limit: Int = 50) -> Double {
-     
         let average = averageForPosition(limit: limit, draft: draft)
         guard average != 0 else { return 0 }
-              
+
 //        let players = draft.playerPool.storedBatters.batters(for: self.projectionType, at: firstPos).prefixArray(limit)
 //        let sum = players.reduce(Double(0), {$0 + $1.fantasyPoints(draft.settings.scoringSystem)})
 //        let average = sum / Double(players.count)
 //        let average = draft.playerPool.storedBatters.average(for: self.projectionType, at: firstPos)
-        let points = self.fantasyPoints(draft.settings.scoringSystem)
-        
+        let points = fantasyPoints(draft.settings.scoringSystem)
+
         return (points / average * points).roundTo(places: 1)
     }
-    
-    
-   
-    
 
     func fantasyPoints(_ scoringSettings: ScoringSettings) -> Double {
         var points: Double = 0
@@ -447,6 +422,6 @@ extension ParsedBatter {
         return
             lhs.name.removingWhiteSpaces() == rhs.name.removingWhiteSpaces() &&
             lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces() &&
-        lhs.sb == rhs.sb && lhs.avg == rhs.avg && lhs.rbi == rhs.rbi
+            lhs.sb == rhs.sb && lhs.avg == rhs.avg && lhs.rbi == rhs.rbi
     }
 }

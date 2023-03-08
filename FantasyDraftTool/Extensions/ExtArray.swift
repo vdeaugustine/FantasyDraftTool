@@ -41,6 +41,27 @@ extension Array {
         guard safeCheck(num) else { return nil }
         return self[num]
     }
+    
+    func joinString(_ separator: String) -> String {
+        var arr: [String] = []
+        for item in self {
+            
+            if let dub = item as? Double {
+                arr.append(dub.str())
+            } else if let int = item as? Int {
+                arr.append(int.str)
+            } else {
+                arr.append("\(item)")
+            }
+            
+            
+            
+        }
+        return arr.joined(separator: separator)
+    }
+    
+    
+    
 }
 
 extension Array where Element == ParsedBatter {
