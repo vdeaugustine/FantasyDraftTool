@@ -109,13 +109,13 @@ struct AllExtendedPitchers: Codable {
     static func starters(for projection: ProjectionTypes, limit: Int) -> [ParsedPitcher] {
         switch projection {
         case .steamer:
-            return Self.steamer.starters.prefixArray(limit)
+            return Self.steamer.starters.sortedByADP.prefixArray(limit)
         case .thebat:
-            return Self.theBat.starters.prefixArray(limit)
+            return Self.theBat.starters.sortedByADP.prefixArray(limit)
         case .atc:
-            return Self.atc.starters.prefixArray(limit)
+            return Self.atc.starters.sortedByADP.prefixArray(limit)
         case .depthCharts:
-            return Self.depthCharts.starters.prefixArray(limit)
+            return Self.depthCharts.starters.sortedByADP.prefixArray(limit)
         default:
             return []
         }
