@@ -26,9 +26,8 @@ struct ContentView: View {
 //        NVDraftPlayerDetail(batter: MainModel.shared.draft.playerPool.batters(for: [.of], projection: .steamer).first!)
 //    }
     var body: some View {
-        NVPlayerStats(player: AllParsedBatters.atc.of.first(where: { $0.name.lowercased().contains("trout") }) ?? .nullBatter)
-        //            .environmentObject(MainModel.shared)
-        .putInNavView()}
+        DVBatterDetail(player: .TroutOrNull)
+    }
 //        TabView(selection: $selectedTab) {
 //            NavigationView {
 //                NVAllPlayers()

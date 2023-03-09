@@ -110,8 +110,25 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
         }
     }
     
+    func adpStr() -> String? {
+        guard let adp = adp else { return nil }
+        let rounded = adp.roundTo(places: 1)
+        if rounded == Double(Int(rounded)) {
+            return Int(rounded).str
+        }
+        return rounded.str()
+    }
+    
     static let TroutOrNull: ParsedBatter = AllParsedBatters.atc.of.first(where: { $0.name.lowercased().contains("trout") }) ?? .nullBatter
 
+    static func player(by name: String) -> ParsedBatter {
+        for proj in ProjectionTypes.batterArr {
+            if let found = AllParsedBatters.batters(for: proj).first(where: {$0.name.lowercased().contains(name.lowercased())}) {
+                return found
+            }
+        }
+        return .nullBatter
+    }
     // MARK: - Static Properties
 
     static let nullBatter: ParsedBatter = .init(empty: "", name: "", team: "", g: 0, ab: 0, pa: 0, h: 0, the1B: 0, the2B: 0, the3B: 0, hr: 0, r: 0, rbi: 0, bb: 0, ibb: 0, so: 0, hbp: 0, sf: 0, sh: 0, sb: 0, cs: 0, avg: 0, positions: [], projectionType: .steamer, adp: nil)

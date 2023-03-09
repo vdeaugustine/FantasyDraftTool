@@ -10,6 +10,40 @@ import SwiftUI
 
 extension Color {
     static var listBackground: Color { .hexStringToColor(hex: "F2F2F7") }
+    
+    
+    static func getColorStrFromValue(_ value: Double) -> String {
+        var hexColor: String = ""
+        
+        if value <= 0 {
+            // If value is 0 or less, return blue hex color
+            hexColor = "#0000FF"
+        } else if value >= 1 {
+            // If value is 1 or more, return red hex color
+            hexColor = "#FF0000"
+        } else {
+            // Calculate blend value based on input value
+            let blendValue = CGFloat(value) * 2
+            
+            // Calculate red, green, and blue color components for blend
+            let red = Int((1 - blendValue) * 255 + blendValue * 255)
+            let green = Int((1 - blendValue) * 255 + blendValue * 255)
+            let blue = Int((1 - blendValue) * 255 + blendValue * 0)
+            
+            // Convert RGB values to hex color string
+            hexColor = String(format: "%02X%02X%02X", red, green, blue)
+        }
+        
+        return hexColor
+    }
+    
+    
+    static func getColorFromValue(_ value: Double) -> Color {
+        hexStringToColor(hex: getColorStrFromValue(value))
+    }
+
+    
+    
 
     static var random: Color {
         Color(red: .random(in: 0 ... 255) / 255, green: .random(in: 0 ... 255) / 255, blue: .random(in: 0 ... 255) / 255)

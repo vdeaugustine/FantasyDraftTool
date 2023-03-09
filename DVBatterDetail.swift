@@ -128,7 +128,7 @@ struct DVBatterDetail: View {
 
                 // MARK: - Analysis boxes row 1
 
-                LazyVGrid(columns: GridItem.fixedItems(2, size: 170)) {
+                LazyVGrid(columns: GridItem.fixedItems(2, size: 170), spacing: 20) {
                     ForEach(player.relevantStatsKeys, id: \.self) { statKey in
 
                         if let position = player.positions.first,
@@ -138,12 +138,19 @@ struct DVBatterDetail: View {
                                             posStr: position.str,
                                             statKey: statKey,
                                             value: dub,
-                                            percentile: 0.82,
+                                            percentile: 0.25,
                                             posAVG: dub - 50,
                                             allAvg: dub - 100)
                         }
                     }
                 }
+                .padding(.top)
+
+                horizontalDivider.padding(40)
+
+                // MARK: - Similar Players
+
+                DVSimilarPlayers()
             }
             .padding(.horizontal)
         }
@@ -151,6 +158,129 @@ struct DVBatterDetail: View {
         .background {
             Color.hexStringToColor(hex: "33434F")
                 .ignoresSafeArea()
+        }
+    }
+}
+
+// MARK: - DVSimilarPlayers
+
+struct DVSimilarPlayers: View {
+    let player1: ParsedBatter = .player(by: "judge")
+    let player2: ParsedBatter = .player(by: "mookie betts")
+    let player3: ParsedBatter = .player(by: "harper")
+
+    var verticalDivider: some View {
+        RoundedRectangle(cornerRadius: 7)
+            .frame(width: 1)
+            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+            .padding(.vertical, 10)
+    }
+
+    func statWithColorBox(_ value: String, label: String, plusMinus: Int) -> some View {
+        VStack(spacing: 5) {
+            Text([value, label].joinString(" "))
+                .fontWeight(.light)
+                .foregroundColor(.white)
+                .font(.system(size: 12))
+
+            Text(plusMinus.str)
+                .foregroundColor(.white)
+                .font(.system(size: 8))
+                .padding(.vertical, 3)
+                .padding(.horizontal, 7)
+                .background {
+                    if plusMinus >= 0 {
+                        Color.hexStringToColor(hex: "3DA100")
+                            .cornerRadius(3)
+                    } else {
+                        Color.red
+                            .cornerRadius(3)
+                    }
+                }
+        }
+    }
+    
+    func row(_ player: ParsedBatter) -> some View {
+        VStack(alignment: .leading) {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(player.name)
+                        .font(.system(size: 16))
+                        .fontWeight(.medium)
+                        
+                    
+                    Text([player.posStr(), player.team].joinString(" • "))
+                        .font(.system(size: 12))
+                        .fontWeight(.light)
+                        .padding(.leading, 4)
+                }
+                .foregroundColor(.white)
+                
+                Spacer()
+
+                statWithColorBox(player.fantasyPoints(.defaultPoints).str, label: "pts", plusMinus: 82)
+
+                verticalDivider
+
+                statWithColorBox(20.9.str(), label: "ADP", plusMinus: -32)
+
+                verticalDivider
+
+                statWithColorBox("#10", label: "OF", plusMinus: 32)
+                
+                Spacer()
+                
+                Button {
+                    
+                } label: {
+                    Label("Set as favorite", systemImage: "star.fill")
+                        .labelStyle(.iconOnly)
+                        .foregroundColor(.hexStringToColor(hex: "BFA30C"))
+                }
+                
+            }
+
+            .frame(maxWidth: .infinity)
+//                .pushLeft()
+            .padding(.vertical, 10)
+            .padding(.horizontal)
+            .background {
+                Color.hexStringToColor(hex: "4A555E")
+                    .cornerRadius(7)
+                    .shadow(radius: 1.5)
+            }
+        }
+    }
+    
+    var horizontalDivider: some View {
+        RoundedRectangle(cornerRadius: 7)
+            .height(1)
+            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+    }
+
+    var body: some View {
+        VStack {
+            Text("Similar Players")
+                .font(.system(size: 20))
+                .fontWeight(.medium)
+                .foregroundColor(.white)
+                .pushLeft()
+
+            Text("Fantasy Points")
+                .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                .fontWeight(.medium)
+                .font(.system(size: 16))
+                .pushLeft()
+                .padding(.leading, 7)
+                .padding(.top, 5)
+
+            row(player1)
+            row(player2)
+            row(player3)
+            
+            horizontalDivider
+                .padding(50)
+            
         }
     }
 }
@@ -180,7 +310,7 @@ struct StatAnalysisBox: View {
                     .fontWeight(.bold)
 
                 Text(Int(value).str)
-                    .font(.system(size: 14))
+                    .font(.system(size: 16))
                     .fontWeight(.medium)
 
             }.foregroundColor(.white)
@@ -217,7 +347,6 @@ struct BarsForStat: View {
     let playerValue: Double
     let positionAvg: Double
     let allAvg: Double
-    
 
     enum GreatestValue {
         case player, position, all
@@ -276,7 +405,6 @@ struct BarsForStat: View {
                 }
                 .centerInParentView()
                 .height(geo.size.height)
-                
             }
         }
     }
@@ -308,7 +436,7 @@ struct PercentileBar: View {
 
                 ZStack {
                     Circle()
-                        .foregroundColor(.hexStringToColor(hex: "E1565C"))
+                        .foregroundColor(.getColorFromValue(percentile))
                         .height(15)
 
                     Text(Int(percentile * 100).str)
@@ -327,6 +455,5 @@ struct PercentileBar: View {
 struct DVBatterDetail_Previews: PreviewProvider {
     static var previews: some View {
         DVBatterDetail(player: .TroutOrNull)
-            .previewDevice("iPhone SE (3rd generation)")
     }
 }
