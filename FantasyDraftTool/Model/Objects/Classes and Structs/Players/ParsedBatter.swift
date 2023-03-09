@@ -109,6 +109,8 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
             Int(str)
         }
     }
+    
+    static let TroutOrNull: ParsedBatter = AllParsedBatters.atc.of.first(where: { $0.name.lowercased().contains("trout") }) ?? .nullBatter
 
     // MARK: - Static Properties
 

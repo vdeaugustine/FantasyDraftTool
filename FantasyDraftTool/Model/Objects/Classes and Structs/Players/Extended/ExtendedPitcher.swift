@@ -105,37 +105,47 @@ struct AllExtendedPitchers: Codable {
     static let atc: ExtensionPitcherProjection = .init(projectionType: .atc)
     static let theBat: ExtensionPitcherProjection = .init(projectionType: .thebat)
     static let depthCharts: ExtensionPitcherProjection = .init(projectionType: .depthCharts)
-    
+
     static func starters(for projection: ProjectionTypes, limit: Int) -> [ParsedPitcher] {
         switch projection {
-        case .steamer:
-            return Self.steamer.starters.sortedByADP.prefixArray(limit)
-        case .thebat:
-            return Self.theBat.starters.sortedByADP.prefixArray(limit)
-        case .atc:
-            return Self.atc.starters.sortedByADP.prefixArray(limit)
-        case .depthCharts:
-            return Self.depthCharts.starters.sortedByADP.prefixArray(limit)
-        default:
-            return []
+            case .steamer:
+                return Self.steamer.starters.sortedByADP.prefixArray(limit)
+            case .thebat:
+                return Self.theBat.starters.sortedByADP.prefixArray(limit)
+            case .atc:
+                return Self.atc.starters.sortedByADP.prefixArray(limit)
+            case .depthCharts:
+                return Self.depthCharts.starters.sortedByADP.prefixArray(limit)
+            default:
+                return []
         }
     }
-    
+
+    static func pitchers(pitcher: ParsedPitcher, limit: Int = 500) -> [ParsedPitcher] {
+        let type = pitcher.type
+        let projection = pitcher.projectionType
+        switch type {
+            case .starter:
+                return AllExtendedPitchers.starters(for: projection, limit: limit)
+            case .reliever:
+                return AllExtendedPitchers.relievers(for: projection, limit: limit)
+        }
+    }
+
     static func relievers(for projection: ProjectionTypes, limit: Int) -> [ParsedPitcher] {
         switch projection {
-        case .steamer:
-            return Self.steamer.relievers
-        case .thebat:
-            return Self.theBat.relievers
-        case .atc:
-            return Self.atc.relievers
-        case .depthCharts:
-            return Self.depthCharts.relievers
-        default:
-            return []
+            case .steamer:
+                return Self.steamer.relievers
+            case .thebat:
+                return Self.theBat.relievers
+            case .atc:
+                return Self.atc.relievers
+            case .depthCharts:
+                return Self.depthCharts.relievers
+            default:
+                return []
         }
     }
-    
 }
 
 // MARK: - ExtensionPitcherProjection
@@ -147,7 +157,7 @@ struct ExtensionPitcherProjection {
     init(projectionType: ProjectionTypes) {
         self.starters = Self.loadPitchers(projectionType.extendedFileName(pitcherType: .starter)).map { ParsedPitcher(from: $0, type: .starter, projection: projectionType) }
         self.relievers = Self.loadPitchers(projectionType.extendedFileName(pitcherType: .reliever)).map { ParsedPitcher(from: $0, type: .reliever, projection: projectionType) }
-        
+
         print("\(projectionType.title): Starters - \(starters.count), Relievers - \(relievers.count), All - \(all.count)")
     }
 

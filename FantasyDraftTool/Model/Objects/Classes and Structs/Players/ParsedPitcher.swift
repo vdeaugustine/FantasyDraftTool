@@ -31,6 +31,15 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
     var description: String {
         [name, team, projectionType.title, adp?.str ?? "NO ADP"].joined(separator: ", ")
     }
+    
+    func adpStr() -> String? {
+        guard let adp = adp else { return nil }
+        let rounded = adp.roundTo(places: 1)
+        if rounded == Double(Int(rounded)) {
+            return Int(rounded).str
+        }
+        return rounded.str()
+    }
 
 //    var k9, bb9, kbb, hr9, kperc, gbperc: String
 
@@ -51,6 +60,19 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
          "BB": bb ,
          "SV": sv ,
          "HLD": hld ]
+    }
+    
+    var peers: [ParsedPitcher] {
+        AllExtendedPitchers.pitchers(pitcher: self)
+    }
+    
+    func pitcherRank(scoring: ScoringSettings = .defaultPoints) -> Int? {
+        let peers = self.peers
+        let sortedPeers = peers.sortedByPoints(scoring: scoring)
+        guard let firstIndex = sortedPeers.firstIndex(of: self) else {
+            return nil
+        }
+        return firstIndex + 1
     }
 
     func fantasyPoints(_ scoring: ScoringSettings) -> Double {
