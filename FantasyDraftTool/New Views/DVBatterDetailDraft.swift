@@ -44,6 +44,12 @@ struct DraftedOrAvailablePill: View {
 
 struct DVBatterDetailDraft: View {
     @EnvironmentObject private var model: MainModel
+    @State private var showDraftConfirmation = false
+    @Environment (\.dismiss) private var dismiss
+    
+    var draftConfirmationMessage: String {
+        "Draft \(player.name) for \(model.draft.currentTeam.name)?"
+    }
 
 //    init(draftPlayer: DraftPlayer) {
 //        self.draftPlayer = draftPlayer
@@ -98,11 +104,15 @@ struct DVBatterDetailDraft: View {
                         VStack(alignment: .leading) {
                             HStack(spacing: 17) {
                                 Text("Round 2, Pick 1")
-
-                                Text("Draft")
-                                    .font(size: 15, color: .white, weight: .medium)
-                                    
-                                    .background(color: "305294", padding: 7)
+                                
+                                Button {
+                                    showDraftConfirmation.toggle()
+                                } label: {
+                                    Text("Draft")
+                                        .font(size: 15, color: .white, weight: .medium)
+                                        .background(color: "305294", padding: 7)
+                                }.buttonStyle(.plain)
+                                
 
                             }.font(.system(size: 19))
                             Spacer()
@@ -225,6 +235,15 @@ struct DVBatterDetailDraft: View {
                 .ignoresSafeArea()
         }
         .navigationBarTitleDisplayMode(.inline)
+        .confirmationDialog(draftConfirmationMessage, isPresented: $showDraftConfirmation, titleVisibility: .visible) {
+            Button("Draft", role: .destructive) {
+                model.draft.makePick(player)
+                dismiss()
+            }
+            Button("Cancel", role: .cancel) {
+                showDraftConfirmation = false
+            }
+        }
     }
 }
 
