@@ -49,7 +49,7 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
         self.pickInRound = try values.decode(Int.self, forKey: .pickInRound)
     }
 
-    init(player: ParsedPlayer, pickNumber: Int, round: Int, pickInRound: Int, team: DraftTeam, weightedScore: Double) {
+    init(player: ParsedPlayer, pickNumber: Int, round: Int, pickInRound: Int, weightedScore: Double) {
         self.player = player
         self.pickNumber = pickNumber
 //        self.draftTeam = team
@@ -63,7 +63,6 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
                   pickNumber: draft.totalPickNumber,
                   round: draft.roundNumber,
                   pickInRound: draft.roundPickNumber,
-                  team: draft.currentTeam,
                   weightedScore: player.zScore(draft: draft))
     }
 }

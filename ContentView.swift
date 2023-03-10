@@ -37,7 +37,7 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
 
             NavigationStack(path: $model.navPathForDrafting) {
-                NVDraft()
+                DVDraft()
                     .onAppear {
                         model.draftLoadProgress = 0
                     }

@@ -331,7 +331,6 @@ extension Draft {
                                           pickNumber: workingDraft.totalPickNumber,
                                           round: workingDraft.roundNumber,
                                           pickInRound: workingDraft.roundPickNumber,
-                                          team: workingDraft.currentTeam,
                                           weightedScore: chosenPlayer.zScore(draft: workingDraft, limit: 150))
             workingDraft.makePick(draftPlayer)
         }

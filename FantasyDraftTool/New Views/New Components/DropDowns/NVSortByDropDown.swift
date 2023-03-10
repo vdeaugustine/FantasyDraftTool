@@ -38,14 +38,15 @@ struct NVSortByDropDown: View {
                 Image(systemName: "line.3.horizontal.decrease")
             }
             .foregroundColor(.white)
-            .font(font)
             .background(color: "305294", padding: 6)
+            .buttonStyle(.plain)
+                
 //            .overlay {
 //                RoundedRectangle(cornerRadius: 10)
 //                    .stroke(lineWidth: 1)
 //            }
         }
-        .buttonStyle(.plain)
+            
     }
 
     enum Options {

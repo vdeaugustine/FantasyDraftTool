@@ -11,6 +11,7 @@
 		9C19C1C929BAA06B00AF24DD /* DVAlreadyDraftedPlayerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C19C1C829BAA06B00AF24DD /* DVAlreadyDraftedPlayerRow.swift */; };
 		9C19C1CB29BAA87000AF24DD /* DVAlreadyDraftedPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C19C1CA29BAA87000AF24DD /* DVAlreadyDraftedPlayers.swift */; };
 		9C19C1CD29BAD99C00AF24DD /* DVAllPlayersRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C19C1CC29BAD99C00AF24DD /* DVAllPlayersRow.swift */; };
+		9C19C1D129BB1AC200AF24DD /* DVDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C19C1D029BB1AC200AF24DD /* DVDraft.swift */; };
 		9C1AE398297FA0A20016BF50 /* ScoringSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE397297FA0A20016BF50 /* ScoringSettings.swift */; };
 		9C1AE39A297FA7DC0016BF50 /* steamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE399297FA7DC0016BF50 /* steamerStandard.json */; };
 		9C1AE39C29804D4A0016BF50 /* ScoringSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */; };
@@ -178,6 +179,7 @@
 		9C19C1C829BAA06B00AF24DD /* DVAlreadyDraftedPlayerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVAlreadyDraftedPlayerRow.swift; sourceTree = "<group>"; };
 		9C19C1CA29BAA87000AF24DD /* DVAlreadyDraftedPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVAlreadyDraftedPlayers.swift; sourceTree = "<group>"; };
 		9C19C1CC29BAD99C00AF24DD /* DVAllPlayersRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVAllPlayersRow.swift; sourceTree = "<group>"; };
+		9C19C1D029BB1AC200AF24DD /* DVDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDraft.swift; sourceTree = "<group>"; };
 		9C1AE397297FA0A20016BF50 /* ScoringSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringSettings.swift; sourceTree = "<group>"; };
 		9C1AE399297FA7DC0016BF50 /* steamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = steamerStandard.json; sourceTree = "<group>"; };
 		9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringSettingsView.swift; sourceTree = "<group>"; };
@@ -600,6 +602,7 @@
 		9C75B9B6296F590F003B35E6 /* FantasyDraftTool */ = {
 			isa = PBXGroup;
 			children = (
+				9C19C1D029BB1AC200AF24DD /* DVDraft.swift */,
 				9C82188229A6F1DA007DA5D2 /* Info.plist */,
 				9C82187529A6E234007DA5D2 /* GoogleService-Info.plist */,
 				9CE9F4F5299C4F160015886D /* New Views */,
@@ -1169,6 +1172,7 @@
 				9CA24CC42985B7F100A394B4 /* DraftPlayer.swift in Sources */,
 				9C2C8DA129A99C0500626232 /* SmallComponents.swift in Sources */,
 				9CA24CB429851A0800A394B4 /* All Batters.swift in Sources */,
+				9C19C1D129BB1AC200AF24DD /* DVDraft.swift in Sources */,
 				9C3B7025298B2C3400A1B42C /* PlayerPool.swift in Sources */,
 				9CE9F4FC299C54BC0015886D /* NVDropDownPosition.swift in Sources */,
 				9CA24CCB2985B8F500A394B4 /* DraftSettings.swift in Sources */,

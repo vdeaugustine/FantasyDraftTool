@@ -7,17 +7,16 @@
 
 import SwiftUI
 
-// MARK: - DVBatterDetailDraft
+// MARK: - DraftedOrAvailablePill
 
 struct DraftedOrAvailablePill: View {
-    
     var team: DraftTeam?
     var fontSize: CGFloat = 15
     var padding: CGFloat {
         let n = fontSize - 10
         return n >= 5 ? n : 5
     }
-    
+
     var body: some View {
         if let team = team {
             Text(team.name)
@@ -27,7 +26,7 @@ struct DraftedOrAvailablePill: View {
                     Color.hexStringToColor(hex: "305294")
                         .cornerRadius(10)
                 }
-                
+
         } else {
             // if available
             Text("Available")
@@ -37,16 +36,25 @@ struct DraftedOrAvailablePill: View {
                     Color.hexStringToColor(hex: "089047")
                         .cornerRadius(10)
                 }
-                
         }
     }
 }
 
+// MARK: - DVBatterDetailDraft
+
 struct DVBatterDetailDraft: View {
     @EnvironmentObject private var model: MainModel
 
+//    init(draftPlayer: DraftPlayer) {
+//        self.draftPlayer = draftPlayer
+//    }
+//
+//    init(player: ParsedPlayer) {
+//        self.draftPlayer = DraftPlayer(player: player, draft: model.draft)
+//    }
+
     let draftPlayer: DraftPlayer
-    
+
     var player: ParsedBatter {
         draftPlayer.player as! ParsedBatter
     }
@@ -74,11 +82,10 @@ struct DVBatterDetailDraft: View {
                             .font(.system(size: 32))
                             .fontWeight(.bold)
                             .foregroundColor(.white)
-                        
+
                         DraftedOrAvailablePill(team: nil)
                             .padding(.leading)
-                        
-                        
+
                         Spacer()
                         Image(systemName: "star") // Is a favorite
                             .font(.title2)
@@ -89,20 +96,14 @@ struct DVBatterDetailDraft: View {
                         // MARK: - Team and Position
 
                         VStack(alignment: .leading) {
-                            
                             HStack(spacing: 17) {
                                 Text("Round 2, Pick 1")
-                                    
+
                                 Text("Draft")
-                                    .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
-                                    .padding(7)
-                                    .background {
-                                        Color.hexStringToColor(hex: "4A555E")
-                                            .cornerRadius(7)
-                                    }
-                                
-                                
-                                
+                                    .font(size: 15, color: .white, weight: .medium)
+                                    
+                                    .background(color: "305294", padding: 7)
+
                             }.font(.system(size: 19))
                             Spacer()
                             HStack {
@@ -209,16 +210,11 @@ struct DVBatterDetailDraft: View {
                 .padding(.top)
 
                 horizontalDivider.padding(40)
-                
-                
-                
 
                 // MARK: - Similar Players
 
                 DVSimilarPlayers()
-                
-                
-                
+
                 DVAlreadyDraftedPlayers()
             }
             .padding(.horizontal)
@@ -270,7 +266,7 @@ extension DVBatterDetailDraft {
                     }
             }
         }
-        
+
         func row(_ player: ParsedBatter) -> some View {
             VStack(alignment: .leading) {
                 HStack {
@@ -278,15 +274,14 @@ extension DVBatterDetailDraft {
                         Text(player.name)
                             .font(.system(size: 16))
                             .fontWeight(.medium)
-                            
-                        
+
                         Text([player.posStr(), player.team].joinString(" • "))
                             .font(.system(size: 12))
                             .fontWeight(.light)
                             .padding(.leading, 4)
                     }
                     .foregroundColor(.white)
-                    
+
                     Spacer()
 
                     statWithColorBox(player.fantasyPoints(.defaultPoints).str, label: "pts", plusMinus: 82)
@@ -298,21 +293,19 @@ extension DVBatterDetailDraft {
                     verticalDivider
 
                     statWithColorBox("#10", label: "OF", plusMinus: 32)
-                    
+
                     Spacer()
-                    
+
                     Button {
-                        
                     } label: {
                         Label("Set as favorite", systemImage: "star.fill")
                             .labelStyle(.iconOnly)
                             .foregroundColor(.hexStringToColor(hex: "BFA30C"))
                     }
-                    
                 }
 
                 .frame(maxWidth: .infinity)
-    //                .pushLeft()
+                //                .pushLeft()
                 .padding(.vertical, 10)
                 .padding(.horizontal)
                 .background {
@@ -322,7 +315,7 @@ extension DVBatterDetailDraft {
                 }
             }
         }
-        
+
         var horizontalDivider: some View {
             RoundedRectangle(cornerRadius: 7)
                 .height(1)
@@ -348,10 +341,9 @@ extension DVBatterDetailDraft {
                 row(player1)
                 row(player2)
                 row(player3)
-                
+
                 horizontalDivider
                     .padding(50)
-                
             }
         }
     }
@@ -409,7 +401,9 @@ extension DVBatterDetailDraft {
                 Color.hexStringToColor(hex: "4A555E").cornerRadius(7)
             }
         }
+
         // MARK: - BarsForStat
+
         struct BarsForStat: View {
             let lastName: String
             let positionStr: String
@@ -480,6 +474,7 @@ extension DVBatterDetailDraft {
         }
 
         // MARK: - PercentileBar
+
         struct PercentileBar: View {
             let percentile: Double
 
@@ -517,23 +512,8 @@ extension DVBatterDetailDraft {
                 }
             }
         }
-        
-        
-        
-        
-        
-        
     }
-
-    
-
-    
-
-    
-
-    
 }
-
 
 // MARK: - DVBatterDetailDraft_Previews
 
@@ -543,6 +523,5 @@ struct DVBatterDetailDraft_Previews: PreviewProvider {
             .previewDevice("iPhone SE (3rd generation)")
             .environmentObject(MainModel.shared)
             .putInNavView()
-           
     }
 }
