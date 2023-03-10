@@ -31,15 +31,15 @@ struct DVAlreadyDraftedPlayerRow: View {
         VStack(alignment: .leading) {
             if let batter = player.player as? ParsedBatter {
                 HStack {
-                    VStack {
+                    VStack(spacing: 7) {
                         HStack(spacing: 15) {
                             HStack(alignment: .bottom) {
                                 Text(player.player.name)
-                                    .font(.system(size: 16))
+                                    .font(.system(size: 20))
                                     .fontWeight(.medium)
 
                                 Text([batter.posStr(), batter.team].joinString(" • "))
-                                    .font(.system(size: 12))
+                                    .font(.system(size: 14))
                                     .fontWeight(.light)
                             }
                             .foregroundColor(.white)
