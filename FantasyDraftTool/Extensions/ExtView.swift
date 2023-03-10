@@ -63,6 +63,36 @@ extension View {
             return self.padding().anyView
         }
     }
+    
+    func font(size: CGFloat, color: Color = .black, weight: Font.Weight = .regular) -> some View {
+        self
+            .font(.system(size: size))
+            .foregroundColor(color)
+            .fontWeight(weight)
+    }
+    
+    func font(size: CGFloat, color: String, weight: Font.Weight = .regular) -> some View {
+        self
+            .font(.system(size: size))
+            .foregroundColor(.hexStringToColor(hex: color))
+            .fontWeight(weight)
+    }
+    
+    func background(color: Color, padding: CGFloat, radius: CGFloat = 7, shadow: CGFloat = 1) -> some View {
+        self
+            .padding(padding)
+            .background {
+                color.cornerRadius(radius).shadow(radius: shadow)
+            }
+    }
+    
+    func background(color: String, padding: CGFloat, radius: CGFloat = 7, shadow: CGFloat = 1) -> some View {
+        self
+            .padding(padding)
+            .background {
+                Color.hexStringToColor(hex: color).cornerRadius(radius).shadow(radius: shadow)
+            }
+    }
 
     
 

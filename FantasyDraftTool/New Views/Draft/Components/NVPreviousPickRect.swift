@@ -60,6 +60,8 @@ struct NVPreviousPickRect_Previews: PreviewProvider {
             player: .init(player: AllExtendedBatters.batters(for: .steamer,
                                                              at: .first, limit: UserDefaults.positionLimit).first!,
                           pickNumber: 24,
+                          round: 3,
+                          pickInRound: 7,
                           team: .init(name: "Team 4",
                                       draftPosition: 3),
                           weightedScore: 1.20)

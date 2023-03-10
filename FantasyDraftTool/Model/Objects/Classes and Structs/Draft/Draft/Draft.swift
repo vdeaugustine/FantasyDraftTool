@@ -22,7 +22,7 @@ struct Draft: Codable, Hashable, Equatable {
     var pickStack: Stack<DraftPlayer> = .init()
     var currentIndex: Int = 0
     var previousIndex: Int = 0
-//    var bestPicksStack: Stack<BestPick> = .init()
+    //    var bestPicksStack: Stack<BestPick> = .init()
     var totalPicksMade: Int = 1
     var projectedStack: Stack<DraftPlayer> = .init()
 
@@ -41,6 +41,14 @@ struct Draft: Codable, Hashable, Equatable {
     var draftOver: Bool {
         let pickLimit = settings.numberOfRounds * settings.numberOfTeams
         return currentPickNumber >= pickLimit
+    }
+
+    var draftedPlayers: [DraftPlayer] {
+        var retarr: [DraftPlayer] = []
+        for team in teams {
+            retarr += team.draftedPlayers
+        }
+        return retarr
     }
 
     /// This should be = teamPickOrder - 1
@@ -100,7 +108,7 @@ struct Draft: Codable, Hashable, Equatable {
         let pickNumber = goingUp ? totalPicksMade % numberOfTeams + 1 : numberOfTeams - totalPicksMade % numberOfTeams
 
         // Print the total number of picks made, the current round number, and the current pick number.
-        print("total pick:", totalPicksMade, "round: ", roundNumber, "pick", pickNumber)
+//        print("total pick:", totalPicksMade, "round: ", roundNumber, "pick", pickNumber)
 
         // Set the currentIndex to the index of the team that is currently picking.
         currentIndex = pickNumber - 1
@@ -255,7 +263,7 @@ struct Draft: Codable, Hashable, Equatable {
     init(teams: [DraftTeam], currentPickNumber: Int = 0, settings: DraftSettings, myTeamIndex: Int = 0) {
         self.teams = teams
         self.currentPickNumber = currentPickNumber
-        self.totalPickNumber = 1
+        self.totalPickNumber = 0
         self.settings = settings
         self.currentTeam = teams.first ?? DraftTeam(name: "", draftPosition: 0)
         self.myTeamIndex = myTeamIndex
@@ -321,6 +329,8 @@ extension Draft {
 
             let draftPlayer = DraftPlayer(player: chosenPlayer,
                                           pickNumber: workingDraft.totalPickNumber,
+                                          round: workingDraft.roundNumber,
+                                          pickInRound: workingDraft.roundPickNumber,
                                           team: workingDraft.currentTeam,
                                           weightedScore: chosenPlayer.zScore(draft: workingDraft, limit: 150))
             workingDraft.makePick(draftPlayer)
@@ -399,34 +409,7 @@ extension Draft {
 
         var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
 
-        while draft.totalPicksMade <= picksMade {
-//            print(draft.currentTeam.name + " is up. Their team looks like this")
-//            for position in draft.currentTeam.minForPositions.keys {
-//                print("\(position.str): \(draft.currentTeam.draftedPlayers.filter { $0.has(position: position) })")
-//            }
-
-//            let availableBatters = draft.currentTeam.recommendedBattersDesc(draft: draft)
-
-//            print("Next available: ", availableBatters.prefixArray(5))
-
-            guard let chosenPlayer: ParsedBatter = draft.currentTeam.recommendedPlayer(draft: draft, projection: projection) else {
-                break
-            }
-
-//            print("Chosen player is \(chosenPlayer)")
-
-            let draftPlayer = DraftPlayer(player: chosenPlayer,
-                                          pickNumber: draft.totalPickNumber,
-                                          team: draft.currentTeam,
-                                          weightedScore: chosenPlayer.zScore(draft: draft, limit: 150))
-            draft.makePick(draftPlayer)
-            DispatchQueue.global().async {
-//                print("changing load progress from: ", model.draftLoadProgress)
-
-                model.draftLoadProgress = Double(draft.totalPicksMade) / Double(picksMade)
-//                print("changing load progress to: ", model.draftLoadProgress)
-            }
-        }
+        draft = draft.simulatePicks(picksMade, projection: projection, progress: .constant(10))
 
         DispatchQueue.global().async {
 //            print("changing load progress from: ", model.draftLoadProgress)
@@ -434,6 +417,17 @@ extension Draft {
             model.draftLoadProgress = 1
 //            print("changing load progress to: ", model.draftLoadProgress)
         }
+
+        print("time for draft simulation: \(Date.now - testStart)")
+        return draft
+    }
+
+    static func exampleDraft(picksMade: Int = 30, projection: ProjectionTypes) -> Draft {
+        let testStart: Date = .now
+
+        var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
+
+        draft = draft.simulatePicks(picksMade, projection: projection, progress: .constant(10))
 
         print("time for draft simulation: \(Date.now - testStart)")
         return draft

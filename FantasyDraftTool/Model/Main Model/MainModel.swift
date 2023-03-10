@@ -15,7 +15,14 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     @Published var scoringSettings: ScoringSettings = .defaultPoints
 
-    @Published var draft: Draft = .nullDraft
+    @Published var draft: Draft = {
+        #if DEBUG
+        Draft.exampleDraft(picksMade: 100, projection: .atc)
+//        Draft.exampleDraft(model: 100, projection: .atc)
+        #else
+            .nullDraft
+        #endif
+    }()
 
     @Published var navPathForDrafting: NavigationPath = .init()
 

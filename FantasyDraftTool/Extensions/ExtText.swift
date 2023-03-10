@@ -8,6 +8,9 @@
 import Foundation
 import SwiftUI
 
+
+
+
 extension Text {
     init(_ dub: Double) {
         self.init(dub.str)
@@ -21,6 +24,12 @@ extension Text {
         self.init(draftPlayer.player.name)
     }
 
+    
+    init(_ arr: [String], sep: String = " ") {
+        self.init(arr.joinString(sep))
+    }
+    
+    
     func grayOptionText() -> some View {
         fontWeight(.semibold)
             .foregroundColor(.hexStringToColor(hex: "757575"))

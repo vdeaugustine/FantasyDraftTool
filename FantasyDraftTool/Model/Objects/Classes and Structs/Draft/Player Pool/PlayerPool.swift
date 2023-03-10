@@ -79,6 +79,12 @@ struct PlayerPool: Codable, Hashable, Equatable {
         guard let indexFound = batters.firstIndex(of: player) else { return nil }
         return indexFound + 1
     }
+    
+    func totalRank(for player: ParsedBatter) -> Int? {
+        let batters = storedBatters.batters(for: player.projectionType)
+        guard let indexFound = batters.firstIndex(of: player) else { return nil }
+        return indexFound + 1
+    }
 
     // MARK: - Methods
 

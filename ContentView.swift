@@ -26,7 +26,7 @@ struct ContentView: View {
 //        NVDraftPlayerDetail(batter: MainModel.shared.draft.playerPool.batters(for: [.of], projection: .steamer).first!)
 //    }
     var body: some View {
-        DVBatterDetail(player: .TroutOrNull)
+        DVBatterDetailDraft(draftPlayer: model.draft.pickStack.getArray().randomElement()!)
     }
 //        TabView(selection: $selectedTab) {
 //            NavigationView {

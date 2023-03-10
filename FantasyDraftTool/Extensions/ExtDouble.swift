@@ -133,6 +133,27 @@ extension Double {
         let divisor = pow(10.0, Double(places))
         return (self * divisor).rounded() / divisor
     }
+
+    func simpleStr(_ places: Int = 1, _ removeFrontZero: Bool = false) -> String {
+        let rounded = roundTo(places: places)
+        if rounded.truncatingRemainder(dividingBy: 1) == 0 {
+            
+            
+            
+            return String(Int(rounded))
+        } else {
+            
+            if removeFrontZero {
+                let split = String(rounded).components(separatedBy: ".")
+                if let back = split.safeGet(at: 1) {
+                    return "." + back
+                }
+                return String(rounded)
+            }
+            
+            return String(rounded)
+        }
+    }
 }
 
 extension TimeInterval {

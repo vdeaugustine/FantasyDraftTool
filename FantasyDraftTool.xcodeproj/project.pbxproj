@@ -8,11 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		9C0C9D122974CC460069703D /* EditDoubleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0C9D112974CC460069703D /* EditDoubleView.swift */; };
+		9C19C1C929BAA06B00AF24DD /* DVAlreadyDraftedPlayerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C19C1C829BAA06B00AF24DD /* DVAlreadyDraftedPlayerRow.swift */; };
+		9C19C1CB29BAA87000AF24DD /* DVAlreadyDraftedPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C19C1CA29BAA87000AF24DD /* DVAlreadyDraftedPlayers.swift */; };
 		9C1AE398297FA0A20016BF50 /* ScoringSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE397297FA0A20016BF50 /* ScoringSettings.swift */; };
 		9C1AE39A297FA7DC0016BF50 /* steamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE399297FA7DC0016BF50 /* steamerStandard.json */; };
 		9C1AE39C29804D4A0016BF50 /* ScoringSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */; };
 		9C1AE39E29807C290016BF50 /* StandardNaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE39D29807C290016BF50 /* StandardNaming.swift */; };
 		9C1AE3A42981F29D0016BF50 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE3A32981F29D0016BF50 /* Position.swift */; };
+		9C227DE829BA743300AC5E92 /* DVBatterDetailDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C227DE729BA743300AC5E92 /* DVBatterDetailDraft.swift */; };
 		9C2A2FA929B8121000B47A15 /* NVPlayerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2A2FA829B8121000B47A15 /* NVPlayerStats.swift */; };
 		9C2A2FAD29B8270200B47A15 /* NVPitcherStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2A2FAC29B8270100B47A15 /* NVPitcherStats.swift */; };
 		9C2A2FAF29B9807000B47A15 /* DVBatterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2A2FAE29B9807000B47A15 /* DVBatterDetail.swift */; };
@@ -171,11 +174,14 @@
 
 /* Begin PBXFileReference section */
 		9C0C9D112974CC460069703D /* EditDoubleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDoubleView.swift; sourceTree = "<group>"; };
+		9C19C1C829BAA06B00AF24DD /* DVAlreadyDraftedPlayerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVAlreadyDraftedPlayerRow.swift; sourceTree = "<group>"; };
+		9C19C1CA29BAA87000AF24DD /* DVAlreadyDraftedPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVAlreadyDraftedPlayers.swift; sourceTree = "<group>"; };
 		9C1AE397297FA0A20016BF50 /* ScoringSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringSettings.swift; sourceTree = "<group>"; };
 		9C1AE399297FA7DC0016BF50 /* steamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = steamerStandard.json; sourceTree = "<group>"; };
 		9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringSettingsView.swift; sourceTree = "<group>"; };
 		9C1AE39D29807C290016BF50 /* StandardNaming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardNaming.swift; sourceTree = "<group>"; };
 		9C1AE3A32981F29D0016BF50 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
+		9C227DE729BA743300AC5E92 /* DVBatterDetailDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVBatterDetailDraft.swift; sourceTree = "<group>"; };
 		9C2A2FA829B8121000B47A15 /* NVPlayerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVPlayerStats.swift; sourceTree = "<group>"; };
 		9C2A2FAC29B8270100B47A15 /* NVPitcherStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVPitcherStats.swift; sourceTree = "<group>"; };
 		9C2A2FAE29B9807000B47A15 /* DVBatterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVBatterDetail.swift; sourceTree = "<group>"; };
@@ -572,7 +578,6 @@
 		9C75B9AB296F590F003B35E6 = {
 			isa = PBXGroup;
 			children = (
-				9C2A2FAE29B9807000B47A15 /* DVBatterDetail.swift */,
 				9C2C8DA029A99C0500626232 /* SmallComponents.swift */,
 				9C75B9B7296F590F003B35E6 /* FantasyDraftToolApp.swift */,
 				9CA24CAB29850FE000A394B4 /* ContentView.swift */,
@@ -850,6 +855,10 @@
 		9CE9F4F5299C4F160015886D /* New Views */ = {
 			isa = PBXGroup;
 			children = (
+				9C2A2FAE29B9807000B47A15 /* DVBatterDetail.swift */,
+				9C227DE729BA743300AC5E92 /* DVBatterDetailDraft.swift */,
+				9C19C1CA29BAA87000AF24DD /* DVAlreadyDraftedPlayers.swift */,
+				9C19C1C829BAA06B00AF24DD /* DVAlreadyDraftedPlayerRow.swift */,
 				9C2A2FAC29B8270100B47A15 /* NVPitcherStats.swift */,
 				9C2A2FA829B8121000B47A15 /* NVPlayerStats.swift */,
 				9C82187329A6E03F007DA5D2 /* NVDownloadBatters.swift */,
@@ -1104,6 +1113,7 @@
 				9C7CC795299DD4D800A95170 /* NVDraftPlayerDetail.swift in Sources */,
 				9CB997C829A32D79008CAFAF /* LoadingDraft.swift in Sources */,
 				9CA24CC82985B83800A394B4 /* DraftTeam.swift in Sources */,
+				9C19C1CB29BAA87000AF24DD /* DVAlreadyDraftedPlayers.swift in Sources */,
 				9CA24CD929889B1400A394B4 /* SelectPositionsHScroll.swift in Sources */,
 				9CE9F503299C5D700015886D /* NVPlayerDetail.swift in Sources */,
 				9C82187429A6E03F007DA5D2 /* NVDownloadBatters.swift in Sources */,
@@ -1128,6 +1138,7 @@
 				9CC8028B298E3785005B438D /* BestPick.swift in Sources */,
 				9C0C9D122974CC460069703D /* EditDoubleView.swift in Sources */,
 				9C2A2FAD29B8270200B47A15 /* NVPitcherStats.swift in Sources */,
+				9C19C1C929BAA06B00AF24DD /* DVAlreadyDraftedPlayerRow.swift in Sources */,
 				9C48E31129B1A3840017149D /* NVPlayerDraftRow.swift in Sources */,
 				9C1AE398297FA0A20016BF50 /* ScoringSettings.swift in Sources */,
 				9CA24CAE2985181A00A394B4 /* ExtArray.swift in Sources */,
@@ -1158,6 +1169,7 @@
 				9CE9F4FC299C54BC0015886D /* NVDropDownPosition.swift in Sources */,
 				9CA24CCB2985B8F500A394B4 /* DraftSettings.swift in Sources */,
 				9CC80286298CCD83005B438D /* MyStatsPlayers.swift in Sources */,
+				9C227DE829BA743300AC5E92 /* DVBatterDetailDraft.swift in Sources */,
 				9C75B9EB296FD215003B35E6 /* CoreDataExtensions.swift in Sources */,
 				9C2C8DA329AA81B700626232 /* StatsManager.swift in Sources */,
 				9CA24CB2298519E100A394B4 /* ProjectionTypes.swift in Sources */,
@@ -1310,6 +1322,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1340,6 +1353,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

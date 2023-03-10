@@ -30,6 +30,8 @@ struct FantasyDraftToolApp: App {
             ContentView()
                 .environmentObject(model)
                 .environmentObject(loadingManager)
+                .toolbarColorScheme(.dark, for: .navigationBar)
+                
         }
     }
 }

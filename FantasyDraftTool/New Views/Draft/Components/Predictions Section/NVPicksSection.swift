@@ -14,9 +14,9 @@ struct NVPicksSection: View {
 
     var draft: Draft { model.draft }
 
-    @State private var pickOne = DraftPlayer(player: ParsedBatter.nullBatter, pickNumber: 1, team: .someDefaultTeams(amount: 1)[0], weightedScore: 1)
+    @State private var pickOne = DraftPlayer.TroutOrNull
 
-    @State private var pickTwo = DraftPlayer(player: ParsedBatter.nullBatter, pickNumber: 1, team: .someDefaultTeams(amount: 1)[0], weightedScore: 1)
+    @State private var pickTwo = DraftPlayer.TroutOrNull
 
     @State var projection: ProjectionTypes = .steamer
     let pastColor = Color.red.opacity(0.1)
@@ -116,7 +116,7 @@ struct NVPicksSection: View {
             }
 
             if let recommended = draft.currentTeam.recommendedPlayer(draft: draft, projection: .steamer) {
-                pickTwo = DraftPlayer(player: recommended, pickNumber: draft.totalPickNumber, team: draft.currentTeam, weightedScore: recommended.zScore(draft: draft, limit: 50))
+                pickTwo = DraftPlayer.TroutOrNull
             }
 
             previousViewingIndex = draft.currentPickNumber

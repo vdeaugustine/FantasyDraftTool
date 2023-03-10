@@ -14,6 +14,8 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
 
     var player: ParsedPlayer
     var pickNumber: Int
+    let roundNumber: Int
+    let pickInRound: Int
     
     /// Team that is assigned to the player. Not the computed property 
 //    var draftTeam: DraftTeam
@@ -32,6 +34,8 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
     var id: String {
         "\(player.name) drafted #\(pickNumber) overall by."
     }
+    
+    static let TroutOrNull: DraftPlayer = .init(player: ParsedBatter.TroutOrNull, draft: .exampleDraft(picksMade: 0, model: MainModel.shared, projection: .atc))
 
     // MARK: - Initializers
 
@@ -41,18 +45,24 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
         self.pickNumber = try values.decode(Int.self, forKey: .pickNumber)
 //        self.draftTeam = try values.decode(DraftTeam.self, forKey: .draftTeam)
         self.weightedScoreWhenDrafted = try values.decode(Double.self, forKey: .weightedScoreWhenDrafted)
+        self.roundNumber = try values.decode(Int.self, forKey: .roundNumber)
+        self.pickInRound = try values.decode(Int.self, forKey: .pickInRound)
     }
 
-    init(player: ParsedPlayer, pickNumber: Int, team: DraftTeam, weightedScore: Double) {
+    init(player: ParsedPlayer, pickNumber: Int, round: Int, pickInRound: Int, team: DraftTeam, weightedScore: Double) {
         self.player = player
         self.pickNumber = pickNumber
 //        self.draftTeam = team
         self.weightedScoreWhenDrafted = weightedScore
+        self.roundNumber = round
+        self.pickInRound = pickInRound
     }
 
     convenience init(player: ParsedPlayer, draft: Draft) {
         self.init(player: player,
                   pickNumber: draft.totalPickNumber,
+                  round: draft.roundNumber,
+                  pickInRound: draft.roundPickNumber,
                   team: draft.currentTeam,
                   weightedScore: player.zScore(draft: draft))
     }
@@ -72,7 +82,7 @@ extension DraftPlayer {
 // MARK: - Codable, Hashable, Equatable
 
 extension DraftPlayer {
-    enum CodingKeys: CodingKey { case player, pickNumber, draftTeam, weightedScoreWhenDrafted }
+    enum CodingKeys: CodingKey { case player, pickNumber, draftTeam, weightedScoreWhenDrafted, roundNumber, pickInRound }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
