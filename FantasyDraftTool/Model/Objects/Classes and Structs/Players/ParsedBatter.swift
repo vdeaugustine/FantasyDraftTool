@@ -14,6 +14,8 @@ protocol ParsedPlayer: Codable {
     var team: String { get set }
     var adp: Double? { get }
     var projectionType: ProjectionTypes { get }
+    
+    var dict: [String: Any] { get }
 
     func zScore(draft: Draft) -> Double
     func fantasyPoints(_ scoringSettings: ScoringSettings) -> Double
@@ -21,6 +23,10 @@ protocol ParsedPlayer: Codable {
     func averageForPosition(limit: Int, draft: Draft) -> Double
 
     func wPointsZScore(draft: Draft) -> Double
+    
+    func posStr() -> String
+    
+
 }
 
 // MARK: - AnyParsedPlayer

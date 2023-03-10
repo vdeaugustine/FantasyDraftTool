@@ -14,18 +14,16 @@ struct DVAlreadyDraftedPlayers: View {
 
     @State private var showAmount: Int = 3
     var body: some View {
-        VStack {
-            VStack(spacing: 15) {
-                Text(["Drafted"])
-                    .font(size: 20, color: .white, weight: .medium)
-            }
-
-            VStack {
+        VStack(spacing: 25) {
+            Text(["Drafted"])
+                .font(size: 20, color: .white, weight: .medium)
+                .pushLeft()
+            LazyVStack(spacing: 10) {
                 ForEach(model.draft.pickStack.getArray().prefixArray(showAmount), id: \.self) { player in
                     DVAlreadyDraftedPlayerRow(player: player)
                 }
             }
-            
+
             Button {
                 showAmount += 3
             } label: {

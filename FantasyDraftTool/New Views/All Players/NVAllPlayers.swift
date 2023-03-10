@@ -32,7 +32,7 @@ struct NVAllPlayers: View {
             case .points:
                 return filteredPlayers.sorted { $0.fantasyPoints(model.scoringSettings) > $1.fantasyPoints(model.scoringSettings) }
             case .score:
-            return filteredPlayers.sortedByZscore(draft: model.draft)
+                return filteredPlayers.sortedByZscore(draft: model.draft)
             case .hr:
                 return filteredPlayers.sorted { $0.hr > $1.hr }
             case .rbi:
@@ -43,14 +43,14 @@ struct NVAllPlayers: View {
                 return filteredPlayers.sorted { $0.sb > $1.sb }
         }
     }
-    
+
     var filterUtility: [ParsedBatter] {
         if showOnlyUtil {
-            return sortedPlayers.filter({$0.positions.count > 1})
+            return sortedPlayers.filter { $0.positions.count > 1 }
         }
         return sortedPlayers
     }
-    
+
     var utilityButton: some View {
         Button {
             showOnlyUtil.toggle()
@@ -58,16 +58,15 @@ struct NVAllPlayers: View {
             HStack {
                 Text("UTIL")
                     .fontWeight(.semibold)
-                    
+
                 Image(systemName: "person.and.arrow.left.and.arrow.right")
             }
             .font(.callout)
             .padding(7)
             .conditionalModifier(showOnlyUtil) {
                 $0.foregroundColor(.white)
-                    
             }
-            
+
             .conditionalModifier(showOnlyUtil) {
                 $0.background {
                     Color.blue
@@ -77,7 +76,6 @@ struct NVAllPlayers: View {
             .overlay {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(lineWidth: 1)
-                    
             }
         }
     }
@@ -88,25 +86,38 @@ struct NVAllPlayers: View {
                 NVDropDownProjection(selection: $projectionSelected)
                 NVDropDownPosition(selection: $positionSelected)
                 NVSortByDropDown(selection: $sortOptionSelected)
-                
             }
             .padding([.leading])
-            List {
-                Section {
+            ScrollView {
+                LazyVStack {
                     ForEach(filterUtility) { player in
 
                         NavigationLink {
-                            NVPlayerDetail(batter: player)
+                                DVBatterDetail(player: player)
+                            
+                            
+                            
                         } label: {
-                            NVAllPlayersRow(player: player, draft: model.draft)
-                        }
+                            DVAllPlayersRow(player: player)
+                        }.buttonStyle(.plain)
+                            .padding(.horizontal)
                     }
                 }
             }
+            
+            .listRowInsets(EdgeInsets(top: -5, leading: 0, bottom: -100, trailing: 0))
+            .background {
+                Color.hexStringToColor(hex: "33434F")
+                    .ignoresSafeArea()
+            }
         }
-        
+
         .listStyle(.plain)
         .navigationTitle("Players")
+        .background {
+            Color.hexStringToColor(hex: "33434F")
+                .ignoresSafeArea()
+        }
     }
 }
 

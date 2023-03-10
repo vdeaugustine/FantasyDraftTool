@@ -32,6 +32,10 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
         [name, team, projectionType.title, adp?.str ?? "NO ADP"].joined(separator: ", ")
     }
     
+    func posStr() -> String {
+        type.short.uppercased()
+    }
+    
     func adpStr() -> String? {
         guard let adp = adp else { return nil }
         let rounded = adp.roundTo(places: 1)

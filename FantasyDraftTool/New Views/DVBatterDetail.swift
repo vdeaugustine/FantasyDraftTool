@@ -25,6 +25,14 @@ struct DVBatterDetail: View {
             .frame(width: 1)
             .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
     }
+    
+    var starImage: String {
+        model.isStar(player) ? "star.fill" : "star"
+    }
+
+    var starColor: String {
+        model.isStar(player) ? "8B7500" : "BEBEBE"
+    }
 
     var body: some View {
         ScrollView {
@@ -32,23 +40,23 @@ struct DVBatterDetail: View {
                 // MARK: - Header
 
                 HStack {
-                    Text("Mike Trout") // Name
+                    Text(player.name) // Name
                         .font(.system(size: 32))
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                     Spacer()
-                    Image(systemName: "star") // Is a favorite
+                    Image(systemName: starImage) // Is a favorite
                         .font(.title2)
-                        .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                        .foregroundColor(.hexStringToColor(hex: starColor))
                 }
 
                 HStack(alignment: .bottom) {
                     // MARK: - Team and Position
 
                     HStack {
-                        Text("OF") // Position
+                        Text(player.posStr()) // Position
                         Text("•")
-                        Text("LAA") // team
+                        Text(player.team) // team
                     }
                     .font(.system(size: 20))
                     .fontWeight(.semibold)

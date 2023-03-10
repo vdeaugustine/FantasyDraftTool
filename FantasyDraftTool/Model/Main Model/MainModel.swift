@@ -37,6 +37,46 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
     @Published var limitForEachPosition: Int = 50
 
     @Published var mainSettings: MainSettings = MainSettings()
+    
+    @Published var myStarBatters: Set<ParsedBatter> = []
+    @Published var myStarPitchers: Set<ParsedPitcher> = []
+    
+    
+    var myStarPlayers: [any ParsedPlayer] { Array(myStarBatters) + Array(myStarPitchers) }
+    
+    func isStar(_ player: ParsedPlayer) -> Bool {
+        myStarPlayers.contains(where: { $0.name == player.name })
+    }
+
+    func addOrRemoveStar(_ player: ParsedPlayer) {
+        if isStar(player) {
+            removeStar(player)
+        } else {
+            if let batter = player as? ParsedBatter {
+                print("inserting ", batter.name)
+                myStarBatters.insert(batter)
+                print(myStarBatters)
+            }
+            if let pitcher = player as? ParsedPitcher {
+                print("inserting ", pitcher.name)
+                myStarPitchers.insert(pitcher)
+                print(myStarPitchers)
+            }
+        }
+
+        save()
+    }
+    
+    func removeStar(_ player: ParsedPlayer) {
+        if let batter = player as? ParsedBatter {
+            myStarBatters.remove(batter)
+        }
+        if let pitcher = player as? ParsedPitcher {
+            myStarPitchers.remove(pitcher)
+        }
+
+        save()
+    }
 
 //    @Published var positionLimit: Int = 50
 //    @Published var outfieldLimit: Int = 150

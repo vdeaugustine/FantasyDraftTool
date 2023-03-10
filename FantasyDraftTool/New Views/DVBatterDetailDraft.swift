@@ -190,23 +190,23 @@ struct DVBatterDetailDraft: View {
 
                 // MARK: - Analysis boxes
 
-//                LazyVGrid(columns: GridItem.fixedItems(2, size: 170), spacing: 20) {
-//                    ForEach(player.relevantStatsKeys, id: \.self) { statKey in
-//
-//                        if let position = player.positions.first,
-//                           let stat = player.dict[statKey] as? Int,
-//                           let dub = Double(stat) {
-//                            StatAnalysisBox(batterFullName: player.name,
-//                                            posStr: position.str,
-//                                            statKey: statKey,
-//                                            value: dub,
-//                                            percentile: 0.25,
-//                                            posAVG: dub - 50,
-//                                            allAvg: dub - 100)
-//                        }
-//                    }
-//                }
-//                .padding(.top)
+                LazyVGrid(columns: GridItem.fixedItems(2, size: 175), spacing: 20) {
+                    ForEach(player.relevantStatsKeys, id: \.self) { statKey in
+
+                        if let position = player.positions.first,
+                           let stat = player.dict[statKey] as? Int,
+                           let dub = Double(stat) {
+                            StatAnalysisBox(batterFullName: player.name,
+                                            posStr: position.str,
+                                            statKey: statKey,
+                                            value: dub,
+                                            percentile: 0.25,
+                                            posAVG: dub - 50,
+                                            allAvg: dub - 100)
+                        }
+                    }
+                }
+                .padding(.top)
 
                 horizontalDivider.padding(40)
                 
@@ -402,7 +402,8 @@ extension DVBatterDetailDraft {
             }
             .padding(.vertical, 5)
             .padding(.top, 3)
-            .frame(width: 153, height: 160)
+            .frame(maxWidth: 175)
+            .height(180)
             .background {
                 Color.hexStringToColor(hex: "4A555E").cornerRadius(7)
             }
@@ -538,5 +539,8 @@ extension DVBatterDetailDraft {
 struct DVBatterDetailDraft_Previews: PreviewProvider {
     static var previews: some View {
         DVBatterDetailDraft(draftPlayer: DraftPlayer.TroutOrNull)
+            .previewDevice("iPhone SE (3rd generation)")
+            .environmentObject(MainModel.shared)
+           
     }
 }

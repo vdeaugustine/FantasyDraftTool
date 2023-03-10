@@ -14,8 +14,8 @@
             filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Players/ParsedBatter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
             landmarkName = "wPointsZScore(draft:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,10 +30,10 @@
             filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Players/ParsedBatter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
-            landmarkName = "ParsedBatter"
-            landmarkType = "14">
+            startingLineNumber = "232"
+            endingLineNumber = "232"
+            landmarkName = "peers(draft:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -79,7 +79,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "116"
                   endingLineNumber = "116"
-                  offsetFromSymbolStart = "92">
+                  offsetFromSymbolStart = "108">
                </Location>
             </Locations>
          </BreakpointContent>
