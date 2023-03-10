@@ -93,7 +93,7 @@ struct DVAllPlayersRow: View {
                     model.addOrRemoveStar(player)
                 }
             } label: {
-                Label("Add/Remove Favorite", systemImage: starImage)
+                Label("Toggle Favorite", systemImage: starImage)
                     .labelStyle(.iconOnly)
                     .rotationEffect(Angle(degrees: model.isStar(player) ? 360 * 3 : 0))
                     .foregroundColor(Color.hexStringToColor(hex: starColor))

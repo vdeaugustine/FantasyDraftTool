@@ -26,8 +26,6 @@ struct ContentView: View {
 //        NVDraftPlayerDetail(batter: MainModel.shared.draft.playerPool.batters(for: [.of], projection: .steamer).first!)
 //    }
     var body: some View {
-//        DVBatterDetailDraft(draftPlayer: model.draft.pickStack.getArray().randomElement()!)
-//    }
         TabView(selection: $selectedTab) {
             NavigationView {
                 NVAllPlayers()
@@ -52,15 +50,12 @@ struct ContentView: View {
 
             NavigationView {
                 NVSettings()
-
             }
             .tag(2)
             .tabItem {
                 Label("Settings", systemImage: "gear")
             }
             .navigationBarTitleDisplayMode(.inline)
-
-
 
 //
 //            NavigationView {
@@ -113,7 +108,6 @@ struct ContentView: View {
             for starter in AllExtendedPitchers.starters(for: .depthCharts, limit: 2) {
                 print(starter)
             }
-
         }
     }
 }

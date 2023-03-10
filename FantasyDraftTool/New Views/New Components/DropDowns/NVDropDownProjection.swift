@@ -18,22 +18,19 @@ struct NVDropDownProjection: View {
                 Button {
                     selection = projectionType
                 } label: {
-                    Text(projectionType.title)
+                    Label(projectionType.title, systemImage: selection == projectionType ? "checkmark" : "")
                 }
             }
         } label: {
             HStack {
                 Text(selection.title)
-
                     .fontWeight(.semibold)
                 Image(systemName: "chart.xyaxis.line")
             }
             .font(font)
-            .padding(7)
-            .overlay {
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(lineWidth: 1)
-            }
+            .foregroundColor(.white)
+            .background(color: "305294", padding: 6)
+            .buttonStyle(.plain)
         }
     }
 }

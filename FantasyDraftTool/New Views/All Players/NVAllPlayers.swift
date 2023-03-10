@@ -93,10 +93,8 @@ struct NVAllPlayers: View {
                     ForEach(filterUtility) { player in
 
                         NavigationLink {
-                                DVBatterDetail(player: player)
-                            
-                            
-                            
+                            DVBatterDetail(player: player)
+
                         } label: {
                             DVAllPlayersRow(player: player)
                         }.buttonStyle(.plain)
@@ -104,14 +102,13 @@ struct NVAllPlayers: View {
                     }
                 }
             }
-            
+
             .listRowInsets(EdgeInsets(top: -5, leading: 0, bottom: -100, trailing: 0))
             .background {
                 Color.hexStringToColor(hex: "33434F")
                     .ignoresSafeArea()
             }
         }
-
         .listStyle(.plain)
         .navigationTitle("Players")
         .background {

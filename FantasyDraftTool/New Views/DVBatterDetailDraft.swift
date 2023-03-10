@@ -228,6 +228,7 @@ struct DVBatterDetailDraft: View {
             Color.hexStringToColor(hex: "33434F")
                 .ignoresSafeArea()
         }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -541,6 +542,7 @@ struct DVBatterDetailDraft_Previews: PreviewProvider {
         DVBatterDetailDraft(draftPlayer: DraftPlayer.TroutOrNull)
             .previewDevice("iPhone SE (3rd generation)")
             .environmentObject(MainModel.shared)
+            .putInNavView()
            
     }
 }

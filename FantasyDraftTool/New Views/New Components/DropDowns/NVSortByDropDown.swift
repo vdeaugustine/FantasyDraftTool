@@ -19,7 +19,7 @@ struct NVSortByDropDown: View {
                 Button {
                     selection = option
                 } label: {
-                    Text(option.str)
+                    Label(option.str, systemImage: option == selection ? "checkmark" : "")
                 }
             }
             Divider()
@@ -27,24 +27,25 @@ struct NVSortByDropDown: View {
                 Button {
                     selection = option
                 } label: {
-                    Text(option.str.uppercased())
+                    Label(option.str.uppercased(), systemImage: option == selection ? "checkmark" : "")
                 }
             }
 
         } label: {
             HStack {
                 Text(selection.str.uppercased())
-
                     .fontWeight(.semibold)
                 Image(systemName: "line.3.horizontal.decrease")
             }
+            .foregroundColor(.white)
             .font(font)
-            .padding(7)
-            .overlay {
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(lineWidth: 1)
-            }
+            .background(color: "305294", padding: 6)
+//            .overlay {
+//                RoundedRectangle(cornerRadius: 10)
+//                    .stroke(lineWidth: 1)
+//            }
         }
+        .buttonStyle(.plain)
     }
 
     enum Options {

@@ -45,9 +45,19 @@ struct DVBatterDetail: View {
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                     Spacer()
-                    Image(systemName: starImage) // Is a favorite
-                        .font(.title2)
-                        .foregroundColor(.hexStringToColor(hex: starColor))
+                    
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            model.addOrRemoveStar(player)
+                        }
+                    } label: {
+                        Label("Toggle Favorite", systemImage: starImage)
+                            .font(.title2)
+                            .labelStyle(.iconOnly)
+                            .rotationEffect(Angle(degrees: model.isStar(player) ? 360 * 3 : 0))
+                            .foregroundColor(Color.hexStringToColor(hex: starColor))
+                    }
+                        
                 }
 
                 HStack(alignment: .bottom) {
@@ -167,6 +177,7 @@ struct DVBatterDetail: View {
             Color.hexStringToColor(hex: "33434F")
                 .ignoresSafeArea()
         }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -477,5 +488,7 @@ extension DVBatterDetail {
 struct DVBatterDetail_Previews: PreviewProvider {
     static var previews: some View {
         DVBatterDetail(player: .TroutOrNull)
+            .environmentObject(MainModel.shared)
+            
     }
 }

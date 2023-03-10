@@ -22,7 +22,7 @@ struct NVDropDownPosition: View {
                 Button {
                     selection = nil
                 } label: {
-                    Text("ALL")
+                    Label("ALL", systemImage: selection == nil ? "checkmark" : "")
                 }
                 Divider()
             }
@@ -30,7 +30,7 @@ struct NVDropDownPosition: View {
                 Button {
                     selection = position
                 } label: {
-                    Text(position.str.uppercased())
+                    Label(position.str.uppercased(), systemImage: selection == position ? "checkmark" : "")
                 }
             }
         } label: {
@@ -41,14 +41,9 @@ struct NVDropDownPosition: View {
                 Image(systemName: "baseball.diamond.bases")
             }
             .font(font)
-            .padding(7)
-            .overlay {
-                if showBorder {
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(lineWidth: 1)
-                }
-                
-            }
+            .foregroundColor(.white)
+            .background(color: "305294", padding: 6)
+            .buttonStyle(.plain)
         }
         
     }
