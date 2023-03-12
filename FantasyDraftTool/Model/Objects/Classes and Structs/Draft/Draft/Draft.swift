@@ -345,15 +345,15 @@ extension Draft {
         while picksMade <= numPicks {
             if draft.draftOver { break }
 
-            let availableBatters = draft.currentTeam.recommendedBattersDesc(draft: draft, projection: projection)
+            let availablePlayers = draft.currentTeam.recommendedPlayersDesc(draft: draft, projection: projection)
 
-            if availableBatters.count == 1 {
-                draft.makePick(.init(player: availableBatters[0], draft: draft))
-            } else if availableBatters.count < 1 {
+            if availablePlayers.count == 1 {
+                draft.makePick(.init(player: availablePlayers[0], draft: draft))
+            } else if availablePlayers.count < 1 {
                 break
             }
 
-            guard let chosenPlayer: ParsedBatter = availableBatters.first else {
+            guard let chosenPlayer: ParsedPlayer = availablePlayers.first else {
                 break
             }
 
@@ -375,17 +375,17 @@ extension Draft {
             //                print("\(position.str): \(draft.currentTeam.draftedPlayers.filter { $0.has(position: position) })")
             //            }
 
-            let availableBatters = draft.currentTeam.recommendedBattersDesc(draft: draft, projection: projection)
+            let availablePlayers = draft.currentTeam.recommendedPlayersDesc(draft: draft, projection: projection)
 
             //            print("Next available: ", availableBatters.prefixArray(5))
 
-            if availableBatters.count == 1 {
-                draft.makePick(.init(player: availableBatters[0], draft: draft))
-            } else if availableBatters.count < 1 {
+            if availablePlayers.count == 1 {
+                draft.makePick(.init(player: availablePlayers[0], draft: draft))
+            } else if availablePlayers.count < 1 {
                 break
             }
 
-            guard let chosenPlayer: ParsedBatter = availableBatters.first else {
+            guard let chosenPlayer: ParsedPlayer = availablePlayers.first else {
                 break
             }
 
@@ -440,15 +440,15 @@ extension Draft {
 
         while picksMade <= numPicks {
             if draft.draftOver { break }
-            let availableBatters = draft.currentTeam.recommendedBattersDesc(draft: draft, projection: projection)
+            let availablePlayers = draft.currentTeam.recommendedPlayersDesc(draft: draft, projection: projection)
 
-            if availableBatters.count == 1 {
-                draft.makePick(.init(player: availableBatters[0], draft: draft))
-            } else if availableBatters.count < 1 {
+            if availablePlayers.count == 1 {
+                draft.makePick(.init(player: availablePlayers[0], draft: draft))
+            } else if availablePlayers.count < 1 {
                 break
             }
 
-            guard let chosenPlayer: ParsedBatter = availableBatters.first else {
+            guard let chosenPlayer: ParsedPlayer = availablePlayers.first else {
                 break
             }
 
@@ -499,30 +499,14 @@ extension Draft {
             print(error)
         }
     }
-    
-//    static func saveDataToJSONFile<T: Encodable>(_ data: T, filename: String) {
-//        let fileManager = FileManager.default
-//        do {
-//            let documentDirectory = try fileManager.url(for: .documentDirectory,
-//                                                         in: .userDomainMask,
-//                                                         appropriateFor: nil,
-//                                                         create: false)
-//            let fileURL = documentDirectory.appendingPathComponent(filename)
-//            let jsonEncoder = JSONEncoder()
-//            let jsonData = try jsonEncoder.encode(data)
-//            try jsonData.write(to: fileURL)
-//            print("Data saved to JSON file: \(filename)")
-//        } catch {
-//            print("Error saving data to JSON file: \(error)")
-//        }
-//    }
+
 
     static func saveJSONDataToDocumentsDirectory(jsonData: Data) {
         // Convert JSON data to a JSON string
-        guard let jsonString = String(data: jsonData, encoding: .utf8) else {
-            print("Error converting JSON data to JSON string")
-            return
-        }
+//        guard let jsonString = String(data: jsonData, encoding: .utf8) else {
+//            print("Error converting JSON data to JSON string")
+//            return
+//        }
         
         // Get the path to the app's Documents directory
         guard let documentsDirectoryPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
@@ -563,6 +547,7 @@ extension Draft {
 
         guard let file = Bundle.main.url(forResource: "exampleDraft", withExtension: ".json")
         else {
+            return nil 
             fatalError("Couldn't find exampleDraft in main bundle.")
         }
 

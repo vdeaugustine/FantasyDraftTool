@@ -16,16 +16,16 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
     var draftPosition: Int
     var positionsRequired: [Position: Int]
     var draftedPlayers: [DraftPlayer]
-    
-    var minForPositions: [Position: Int] = [
-        .c : 1,
-        .first: 1,
-        .second: 1,
-        .third: 1,
-        .ss: 1,
-        .of: 3
-    ]
-    
+
+    var minForPositions: [Position: Int] = [.c: 1,
+                                            .first: 1,
+                                            .second: 1,
+                                            .third: 1,
+                                            .ss: 1,
+                                            .of: 3,
+                                            .rp: 5,
+                                            .sp: 5]
+
     var positionsEmpty: Set<Position> {
         var included: Set<Position> = []
         for position in Position.batters {
@@ -71,10 +71,8 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
 
     func points(for position: Position) -> Double {
         let theseBatters = draftedPlayers.filter {
-            
             guard let player = $0.player as? ParsedBatter else { return false }
             return player.positions.contains(position)
-            
         }
         guard !theseBatters.isEmpty else {
             return 0
@@ -82,52 +80,84 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
         let sum: Double = theseBatters.reduce(Double(0)) { $0 + $1.player.fantasyPoints(MainModel.shared.getScoringSettings()) }
         return (sum / Double(theseBatters.count)).roundTo(places: 1)
     }
-    
+
     func players(for position: Position) -> [DraftPlayer] {
-        
-        draftedPlayers.filter{
-            
+        draftedPlayers.filter {
             guard let player = $0.player as? ParsedBatter else { return false }
-            
+
             return player.positions.contains(position)
-            
-            
         }
     }
-    
-    
+
     func positionsNotMetMinimum() -> [Position] {
         var pos = [Position]()
-        for position in self.minForPositions.keys {
-            let numDrafted = self.draftedPlayers.filter({$0.has(position: position)}).count
-            if let min = self.minForPositions[position],
+        for position in minForPositions.keys {
+            let numDrafted = draftedPlayers.filter { $0.has(position: position) }.count
+            if let min = minForPositions[position],
                numDrafted < min {
                 pos.append(position)
             }
         }
         return pos
     }
-    
-    func recommendedPlayer(draft: Draft, projection: ProjectionTypes) -> ParsedBatter? {
+
+    func recommendedPlayer(draft: Draft, projection: ProjectionTypes) -> ParsedPlayer? {
         guard !draft.playerPool.storedBatters.batters(for: projection).isEmpty else { return nil }
-        return recommendedBattersDesc(draft: draft, projection: projection).first
+        return recommendedPlayersDesc(draft: draft, projection: projection).first
     }
-    
+
     /// Recommended batters descending
-    func recommendedBattersDesc(draft: Draft, projection: ProjectionTypes) -> [ParsedBatter] {
+    func recommendedPlayersDesc(draft: Draft, projection: ProjectionTypes) -> [ParsedPlayer] {
         let positions = positionsNotMetMinimum()
-        var players: [ParsedBatter] = draft.playerPool.batters(for: positions, projection: projection, draft: draft)
+        let batters: [ParsedBatter] = draft.playerPool.batters(for: Position.batters.intersection(positionsNotMetMinimum()), projection: projection, draft: draft)
+        let pitchers: [ParsedPitcher] = {
+            var retArr: [ParsedPitcher] = []
+            let types: [PitcherType] = {
+                var retArr: [PitcherType] = []
+                if positionsNotMetMinimum().contains(.sp) {
+                    retArr.append(.starter)
+                }
+                if positionsNotMetMinimum().contains(.rp) {
+                    retArr.append(.reliever)
+                }
+                return retArr
+                
+            }()
+            for type in types {
+                retArr += draft.playerPool.storedPitchers.pitchers(for: projection, at: type, scoring: draft.settings.scoringSystem)
+            }
+
+            return retArr
+//            let totalPicks = draft.settings.numberOfTeams * draft.settings.numberOfRounds
+//            let trimmed = retArr.filter {
+//                guard let adp = $0.adp else { return false }
+//                return Int(adp) <= draft.settings.totalPicksWillBeMade
+//            }
+//            return trimmed
+        }()
         
-        if players.isEmpty {
-            players = draft.playerPool.storedBatters.batters(for: projection)
+        var pitchersAndBatters: [ParsedPlayer] = pitchers + batters
+
+        pitchersAndBatters = pitchersAndBatters.filter {
+            guard let adp = $0.adp else { return false }
+            return Int(adp) <= draft.settings.totalPicksWillBeMade
         }
-    
         
-        return players.sortedByZscore(draft: draft)
+        pitchersAndBatters.sort {
+            $0.wPointsZScore(draft: draft) > $1.wPointsZScore(draft: draft)
+        }
+
+       
+//
+//    func sortedPlayers(_ presorted: [any ParsedPlayer], draft: Draft) -> [ParsedPlayer] {
+//
+//                let retArr: [any ParsedPlayer] = presorted.sorted { $0.wPointsZScore(draft: draft) > $1.wPointsZScore(draft: draft) }
+//                return retArr
+//
+//        }
+
+        return pitchersAndBatters
     }
-    
-    
-    
 }
 
 // MARK: - Codable Equatable, Hashable

@@ -283,12 +283,12 @@ struct NVDraft: View {
                             NVDropDownPosition(selection: $positionSelected)
                         }.pushLeft().padding(.top)
 
-                        if let recommended = myTeam.recommendedPlayer(draft: model.draft, projection: projection) {
-                            VStack(alignment: .leading) {
-                                Text("Recommended")
-                                playerBox(recommended)
-                            }
-                        }
+//                        if let recommended = myTeam.recommendedPlayer(draft: model.draft, projection: projection) {
+//                            VStack(alignment: .leading) {
+//                                Text("Recommended")
+//                                playerBox(recommended)
+//                            }
+//                        }
 
                         // MARK: - Available Players
 

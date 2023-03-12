@@ -92,8 +92,8 @@ struct BoxForCurrentPickDVDraft: View {
         
     }
     
-    var player: ParsedBatter {
-        draft.currentTeam.recommendedPlayer(draft: draft, projection: model.draft.projectionCurrentlyUsing) ?? .nullBatter
+    var player: ParsedPlayer {
+        draft.currentTeam.recommendedPlayer(draft: draft, projection: model.draft.projectionCurrentlyUsing) ?? ParsedBatter.nullBatter
     }
 
     

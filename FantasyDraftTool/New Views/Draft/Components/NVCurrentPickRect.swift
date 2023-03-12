@@ -33,7 +33,7 @@ struct NVCurrentPickRect: View {
         return retSet
     }
 
-    var prediction: ParsedBatter? {
+    var prediction: ParsedPlayer? {
         guard draft.playerPool.storedBatters.batters(for: draft.projectionCurrentlyUsing).isEmpty == false else {
             return nil
         }

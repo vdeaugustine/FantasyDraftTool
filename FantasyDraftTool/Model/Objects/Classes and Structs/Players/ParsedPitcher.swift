@@ -210,7 +210,7 @@ struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
 
 // MARK: - PitcherType
 
-enum PitcherType: String, Codable, Hashable, Identifiable, CustomStringConvertible {
+enum PitcherType: String, Codable, Hashable, Identifiable, CustomStringConvertible, Equatable {
     case starter, reliever
 
     var short: String {

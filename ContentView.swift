@@ -28,36 +28,66 @@ struct ContentView: View {
 //        NVDraftPlayerDetail(batter: MainModel.shared.draft.playerPool.batters(for: [.of], projection: .steamer).first!)
 //    }
     var body: some View {
-        VStack {
-            ProgressView("Draft", value: progress, total: 1)
-
-            if let draft = draft {
-                LazyVStack {
-                    ForEach(draft.pickStack.getArray(), id: \.self) {
-                        Text($0)
+        
+        if let draft = draft {
+            if let myTeam = draft.myTeam {
+                PositionsFilledSection(myTeam: myTeam)
+                
+                List {
+                    ForEach(draft.pickStack.getArray(), id: \.self) { player in
+                        Text([player.player.name, player.player.posStr()])
                     }
                 }
                 
-                if draft.pickStack.getArray().count < 1 {
-                    Text("NULL DRAFT")
-                }
+            } else {
+                Text("NO TEAM")
             }
             
+        } else {
             
-        }
-        .onAppear {
-            if draft == nil {
-                DispatchQueue.global().async {
-                    Draft.asyncExampleDraft(picksMade: 200, proj: .atc, progress: &progress) { completedDraft in
-
-                        draft = completedDraft
-
-                        draft!.save()
-                        
-                    }
+            
+            Text("NO DRAFT")
+                .onAppear {
+                    Draft.asyncExampleDraft(picksMade: 200, proj: .atc, progress: &progress, completion: { draft in
+                        self.draft = draft
+                        self.draft!.save()
+                    })
                 }
-            }
         }
+        
+        
+//        VStack {
+//            ProgressView("Draft", value: progress, total: 1)
+//
+//            ScrollView {
+//                if let draft = draft {
+//                    LazyVStack {
+//                        ForEach(draft.pickStack.getArray(), id: \.self) {
+//                            Text($0)
+//                        }
+//                    }
+//
+//                    if draft.pickStack.getArray().count < 1 {
+//                        Text("NULL DRAFT")
+//                    }
+//                }
+//            }
+            
+            
+//        }
+//        .onAppear {
+//            if draft == nil {
+//                DispatchQueue.global().async {
+//                    Draft.asyncExampleDraft(picksMade: 200, proj: .atc, progress: &progress) { completedDraft in
+//
+//                        draft = completedDraft
+//
+//                        draft!.save()
+//
+//                    }
+//                }
+//            }
+//        }
 
 //        BoxForPastPicksDVDraft(draftPlayer: .TroutOrNull)
 

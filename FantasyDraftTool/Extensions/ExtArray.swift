@@ -188,6 +188,18 @@ extension Sequence where Iterator.Element: Hashable {
     }
 }
 
+extension Array where Element: Equatable {
+    func intersection(_ other: [Element]) -> [Element] {
+        var result = [Element]()
+        for item in self {
+            if other.contains(item) && !result.contains(item) {
+                result.append(item)
+            }
+        }
+        return result
+    }
+}
+
 extension Array where Element == Position {
     var str: String {
         return reduce("") { $0 + ", " + $1.str.uppercased() }

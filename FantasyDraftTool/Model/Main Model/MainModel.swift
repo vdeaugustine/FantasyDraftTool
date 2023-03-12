@@ -17,7 +17,7 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     @Published var draft: Draft = {
         #if DEBUG
-        Draft.exampleDraft(picksMade: 100, projection: .atc)
+        Draft.loadExample() ?? Draft.exampleDraft(picksMade: 35, projection: .atc)
 //        Draft.exampleDraft(model: 100, projection: .atc)
         #else
             .nullDraft

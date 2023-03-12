@@ -41,7 +41,26 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.player = try values.decode(ParsedBatter.self, forKey: .player)
+        
+        
+        
+        
+//        if let parsedBatter = try? decoder.container.decode(ParsedBatter.self, forKey: .player) as? ParsedBatter {
+//                    parsedPlayer = parsedBatter
+//        } else if let parsedPitcher = try? decoder.container.decode(ParsedPitcher.self, forKey: .parsedPlayer) {
+//                    parsedPlayer = parsedPitcher
+//                } else {
+//                    throw DecodingError.dataCorruptedError(forKey: .parsedPlayer, in: decoder.container, debugDescription: "Unable to decode ParsedPlayer")
+//                }
+        if let batter = try? values.decode(ParsedBatter.self, forKey: .player) {
+            self.player = batter
+        } else if let pitcher = try? values.decode(ParsedPitcher.self, forKey: .player) {
+            self.player = pitcher
+        } else {
+           fatalError()
+        }
+//        self.player = try values.decodeIfPresent(ParsedBatter.self, forKey: .player)
+//        self.player = try values.decode(ParsedPlayer.self, forKey: .player)
         self.pickNumber = try values.decode(Int.self, forKey: .pickNumber)
 //        self.draftTeam = try values.decode(DraftTeam.self, forKey: .draftTeam)
         self.weightedScoreWhenDrafted = try values.decode(Double.self, forKey: .weightedScoreWhenDrafted)
