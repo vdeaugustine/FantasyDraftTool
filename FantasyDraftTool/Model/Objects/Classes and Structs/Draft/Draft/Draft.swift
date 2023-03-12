@@ -474,20 +474,11 @@ extension Draft {
 
     static func loadExample() -> Draft? {
         
-        if let existingFile = loadDataFromJSONFile(filename: "exampleDraft.json", type: Draft.self) {
+        if let existingFile = loadDraft() {
+            print("Found existing")
             return existingFile
         }
-        
-         if let existing = UserDefaults.standard.data(forKey: "exampleDraft") {
-            do {
-                let decoder = JSONDecoder()
-                let draft = try decoder.decode(Draft.self, from: existing)
-                return draft
-            } catch {
-                print("\n*** HERE IN THE LOAD EXAMPLE FOR DECODING DRAFT ***\n")
-                print(error)
-            }
-        }
+
         return nil
     }
 
@@ -502,48 +493,95 @@ extension Draft {
 //            print("\n")
 //            print(String(data: data, encoding: .utf8))
 //            print("\n")
-            Draft.saveDataToJSONFile(data, filename: "exampleDraft.json")
+            Draft.saveJSONDataToDocumentsDirectory(jsonData: data)
         } catch {
             print("\n*** HERE IN THE SAVE FOR DECODING DRAFT ***\n")
             print(error)
         }
     }
     
-    static func saveDataToJSONFile<T: Encodable>(_ data: T, filename: String) {
-        let fileManager = FileManager.default
+//    static func saveDataToJSONFile<T: Encodable>(_ data: T, filename: String) {
+//        let fileManager = FileManager.default
+//        do {
+//            let documentDirectory = try fileManager.url(for: .documentDirectory,
+//                                                         in: .userDomainMask,
+//                                                         appropriateFor: nil,
+//                                                         create: false)
+//            let fileURL = documentDirectory.appendingPathComponent(filename)
+//            let jsonEncoder = JSONEncoder()
+//            let jsonData = try jsonEncoder.encode(data)
+//            try jsonData.write(to: fileURL)
+//            print("Data saved to JSON file: \(filename)")
+//        } catch {
+//            print("Error saving data to JSON file: \(error)")
+//        }
+//    }
+
+    static func saveJSONDataToDocumentsDirectory(jsonData: Data) {
+        // Convert JSON data to a JSON string
+        guard let jsonString = String(data: jsonData, encoding: .utf8) else {
+            print("Error converting JSON data to JSON string")
+            return
+        }
+        
+        // Get the path to the app's Documents directory
+        guard let documentsDirectoryPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            print("Error getting Documents directory path")
+            return
+        }
+        
+        // Create the full path to the file
+        let fileURL = documentsDirectoryPath.appendingPathComponent("exampleDraft.json")
+        
         do {
-            let documentDirectory = try fileManager.url(for: .documentDirectory,
-                                                         in: .userDomainMask,
-                                                         appropriateFor: nil,
-                                                         create: false)
-            let fileURL = documentDirectory.appendingPathComponent(filename)
-            let jsonEncoder = JSONEncoder()
-            let jsonData = try jsonEncoder.encode(data)
-            try jsonData.write(to: fileURL)
-            print("Data saved to JSON file: \(filename)")
+            // Write the JSON data to the file
+            try jsonData.write(to: fileURL, options: .atomic)
+            print("JSON data saved to file: \(fileURL.absoluteString)")
         } catch {
-            print("Error saving data to JSON file: \(error)")
+            print("Error saving JSON data to file: \(error)")
+        }
+    }
+    
+    static func loadDataFromDocumentsDirectory(fileName: String) -> Draft? {
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = dir.appendingPathComponent(fileName)
+            do {
+                let data = try Data(contentsOf: fileURL)
+                let decoder = JSONDecoder()
+                let draft = try decoder.decode(Draft.self, from: data)
+                return draft
+            } catch {
+                print("Error loading data from documents directory: \(error)")
+                return nil
+            }
+        }
+        return nil
+    }
+    
+    static func loadDraft() -> Draft? {
+        let data: Data
+
+        guard let file = Bundle.main.url(forResource: "exampleDraft", withExtension: ".json")
+        else {
+            fatalError("Couldn't find exampleDraft in main bundle.")
+        }
+
+        do {
+            data = try Data(contentsOf: file)
+        } catch {
+            fatalError("Couldn't load exampleDraft from main bundle:\n\(error)")
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            let draft = try decoder.decode(Draft.self, from: data)
+            return draft
+        } catch {
+            fatalError("Couldn't parse exampleDraft as \(Draft.self):\n\(error)")
         }
     }
 
-    static func loadDataFromJSONFile<T: Decodable>(filename: String, type: T.Type) -> T? {
-        let fileManager = FileManager.default
-        do {
-            let documentDirectory = try fileManager.url(for: .documentDirectory,
-                                                         in: .userDomainMask,
-                                                         appropriateFor: nil,
-                                                         create: false)
-            let fileURL = documentDirectory.appendingPathComponent(filename)
-            let jsonData = try Data(contentsOf: fileURL)
-            let jsonDecoder = JSONDecoder()
-            let data = try jsonDecoder.decode(type, from: jsonData)
-            print("Data loaded from JSON file: \(filename)")
-            return data
-        } catch {
-            print("Error loading data from JSON file: \(error)")
-            return nil
-        }
-    }
+
 
 
 }

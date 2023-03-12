@@ -162,6 +162,7 @@
 		9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */; };
 		9CA24CE62989E81400A394B4 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CE52989E81400A394B4 /* Stack.swift */; };
 		9CB997C829A32D79008CAFAF /* LoadingDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB997C729A32D79008CAFAF /* LoadingDraft.swift */; };
+		9CBC3D4729BE598100756EC5 /* exampleDraft.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC3D4629BE598100756EC5 /* exampleDraft.json */; };
 		9CC80284298C7524005B438D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80283298C7524005B438D /* UserDefaults.swift */; };
 		9CC80286298CCD83005B438D /* MyStatsPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80285298CCD83005B438D /* MyStatsPlayers.swift */; };
 		9CC80288298D86CF005B438D /* StrongestAtEachPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */; };
@@ -334,6 +335,7 @@
 		9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSinglePositionTypeHScroll.swift; sourceTree = "<group>"; };
 		9CA24CE52989E81400A394B4 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		9CB997C729A32D79008CAFAF /* LoadingDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDraft.swift; sourceTree = "<group>"; };
+		9CBC3D4629BE598100756EC5 /* exampleDraft.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = exampleDraft.json; sourceTree = "<group>"; };
 		9CC80283298C7524005B438D /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9CC80285298CCD83005B438D /* MyStatsPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStatsPlayers.swift; sourceTree = "<group>"; };
 		9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongestAtEachPositionView.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 		9C012A4D29BD5B2C00E74248 /* SavedData */ = {
 			isa = PBXGroup;
 			children = (
+				9CBC3D4629BE598100756EC5 /* exampleDraft.json */,
 			);
 			path = SavedData;
 			sourceTree = "<group>";
@@ -1172,6 +1175,7 @@
 				9C762E2229A2039A00C3B804 /* ExtendedCBatSteamerStandard.json in Resources */,
 				9C762E2029A2039A00C3B804 /* ExtendedSsBatFangraphsdcStandard.json in Resources */,
 				9C762E1E29A2039A00C3B804 /* Extended2bBatFangraphsdcStandard.json in Resources */,
+				9CBC3D4729BE598100756EC5 /* exampleDraft.json in Resources */,
 				9C762E1529A2039A00C3B804 /* Extended3bBatThebatxStandard.json in Resources */,
 				9C762E1329A2039A00C3B804 /* Extended2bBatSteamerStandard.json in Resources */,
 				9C33F7E029838B2E0038A938 /* 3bBatSteamerStandard.json in Resources */,

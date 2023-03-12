@@ -63,8 +63,6 @@ struct PositionsFilledSection_Previews: PreviewProvider {
     
     static let demoDraft: Draft = {
         Draft.exampleDraft(picksMade: 1, projection: .steamer)
-        
-        
     }()
 
     static var previews: some View {
