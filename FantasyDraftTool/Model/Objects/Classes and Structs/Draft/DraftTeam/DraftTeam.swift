@@ -83,9 +83,20 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
 
     func players(for position: Position) -> [DraftPlayer] {
         draftedPlayers.filter {
-            guard let player = $0.player as? ParsedBatter else { return false }
+            if let player = $0.player as? ParsedBatter {
+                return player.positions.contains(position)
+            }
 
-            return player.positions.contains(position)
+            if let pitcher = $0.player as? ParsedPitcher {
+                if position == .rp,
+                   pitcher.type == .reliever {
+                    return true
+                }
+                if position == .sp, pitcher.type == .starter {
+                    return true
+                }
+            }
+            return false
         }
     }
 
@@ -121,7 +132,7 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
                     retArr.append(.reliever)
                 }
                 return retArr
-                
+
             }()
             for type in types {
                 retArr += draft.playerPool.storedPitchers.pitchers(for: projection, at: type, scoring: draft.settings.scoringSystem)
@@ -135,19 +146,18 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
 //            }
 //            return trimmed
         }()
-        
+
         var pitchersAndBatters: [ParsedPlayer] = pitchers + batters
 
         pitchersAndBatters = pitchersAndBatters.filter {
             guard let adp = $0.adp else { return false }
             return Int(adp) <= draft.settings.totalPicksWillBeMade
         }
-        
+
         pitchersAndBatters.sort {
             $0.wPointsZScore(draft: draft) > $1.wPointsZScore(draft: draft)
         }
 
-       
 //
 //    func sortedPlayers(_ presorted: [any ParsedPlayer], draft: Draft) -> [ParsedPlayer] {
 //

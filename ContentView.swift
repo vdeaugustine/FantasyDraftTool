@@ -31,11 +31,22 @@ struct ContentView: View {
         
         if let draft = draft {
             if let myTeam = draft.myTeam {
-                PositionsFilledSection(myTeam: myTeam)
-                
-                List {
-                    ForEach(draft.pickStack.getArray(), id: \.self) { player in
-                        Text([player.player.name, player.player.posStr()])
+                VStack {
+                    PositionsFilledSection(myTeam: myTeam)
+                    
+                    List {
+                        Section("My Team") {
+                            ForEach(myTeam.draftedPlayers, id: \.self) { player in
+                                Text([player.player.name, player.player.posStr()])
+                            }
+                        }
+                        
+                        Section("ALL"){
+                        
+                            ForEach(draft.pickStack.getArray(), id: \.self) { player in
+                                Text([player.player.name, player.player.posStr()])
+                            }
+                        }
                     }
                 }
                 
