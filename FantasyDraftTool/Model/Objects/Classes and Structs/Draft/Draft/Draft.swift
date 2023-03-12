@@ -257,7 +257,7 @@ struct Draft: Codable, Hashable, Equatable {
         self.myTeamIndex = try values.decode(Int.self, forKey: .myTeamIndex)
         self.myStarBatters = try values.decode(Set<ParsedBatter>.self, forKey: .myStarBatters)
         self.myStarPitchers = try values.decode(Set<ParsedPitcher>.self, forKey: .myStarPitchers)
-        print("Stars: ", myStarBatters, myStarPitchers)
+        
     }
 
     init(teams: [DraftTeam], currentPickNumber: Int = 0, settings: DraftSettings, myTeamIndex: Int = 0) {
@@ -320,7 +320,7 @@ extension Draft {
         var workingDraft: Draft = self
 
         while workingDraft.totalPicksMade <= workingDraft.settings.numberOfRounds * workingDraft.settings.numberOfTeams {
-//            let sortedBatters = workingDraft.playerPool.batters.removingDuplicates().sorted(by: { $0.zScore(draft: workingDraft) > $1.zScore(draft: workingDraft) })
+            //            let sortedBatters = workingDraft.playerPool.batters.removingDuplicates().sorted(by: { $0.zScore(draft: workingDraft) > $1.zScore(draft: workingDraft) })
             let sortedBatters = workingDraft.playerPool.storedBatters.batters(for: workingDraft.projectionCurrentlyUsing).sortedByZscore(draft: workingDraft)
 
             guard let chosenPlayer: ParsedBatter = sortedBatters.first else {
@@ -370,14 +370,14 @@ extension Draft {
 
         while picksMade <= numPicks {
             if draft.draftOver { break }
-//            print(draft.currentTeam.name + " is up. Their team looks like this")
-//            for position in draft.currentTeam.minForPositions.keys {
-//                print("\(position.str): \(draft.currentTeam.draftedPlayers.filter { $0.has(position: position) })")
-//            }
+            //            print(draft.currentTeam.name + " is up. Their team looks like this")
+            //            for position in draft.currentTeam.minForPositions.keys {
+            //                print("\(position.str): \(draft.currentTeam.draftedPlayers.filter { $0.has(position: position) })")
+            //            }
 
             let availableBatters = draft.currentTeam.recommendedBattersDesc(draft: draft, projection: projection)
 
-//            print("Next available: ", availableBatters.prefixArray(5))
+            //            print("Next available: ", availableBatters.prefixArray(5))
 
             if availableBatters.count == 1 {
                 draft.makePick(.init(player: availableBatters[0], draft: draft))
@@ -389,7 +389,7 @@ extension Draft {
                 break
             }
 
-//            print("Chosen player is \(chosenPlayer)")
+            //            print("Chosen player is \(chosenPlayer)")
 
             draft.makePick(.init(player: chosenPlayer, draft: draft))
             picksMade += 1
@@ -397,7 +397,7 @@ extension Draft {
             let progressMade = Double(picksMade) / Double(numPicks)
 
             progress.wrappedValue = progressMade < 1 ? progressMade : 1
-//            print("Progress", progress.wrappedValue)
+            //            print("Progress", progress.wrappedValue)
         }
 
         return draft
@@ -411,10 +411,10 @@ extension Draft {
         draft = draft.simulatePicks(picksMade, projection: projection, progress: .constant(10))
 
         DispatchQueue.global().async {
-//            print("changing load progress from: ", model.draftLoadProgress)
+            //            print("changing load progress from: ", model.draftLoadProgress)
 
             model.draftLoadProgress = 1
-//            print("changing load progress to: ", model.draftLoadProgress)
+            //            print("changing load progress to: ", model.draftLoadProgress)
         }
 
         print("time for draft simulation: \(Date.now - testStart)")
@@ -433,4 +433,117 @@ extension Draft {
     }
 
     static let nullDraft: Draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
+
+    func asyncSimulatePicks(_ numPicks: Int, projection: ProjectionTypes, progress: inout Double) -> Draft {
+        var draft = self
+        var picksMade: Int = 0
+
+        while picksMade <= numPicks {
+            if draft.draftOver { break }
+            let availableBatters = draft.currentTeam.recommendedBattersDesc(draft: draft, projection: projection)
+
+            if availableBatters.count == 1 {
+                draft.makePick(.init(player: availableBatters[0], draft: draft))
+            } else if availableBatters.count < 1 {
+                break
+            }
+
+            guard let chosenPlayer: ParsedBatter = availableBatters.first else {
+                break
+            }
+
+            draft.makePick(.init(player: chosenPlayer, draft: draft))
+            picksMade += 1
+
+            let progressMade = Double(picksMade) / Double(numPicks)
+
+            progress = progressMade < 1 ? progressMade : 1
+        }
+
+        return draft
+    }
+
+    static func asyncExampleDraft(picksMade: Int, proj: ProjectionTypes, progress: inout Double, completion: @escaping (Draft) -> Void) {
+        var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
+
+        draft = draft.asyncSimulatePicks(picksMade, projection: proj, progress: &progress)
+        
+
+        completion(draft)
+    }
+
+    static func loadExample() -> Draft? {
+        
+        if let existingFile = loadDataFromJSONFile(filename: "exampleDraft.json", type: Draft.self) {
+            return existingFile
+        }
+        
+         if let existing = UserDefaults.standard.data(forKey: "exampleDraft") {
+            do {
+                let decoder = JSONDecoder()
+                let draft = try decoder.decode(Draft.self, from: existing)
+                return draft
+            } catch {
+                print("\n*** HERE IN THE LOAD EXAMPLE FOR DECODING DRAFT ***\n")
+                print(error)
+            }
+        }
+        return nil
+    }
+
+    func save() {
+        print("trying to saave draft")
+        let encoder = JSONEncoder()
+//        encoder.nonConformingFloatEncodingStrategy = .convertToString(positiveInfinity: "Infinity", negativeInfinity: "-Infinity", nan: "NaN")
+        do {
+            let data = try encoder.encode(self)
+            print("Did save here")
+            UserDefaults.standard.set(data, forKey: "exampleDraft")
+//            print("\n")
+//            print(String(data: data, encoding: .utf8))
+//            print("\n")
+            Draft.saveDataToJSONFile(data, filename: "exampleDraft.json")
+        } catch {
+            print("\n*** HERE IN THE SAVE FOR DECODING DRAFT ***\n")
+            print(error)
+        }
+    }
+    
+    static func saveDataToJSONFile<T: Encodable>(_ data: T, filename: String) {
+        let fileManager = FileManager.default
+        do {
+            let documentDirectory = try fileManager.url(for: .documentDirectory,
+                                                         in: .userDomainMask,
+                                                         appropriateFor: nil,
+                                                         create: false)
+            let fileURL = documentDirectory.appendingPathComponent(filename)
+            let jsonEncoder = JSONEncoder()
+            let jsonData = try jsonEncoder.encode(data)
+            try jsonData.write(to: fileURL)
+            print("Data saved to JSON file: \(filename)")
+        } catch {
+            print("Error saving data to JSON file: \(error)")
+        }
+    }
+
+    static func loadDataFromJSONFile<T: Decodable>(filename: String, type: T.Type) -> T? {
+        let fileManager = FileManager.default
+        do {
+            let documentDirectory = try fileManager.url(for: .documentDirectory,
+                                                         in: .userDomainMask,
+                                                         appropriateFor: nil,
+                                                         create: false)
+            let fileURL = documentDirectory.appendingPathComponent(filename)
+            let jsonData = try Data(contentsOf: fileURL)
+            let jsonDecoder = JSONDecoder()
+            let data = try jsonDecoder.decode(type, from: jsonData)
+            print("Data loaded from JSON file: \(filename)")
+            return data
+        } catch {
+            print("Error loading data from JSON file: \(error)")
+            return nil
+        }
+    }
+
+
 }

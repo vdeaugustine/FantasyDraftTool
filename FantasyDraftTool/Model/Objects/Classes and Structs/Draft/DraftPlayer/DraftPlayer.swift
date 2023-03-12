@@ -22,7 +22,7 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
     var weightedScoreWhenDrafted: Double
 
     var description: String {
-        player.name + " \(player.projectionType.title)"
+        [player.name, " \(player.projectionType.title)", "Round:", roundNumber.str, "Pick:", pickInRound.str].joinString(" ")
     }
 
     /// Computed property that tells you what team this player is found on within the draft 
@@ -54,6 +54,7 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
         self.pickNumber = pickNumber
 //        self.draftTeam = team
         self.weightedScoreWhenDrafted = weightedScore
+//        if self.weightedScoreWhenDrafted.isNaN { weightedScoreWhenDrafted = 0 }
         self.roundNumber = round
         self.pickInRound = pickInRound
     }
@@ -88,7 +89,10 @@ extension DraftPlayer {
         try container.encode(player, forKey: .player)
         try container.encode(pickNumber, forKey: .pickNumber)
 //        try container.encode(draftTeam, forKey: .draftTeam)
+        if weightedScoreWhenDrafted.isNaN || weightedScoreWhenDrafted.isInfinite { weightedScoreWhenDrafted = 0 }
         try container.encode(weightedScoreWhenDrafted, forKey: .weightedScoreWhenDrafted)
+        try container.encode(roundNumber, forKey: .roundNumber)
+        try container.encode(pickInRound, forKey: .pickInRound)
     }
 
     static func == (lhs: DraftPlayer, rhs: DraftPlayer) -> Bool {

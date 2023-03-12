@@ -12,6 +12,9 @@
 		9C19C1CB29BAA87000AF24DD /* DVAlreadyDraftedPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C19C1CA29BAA87000AF24DD /* DVAlreadyDraftedPlayers.swift */; };
 		9C19C1CD29BAD99C00AF24DD /* DVAllPlayersRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C19C1CC29BAD99C00AF24DD /* DVAllPlayersRow.swift */; };
 		9C19C1D129BB1AC200AF24DD /* DVDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C19C1D029BB1AC200AF24DD /* DVDraft.swift */; };
+		9C19C1DA29BBCFE900AF24DD /* PositionFilledRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C19C1D929BBCFE900AF24DD /* PositionFilledRect.swift */; };
+		9C19C1E629BBE9E300AF24DD /* TopHeaderDVDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C19C1E529BBE9E300AF24DD /* TopHeaderDVDraft.swift */; };
+		9C19C1E829BBEBBA00AF24DD /* BoxForPastPicksDVDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C19C1E729BBEBBA00AF24DD /* BoxForPastPicksDVDraft.swift */; };
 		9C1AE398297FA0A20016BF50 /* ScoringSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE397297FA0A20016BF50 /* ScoringSettings.swift */; };
 		9C1AE39A297FA7DC0016BF50 /* steamerStandard.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AE399297FA7DC0016BF50 /* steamerStandard.json */; };
 		9C1AE39C29804D4A0016BF50 /* ScoringSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */; };
@@ -70,6 +73,10 @@
 		9C48E31129B1A3840017149D /* NVPlayerDraftRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C48E31029B1A3840017149D /* NVPlayerDraftRow.swift */; };
 		9C48E31329B292320017149D /* LoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C48E31229B292320017149D /* LoadingManager.swift */; };
 		9C48E31529B293110017149D /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C48E31429B293110017149D /* LoadingScreen.swift */; };
+		9C62A23929BC04BE001B8116 /* BoxForCurrentPickDVDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C62A23829BC04BE001B8116 /* BoxForCurrentPickDVDraft.swift */; };
+		9C62A23B29BD42AF001B8116 /* SmallPillForProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C62A23A29BD42AF001B8116 /* SmallPillForProgress.swift */; };
+		9C62A23D29BD4B5B001B8116 /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C62A23C29BD4B5B001B8116 /* ProgressRing.swift */; };
+		9C62A23F29BD4E77001B8116 /* PositionsFilledSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C62A23E29BD4E77001B8116 /* PositionsFilledSection.swift */; };
 		9C73D089299573C4007C251F /* RemainingAnalysisPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C73D088299573C4007C251F /* RemainingAnalysisPosition.swift */; };
 		9C73D08D2995C801007C251F /* SimulateRemainingDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C73D08C2995C801007C251F /* SimulateRemainingDraftView.swift */; };
 		9C73D0912996DC64007C251F /* ModifyStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C73D0902996DC64007C251F /* ModifyStatsView.swift */; };
@@ -180,6 +187,9 @@
 		9C19C1CA29BAA87000AF24DD /* DVAlreadyDraftedPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVAlreadyDraftedPlayers.swift; sourceTree = "<group>"; };
 		9C19C1CC29BAD99C00AF24DD /* DVAllPlayersRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVAllPlayersRow.swift; sourceTree = "<group>"; };
 		9C19C1D029BB1AC200AF24DD /* DVDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDraft.swift; sourceTree = "<group>"; };
+		9C19C1D929BBCFE900AF24DD /* PositionFilledRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionFilledRect.swift; sourceTree = "<group>"; };
+		9C19C1E529BBE9E300AF24DD /* TopHeaderDVDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHeaderDVDraft.swift; sourceTree = "<group>"; };
+		9C19C1E729BBEBBA00AF24DD /* BoxForPastPicksDVDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxForPastPicksDVDraft.swift; sourceTree = "<group>"; };
 		9C1AE397297FA0A20016BF50 /* ScoringSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringSettings.swift; sourceTree = "<group>"; };
 		9C1AE399297FA7DC0016BF50 /* steamerStandard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = steamerStandard.json; sourceTree = "<group>"; };
 		9C1AE39B29804D4A0016BF50 /* ScoringSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringSettingsView.swift; sourceTree = "<group>"; };
@@ -238,6 +248,10 @@
 		9C48E31029B1A3840017149D /* NVPlayerDraftRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVPlayerDraftRow.swift; sourceTree = "<group>"; };
 		9C48E31229B292320017149D /* LoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingManager.swift; sourceTree = "<group>"; };
 		9C48E31429B293110017149D /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
+		9C62A23829BC04BE001B8116 /* BoxForCurrentPickDVDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxForCurrentPickDVDraft.swift; sourceTree = "<group>"; };
+		9C62A23A29BD42AF001B8116 /* SmallPillForProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallPillForProgress.swift; sourceTree = "<group>"; };
+		9C62A23C29BD4B5B001B8116 /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
+		9C62A23E29BD4E77001B8116 /* PositionsFilledSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionsFilledSection.swift; sourceTree = "<group>"; };
 		9C73D088299573C4007C251F /* RemainingAnalysisPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingAnalysisPosition.swift; sourceTree = "<group>"; };
 		9C73D08C2995C801007C251F /* SimulateRemainingDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulateRemainingDraftView.swift; sourceTree = "<group>"; };
 		9C73D0902996DC64007C251F /* ModifyStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyStatsView.swift; sourceTree = "<group>"; };
@@ -355,6 +369,116 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C012A4D29BD5B2C00E74248 /* SavedData */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SavedData;
+			sourceTree = "<group>";
+		};
+		9C19C1D229BBCF7100AF24DD /* DVDraft */ = {
+			isa = PBXGroup;
+			children = (
+				9C19C1D029BB1AC200AF24DD /* DVDraft.swift */,
+				9C19C1D329BBCF7800AF24DD /* Subviews */,
+			);
+			path = DVDraft;
+			sourceTree = "<group>";
+		};
+		9C19C1D329BBCF7800AF24DD /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				9C19C1DC29BBD00100AF24DD /* Top Header For Round and Pick */,
+				9C19C1DE29BBD03200AF24DD /* PrevCurrentNextPickRow */,
+				9C19C1DF29BBD07600AF24DD /* My Team */,
+				9C19C1E229BBD0C200AF24DD /* Rankings */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		9C19C1DB29BBCFEB00AF24DD /* PositionFilledRect */ = {
+			isa = PBXGroup;
+			children = (
+				9C19C1D929BBCFE900AF24DD /* PositionFilledRect.swift */,
+				9C62A23A29BD42AF001B8116 /* SmallPillForProgress.swift */,
+			);
+			path = PositionFilledRect;
+			sourceTree = "<group>";
+		};
+		9C19C1DC29BBD00100AF24DD /* Top Header For Round and Pick */ = {
+			isa = PBXGroup;
+			children = (
+				9C19C1E529BBE9E300AF24DD /* TopHeaderDVDraft.swift */,
+			);
+			path = "Top Header For Round and Pick";
+			sourceTree = "<group>";
+		};
+		9C19C1DD29BBD01F00AF24DD /* Box for Picks */ = {
+			isa = PBXGroup;
+			children = (
+				9C19C1E729BBEBBA00AF24DD /* BoxForPastPicksDVDraft.swift */,
+				9C62A23829BC04BE001B8116 /* BoxForCurrentPickDVDraft.swift */,
+			);
+			path = "Box for Picks";
+			sourceTree = "<group>";
+		};
+		9C19C1DE29BBD03200AF24DD /* PrevCurrentNextPickRow */ = {
+			isa = PBXGroup;
+			children = (
+				9C19C1DD29BBD01F00AF24DD /* Box for Picks */,
+			);
+			path = PrevCurrentNextPickRow;
+			sourceTree = "<group>";
+		};
+		9C19C1DF29BBD07600AF24DD /* My Team */ = {
+			isa = PBXGroup;
+			children = (
+				9C19C1E029BBD07D00AF24DD /* Positions Filled */,
+			);
+			path = "My Team";
+			sourceTree = "<group>";
+		};
+		9C19C1E029BBD07D00AF24DD /* Positions Filled */ = {
+			isa = PBXGroup;
+			children = (
+				9C62A23E29BD4E77001B8116 /* PositionsFilledSection.swift */,
+				9C19C1DB29BBCFEB00AF24DD /* PositionFilledRect */,
+				9C19C1E129BBD08300AF24DD /* Progress Ring Box */,
+			);
+			path = "Positions Filled";
+			sourceTree = "<group>";
+		};
+		9C19C1E129BBD08300AF24DD /* Progress Ring Box */ = {
+			isa = PBXGroup;
+			children = (
+				9C62A23C29BD4B5B001B8116 /* ProgressRing.swift */,
+			);
+			path = "Progress Ring Box";
+			sourceTree = "<group>";
+		};
+		9C19C1E229BBD0C200AF24DD /* Rankings */ = {
+			isa = PBXGroup;
+			children = (
+				9C19C1E429BBD10800AF24DD /* Horizontal Scroll */,
+			);
+			path = Rankings;
+			sourceTree = "<group>";
+		};
+		9C19C1E329BBD0D700AF24DD /* Team Stat Box */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Team Stat Box";
+			sourceTree = "<group>";
+		};
+		9C19C1E429BBD10800AF24DD /* Horizontal Scroll */ = {
+			isa = PBXGroup;
+			children = (
+				9C19C1E329BBD0D700AF24DD /* Team Stat Box */,
+			);
+			path = "Horizontal Scroll";
+			sourceTree = "<group>";
+		};
 		9C1AE396297FA08F0016BF50 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -602,7 +726,8 @@
 		9C75B9B6296F590F003B35E6 /* FantasyDraftTool */ = {
 			isa = PBXGroup;
 			children = (
-				9C19C1D029BB1AC200AF24DD /* DVDraft.swift */,
+				9C012A4D29BD5B2C00E74248 /* SavedData */,
+				9C19C1D229BBCF7100AF24DD /* DVDraft */,
 				9C82188229A6F1DA007DA5D2 /* Info.plist */,
 				9C82187529A6E234007DA5D2 /* GoogleService-Info.plist */,
 				9CE9F4F5299C4F160015886D /* New Views */,
@@ -1117,14 +1242,18 @@
 				9C1AE3A42981F29D0016BF50 /* Position.swift in Sources */,
 				9C75B9EA296FD215003B35E6 /* ExtView.swift in Sources */,
 				9C7CC795299DD4D800A95170 /* NVDraftPlayerDetail.swift in Sources */,
+				9C62A23D29BD4B5B001B8116 /* ProgressRing.swift in Sources */,
 				9CB997C829A32D79008CAFAF /* LoadingDraft.swift in Sources */,
 				9CA24CC82985B83800A394B4 /* DraftTeam.swift in Sources */,
 				9C19C1CB29BAA87000AF24DD /* DVAlreadyDraftedPlayers.swift in Sources */,
 				9CA24CD929889B1400A394B4 /* SelectPositionsHScroll.swift in Sources */,
 				9CE9F503299C5D700015886D /* NVPlayerDetail.swift in Sources */,
+				9C19C1E629BBE9E300AF24DD /* TopHeaderDVDraft.swift in Sources */,
 				9C82187429A6E03F007DA5D2 /* NVDownloadBatters.swift in Sources */,
 				9CA24CE62989E81400A394B4 /* Stack.swift in Sources */,
+				9C62A23B29BD42AF001B8116 /* SmallPillForProgress.swift in Sources */,
 				9C73D08D2995C801007C251F /* SimulateRemainingDraftView.swift in Sources */,
+				9C62A23929BC04BE001B8116 /* BoxForCurrentPickDVDraft.swift in Sources */,
 				9C19C1CD29BAD99C00AF24DD /* DVAllPlayersRow.swift in Sources */,
 				9C2C8D9F29A94E3400626232 /* NVPicksSection.swift in Sources */,
 				9CA24CBA29851A9900A394B4 /* AllParsedBatters.swift in Sources */,
@@ -1152,10 +1281,12 @@
 				9C48E31529B293110017149D /* LoadingScreen.swift in Sources */,
 				9CA24CA8298394EB00A394B4 /* ParsedBatter.swift in Sources */,
 				9C75B9BA296F590F003B35E6 /* OldJSONView.swift in Sources */,
+				9C19C1DA29BBCFE900AF24DD /* PositionFilledRect.swift in Sources */,
 				9CE9F50E299C9ED80015886D /* NVDraft.swift in Sources */,
 				9CA24CD32985BD2200A394B4 /* SetUpDraftTeamsView.swift in Sources */,
 				9C73D09329970BD8007C251F /* SettingsView.swift in Sources */,
 				9C33F7FA29838BCD0038A938 /* JSONBatter.swift in Sources */,
+				9C19C1E829BBEBBA00AF24DD /* BoxForPastPicksDVDraft.swift in Sources */,
 				9C48E31329B292320017149D /* LoadingManager.swift in Sources */,
 				9CA24CA62983915400A394B4 /* AllBattersListView.swift in Sources */,
 				9CA24CBD29851C2C00A394B4 /* DraftView.swift in Sources */,
@@ -1166,6 +1297,7 @@
 				9C75B9C8296F8C7E003B35E6 /* Batter.swift in Sources */,
 				9C75B9B8296F590F003B35E6 /* FantasyDraftToolApp.swift in Sources */,
 				9CA24CB629851A5300A394B4 /* Projection.swift in Sources */,
+				9C62A23F29BD4E77001B8116 /* PositionsFilledSection.swift in Sources */,
 				9C762DEE29A1FED100C3B804 /* ExtendedBatter.swift in Sources */,
 				9CE9F4F4299B723B0015886D /* CreateModifiedPlayerView.swift in Sources */,
 				9C1AE39E29807C290016BF50 /* StandardNaming.swift in Sources */,
