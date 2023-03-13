@@ -28,10 +28,6 @@ struct AllTeamsStatRankingWithDropDown: View {
     @State private var wTeam: [DraftTeam] = []
     var showSpinner: Bool {
         PTSTeam.isEmpty || HRTeam.isEmpty || soTeam.isEmpty
-        
-//        HPTSTeam.isEmpty || PPTSTeam.isEmpty ||
-//            RBITeam.isEmpty || sbTeam.isEmpty || rTeam.isEmpty || ipTeam.isEmpty || soTeam.isEmpty ||
-//            wTeam.isEmpty
     }
 
     @discardableResult func rankTeamsBy(stat: String, completion: @escaping (([DraftTeam]) -> Void)) -> [DraftTeam] {

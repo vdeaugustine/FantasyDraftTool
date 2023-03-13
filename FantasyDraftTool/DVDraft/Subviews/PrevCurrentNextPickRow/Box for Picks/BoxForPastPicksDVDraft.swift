@@ -25,12 +25,16 @@ struct BoxForPastPicksDVDraft: View {
 
     var boxPart: some View {
         VStack(spacing: 12) {
+            
             VStack(alignment: .leading) {
-                Text(draftPlayer.player.name)
+                Text(getName.firstName)
+                    .font(size: 16, color: .white, weight: .medium)
+                Text(getName.lastName)
                     .font(size: 16, color: .white, weight: .medium)
                 Text(draftPlayer.player.team)
                     .font(size: 8, color: .white, weight: .ultraLight)
             }.pushLeft()
+            
 
             HStack {
                 VStack {
@@ -65,6 +69,14 @@ struct BoxForPastPicksDVDraft: View {
             .font(size: 16, color: "BEBEBE", weight: .medium)
         
     }
+    var getName: (firstName: String, lastName: String) {
+        let full = draftPlayer.player.name.components(separatedBy: .whitespaces)
+        let first = full.safeGet(at: 0) ?? ""
+        let second = full.safeGet(at: 1) ?? ""
+        let suffix = full.safeGet(at: 2) ?? ""
+        let last = [second, suffix].joinString(" ")
+        return (firstName: first, lastName: last)
+    }
 
     var body: some View {
         VStack {
@@ -73,6 +85,7 @@ struct BoxForPastPicksDVDraft: View {
                 .background(color: "4A555E", padding: 10, radius: 7, shadow: 1)
                 .frame(width: 125, height: 88)
             recentLabel
+                .padding(.top, 2)
         }
     }
 }

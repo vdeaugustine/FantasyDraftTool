@@ -166,6 +166,7 @@
 		9CBC3D4C29BE92DF00756EC5 /* DVDraftRankings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D4B29BE92DF00756EC5 /* DVDraftRankings.swift */; };
 		9CBC3D4F29BE9FAB00756EC5 /* DVTeamStatBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D4E29BE9FAB00756EC5 /* DVTeamStatBox.swift */; };
 		9CBC3D5129BEA90E00756EC5 /* AllTeamsStatRankingWithDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D5029BEA90E00756EC5 /* AllTeamsStatRankingWithDropDown.swift */; };
+		9CBC3D5329BFB7C400756EC5 /* DVDraftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D5229BFB7C400756EC5 /* DVDraftViewModel.swift */; };
 		9CC80284298C7524005B438D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80283298C7524005B438D /* UserDefaults.swift */; };
 		9CC80286298CCD83005B438D /* MyStatsPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80285298CCD83005B438D /* MyStatsPlayers.swift */; };
 		9CC80288298D86CF005B438D /* StrongestAtEachPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */; };
@@ -342,6 +343,7 @@
 		9CBC3D4B29BE92DF00756EC5 /* DVDraftRankings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDraftRankings.swift; sourceTree = "<group>"; };
 		9CBC3D4E29BE9FAB00756EC5 /* DVTeamStatBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVTeamStatBox.swift; sourceTree = "<group>"; };
 		9CBC3D5029BEA90E00756EC5 /* AllTeamsStatRankingWithDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTeamsStatRankingWithDropDown.swift; sourceTree = "<group>"; };
+		9CBC3D5229BFB7C400756EC5 /* DVDraftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDraftViewModel.swift; sourceTree = "<group>"; };
 		9CC80283298C7524005B438D /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9CC80285298CCD83005B438D /* MyStatsPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStatsPlayers.swift; sourceTree = "<group>"; };
 		9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongestAtEachPositionView.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 			isa = PBXGroup;
 			children = (
 				9C19C1D029BB1AC200AF24DD /* DVDraft.swift */,
+				9CBC3D5229BFB7C400756EC5 /* DVDraftViewModel.swift */,
 				9C19C1D329BBCF7800AF24DD /* Subviews */,
 			);
 			path = DVDraft;
@@ -1334,6 +1337,7 @@
 				9CC80286298CCD83005B438D /* MyStatsPlayers.swift in Sources */,
 				9C227DE829BA743300AC5E92 /* DVBatterDetailDraft.swift in Sources */,
 				9C75B9EB296FD215003B35E6 /* CoreDataExtensions.swift in Sources */,
+				9CBC3D5329BFB7C400756EC5 /* DVDraftViewModel.swift in Sources */,
 				9C2C8DA329AA81B700626232 /* StatsManager.swift in Sources */,
 				9CA24CB2298519E100A394B4 /* ProjectionTypes.swift in Sources */,
 				9CA24CB829851A7600A394B4 /* AverageStats.swift in Sources */,

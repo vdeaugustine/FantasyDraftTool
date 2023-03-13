@@ -23,12 +23,14 @@ struct PlayerPool: Codable, Hashable, Equatable {
             let pitchers = storedPitchers.pitchers(for: projection).sortedByPoints(scoring: scoring).prefixArray(pitcherLimit)
             let union: [any ParsedPlayer] = (batters + pitchers)
             if !sort {
+                print("There are \(union.count) players about to be returned")
                 completion(union)
                 return
             }
             let sorted = union.sorted { player1, player2 in
                 player1.fantasyPoints(scoring) > player2.fantasyPoints(scoring)
             }
+            print("There are \(union.count) players about to be returned")
             completion(sorted)
         }
     }

@@ -37,6 +37,7 @@ struct NVSortByDropDown: View {
                     .fontWeight(.semibold)
                 Image(systemName: "line.3.horizontal.decrease")
             }
+            .font(font)
             .foregroundColor(.white)
             .background(color: "305294", padding: 6)
             .buttonStyle(.plain)

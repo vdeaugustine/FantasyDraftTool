@@ -135,96 +135,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0F85B2BE-DA43-4CE5-9C38-4B5DAC04EF7B"
+            uuid = "9549EEE2-FF45-4887-AE88-6E644B4C1AC0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/DraftTeam/DraftTeam.swift"
+            filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/Player Pool/PlayerPool.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "totalForStat(statKey:draft:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "0F85B2BE-DA43-4CE5-9C38-4B5DAC04EF7B - 9a64c7c64e87acfc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FantasyDraftTool.DraftTeam.totalForStat(statKey: Swift.String, draft: FantasyDraftTool.Draft) -&gt; Swift.Double"
-                  moduleName = "FantasyDraftTool"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/Model/Objects/Classes%20and%20Structs/Draft/DraftTeam/DraftTeam.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "130"
-                  endingLineNumber = "130"
-                  offsetFromSymbolStart = "1756">
-               </Location>
-               <Location
-                  uuid = "0F85B2BE-DA43-4CE5-9C38-4B5DAC04EF7B - 3993e28a65fbb68b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #9 (Swift.Double, FantasyDraftTool.ParsedPlayer) -&gt; Swift.Double in FantasyDraftTool.DraftTeam.totalForStat(statKey: Swift.String, draft: FantasyDraftTool.Draft) -&gt; Swift.Double"
-                  moduleName = "FantasyDraftTool"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vincentdeaugustine/Documents/FantasyDraftTool/FantasyDraftTool/Model/Objects/Classes%20and%20Structs/Draft/DraftTeam/DraftTeam.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "131"
-                  endingLineNumber = "131"
-                  offsetFromSymbolStart = "124">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A70209C1-692B-4973-8FD1-71F71067000E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/DraftTeam/DraftTeam.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "totalForStat(statKey:draft:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3AA1EFA3-8FC1-4AE3-83C4-18C425E02D95"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/DraftTeam/DraftTeam.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
-            landmarkName = "totalForStat(statKey:draft:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "821EC778-10AB-4C19-B8AB-E39BE4A2BBD0"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FantasyDraftTool/Model/Objects/Classes and Structs/Draft/DraftTeam/DraftTeam.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
-            landmarkName = "totalForStat(statKey:draft:)"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "allStoredPlayers(projection:scoring:batterLimit:pitcherLimit:sort:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

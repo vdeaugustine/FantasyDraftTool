@@ -30,83 +30,11 @@ struct ContentView: View {
 //    }
     var body: some View {
         
-        
-        AllTeamsStatRankingWithDropDown(showDropDown: $showDropDown, draft: Draft.loadExample()!)
-            .previewBackground()
-//        if let draft = draft {
-//            if let myTeam = draft.myTeam {
-//                VStack {
-//                    PositionsFilledSection(myTeam: myTeam)
-//
-//                    List {
-//                        Section("My Team") {
-//                            ForEach(myTeam.draftedPlayers, id: \.self) { player in
-//                                Text([player.player.name, player.player.posStr()])
-//                            }
-//                        }
-//
-//                        Section("ALL"){
-//
-//                            ForEach(draft.pickStack.getArray(), id: \.self) { player in
-//                                Text([player.player.name, player.player.posStr()])
-//                            }
-//                        }
-//                    }
-//                }
-//
-//            } else {
-//                Text("NO TEAM")
-//            }
-//
-//        } else {
-//
-//
-//            Text("NO DRAFT")
-//                .onAppear {
-//                    Draft.asyncExampleDraft(picksMade: 200, proj: .atc, progress: &progress, completion: { draft in
-//                        self.draft = draft
-//                        self.draft!.save()
-//                    })
-//                }
-//        }
-        
-        
-//        VStack {
-//            ProgressView("Draft", value: progress, total: 1)
-//
-//            ScrollView {
-//                if let draft = draft {
-//                    LazyVStack {
-//                        ForEach(draft.pickStack.getArray(), id: \.self) {
-//                            Text($0)
-//                        }
-//                    }
-//
-//                    if draft.pickStack.getArray().count < 1 {
-//                        Text("NULL DRAFT")
-//                    }
-//                }
-//            }
-            
-            
-//        }
-//        .onAppear {
-//            if draft == nil {
-//                DispatchQueue.global().async {
-//                    Draft.asyncExampleDraft(picksMade: 200, proj: .atc, progress: &progress) { completedDraft in
-//
-//                        draft = completedDraft
-//
-//                        draft!.save()
-//
-//                    }
-//                }
-//            }
-//        }
 
-//        BoxForPastPicksDVDraft(draftPlayer: .TroutOrNull)
 
-//        TabView(selection: $selectedTab) {
+
+
+        TabView(selection: $selectedTab) {
 //            NavigationView {
 //                NVAllPlayers()
 //            }
@@ -115,74 +43,74 @@ struct ContentView: View {
 //                Label("List", systemImage: "list.bullet")
 //            }
 //            .navigationBarTitleDisplayMode(.inline)
-//
-//            NavigationStack(path: $model.navPathForDrafting) {
-//                DVDraft()
-//                    .onAppear {
-//                        model.draftLoadProgress = 0
-//                    }
-//            }
-//            .tag(1)
-//            .tabItem {
-//                Label("Draft", systemImage: "list.bullet")
-//            }
-//            .navigationBarTitleDisplayMode(.inline)
-//
-//            NavigationView {
-//                NVSettings()
-//            }
-//            .tag(2)
-//            .tabItem {
-//                Label("Settings", systemImage: "gear")
-//            }
-//            .navigationBarTitleDisplayMode(.inline)
-//
-        ////
-        ////            NavigationView {
-        ////                AllBattersListView()
-        ////                    .navigationBarTitleDisplayMode(.inline)
-        ////            }
-        ////            .tag(0)
-        ////            .tabItem {
-        ////                Label("List", systemImage: "list.bullet")
-        ////            }
-        ////
-        ////            NavigationStack(path: $model.navPathForDrafting) {
-        ////                SetupDraftView()
-        ////                    .onAppear {
-        ////
-        ////                        if UserDefaults.isCurrentlyInDraft {
-        ////                            model.navPathForDrafting = [.setUpGeneral, .setUpTeams, .main]
-        ////                        }
-        ////                    }
-        ////
-        ////                    .navigationDestination(for: DraftPath.self) { thisView in
-        ////                        switch thisView {
-        ////                            case .setUpGeneral, .setUpTeams:
-        ////                                SetUpDraftTeamsView()
-        ////                            case .main:
-        ////                                DraftView()
-        ////                        case .teamSummary:
-        ////                            DraftSummaryView()
-        ////                        }
-        ////                    }
-        ////            }
-        ////            .navigationBarTitleDisplayMode(.inline)
-        ////            .tag(1)
-        ////            .tabItem {
-        ////                Label("Draft", systemImage: "square.and.arrow.down")
-        ////            }
-        ////
-        ////
-        ////            NavigationView {
-        ////                SettingsView()
-        ////            }
-        ////            .navigationBarTitleDisplayMode(.inline)
-        ////            .tag(2)
-        ////            .tabItem {
-        ////                Label("Settings", systemImage: "gear")
-        ////            }
-//        }
+
+            NavigationStack(path: $model.navPathForDrafting) {
+                DVDraft()
+                    .onAppear {
+                        model.draftLoadProgress = 0
+                    }
+            }
+            .tag(1)
+            .tabItem {
+                Label("Draft", systemImage: "list.bullet")
+            }
+            .navigationBarTitleDisplayMode(.inline)
+
+            NavigationView {
+                NVSettings()
+            }
+            .tag(2)
+            .tabItem {
+                Label("Settings", systemImage: "gear")
+            }
+            .navigationBarTitleDisplayMode(.inline)
+
+        //
+        //            NavigationView {
+        //                AllBattersListView()
+        //                    .navigationBarTitleDisplayMode(.inline)
+        //            }
+        //            .tag(0)
+        //            .tabItem {
+        //                Label("List", systemImage: "list.bullet")
+        //            }
+        //
+        //            NavigationStack(path: $model.navPathForDrafting) {
+        //                SetupDraftView()
+        //                    .onAppear {
+        //
+        //                        if UserDefaults.isCurrentlyInDraft {
+        //                            model.navPathForDrafting = [.setUpGeneral, .setUpTeams, .main]
+        //                        }
+        //                    }
+        //
+        //                    .navigationDestination(for: DraftPath.self) { thisView in
+        //                        switch thisView {
+        //                            case .setUpGeneral, .setUpTeams:
+        //                                SetUpDraftTeamsView()
+        //                            case .main:
+        //                                DraftView()
+        //                        case .teamSummary:
+        //                            DraftSummaryView()
+        //                        }
+        //                    }
+        //            }
+        //            .navigationBarTitleDisplayMode(.inline)
+        //            .tag(1)
+        //            .tabItem {
+        //                Label("Draft", systemImage: "square.and.arrow.down")
+        //            }
+        //
+        //
+        //            NavigationView {
+        //                SettingsView()
+        //            }
+        //            .navigationBarTitleDisplayMode(.inline)
+        //            .tag(2)
+        //            .tabItem {
+        //                Label("Settings", systemImage: "gear")
+        //            }
+        }
     }
 }
 

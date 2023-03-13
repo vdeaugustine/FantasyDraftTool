@@ -13,6 +13,8 @@ struct DVDraftRankings: View {
     @Binding var projection: ProjectionTypes
     @State private var showDropDown = false
     @EnvironmentObject private var model: MainModel
+    @EnvironmentObject private var viewModel: DVDraftViewModel
+    
     
     var body: some View {
         VStack(spacing: 15){
@@ -21,7 +23,7 @@ struct DVDraftRankings: View {
                     .font(size: 16, color: "BEBEBE", weight: .medium)
                 Spacer()
                 
-                NVDropDownProjection(selection: $projection, font: .system(size: 10))
+                NVDropDownProjection(selection: $projection, font: viewModel.dropDownFont)
             }
             
             AllTeamsStatRankingWithDropDown(showDropDown: $showDropDown, draft: model.draft)
@@ -33,6 +35,7 @@ struct DVDraftRankings_Previews: PreviewProvider {
     static var previews: some View {
         DVDraftRankings(projection: .constant(.depthCharts))
             .environmentObject(MainModel.shared)
+            .environmentObject(DVDraftViewModel.init())
             
     }
 }
