@@ -23,14 +23,14 @@ struct PlayerPool: Codable, Hashable, Equatable {
             let pitchers = storedPitchers.pitchers(for: projection).sortedByPoints(scoring: scoring).prefixArray(pitcherLimit)
             let union: [any ParsedPlayer] = (batters + pitchers)
             if !sort {
-                print("There are \(union.count) players about to be returned")
+//                print("There are \(union.count) players about to be returned")
                 completion(union)
                 return
             }
             let sorted = union.sorted { player1, player2 in
                 player1.fantasyPoints(scoring) > player2.fantasyPoints(scoring)
             }
-            print("There are \(union.count) players about to be returned")
+//            print("There are \(union.count) players about to be returned")
             completion(sorted)
         }
     }
@@ -62,8 +62,6 @@ struct PlayerPool: Codable, Hashable, Equatable {
             }
             completion(trimmed)
         }
-            
-        
     }
 
     func batters(for positions: [Position], projection: ProjectionTypes, draft: Draft = MainModel.shared.draft) -> [ParsedBatter] {
@@ -81,7 +79,7 @@ struct PlayerPool: Codable, Hashable, Equatable {
         guard let indexFound = batters.firstIndex(of: player) else { return nil }
         return indexFound + 1
     }
-    
+
     func totalRank(for player: ParsedBatter) -> Int? {
         let batters = storedBatters.batters(for: player.projectionType)
         guard let indexFound = batters.firstIndex(of: player) else { return nil }
@@ -294,35 +292,38 @@ extension PlayerPool {
         }
 
         mutating func remove(_ batter: ParsedBatter, from projection: ProjectionTypes, scoring: ScoringSettings) {
-            var storedProjection: StoreProjectionBatters
-            switch projection {
-                case .steamer:
-                    storedProjection = steamer
-                case .myProjections, .zips:
-                    storedProjection = steamer
-                case .thebat:
-                    storedProjection = theBat
-                case .thebatx:
-                    storedProjection = thebatx
-                case .atc:
-                    storedProjection = atc
-                case .depthCharts:
-                    storedProjection = depthCharts
-            }
-            storedProjection.remove(batter: batter, scoring: scoring)
-            switch projection {
-                case .steamer:
-                    steamer = storedProjection
-                case .myProjections, .zips:
-                    steamer = storedProjection
-                case .thebat:
-                    theBat = storedProjection
-                case .thebatx:
-                    thebatx = storedProjection
-                case .atc:
-                    atc = storedProjection
-                case .depthCharts:
-                    depthCharts = storedProjection
+            for thisProjection in ProjectionTypes.allArr {
+                var storedProjection: StoreProjectionBatters
+                switch thisProjection {
+                    case .steamer:
+                        storedProjection = steamer
+                    case .myProjections, .zips:
+                        storedProjection = steamer
+                    case .thebat:
+                        storedProjection = theBat
+                    case .thebatx:
+                        storedProjection = thebatx
+                    case .atc:
+                        storedProjection = atc
+                    case .depthCharts:
+                        storedProjection = depthCharts
+                }
+//                print("removing \(batter.name)")
+                storedProjection.remove(batter: batter, scoring: scoring)
+                switch thisProjection {
+                    case .steamer:
+                        steamer = storedProjection
+                    case .myProjections, .zips:
+                        steamer = storedProjection
+                    case .thebat:
+                        theBat = storedProjection
+                    case .thebatx:
+                        thebatx = storedProjection
+                    case .atc:
+                        atc = storedProjection
+                    case .depthCharts:
+                        depthCharts = storedProjection
+                }
             }
         }
     }
@@ -518,6 +519,7 @@ extension PlayerPool {
                     default:
                         break
                 }
+//                print("Finished removing. \(batter.name) still exists? \(self.all.contains(where: {$0.name == batter.name}))")
                 update(position: position, scoring: scoring)
             }
         }
@@ -669,7 +671,7 @@ extension PlayerPool {
                 }
             }
         }
-        
+
         func pitchers(for projection: ProjectionTypes, at type: PitcherType) -> [ParsedPitcher] {
             if type == .starter {
                 switch projection {

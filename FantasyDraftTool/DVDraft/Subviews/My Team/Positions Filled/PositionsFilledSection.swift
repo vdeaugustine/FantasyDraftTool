@@ -25,7 +25,7 @@ struct PositionsFilledSection: View {
             Text("Positions Filled")
                 .font(size: 16, color: "BEBEBE", weight: .medium)
                 .pushLeft()
-                .padding(.leading, 15)
+//                .padding(.leading, 15)
 
             HStack {
                 ProgressRing(completed: 15, needed: 25)

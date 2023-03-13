@@ -162,7 +162,6 @@
 		9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */; };
 		9CA24CE62989E81400A394B4 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CE52989E81400A394B4 /* Stack.swift */; };
 		9CB997C829A32D79008CAFAF /* LoadingDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB997C729A32D79008CAFAF /* LoadingDraft.swift */; };
-		9CBC3D4929BE8DEE00756EC5 /* exampleDraft.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC3D4829BE8DEE00756EC5 /* exampleDraft.json */; };
 		9CBC3D4C29BE92DF00756EC5 /* DVDraftRankings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D4B29BE92DF00756EC5 /* DVDraftRankings.swift */; };
 		9CBC3D4F29BE9FAB00756EC5 /* DVTeamStatBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D4E29BE9FAB00756EC5 /* DVTeamStatBox.swift */; };
 		9CBC3D5129BEA90E00756EC5 /* AllTeamsStatRankingWithDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D5029BEA90E00756EC5 /* AllTeamsStatRankingWithDropDown.swift */; };
@@ -339,7 +338,6 @@
 		9CA24CE22988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSinglePositionTypeHScroll.swift; sourceTree = "<group>"; };
 		9CA24CE52989E81400A394B4 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		9CB997C729A32D79008CAFAF /* LoadingDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDraft.swift; sourceTree = "<group>"; };
-		9CBC3D4829BE8DEE00756EC5 /* exampleDraft.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = exampleDraft.json; sourceTree = "<group>"; };
 		9CBC3D4B29BE92DF00756EC5 /* DVDraftRankings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDraftRankings.swift; sourceTree = "<group>"; };
 		9CBC3D4E29BE9FAB00756EC5 /* DVTeamStatBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVTeamStatBox.swift; sourceTree = "<group>"; };
 		9CBC3D5029BEA90E00756EC5 /* AllTeamsStatRankingWithDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTeamsStatRankingWithDropDown.swift; sourceTree = "<group>"; };
@@ -382,7 +380,6 @@
 		9C012A4D29BD5B2C00E74248 /* SavedData */ = {
 			isa = PBXGroup;
 			children = (
-				9CBC3D4829BE8DEE00756EC5 /* exampleDraft.json */,
 			);
 			path = SavedData;
 			sourceTree = "<group>";
@@ -1195,7 +1192,6 @@
 				9C762E2229A2039A00C3B804 /* ExtendedCBatSteamerStandard.json in Resources */,
 				9C762E2029A2039A00C3B804 /* ExtendedSsBatFangraphsdcStandard.json in Resources */,
 				9C762E1E29A2039A00C3B804 /* Extended2bBatFangraphsdcStandard.json in Resources */,
-				9CBC3D4929BE8DEE00756EC5 /* exampleDraft.json in Resources */,
 				9C762E1529A2039A00C3B804 /* Extended3bBatThebatxStandard.json in Resources */,
 				9C762E1329A2039A00C3B804 /* Extended2bBatSteamerStandard.json in Resources */,
 				9C33F7E029838B2E0038A938 /* 3bBatSteamerStandard.json in Resources */,

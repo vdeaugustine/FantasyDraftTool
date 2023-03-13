@@ -16,14 +16,12 @@ extension Color {
     static let backgroundBlue: Color = .hexStringToColor(hex: "33434F")
 }
 
+// MARK: - DVDraftViewModel
+
 class DVDraftViewModel: ObservableObject {
     let dropDownFont: Font = .system(size: 14)
 
     @Published var amountOfAvailablePlayersToShow: Int = 10
     @Published var showSpinnerForPlayers: Bool = true
     @Published var availablePlayers: [ParsedPlayer] = []
-    
-    
-    
-    
 }

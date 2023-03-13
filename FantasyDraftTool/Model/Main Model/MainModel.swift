@@ -17,10 +17,10 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     @Published var draft: Draft = {
         #if DEBUG
-        Draft.loadExample() ?? Draft.exampleDraft(picksMade: 35, projection: .atc)
+            Draft.loadExample() ?? Draft.exampleDraft(picksMade: 0, projection: .atc)
 //        Draft.exampleDraft(model: 100, projection: .atc)
         #else
-            .nullDraft
+                .nullDraft
         #endif
     }()
 
@@ -37,13 +37,12 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
     @Published var limitForEachPosition: Int = 50
 
     @Published var mainSettings: MainSettings = MainSettings()
-    
+
     @Published var myStarBatters: Set<ParsedBatter> = []
     @Published var myStarPitchers: Set<ParsedPitcher> = []
-    
-    
+
     var myStarPlayers: [any ParsedPlayer] { Array(myStarBatters) + Array(myStarPitchers) }
-    
+
     func isStar(_ player: ParsedPlayer) -> Bool {
         myStarPlayers.contains(where: { $0.name == player.name })
     }
@@ -66,7 +65,7 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
         save()
     }
-    
+
     func removeStar(_ player: ParsedPlayer) {
         if let batter = player as? ParsedBatter {
             myStarBatters.remove(batter)

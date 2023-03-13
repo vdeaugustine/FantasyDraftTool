@@ -43,6 +43,16 @@ struct PositionFilledRect: View {
                         SmallPillForProgress(isFilled: num < numFilled)
                     }
                 }
+                if numNeeded >= 3 {
+                    HStack(spacing: 1.5) {
+                        ForEach(3 ..< 6, id: \.self) { num in
+                            if num < numNeeded {
+                                SmallPillForProgress(isFilled: num < numFilled)
+                            }
+                            
+                        }
+                    }
+                }
             }
 
             .background(color: "4A555E", padding: 5, radius: 7, shadow: 1)

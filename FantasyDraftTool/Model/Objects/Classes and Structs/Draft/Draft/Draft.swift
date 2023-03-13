@@ -429,6 +429,7 @@ extension Draft {
         draft = draft.simulatePicks(picksMade, projection: projection, progress: .constant(10))
 
         print("time for draft simulation: \(Date.now - testStart)")
+        draft.save()
         return draft
     }
 

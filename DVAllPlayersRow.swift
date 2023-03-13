@@ -14,6 +14,8 @@ struct DVAllPlayersRow: View {
 
     let player: ParsedPlayer
 
+    @State private var testBool = false
+
     var verticalDivider: some View {
         RoundedRectangle(cornerRadius: 7)
             .frame(width: 1)
@@ -21,18 +23,20 @@ struct DVAllPlayersRow: View {
     }
 
     var starImage: String {
-        model.isStar(player) ? "star.fill" : "star"
+        testBool ? "star.fill" : "star"
     }
 
     var starColor: String {
-        model.isStar(player) ? "8B7500" : "BEBEBE"
+        testBool ? "8B7500" : "BEBEBE"
     }
 
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
-                    Text(player.name).font(size: 16, color: .white, weight: .bold)
+                    Text(player.name)
+                        .lineLimit(2)
+                        .font(size: 16, color: .white, weight: .bold)
                 }
 
                 HStack {
@@ -87,25 +91,32 @@ struct DVAllPlayersRow: View {
                     .font(size: 14, color: .white)
                     .background(color: .pointsGold, padding: 6)
             }
+            .layoutPriority(1)
 
             Button {
                 withAnimation(.easeInOut(duration: 0.5)) {
+                    testBool.toggle()
                     model.addOrRemoveStar(player)
                 }
             } label: {
                 Label("Toggle Favorite", systemImage: starImage)
                     .labelStyle(.iconOnly)
-                    .rotationEffect(Angle(degrees: model.isStar(player) ? 360 * 3 : 0))
+                    .rotationEffect(Angle(degrees: testBool ? 360 * 3 : 0))
                     .foregroundColor(Color.hexStringToColor(hex: starColor))
-            }.padding(.leading)
-
-        }.frame(maxWidth: .infinity)
-            .padding()
-            .background {
-                Color.hexStringToColor(hex: "4A555E")
-                    .cornerRadius(7)
-                    .shadow(radius: 1)
             }
+//            .padding(.leading, 5)
+        }
+        .frame(maxWidth: .infinity)
+        .padding()
+        .background {
+            Color.niceGray
+//                Color.hexStringToColor(hex: "4A555E")
+                .cornerRadius(7)
+                .shadow(radius: 1)
+        }
+        .onAppear {
+            testBool = model.isStar(player)
+        }
     }
 }
 

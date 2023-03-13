@@ -33,10 +33,12 @@ struct DVDraft: View {
                 
                 let trimmed = sorted.prefixArray(viewModel.amountOfAvailablePlayersToShow)
                 
-                viewModel.showSpinnerForPlayers = false
                 
+                DispatchQueue.main.async {
+                    viewModel.showSpinnerForPlayers = false
+                    viewModel.availablePlayers = trimmed
+                }
                 
-                viewModel.availablePlayers = trimmed
                 completion(trimmed)
                 
                 
@@ -46,8 +48,9 @@ struct DVDraft: View {
     
     func updatePlayers() {
         availablePlayers { returnedPlayers in
-            viewModel.availablePlayers = returnedPlayers
+            
             DispatchQueue.main.async {
+                viewModel.availablePlayers = returnedPlayers
                 viewModel.showSpinnerForPlayers = false
             }
         }
@@ -67,17 +70,32 @@ struct DVDraft: View {
                 DVDraftRankings(projection: $model.draft.projectionCurrentlyUsing)
                     .padding(.horizontal, 7)
 
+                
+                if let myTeam = draft.myTeam {
+                    PositionsFilledSection(myTeam: myTeam)
+                        .padding(.vertical)
+                        .padding(.horizontal, 7)
+                }
+                
+                
                 VStack(alignment: .leading) {
                     Text("Available Players")
                         .font(size: 20, color: .white, weight: .medium)
                         .padding(.leading, 7)
                     HStack {
                         NVDropDownProjection(selection: $projectionSelected, font: viewModel.dropDownFont)
+                            .onChange(of: projectionSelected) { newValue in
+                                updatePlayers()
+                            }
                         NVDropDownPosition(selection: $positionSelected, font: viewModel.dropDownFont)
                         NVSortByDropDown(selection: $sortOptionSelected, font: viewModel.dropDownFont)
                     }
                     .padding([.leading])
 
+                    
+                    
+                    
+                    // MARK: - Available Players
                     VStack {
                         ZStack {
                             LazyVStack {
