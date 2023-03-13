@@ -226,7 +226,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
         return zScore
     }
 
-    /// Limit ADP
+    /// Gives the zScore of the batter by comparing them to only players of the same position that have an ADP better or equal to the total number of picks in the draft. Essentially players that will realistically be drafted
     func zScore(draft: Draft) -> Double {
         let smallerPool: [ParsedBatter] = peers(draft: draft)
 
@@ -238,6 +238,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
         return zScore
     }
 
+    /// Returns remaining players in the draft pool *playing same position* that have an ADP better or equal to the total number of picks in the draft. Essentially players that will realistically be drafted
     func peers(draft: Draft) -> [ParsedBatter] {
         guard let firstPos = positions.first else {
             return []
@@ -253,6 +254,7 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
         return smallerPool.sortedByADP
     }
 
+    /// Getting the zScore for the player and then multiplying by projected points
     func wPointsZScore(draft: Draft) -> Double {
         let zscore = zScore(draft: draft)
         let points = fantasyPoints(draft.settings.scoringSystem)
@@ -260,13 +262,15 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
         return zscore * points
     }
 
+    /// (Deprecated) Weighting fantasy points without using zScore
     func weightedFantasyPoints(dict: [Position: Double]) -> Double {
         guard let firstPos = positions.first,
               let average = dict[firstPos]
         else { return 0 }
         return (fantasyPoints(MainModel.shared.getScoringSettings()) / average * fantasyPoints(MainModel.shared.getScoringSettings())).roundTo(places: 1)
     }
-
+    
+    /// (Deprecated) Weighting fantasy points without using zScore
     func weightedFantasyPoints(draft: Draft, limit: Int = 50) -> Double {
         let average = averageForPosition(limit: limit, draft: draft)
         guard average != 0 else { return 0 }

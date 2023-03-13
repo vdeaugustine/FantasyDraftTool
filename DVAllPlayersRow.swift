@@ -79,13 +79,13 @@ struct DVAllPlayersRow: View {
             Spacer()
 
             HStack {
-                Text("#1 OF")
+                Text([player.wPointsZScore(draft: model.draft).simpleStr(), "wPTS"])
                     .font(size: 14, color: .white)
-                    .background(color: "305294", padding: 6)
+                    .background(color: .niceBlue, padding: 6)
 
-                Text([player.fantasyPoints(.defaultPoints).simpleStr(), "pts"])
+                Text([player.fantasyPoints(.defaultPoints).simpleStr(), "PTS"])
                     .font(size: 14, color: .white)
-                    .background(color: "8B7500", padding: 6)
+                    .background(color: .pointsGold, padding: 6)
             }
 
             Button {

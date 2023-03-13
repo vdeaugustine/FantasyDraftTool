@@ -43,6 +43,15 @@ struct DVDraft: View {
             }
         }
     }
+    
+    func updatePlayers() {
+        availablePlayers { returnedPlayers in
+            viewModel.availablePlayers = returnedPlayers
+            DispatchQueue.main.async {
+                viewModel.showSpinnerForPlayers = false
+            }
+        }
+    }
 
     var body: some View {
         ScrollView {
@@ -69,31 +78,45 @@ struct DVDraft: View {
                     }
                     .padding([.leading])
 
-                    ZStack {
-                        LazyVStack {
-                            ForEach(viewModel.availablePlayers.indices, id: \.self) { playerInd in
+                    VStack {
+                        ZStack {
+                            LazyVStack {
+                                ForEach(viewModel.availablePlayers.indices, id: \.self) { playerInd in
 
-                                if let player = viewModel.availablePlayers.safeGet(at: playerInd) {
-                                 
-                                        Button {
-                                            if let batter = player as? ParsedBatter {
-                                                model.navPathForDrafting.append(batter)
+                                    if let player = viewModel.availablePlayers.safeGet(at: playerInd) {
+                                     
+                                            Button {
+                                                if let batter = player as? ParsedBatter {
+                                                    model.navPathForDrafting.append(batter)
+                                                }
+                                                
+
+                                            } label: {
+                                                DVAllPlayersRow(player: player)
                                             }
-                                            
-
-                                        } label: {
-                                            DVAllPlayersRow(player: player)
-                                        }
-                                        .buttonStyle(.plain)
-                                        .padding(.horizontal)
-                                 }
-                                
+                                            .buttonStyle(.plain)
+                                            .padding(.horizontal)
+                                     }
+                                    
+                                }
+                            }
+                            
+                            if viewModel.showSpinnerForPlayers {
+                                ProgressView()
                             }
                         }
                         
-                        if viewModel.showSpinnerForPlayers {
-                            ProgressView()
+                        Button {
+                            viewModel.showSpinnerForPlayers = true
+                            viewModel.amountOfAvailablePlayersToShow += 10
+                            updatePlayers()
+                        } label: {
+                            Label("Show more", systemImage: "plus")
+                                .font(.system(size: 14))
+                                .foregroundColor(.white)
+                                .background(color: .niceBlue, padding: 10)
                         }
+                        
                     }
                 }
 
@@ -111,13 +134,10 @@ struct DVDraft: View {
             DVBatterDetailDraft(draftPlayer: .init(player: batter, draft: model.draft))
         }
         .onAppear {
-            availablePlayers { returnedPlayers in
-                viewModel.availablePlayers = returnedPlayers
-                DispatchQueue.main.async {
-                    viewModel.showSpinnerForPlayers = false
-                }
-            }
+            updatePlayers()
         }
+        
+        
     }
 }
 
