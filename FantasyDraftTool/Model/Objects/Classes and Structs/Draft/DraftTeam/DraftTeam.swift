@@ -100,6 +100,42 @@ class DraftTeam: Hashable, Codable, Equatable, CustomStringConvertible {
         }
     }
 
+    func totalForStat(statKey: String, draft: Draft) -> Double {
+        
+        let scoring = draft.settings.scoringSystem
+        let projection = draft.projectionCurrentlyUsing
+        
+        let players: [any ParsedPlayer] = draftedPlayers.compactMap({ $0.player.samePlayer(for: projection) })
+        
+        if statKey.lowercased() == "PTS".lowercased() {
+            return players.reduce(Double(0), { $0 + $1.fantasyPoints(scoring) })
+        }
+        
+        if statKey.lowercased() == "SCORE".lowercased() {
+            return draftedPlayers.reduce(Double(0), { $0 + $1.weightedScoreWhenDrafted })
+        }
+        
+        
+        if statKey.lowercased() == "H PTS".lowercased() {
+            let batters = draftedPlayers.filter({$0.player is ParsedBatter})
+            return batters.reduce(Double(0), { $0 + $1.player.fantasyPoints(scoring) })
+        }
+        
+        if statKey.lowercased() == "P PTS".lowercased() {
+            let pitchers = draftedPlayers.filter({$0.player is ParsedPitcher})
+            return pitchers.reduce(Double(0), { $0 + $1.player.fantasyPoints(scoring) })
+        }
+        
+        let filteredPlayers = players.filter { $0.dict[statKey] != nil }
+        return filteredPlayers.reduce(Double(0)) {
+            if let value = $1.dict[statKey] as? Int {
+                return $0 + Double(value)
+            } else if let value = $1.dict[statKey] as? Double {
+                return $0 + value
+            } else { return $0 }
+        }
+    }
+
     func positionsNotMetMinimum() -> [Position] {
         var pos = [Position]()
         for position in minForPositions.keys {

@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+
+
+
 struct NVDropDownPosition: View {
     @Binding var selection: Position?
     var positions: [Position] = Position.batters

@@ -10,6 +10,24 @@ import Foundation
 // MARK: - ParsedPitcher
 
 struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
+    func samePlayer(for projection: ProjectionTypes) -> ParsedPlayer? {
+        let allPlayers: [ParsedPitcher]
+        switch projection {
+        case .steamer:
+            allPlayers = AllExtendedPitchers.steamer.all
+        case .thebat:
+            allPlayers = AllExtendedPitchers.theBat.all
+        case .atc:
+            allPlayers = AllExtendedPitchers.atc.all
+        case .depthCharts:
+            allPlayers = AllExtendedPitchers.depthCharts.all
+        case .myProjections, .zips, .thebatx:
+            allPlayers = []
+        }
+        
+        return allPlayers.first(where: {$0.name == self.name && $0.team == self.team})
+    }
+    
     func averageForPosition(limit: Int, draft: Draft) -> Double {
         let allPlayers = draft.playerPool.storedPitchers.pitchers(for: projectionType, at: type, scoring: draft.settings.scoringSystem)
         let sorted = allPlayers.sortedByPoints(scoring: draft.settings.scoringSystem)

@@ -26,6 +26,8 @@ protocol ParsedPlayer: Codable {
     
     func posStr() -> String
     
+    func samePlayer(for: ProjectionTypes) -> ParsedPlayer?
+    
 
 }
 
@@ -37,6 +39,26 @@ struct AnyParsedPlayer<T: ParsedPlayer> {
 // MARK: - ParsedBatter
 
 struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, ParsedPlayer {
+    func samePlayer(for projection: ProjectionTypes) -> ParsedPlayer? {
+        let allPlayers: [ParsedBatter]
+        switch projection {
+        case .steamer:
+            allPlayers = AllExtendedBatters.steamer.all
+        case .thebat:
+            allPlayers = AllExtendedBatters.theBat.all
+        case .thebatx:
+            allPlayers = AllExtendedBatters.theBatx.all
+        case .atc:
+            allPlayers = AllExtendedBatters.atc.all
+        case .depthCharts:
+            allPlayers = AllExtendedBatters.depthCharts.all
+        case .myProjections, .zips:
+            allPlayers = []
+        }
+        
+        return allPlayers.first(where: {$0.name == self.name && $0.team == self.team})
+    }
+    
     func averageForPosition(limit: Int, draft: Draft) -> Double {
         guard let firstPos = positions.first else { return 0 }
         let allPlayers = draft.playerPool.storedBatters.batters(for: projectionType, at: firstPos)

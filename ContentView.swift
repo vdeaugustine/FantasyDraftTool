@@ -24,47 +24,51 @@ struct ContentView: View {
     @State private var batters: [ExtendedBatter] = []
     @State private var draft: Draft? = .loadExample()
     @State private var progress: Double = 0
+    @State private var showDropDown = false
 //    var body: some View {
 //        NVDraftPlayerDetail(batter: MainModel.shared.draft.playerPool.batters(for: [.of], projection: .steamer).first!)
 //    }
     var body: some View {
         
-        if let draft = draft {
-            if let myTeam = draft.myTeam {
-                VStack {
-                    PositionsFilledSection(myTeam: myTeam)
-                    
-                    List {
-                        Section("My Team") {
-                            ForEach(myTeam.draftedPlayers, id: \.self) { player in
-                                Text([player.player.name, player.player.posStr()])
-                            }
-                        }
-                        
-                        Section("ALL"){
-                        
-                            ForEach(draft.pickStack.getArray(), id: \.self) { player in
-                                Text([player.player.name, player.player.posStr()])
-                            }
-                        }
-                    }
-                }
-                
-            } else {
-                Text("NO TEAM")
-            }
-            
-        } else {
-            
-            
-            Text("NO DRAFT")
-                .onAppear {
-                    Draft.asyncExampleDraft(picksMade: 200, proj: .atc, progress: &progress, completion: { draft in
-                        self.draft = draft
-                        self.draft!.save()
-                    })
-                }
-        }
+        
+        AllTeamsStatRankingWithDropDown(showDropDown: $showDropDown, draft: Draft.loadExample()!)
+            .previewBackground()
+//        if let draft = draft {
+//            if let myTeam = draft.myTeam {
+//                VStack {
+//                    PositionsFilledSection(myTeam: myTeam)
+//
+//                    List {
+//                        Section("My Team") {
+//                            ForEach(myTeam.draftedPlayers, id: \.self) { player in
+//                                Text([player.player.name, player.player.posStr()])
+//                            }
+//                        }
+//
+//                        Section("ALL"){
+//
+//                            ForEach(draft.pickStack.getArray(), id: \.self) { player in
+//                                Text([player.player.name, player.player.posStr()])
+//                            }
+//                        }
+//                    }
+//                }
+//
+//            } else {
+//                Text("NO TEAM")
+//            }
+//
+//        } else {
+//
+//
+//            Text("NO DRAFT")
+//                .onAppear {
+//                    Draft.asyncExampleDraft(picksMade: 200, proj: .atc, progress: &progress, completion: { draft in
+//                        self.draft = draft
+//                        self.draft!.save()
+//                    })
+//                }
+//        }
         
         
 //        VStack {
