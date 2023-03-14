@@ -48,7 +48,6 @@ struct DVDraft: View {
     
     func updatePlayers() {
         availablePlayers { returnedPlayers in
-            
             DispatchQueue.main.async {
                 viewModel.availablePlayers = returnedPlayers
                 viewModel.showSpinnerForPlayers = false
@@ -86,6 +85,7 @@ struct DVDraft: View {
                         NVDropDownProjection(selection: $projectionSelected, font: viewModel.dropDownFont)
                             .onChange(of: projectionSelected) { newValue in
                                 updatePlayers()
+                                model.draft.projectionCurrentlyUsing = newValue
                             }
                         NVDropDownPosition(selection: $positionSelected, font: viewModel.dropDownFont)
                         NVSortByDropDown(selection: $sortOptionSelected, font: viewModel.dropDownFont)

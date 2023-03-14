@@ -166,6 +166,8 @@
 		9CBC3D4F29BE9FAB00756EC5 /* DVTeamStatBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D4E29BE9FAB00756EC5 /* DVTeamStatBox.swift */; };
 		9CBC3D5129BEA90E00756EC5 /* AllTeamsStatRankingWithDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D5029BEA90E00756EC5 /* AllTeamsStatRankingWithDropDown.swift */; };
 		9CBC3D5329BFB7C400756EC5 /* DVDraftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D5229BFB7C400756EC5 /* DVDraftViewModel.swift */; };
+		9CBC3D5929BFE46200756EC5 /* exampleDraft.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC3D5829BFE46200756EC5 /* exampleDraft.json */; };
+		9CBC3D5D29C0149E00756EC5 /* DVSetUpLeagueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D5C29C0149E00756EC5 /* DVSetUpLeagueView.swift */; };
 		9CC80284298C7524005B438D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80283298C7524005B438D /* UserDefaults.swift */; };
 		9CC80286298CCD83005B438D /* MyStatsPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80285298CCD83005B438D /* MyStatsPlayers.swift */; };
 		9CC80288298D86CF005B438D /* StrongestAtEachPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */; };
@@ -342,6 +344,8 @@
 		9CBC3D4E29BE9FAB00756EC5 /* DVTeamStatBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVTeamStatBox.swift; sourceTree = "<group>"; };
 		9CBC3D5029BEA90E00756EC5 /* AllTeamsStatRankingWithDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTeamsStatRankingWithDropDown.swift; sourceTree = "<group>"; };
 		9CBC3D5229BFB7C400756EC5 /* DVDraftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDraftViewModel.swift; sourceTree = "<group>"; };
+		9CBC3D5829BFE46200756EC5 /* exampleDraft.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = exampleDraft.json; sourceTree = "<group>"; };
+		9CBC3D5C29C0149E00756EC5 /* DVSetUpLeagueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVSetUpLeagueView.swift; sourceTree = "<group>"; };
 		9CC80283298C7524005B438D /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9CC80285298CCD83005B438D /* MyStatsPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStatsPlayers.swift; sourceTree = "<group>"; };
 		9CC80287298D86CF005B438D /* StrongestAtEachPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongestAtEachPositionView.swift; sourceTree = "<group>"; };
@@ -380,6 +384,7 @@
 		9C012A4D29BD5B2C00E74248 /* SavedData */ = {
 			isa = PBXGroup;
 			children = (
+				9CBC3D5829BFE46200756EC5 /* exampleDraft.json */,
 			);
 			path = SavedData;
 			sourceTree = "<group>";
@@ -738,6 +743,7 @@
 		9C75B9B6296F590F003B35E6 /* FantasyDraftTool */ = {
 			isa = PBXGroup;
 			children = (
+				9CBC3D5B29C0148500756EC5 /* Set Up League */,
 				9C012A4D29BD5B2C00E74248 /* SavedData */,
 				9C19C1D229BBCF7100AF24DD /* DVDraft */,
 				9C82188229A6F1DA007DA5D2 /* Info.plist */,
@@ -995,6 +1001,14 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		9CBC3D5B29C0148500756EC5 /* Set Up League */ = {
+			isa = PBXGroup;
+			children = (
+				9CBC3D5C29C0149E00756EC5 /* DVSetUpLeagueView.swift */,
+			);
+			path = "Set Up League";
+			sourceTree = "<group>";
+		};
 		9CC80289298E3778005B438D /* BestPick */ = {
 			isa = PBXGroup;
 			children = (
@@ -1192,6 +1206,7 @@
 				9C762E2229A2039A00C3B804 /* ExtendedCBatSteamerStandard.json in Resources */,
 				9C762E2029A2039A00C3B804 /* ExtendedSsBatFangraphsdcStandard.json in Resources */,
 				9C762E1E29A2039A00C3B804 /* Extended2bBatFangraphsdcStandard.json in Resources */,
+				9CBC3D5929BFE46200756EC5 /* exampleDraft.json in Resources */,
 				9C762E1529A2039A00C3B804 /* Extended3bBatThebatxStandard.json in Resources */,
 				9C762E1329A2039A00C3B804 /* Extended2bBatSteamerStandard.json in Resources */,
 				9C33F7E029838B2E0038A938 /* 3bBatSteamerStandard.json in Resources */,
@@ -1341,6 +1356,7 @@
 				9CC80284298C7524005B438D /* UserDefaults.swift in Sources */,
 				9CE9F4F7299C4F420015886D /* NVAllPlayers.swift in Sources */,
 				9C75B9F0296FD215003B35E6 /* ExtStr.swift in Sources */,
+				9CBC3D5D29C0149E00756EC5 /* DVSetUpLeagueView.swift in Sources */,
 				9CA24CAA2983A43500A394B4 /* ParsedBatterDetailView.swift in Sources */,
 				9C75B9EC296FD215003B35E6 /* ExtDouble.swift in Sources */,
 				9C1AE39C29804D4A0016BF50 /* ScoringSettingsView.swift in Sources */,

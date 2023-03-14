@@ -75,6 +75,7 @@ struct PositionFilledRect_Previews: PreviewProvider {
 extension View {
     func previewBackground() -> some View {
         frame(maxWidth: .infinity, maxHeight: .infinity)
+//            .ignoresSafeArea()
             .background(color: "33434F", padding: 0)
     }
 }

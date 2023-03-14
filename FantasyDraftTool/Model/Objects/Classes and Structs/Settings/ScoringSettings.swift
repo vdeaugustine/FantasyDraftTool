@@ -41,6 +41,29 @@ struct ScoringSettings: Codable, Hashable, Equatable {
          Naming.bb.rawValue: bb,
          Naming.so.rawValue: batterK]
     }
+    
+    
+    enum CustomOrDefault: CustomStringConvertible {
+        var description: String {
+            switch self {
+            case .defaultPoints:
+                return "Default Points"
+            case .custom:
+                return "Custom Points"
+            }
+        }
+        
+        case custom, defaultPoints
+    }
+    
+    var customOrDefault: String {
+        if self == .defaultPoints {
+            return "Default Points"
+        }
+        else {
+            return "Custom Points System"
+        }
+    }
 
     // MARK: - Static Properties
 
