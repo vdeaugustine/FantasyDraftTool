@@ -30,6 +30,9 @@ struct ScoringSettings: Codable, Hashable, Equatable {
     var walksAllowed: Double
     var qualityStarts: Double
 
+    static let batterStatKey: [String] = ["R", "TB", "RBI", "BB", "SO", "SB", "CS"]
+    static let pitcherStatKey: [String] = ["IP", "H", "ER", "HD", "BB", "SO", "W", "L", "SV", "QS"]
+
     // MARK: - Computed Properties
 
     var dict: [String: Double] {
@@ -41,26 +44,24 @@ struct ScoringSettings: Codable, Hashable, Equatable {
          Naming.bb.rawValue: bb,
          Naming.so.rawValue: batterK]
     }
-    
-    
+
     enum CustomOrDefault: CustomStringConvertible {
         var description: String {
             switch self {
-            case .defaultPoints:
-                return "Default Points"
-            case .custom:
-                return "Custom Points"
+                case .defaultPoints:
+                    return "Default Points"
+                case .custom:
+                    return "Custom Points"
             }
         }
-        
+
         case custom, defaultPoints
     }
-    
+
     var customOrDefault: String {
         if self == .defaultPoints {
             return "Default Points"
-        }
-        else {
+        } else {
             return "Custom Points System"
         }
     }
@@ -91,6 +92,86 @@ struct ScoringSettings: Codable, Hashable, Equatable {
                 break
         }
     }
+
+    func getValue(for statKey: String) -> Double? {
+        switch statKey.uppercased() {
+            case "R":
+                return r
+            case "RBI":
+                return rbi
+            case "SB":
+                return sb
+            case "CS":
+                return cs
+            case "HBB":
+                return bb
+            case "BSO":
+                return batterK
+            case "TB":
+                return tb
+            case "IP":
+                return inningsPitched
+            case "H":
+                return hitsAllowed
+            case "ER":
+                return earnedRuns
+            case "PBB":
+                return walksAllowed
+            case "PSO":
+                return pitcherK
+            case "W":
+                return wins
+            case "L":
+                return losses
+            case "SV":
+                return saves
+            case "QS":
+                return qualityStarts
+            default:
+                return nil
+        }
+    }
+
+
+    mutating func changeValue(for statKey: String, to newValue: Double) {
+            switch statKey.uppercased() {
+                case "R":
+                    r = newValue
+                case "RBI":
+                    rbi = newValue
+                case "SB":
+                    sb = newValue
+                case "CS":
+                    cs = newValue
+                case "HBB":
+                    bb = newValue
+                case "BSO":
+                    batterK = newValue
+                case "TB":
+                    tb = newValue
+                case "IP":
+                    inningsPitched = newValue
+                case "H":
+                    hitsAllowed = newValue
+                case "ER":
+                    earnedRuns = newValue
+                case "PBB":
+                    walksAllowed = newValue
+                case "PSO":
+                    pitcherK = newValue
+                case "W":
+                    wins = newValue
+                case "L":
+                    losses = newValue
+                case "SV":
+                    saves = newValue
+                case "QS":
+                    qualityStarts = newValue
+                default:
+                    break
+            }
+        }
+
 
     // MARK: Calculations
 

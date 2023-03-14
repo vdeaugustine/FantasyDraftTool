@@ -17,7 +17,9 @@ struct DVSetUpLeagueView: View {
     @State private var editedTeamName: String = ""
     @State private var editedTeamIndex: Int = 0
     @State private var scoring: ScoringSettings = .defaultPoints
-
+    @State private var showScoringSheet = false
+    
+    
     var listHeight: CGFloat {
         CGFloat(5 + (8 * 50))
     }
@@ -116,7 +118,8 @@ struct DVSetUpLeagueView: View {
                     .listRowBackground(Color.niceGray)
 
                     Section {
-                        NavigationLink {
+                        Button {
+                            showScoringSheet.toggle()
                         } label: {
                             Text(scoring.customOrDefault)
                         }
@@ -128,6 +131,8 @@ struct DVSetUpLeagueView: View {
                         }
                     }
                     .listRowBackground(Color.niceGray)
+                    
+                    
                     
                     Button {
                         
@@ -158,13 +163,18 @@ struct DVSetUpLeagueView: View {
             Button("Cancel", role: .cancel) {
             }
             Button("OK", role: .destructive) {
-                guard var oldTeam = teamSelected else { return }
+                guard let oldTeam = teamSelected else { return }
                 oldTeam.name = editedTeamName
                 teams[editedTeamIndex] = oldTeam
                 teamSelected = nil
                 editedTeamName = ""
             }
         }
+        .sheet(isPresented: $showScoringSheet) {
+            SetUpScoringView(scoringToSave: $scoring)
+        }
+        
+        
     }
 }
 
@@ -174,5 +184,6 @@ struct DVSetUpLeagueView_Previews: PreviewProvider {
     static var previews: some View {
         DVSetUpLeagueView()
             .previewBackground()
+            .putInNavView()
     }
 }
