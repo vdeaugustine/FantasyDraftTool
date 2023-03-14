@@ -65,10 +65,10 @@ struct SetUpScoringView: View {
                     .listRowBackground(Color.niceGray)
                     .listRowSeparatorTint(Color.white)
                 } header: {
-                    HStack {
+                   
                         Text("Pitcher Stats")
                             .font(size: 16, color: .lighterGray, weight: .medium)
-                    }
+                    
                 }
                 
                 Button {

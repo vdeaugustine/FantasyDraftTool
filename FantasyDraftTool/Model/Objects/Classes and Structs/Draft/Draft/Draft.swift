@@ -15,6 +15,7 @@ struct Draft: Codable, Hashable, Equatable {
 
     var teams: [DraftTeam]
     var settings: DraftSettings
+    var rosterConstruction: RosterConstruction = .init()
     var currentTeam: DraftTeam
     var currentPickNumber: Int
     var totalPickNumber: Int
@@ -257,7 +258,7 @@ struct Draft: Codable, Hashable, Equatable {
         self.myTeamIndex = try values.decode(Int.self, forKey: .myTeamIndex)
         self.myStarBatters = try values.decode(Set<ParsedBatter>.self, forKey: .myStarBatters)
         self.myStarPitchers = try values.decode(Set<ParsedPitcher>.self, forKey: .myStarPitchers)
-        
+        self.rosterConstruction = try values.decode(RosterConstruction.self, forKey: .rosterConstruction)
     }
 
     init(teams: [DraftTeam], currentPickNumber: Int = 0, settings: DraftSettings, myTeamIndex: Int = 0) {
@@ -284,6 +285,7 @@ extension Draft {
         case myTeamIndex
         case myStarPlayers
         case myStarBatters, myStarPitchers
+        case rosterConstruction
     }
 
     func encode(to encoder: Encoder) throws {
@@ -298,10 +300,12 @@ extension Draft {
         try container.encode(myTeamIndex, forKey: .myTeamIndex)
         try container.encode(myStarPitchers, forKey: .myStarPitchers)
         try container.encode(myStarBatters, forKey: .myStarBatters)
+        try container.encode(rosterConstruction, forKey: .rosterConstruction)
+        
     }
 
     static func == (lhs: Draft, rhs: Draft) -> Bool {
-        return lhs.teams == rhs.teams && lhs.settings == rhs.settings && lhs.currentTeam == rhs.currentTeam && lhs.currentPickNumber == rhs.currentPickNumber && lhs.totalPickNumber == rhs.totalPickNumber && lhs.playerPool == rhs.playerPool && lhs.pickStack == rhs.pickStack
+        return lhs.teams == rhs.teams && lhs.settings == rhs.settings && lhs.currentTeam == rhs.currentTeam && lhs.currentPickNumber == rhs.currentPickNumber && lhs.totalPickNumber == rhs.totalPickNumber && lhs.playerPool == rhs.playerPool && lhs.pickStack == rhs.pickStack && lhs.rosterConstruction == rhs.rosterConstruction
     }
 
     func hash(into hasher: inout Hasher) {
@@ -312,6 +316,8 @@ extension Draft {
         hasher.combine(totalPickNumber)
         hasher.combine(playerPool)
         hasher.combine(pickStack)
+        hasher.combine(rosterConstruction)
+        
     }
 }
 

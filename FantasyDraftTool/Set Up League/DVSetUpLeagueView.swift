@@ -18,7 +18,8 @@ struct DVSetUpLeagueView: View {
     @State private var editedTeamIndex: Int = 0
     @State private var scoring: ScoringSettings = .defaultPoints
     @State private var showScoringSheet = false
-    
+    @State private var showRosterSheet = false
+    @State private var workingDraft = Draft.init(teams: DraftTeam.someDefaultTeams(amount: 8), settings: .defaultSettings)
     
     var listHeight: CGFloat {
         CGFloat(5 + (8 * 50))
@@ -122,6 +123,10 @@ struct DVSetUpLeagueView: View {
                             showScoringSheet.toggle()
                         } label: {
                             Text(scoring.customOrDefault)
+                                .spacedOut {
+                                    Image(systemName: "chevron.right")
+                                }
+                                .foregroundColor(.white)
                         }
 
                     } header: {
@@ -132,6 +137,24 @@ struct DVSetUpLeagueView: View {
                     }
                     .listRowBackground(Color.niceGray)
                     
+                    Section {
+                        
+                        Button {
+                            showRosterSheet.toggle()
+                        } label: {
+                            Text("Roster Settings")
+                                .spacedOut {
+                                    Image(systemName: "chevron.right")
+                                }
+                                .foregroundColor(.white)
+                        }
+                        
+                    } header: {
+                        HStack {
+                            Text("Rosters")
+                                .font(size: 16, color: .lighterGray, weight: .medium)
+                        }
+                    }.listRowBackground(Color.niceGray)
                     
                     
                     Button {
@@ -155,7 +178,7 @@ struct DVSetUpLeagueView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background {
-            Color.backgroundBlue
+            Color.backgroundBlue.ignoresSafeArea()
         }
         .alert(alertMessage, isPresented: $showAlert) {
             TextField(teamSelected?.name ?? "", text: $editedTeamName)
@@ -172,6 +195,9 @@ struct DVSetUpLeagueView: View {
         }
         .sheet(isPresented: $showScoringSheet) {
             SetUpScoringView(scoringToSave: $scoring)
+        }
+        .sheet(isPresented: $showRosterSheet) {
+            DVSetUpRosterStructureView(draft: $workingDraft)
         }
         
         

@@ -166,7 +166,6 @@
 		9CBC3D4F29BE9FAB00756EC5 /* DVTeamStatBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D4E29BE9FAB00756EC5 /* DVTeamStatBox.swift */; };
 		9CBC3D5129BEA90E00756EC5 /* AllTeamsStatRankingWithDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D5029BEA90E00756EC5 /* AllTeamsStatRankingWithDropDown.swift */; };
 		9CBC3D5329BFB7C400756EC5 /* DVDraftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D5229BFB7C400756EC5 /* DVDraftViewModel.swift */; };
-		9CBC3D5929BFE46200756EC5 /* exampleDraft.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC3D5829BFE46200756EC5 /* exampleDraft.json */; };
 		9CBC3D5D29C0149E00756EC5 /* DVSetUpLeagueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBC3D5C29C0149E00756EC5 /* DVSetUpLeagueView.swift */; };
 		9CC80284298C7524005B438D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80283298C7524005B438D /* UserDefaults.swift */; };
 		9CC80286298CCD83005B438D /* MyStatsPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC80285298CCD83005B438D /* MyStatsPlayers.swift */; };
@@ -174,6 +173,9 @@
 		9CC8028B298E3785005B438D /* BestPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8028A298E3785005B438D /* BestPick.swift */; };
 		9CC8028D298E47EC005B438D /* RecommendedPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */; };
 		9CCDFDB529C0FB7800A995F6 /* SetUpScoringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCDFDB429C0FB7800A995F6 /* SetUpScoringView.swift */; };
+		9CCDFDB729C10A2C00A995F6 /* DVSetUpRosterStructureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCDFDB629C10A2C00A995F6 /* DVSetUpRosterStructureView.swift */; };
+		9CCDFDB929C10B0F00A995F6 /* RosterConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCDFDB829C10B0F00A995F6 /* RosterConstruction.swift */; };
+		9CCDFDBD29C11DCB00A995F6 /* exampleDraft.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CCDFDBC29C11DCB00A995F6 /* exampleDraft.json */; };
 		9CCF1B3B29A635F900A64C77 /* NVSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCF1B3A29A635F900A64C77 /* NVSettings.swift */; };
 		9CE9F4F4299B723B0015886D /* CreateModifiedPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */; };
 		9CE9F4F7299C4F420015886D /* NVAllPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4F6299C4F420015886D /* NVAllPlayers.swift */; };
@@ -345,7 +347,6 @@
 		9CBC3D4E29BE9FAB00756EC5 /* DVTeamStatBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVTeamStatBox.swift; sourceTree = "<group>"; };
 		9CBC3D5029BEA90E00756EC5 /* AllTeamsStatRankingWithDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTeamsStatRankingWithDropDown.swift; sourceTree = "<group>"; };
 		9CBC3D5229BFB7C400756EC5 /* DVDraftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDraftViewModel.swift; sourceTree = "<group>"; };
-		9CBC3D5829BFE46200756EC5 /* exampleDraft.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = exampleDraft.json; sourceTree = "<group>"; };
 		9CBC3D5C29C0149E00756EC5 /* DVSetUpLeagueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVSetUpLeagueView.swift; sourceTree = "<group>"; };
 		9CC80283298C7524005B438D /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9CC80285298CCD83005B438D /* MyStatsPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStatsPlayers.swift; sourceTree = "<group>"; };
@@ -353,6 +354,9 @@
 		9CC8028A298E3785005B438D /* BestPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestPick.swift; sourceTree = "<group>"; };
 		9CC8028C298E47EC005B438D /* RecommendedPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedPlayerView.swift; sourceTree = "<group>"; };
 		9CCDFDB429C0FB7800A995F6 /* SetUpScoringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpScoringView.swift; sourceTree = "<group>"; };
+		9CCDFDB629C10A2C00A995F6 /* DVSetUpRosterStructureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVSetUpRosterStructureView.swift; sourceTree = "<group>"; };
+		9CCDFDB829C10B0F00A995F6 /* RosterConstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterConstruction.swift; sourceTree = "<group>"; };
+		9CCDFDBC29C11DCB00A995F6 /* exampleDraft.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = exampleDraft.json; sourceTree = "<group>"; };
 		9CCF1B3A29A635F900A64C77 /* NVSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVSettings.swift; sourceTree = "<group>"; };
 		9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateModifiedPlayerView.swift; sourceTree = "<group>"; };
 		9CE9F4F6299C4F420015886D /* NVAllPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVAllPlayers.swift; sourceTree = "<group>"; };
@@ -386,7 +390,7 @@
 		9C012A4D29BD5B2C00E74248 /* SavedData */ = {
 			isa = PBXGroup;
 			children = (
-				9CBC3D5829BFE46200756EC5 /* exampleDraft.json */,
+				9CCDFDBC29C11DCB00A995F6 /* exampleDraft.json */,
 			);
 			path = SavedData;
 			sourceTree = "<group>";
@@ -724,6 +728,7 @@
 		9C75B9AB296F590F003B35E6 = {
 			isa = PBXGroup;
 			children = (
+				9CCDFDB829C10B0F00A995F6 /* RosterConstruction.swift */,
 				9CBC3D4E29BE9FAB00756EC5 /* DVTeamStatBox.swift */,
 				9C19C1CC29BAD99C00AF24DD /* DVAllPlayersRow.swift */,
 				9C2C8DA029A99C0500626232 /* SmallComponents.swift */,
@@ -1007,6 +1012,7 @@
 			isa = PBXGroup;
 			children = (
 				9CBC3D5C29C0149E00756EC5 /* DVSetUpLeagueView.swift */,
+				9CCDFDB629C10A2C00A995F6 /* DVSetUpRosterStructureView.swift */,
 				9CCDFDB429C0FB7800A995F6 /* SetUpScoringView.swift */,
 			);
 			path = "Set Up League";
@@ -1209,7 +1215,7 @@
 				9C762E2229A2039A00C3B804 /* ExtendedCBatSteamerStandard.json in Resources */,
 				9C762E2029A2039A00C3B804 /* ExtendedSsBatFangraphsdcStandard.json in Resources */,
 				9C762E1E29A2039A00C3B804 /* Extended2bBatFangraphsdcStandard.json in Resources */,
-				9CBC3D5929BFE46200756EC5 /* exampleDraft.json in Resources */,
+				9CCDFDBD29C11DCB00A995F6 /* exampleDraft.json in Resources */,
 				9C762E1529A2039A00C3B804 /* Extended3bBatThebatxStandard.json in Resources */,
 				9C762E1329A2039A00C3B804 /* Extended2bBatSteamerStandard.json in Resources */,
 				9C33F7E029838B2E0038A938 /* 3bBatSteamerStandard.json in Resources */,
@@ -1276,6 +1282,7 @@
 				9CCF1B3B29A635F900A64C77 /* NVSettings.swift in Sources */,
 				9CE9F4FA299C502B0015886D /* NVDropDownProjection.swift in Sources */,
 				9CA24CCE2985B9F700A394B4 /* SetupDraftView.swift in Sources */,
+				9CCDFDB729C10A2C00A995F6 /* DVSetUpRosterStructureView.swift in Sources */,
 				9C73D0912996DC64007C251F /* ModifyStatsView.swift in Sources */,
 				9C1AE3A42981F29D0016BF50 /* Position.swift in Sources */,
 				9C75B9EA296FD215003B35E6 /* ExtView.swift in Sources */,
@@ -1361,6 +1368,7 @@
 				9CE9F4F7299C4F420015886D /* NVAllPlayers.swift in Sources */,
 				9C75B9F0296FD215003B35E6 /* ExtStr.swift in Sources */,
 				9CBC3D5D29C0149E00756EC5 /* DVSetUpLeagueView.swift in Sources */,
+				9CCDFDB929C10B0F00A995F6 /* RosterConstruction.swift in Sources */,
 				9CA24CAA2983A43500A394B4 /* ParsedBatterDetailView.swift in Sources */,
 				9C75B9EC296FD215003B35E6 /* ExtDouble.swift in Sources */,
 				9C1AE39C29804D4A0016BF50 /* ScoringSettingsView.swift in Sources */,

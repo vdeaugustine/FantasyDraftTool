@@ -45,10 +45,12 @@ struct ContentView: View {
 //            .navigationBarTitleDisplayMode(.inline)
 
             NavigationStack(path: $model.navPathForDrafting) {
-                DVDraft()
-                    .onAppear {
-                        model.draftLoadProgress = 0
-                    }
+                
+                DVSetUpLeagueView()
+//                DVDraft()
+//                    .onAppear {
+//                        model.draftLoadProgress = 0
+//                    }
             }
             .tag(1)
             .tabItem {
