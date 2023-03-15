@@ -159,7 +159,7 @@ struct Draft: Codable, Hashable, Equatable {
     // MARK: - Computed Properties
 
     var roundNumber: Int {
-        guard settings.numberOfTeams > 0 else { return 0 }
+        guard settings.numberOfTeams > 0 else { return -1 }
         var number = (totalPickNumber - 1) / settings.numberOfTeams + 1
         if number > settings.numberOfRounds {
             number = settings.numberOfRounds
@@ -168,7 +168,7 @@ struct Draft: Codable, Hashable, Equatable {
     }
 
     var roundPickNumber: Int {
-        guard settings.numberOfTeams > 0 else { return 0 }
+        guard settings.numberOfTeams > 0 else { return -1 }
         return (totalPickNumber - 1) % settings.numberOfTeams + 1
     }
 

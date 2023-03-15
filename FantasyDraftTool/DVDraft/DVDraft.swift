@@ -183,11 +183,7 @@ struct DVDraft: View {
             DVBatterDetailDraft(draftPlayer: .init(player: batter, draft: model.draft))
         }
 
-//        .onAppear {
-//            DispatchQueue.global().async {
-//                updatePlayers()
-//            }
-//        }
+
     }
 }
 

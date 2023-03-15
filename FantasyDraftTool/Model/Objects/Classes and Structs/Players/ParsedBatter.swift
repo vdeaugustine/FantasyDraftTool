@@ -28,7 +28,8 @@ protocol ParsedPlayer: Codable {
     
     func samePlayer(for: ProjectionTypes) -> ParsedPlayer?
     
-
+    var isStarred: Bool { get set }
+    var starHasBeenSetAtLeastOnce: Bool { get set }
 }
 
 // MARK: - AnyParsedPlayer
@@ -39,6 +40,12 @@ struct AnyParsedPlayer<T: ParsedPlayer> {
 // MARK: - ParsedBatter
 
 struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, ParsedPlayer {
+    var starHasBeenSetAtLeastOnce: Bool = false
+    
+    
+    
+    var isStarred: Bool = false
+    
     func samePlayer(for projection: ProjectionTypes) -> ParsedPlayer? {
         let allPlayers: [ParsedBatter]
         switch projection {

@@ -25,7 +25,6 @@ struct DVSetUpLeagueView: View {
 
     @EnvironmentObject private var model: MainModel
 
-
     var alertMessage: String {
         guard let teamSelected = teamSelected else {
             return "Problem team. Please hit cancel"
@@ -184,16 +183,15 @@ struct DVSetUpLeagueView: View {
         .confirmationDialog("Create Draft", isPresented: $showCreateDraftConfirmation, titleVisibility: .visible) {
             NavigationLink("Confirm") {
                 DVDraft()
-//                    .onAppear {
-//                        model.draft = workingDraft
-//                    }
+                    .onAppear {
+                        model.draft = workingDraft
+                    }
             }
             Button("Cancel", role: .cancel) {}
 
         } message: {
             Text("If you already have a draft in progress, this will overwrite it and all your progress in it. This is cannot be undone.")
         }
-        
     }
 }
 

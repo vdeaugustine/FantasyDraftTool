@@ -10,6 +10,14 @@ import Foundation
 // MARK: - ParsedPitcher
 
 struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
+    var starHasBeenSetAtLeastOnce: Bool = false
+    
+    
+    
+    
+    var isStarred: Bool = false
+    
+    
     func samePlayer(for projection: ProjectionTypes) -> ParsedPlayer? {
         let allPlayers: [ParsedPitcher]
         switch projection {
@@ -239,6 +247,7 @@ enum PitcherType: String, Codable, Hashable, Identifiable, CustomStringConvertib
                 return "RP"
         }
     }
+    
 
     var str: String { rawValue }
     var description: String { rawValue }

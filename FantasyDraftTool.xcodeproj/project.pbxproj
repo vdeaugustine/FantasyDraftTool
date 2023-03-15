@@ -176,6 +176,7 @@
 		9CCDFDB729C10A2C00A995F6 /* DVSetUpRosterStructureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCDFDB629C10A2C00A995F6 /* DVSetUpRosterStructureView.swift */; };
 		9CCDFDB929C10B0F00A995F6 /* RosterConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCDFDB829C10B0F00A995F6 /* RosterConstruction.swift */; };
 		9CCDFDBD29C11DCB00A995F6 /* exampleDraft.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CCDFDBC29C11DCB00A995F6 /* exampleDraft.json */; };
+		9CCDFDBF29C156C200A995F6 /* DVSmallPlayerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCDFDBE29C156C200A995F6 /* DVSmallPlayerCard.swift */; };
 		9CCF1B3B29A635F900A64C77 /* NVSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCF1B3A29A635F900A64C77 /* NVSettings.swift */; };
 		9CE9F4F4299B723B0015886D /* CreateModifiedPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */; };
 		9CE9F4F7299C4F420015886D /* NVAllPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE9F4F6299C4F420015886D /* NVAllPlayers.swift */; };
@@ -357,6 +358,7 @@
 		9CCDFDB629C10A2C00A995F6 /* DVSetUpRosterStructureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVSetUpRosterStructureView.swift; sourceTree = "<group>"; };
 		9CCDFDB829C10B0F00A995F6 /* RosterConstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterConstruction.swift; sourceTree = "<group>"; };
 		9CCDFDBC29C11DCB00A995F6 /* exampleDraft.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = exampleDraft.json; sourceTree = "<group>"; };
+		9CCDFDBE29C156C200A995F6 /* DVSmallPlayerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVSmallPlayerCard.swift; sourceTree = "<group>"; };
 		9CCF1B3A29A635F900A64C77 /* NVSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVSettings.swift; sourceTree = "<group>"; };
 		9CE9F4F3299B723B0015886D /* CreateModifiedPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateModifiedPlayerView.swift; sourceTree = "<group>"; };
 		9CE9F4F6299C4F420015886D /* NVAllPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVAllPlayers.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 		9C19C1D229BBCF7100AF24DD /* DVDraft */ = {
 			isa = PBXGroup;
 			children = (
+				9CCDFDBE29C156C200A995F6 /* DVSmallPlayerCard.swift */,
 				9C19C1D029BB1AC200AF24DD /* DVDraft.swift */,
 				9CBC3D5229BFB7C400756EC5 /* DVDraftViewModel.swift */,
 				9C19C1D329BBCF7800AF24DD /* Subviews */,
@@ -1279,6 +1282,7 @@
 				9C73D089299573C4007C251F /* RemainingAnalysisPosition.swift in Sources */,
 				9CC8028D298E47EC005B438D /* RecommendedPlayerView.swift in Sources */,
 				9CA24CE32988FB4700A394B4 /* SelectSinglePositionTypeHScroll.swift in Sources */,
+				9CCDFDBF29C156C200A995F6 /* DVSmallPlayerCard.swift in Sources */,
 				9CCF1B3B29A635F900A64C77 /* NVSettings.swift in Sources */,
 				9CE9F4FA299C502B0015886D /* NVDropDownProjection.swift in Sources */,
 				9CA24CCE2985B9F700A394B4 /* SetupDraftView.swift in Sources */,
