@@ -19,6 +19,10 @@ struct DVDraft: View {
     @State private var startLoadingDraft = false
     @State private var startUpdatePlayers = Date.now
     @State private var psuedoLoadProgress: Double = 0
+    
+    @State private var showDraftConfirmation = false
+    
+    @State private var playerForCard: ParsedPlayer? = nil
 
     var draft: Draft { model.draft }
 
@@ -71,84 +75,94 @@ struct DVDraft: View {
     var body: some View {
         ZStack {
             if doneLoading {
-                ScrollView {
-                    VStack {
-                        Text(["Round", model.draft.roundNumber.str + ", ", "Pick", model.draft.roundPickNumber.str])
-                            .font(size: 28, color: .white, weight: .bold)
+                ZStack {
+                    ScrollView {
+                        VStack {
+                            Text(["Round", model.draft.roundNumber.str + ", ", "Pick", model.draft.roundPickNumber.str])
+                                .font(size: 28, color: .white, weight: .bold)
 
-                        HStack {
-                            if let firstPick = draft.pickStack.getArray().first {
-                                BoxForPastPicksDVDraft(draftPlayer: firstPick)
-                            }
-
-                            BoxForCurrentPickDVDraft()
-                        }.padding(.vertical)
-
-                        DVDraftRankings(projection: $model.draft.projectionCurrentlyUsing)
-                            .padding(.horizontal, 7)
-
-                        if let myTeam = draft.myTeam {
-                            PositionsFilledSection(myTeam: myTeam)
-                                .padding(.vertical)
-                                .padding(.horizontal, 7)
-                        }
-
-                        VStack(alignment: .leading) {
-                            Text("Available Players")
-                                .font(size: 20, color: .white, weight: .medium)
-                                .padding(.leading, 7)
                             HStack {
-                                NVDropDownProjection(selection: $projectionSelected, font: viewModel.dropDownFont)
-                                    .onChange(of: projectionSelected) { newValue in
-                                        updatePlayers()
-                                        model.draft.projectionCurrentlyUsing = newValue
-                                    }
-                                NVDropDownPosition(selection: $positionSelected, font: viewModel.dropDownFont)
-                                NVSortByDropDown(selection: $sortOptionSelected, font: viewModel.dropDownFont)
+                                if let firstPick = draft.pickStack.getArray().first {
+                                    BoxForPastPicksDVDraft(draftPlayer: firstPick)
+                                }
+
+                                BoxForCurrentPickDVDraft()
+                            }.padding(.vertical)
+
+                            DVDraftRankings(projection: $model.draft.projectionCurrentlyUsing)
+                                .padding(.horizontal, 7)
+
+                            if let myTeam = draft.myTeam {
+                                PositionsFilledSection(myTeam: myTeam)
+                                    .padding(.vertical)
+                                    .padding(.horizontal, 7)
                             }
-                            .padding([.leading])
 
-                            // MARK: - Available Players
+                            VStack(alignment: .leading) {
+                                Text("Available Players")
+                                    .font(size: 20, color: .white, weight: .medium)
+                                    .padding(.leading, 7)
+                                HStack {
+                                    NVDropDownProjection(selection: $projectionSelected, font: viewModel.dropDownFont)
+                                        .onChange(of: projectionSelected) { newValue in
+                                            updatePlayers()
+                                            model.draft.projectionCurrentlyUsing = newValue
+                                        }
+                                    NVDropDownPosition(selection: $positionSelected, font: viewModel.dropDownFont)
+                                    NVSortByDropDown(selection: $sortOptionSelected, font: viewModel.dropDownFont)
+                                }
+                                .padding([.leading])
 
-                            VStack {
-                                ZStack {
-                                    LazyVStack {
-                                        ForEach(viewModel.availablePlayers.indices, id: \.self) { playerInd in
+                                // MARK: - Available Players
 
-                                            if let player = viewModel.availablePlayers.safeGet(at: playerInd) {
-                                                Button {
-                                                    if let batter = player as? ParsedBatter {
-                                                        model.navPathForDrafting.append(batter)
+                                VStack {
+                                    ZStack {
+                                        LazyVStack {
+                                            ForEach(viewModel.availablePlayers.indices, id: \.self) { playerInd in
+
+                                                if let player = viewModel.availablePlayers.safeGet(at: playerInd) {
+                                                    Button {
+//                                                        if let batter = player as? ParsedBatter {
+//                                                            model.navPathForDrafting.append(batter)
+//                                                        }
+                                                        playerForCard = player
+
+                                                    } label: {
+                                                        DVAllPlayersRow(player: player)
                                                     }
-
-                                                } label: {
-                                                    DVAllPlayersRow(player: player)
+                                                    .buttonStyle(.plain)
+                                                    .padding(.horizontal)
                                                 }
-                                                .buttonStyle(.plain)
-                                                .padding(.horizontal)
                                             }
+                                        }
+
+                                        if viewModel.showSpinnerForPlayers {
+                                            ProgressView()
                                         }
                                     }
 
-                                    if viewModel.showSpinnerForPlayers {
-                                        ProgressView()
+                                    Button {
+                                        viewModel.showSpinnerForPlayers = true
+                                        viewModel.amountOfAvailablePlayersToShow += 10
+                                        updatePlayers()
+                                    } label: {
+                                        Label("Show more", systemImage: "plus")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(.white)
+                                            .background(color: .niceBlue, padding: 10)
                                     }
                                 }
-
-                                Button {
-                                    viewModel.showSpinnerForPlayers = true
-                                    viewModel.amountOfAvailablePlayersToShow += 10
-                                    updatePlayers()
-                                } label: {
-                                    Label("Show more", systemImage: "plus")
-                                        .font(.system(size: 14))
-                                        .foregroundColor(.white)
-                                        .background(color: .niceBlue, padding: 10)
-                                }
                             }
-                        }
 
-                        .frame(maxWidth: .infinity)
+                            .frame(maxWidth: .infinity)
+                        }
+                    }
+                    .blur(radius: playerForCard == nil ? 0 : 10 )
+                    .disabled(playerForCard != nil)
+                    
+                    if let playerForCard = playerForCard {
+                        DVSmallPlayerCard(playerForCard: $playerForCard, player: playerForCard, showDraftConfirmation: $showDraftConfirmation)
+                            .padding(.horizontal)
                     }
                 }
                 .onAppear {

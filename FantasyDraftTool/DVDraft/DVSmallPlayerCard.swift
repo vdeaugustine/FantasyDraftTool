@@ -12,6 +12,7 @@ import SwiftUI
 struct DVSmallPlayerCard: View {
     @EnvironmentObject private var model: MainModel
 
+    @Binding var playerForCard: ParsedPlayer?
     let player: ParsedPlayer
     @Binding var showDraftConfirmation: Bool
 
@@ -37,7 +38,7 @@ struct DVSmallPlayerCard: View {
 
     var body: some View {
         VStack(spacing: 27) {
-            VStack(spacing: 5) {
+            VStack(spacing: 10) {
                 HStack {
                     Text(player.name) // Name
                         .font(.system(size: 32))
@@ -50,7 +51,7 @@ struct DVSmallPlayerCard: View {
                         .foregroundColor(.hexStringToColor(hex: starColor))
                 }
 
-                HStack(alignment: .bottom) {
+                HStack(alignment: .top) {
                     // MARK: - Team and Position
 
                     VStack(alignment: .leading) {
@@ -150,7 +151,7 @@ struct DVSmallPlayerCard: View {
                     HStack {
                         
                         Button {
-                            showDraftConfirmation.toggle()
+                            playerForCard = nil
                         } label: {
                             Text("Cancel")
                                 .font(size: 16, color: .white, weight: .medium)
@@ -187,7 +188,7 @@ struct DVSmallPlayerCard: View {
 
 struct DVSmallPlayerCard_Previews: PreviewProvider {
     static var previews: some View {
-        DVSmallPlayerCard(player: ParsedBatter.TroutOrNull, showDraftConfirmation: .constant(false))
+        DVSmallPlayerCard(playerForCard: .constant(ParsedBatter.TroutOrNull), player: ParsedBatter.TroutOrNull, showDraftConfirmation: .constant(false))
             .environmentObject(MainModel.shared)
     }
 }
