@@ -17,6 +17,8 @@ struct DVDraft: View {
     @State private var sortOptionSelected: NVSortByDropDown.Options = .score
     @State private var doneLoading = false
     @State private var startLoadingDraft = false
+    @State private var startUpdatePlayers = Date.now
+    @State private var psuedoLoadProgress: Double = 0
 
     var draft: Draft { model.draft }
 
@@ -27,26 +29,36 @@ struct DVDraft: View {
     func availablePlayers(completion: @escaping ([ParsedPlayer]) -> Void) {
         DispatchQueue.global().async {
             print("Start AVailable Players")
+
             let x = Date.now
-            draft.playerPool.allStoredPlayers(projection: projectionSelected, scoring: draft.settings.scoringSystem, batterLimit: viewModel.amountOfAvailablePlayersToShow, pitcherLimit: viewModel.amountOfAvailablePlayersToShow, sort: false) { returnedPlayers in
+            draft.playerPool.allStoredPlayers(projection: projectionSelected,
+                                              scoring: draft.settings.scoringSystem,
+                                              batterLimit: viewModel.amountOfAvailablePlayersToShow,
+                                              pitcherLimit: viewModel.amountOfAvailablePlayersToShow,
+                                              sort: false) { returnedPlayers in
 
                 print("Start sorting")
                 let sorted = returnedPlayers.sorted(by: { $0.wPointsZScore(draft: draft) > $1.wPointsZScore(draft: draft) })
 
                 let trimmed = sorted.prefixArray(viewModel.amountOfAvailablePlayersToShow)
 
+                psuedoLoadProgress += 0.2
                 DispatchQueue.main.async {
                     viewModel.showSpinnerForPlayers = false
                     viewModel.availablePlayers = trimmed
+                    psuedoLoadProgress += 0.9
                 }
 
                 print("Done with available players", Date.now - x)
+
                 completion(trimmed)
+//                print("Update players done", Date.now - startUpdatePlayers)
             }
         }
     }
 
     func updatePlayers() {
+        startUpdatePlayers = .now
         availablePlayers { returnedPlayers in
             DispatchQueue.main.async {
                 viewModel.availablePlayers = returnedPlayers
@@ -139,16 +151,18 @@ struct DVDraft: View {
                         .frame(maxWidth: .infinity)
                     }
                 }
+                .onAppear {
+                    print("Showing draft: ", Date.now - startUpdatePlayers)
+                }
             }
 
             if doneLoading == false {
                 ZStack {
                     Color.backgroundBlue
 
-                    VStack {
-                        Text("Loading Draft")
-
-                        ProgressView()
+                    VStack(spacing: 10) {
+                        ProgressView("Loading Draft")
+                        Text("This should take about 5-10 seconds")
                     }
                 }
                 .onAppear {
@@ -168,6 +182,7 @@ struct DVDraft: View {
         .navigationDestination(for: ParsedBatter.self) { batter in
             DVBatterDetailDraft(draftPlayer: .init(player: batter, draft: model.draft))
         }
+
 //        .onAppear {
 //            DispatchQueue.global().async {
 //                updatePlayers()
