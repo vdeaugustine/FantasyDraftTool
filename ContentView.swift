@@ -22,7 +22,7 @@ struct ContentView: View {
     @EnvironmentObject private var model: MainModel
     @State private var selectedTab: Int = 0
     @State private var batters: [ExtendedBatter] = []
-    @State private var draft: Draft? = .loadExample()
+//    @State private var draft: Draft? = .loadExample()
     @State private var progress: Double = 0
     @State private var showDropDown = false
 //    var body: some View {

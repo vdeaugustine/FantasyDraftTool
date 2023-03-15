@@ -22,7 +22,7 @@ struct DVSetUpRosterStructureView: View {
 
     var body: some View {
         VStack {
-            Text("Roster Setup")
+            Text("Setup Roster")
                 .font(size: 28, color: .white, weight: .bold)
                 .pushLeft()
                 .padding([.top, .leading])
@@ -74,17 +74,32 @@ struct DVSetUpRosterStructureView: View {
 
                 .listRowBackground(Color.niceGray)
 
-                Button {
-                    draft = workingCopyDraft
-                    dismiss()
-                } label: {
-                    Label("Save", systemImage: "")
-                        .labelStyle(.titleOnly)
-                        .foregroundColor(.white)
-                        .fontWeight(.semibold)
+                Section {
+                    Button {
+                        draft = workingCopyDraft
+                        dismiss()
+                    } label: {
+                        Label("Save", systemImage: "")
+                            .labelStyle(.titleOnly)
+                            .foregroundColor(.white)
+                            .fontWeight(.semibold)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .listRowBackground(Color.niceBlue)
                 }
-                .frame(maxWidth: .infinity)
-                .listRowBackground(Color.niceBlue)
+                
+                Section {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label("Cancel", systemImage: "")
+                            .labelStyle(.titleOnly)
+                            .foregroundColor(.white)
+                            .fontWeight(.semibold)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .listRowBackground(Color.niceGray)
+                }
             }
             .scrollContentBackground(.hidden)
         }

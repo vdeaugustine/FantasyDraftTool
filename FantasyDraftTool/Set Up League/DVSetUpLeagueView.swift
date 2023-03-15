@@ -19,11 +19,12 @@ struct DVSetUpLeagueView: View {
     @State private var scoring: ScoringSettings = .defaultPoints
     @State private var showScoringSheet = false
     @State private var showRosterSheet = false
-    @State private var workingDraft = Draft.init(teams: DraftTeam.someDefaultTeams(amount: 8), settings: .defaultSettings)
-    
-    var listHeight: CGFloat {
-        CGFloat(5 + (8 * 50))
-    }
+    @State private var workingDraft = Draft(teams: DraftTeam.someDefaultTeams(amount: 8), settings: .defaultSettings)
+
+    @State private var showCreateDraftConfirmation: Bool = false
+
+    @EnvironmentObject private var model: MainModel
+
 
     var alertMessage: String {
         guard let teamSelected = teamSelected else {
@@ -38,12 +39,14 @@ struct DVSetUpLeagueView: View {
             Text("Set Up League")
                 .font(size: 28, color: .white, weight: .bold)
                 .pushLeft()
+                .padding([.top, .leading])
+                .padding([.top, .leading])
 
             VStack(spacing: 0) {
                 List {
                     Section {
-                        ForEach(teams.indices, id: \.self) { teamIndex in
-                            if let team = teams.safeGet(at: teamIndex) {
+                        ForEach(workingDraft.teams.indices, id: \.self) { teamIndex in
+                            if let team = workingDraft.teams.safeGet(at: teamIndex) {
                                 Text(team.name)
                                     .allPartsTappable(alignment: .leading)
                                     .onTapGesture {
@@ -54,28 +57,27 @@ struct DVSetUpLeagueView: View {
                             }
                         }
                         .onDelete { indexSet in
-                            teams.remove(atOffsets: indexSet)
+                            workingDraft.teams.remove(atOffsets: indexSet)
                         }
                         .onMove { indSet, theInt in
-                            teams.move(fromOffsets: indSet, toOffset: theInt)
+                            workingDraft.teams.move(fromOffsets: indSet, toOffset: theInt)
                         }
                         .listRowBackground(Color.niceGray)
                         .listRowSeparatorTint(Color.white)
-                        
-                        if teams.count < 15 {
+
+                        if workingDraft.teams.count < 15 {
                             Button {
-                                teams.append(.init(name: "Team \(teams.count + 1)", draftPosition: teams.count))
-                                
+                                workingDraft.teams.append(.init(name: "Team \(workingDraft.teams.count + 1)", draftPosition: workingDraft.teams.count))
+
                             } label: {
                                 Label("Add Team", systemImage: "plus")
-                                
+
                                     .fontWeight(.semibold)
                             }
                             .listRowBackground(Color.niceGray)
                             .listRowSeparatorTint(Color.white)
                         }
-                        
-                        
+
                     } header: {
                         HStack {
                             Text("Teams")
@@ -88,28 +90,11 @@ struct DVSetUpLeagueView: View {
                         }
                     }
 
-//                    if teams.count < 15 {
-//                        Button {
-//                            teams.append(.init(name: "Team \(teams.count + 1)", draftPosition: teams.count))
-//
-//                        } label: {
-//                            Label("Add Team", systemImage: "plus")
-//                                .fontWeight(.semibold)
-//                        }
-//
-//                        .frame(maxWidth: .infinity)
-//                        .buttonStyle(.plain)
-//                        .layoutPriority(1)
-//
-//                        .listRowBackground(Color.clear)
-//                        .background(color: .niceGray, padding: 10, shadow: 0)
-//                    }
-
                     Section {
-                        Picker("My Team", selection: $myTeamIndex) {
-                            ForEach(teams.indices, id: \.self) { ind in
+                        Picker("My Team", selection: $workingDraft.myTeamIndex) {
+                            ForEach(workingDraft.teams.indices, id: \.self) { ind in
 
-                                if let team = teams.safeGet(at: ind) {
+                                if let team = workingDraft.teams.safeGet(at: ind) {
                                     Text(team.name)
                                         .tag(ind)
                                 }
@@ -136,9 +121,8 @@ struct DVSetUpLeagueView: View {
                         }
                     }
                     .listRowBackground(Color.niceGray)
-                    
+
                     Section {
-                        
                         Button {
                             showRosterSheet.toggle()
                         } label: {
@@ -148,30 +132,27 @@ struct DVSetUpLeagueView: View {
                                 }
                                 .foregroundColor(.white)
                         }
-                        
+
                     } header: {
                         HStack {
                             Text("Rosters")
                                 .font(size: 16, color: .lighterGray, weight: .medium)
                         }
                     }.listRowBackground(Color.niceGray)
-                    
-                    
+
                     Button {
-                        
+                        showCreateDraftConfirmation.toggle()
 
                     } label: {
                         Label("Go To Draft", systemImage: "play.fill")
                             .foregroundColor(.white)
                             .fontWeight(.semibold)
                     }
-                    
+
                     .frame(maxWidth: .infinity)
-//                    .buttonStyle(.plain)
                     .layoutPriority(1)
 
                     .listRowBackground(Color.niceBlue)
-//                    .background(color: .niceGray, padding: 10, shadow: 0)
                 }
                 .scrollContentBackground(.hidden)
             }
@@ -188,7 +169,8 @@ struct DVSetUpLeagueView: View {
             Button("OK", role: .destructive) {
                 guard let oldTeam = teamSelected else { return }
                 oldTeam.name = editedTeamName
-                teams[editedTeamIndex] = oldTeam
+                guard workingDraft.teams.safeCheck(editedTeamIndex) else { return }
+                workingDraft.teams[editedTeamIndex] = oldTeam
                 teamSelected = nil
                 editedTeamName = ""
             }
@@ -199,7 +181,18 @@ struct DVSetUpLeagueView: View {
         .sheet(isPresented: $showRosterSheet) {
             DVSetUpRosterStructureView(draft: $workingDraft)
         }
-        
+        .confirmationDialog("Create Draft", isPresented: $showCreateDraftConfirmation, titleVisibility: .visible) {
+            NavigationLink("Confirm") {
+                DVDraft()
+//                    .onAppear {
+//                        model.draft = workingDraft
+//                    }
+            }
+            Button("Cancel", role: .cancel) {}
+
+        } message: {
+            Text("If you already have a draft in progress, this will overwrite it and all your progress in it. This is cannot be undone.")
+        }
         
     }
 }
@@ -209,6 +202,8 @@ struct DVSetUpLeagueView: View {
 struct DVSetUpLeagueView_Previews: PreviewProvider {
     static var previews: some View {
         DVSetUpLeagueView()
+            .environmentObject(MainModel.shared)
+
             .previewBackground()
             .putInNavView()
     }

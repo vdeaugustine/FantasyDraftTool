@@ -17,11 +17,14 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     @Published var draft: Draft = {
         #if DEBUG
-            Draft.loadExample() ?? Draft.exampleDraft(picksMade: 0, projection: .atc)
+//            Draft.loadExample() ?? Draft.exampleDraft(picksMade: 0, projection: .atc)
 //        Draft.exampleDraft(model: 100, projection: .atc)
         #else
-                .nullDraft
+//                .nullDraft
         #endif
+        
+        return Draft(teams: DraftTeam.someDefaultTeams(amount: 8), settings: .defaultSettings)
+        
     }()
 
     @Published var navPathForDrafting: NavigationPath = .init()

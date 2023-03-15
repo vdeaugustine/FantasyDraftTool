@@ -24,6 +24,7 @@ struct SetUpScoringView: View {
                 .font(size: 28, color: .white, weight: .bold)
                 .pushLeft()
                 .padding([.top, .leading])
+                .padding([.top, .leading])
             List {
                 Section {
                     ForEach(ScoringSettings.batterStatKey, id: \.self) { statKey in
