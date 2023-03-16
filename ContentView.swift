@@ -47,10 +47,16 @@ struct ContentView: View {
             NavigationStack(path: $model.navPathForDrafting) {
                 
                 DVSetUpLeagueView()
+                    .navigationDestination(for: ParsedBatter.self) { batter in
+                        DVBatterDetailDraft(draftPlayer: .init(player: batter, draft: model.draft))
+                    }
 //                DVDraft()
 //                    .onAppear {
 //                        model.draftLoadProgress = 0
 //                    }
+            }
+            .navigationDestination(for: ParsedBatter.self) { batter in
+                DVBatterDetailDraft(draftPlayer: .init(player: batter, draft: model.draft))
             }
             .tag(1)
             .tabItem {
@@ -66,6 +72,7 @@ struct ContentView: View {
                 Label("Settings", systemImage: "gear")
             }
             .navigationBarTitleDisplayMode(.inline)
+            
 
         //
         //            NavigationView {

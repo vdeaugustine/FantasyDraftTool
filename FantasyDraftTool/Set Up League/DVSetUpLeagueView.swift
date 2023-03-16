@@ -166,7 +166,8 @@ struct DVSetUpLeagueView: View {
             Button("Cancel", role: .cancel) {
             }
             Button("OK", role: .destructive) {
-                guard let oldTeam = teamSelected else { return }
+                guard let oldTeam = teamSelected,
+                      editedTeamName.isEmpty == false else { return }
                 oldTeam.name = editedTeamName
                 guard workingDraft.teams.safeCheck(editedTeamIndex) else { return }
                 workingDraft.teams[editedTeamIndex] = oldTeam

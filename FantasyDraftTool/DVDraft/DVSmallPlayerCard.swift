@@ -162,8 +162,18 @@ struct DVSmallPlayerCard: View {
                         
                         Spacer()
                         
-                        Button {
-                            showDraftConfirmation.toggle()
+                        NavigationLink {
+                            
+                            
+                            if let batter = player as? ParsedBatter {
+                                DVBatterDetailDraft(draftPlayer: .init(player: batter, draft: model.draft))
+                            }
+                          //                                model.navPathForDrafting.append(batter)
+                          //                            }
+//                                                      if let pitcher = player as? ParsedPitcher {
+//                                                          model.navPathForDrafting.append(pitcher)
+                            
+                          
                         } label: {
                             Text("Go to Player Page")
                                 .font(size: 16, color: .white, weight: .medium)
@@ -171,6 +181,24 @@ struct DVSmallPlayerCard: View {
                                 .background(color: .niceBlue, padding: 7)
                         }
                         .buttonStyle(.plain)
+                        
+//                        Button {
+//                            playerForCard = nil
+//
+//
+////                            if let batter = player as? ParsedBatter {
+////                                model.navPathForDrafting.append(batter)
+////                            }
+////                            if let pitcher = player as? ParsedPitcher {
+////                                model.navPathForDrafting.append(pitcher)
+////                            }
+//                        } label: {
+//                            Text("Go to Player Page")
+//                                .font(size: 16, color: .white, weight: .medium)
+//                                .padding(.horizontal, 10)
+//                                .background(color: .niceBlue, padding: 7)
+//                        }
+//                        .buttonStyle(.plain)
                         
                     }
                     .padding(.horizontal, 10)
@@ -181,6 +209,9 @@ struct DVSmallPlayerCard: View {
         }
         .frame(maxWidth: 430, maxHeight: 270)
         .background(color: .backgroundBlue, padding: 10)
+        .navigationDestination(for: ParsedBatter.self) { batter in
+            DVBatterDetailDraft(draftPlayer: .init(player: batter, draft: model.draft))
+        }
     }
 }
 
