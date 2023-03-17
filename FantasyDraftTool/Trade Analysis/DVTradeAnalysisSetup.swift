@@ -12,6 +12,7 @@ import SwiftUI
 struct PlayerBasicStatRow: View {
     let player: ParsedPlayer
 
+    var padding: CGFloat = 15
     var hDivider: some View {
         Rectangle()
             .frame(width: 1, height: 20)
@@ -42,7 +43,44 @@ struct PlayerBasicStatRow: View {
 
             // Pitcher
         }
-        .background(color: .niceGray, padding: 15)
+        .background(color: .niceGray, padding: padding)
+    }
+}
+
+// MARK: - SearchTextField
+
+struct SearchTextField: View {
+    var searchText: Binding<String>
+    var placeholder: String = "Search"
+
+    var body: some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.white)
+
+            TextField(placeholder, text: searchText)
+                .foregroundColor(.white)
+                .textFieldStyle(PlainTextFieldStyle())
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(Color.niceGray)
+        .cornerRadius(8)
+        .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+    }
+}
+
+// MARK: - SearchTextFieldStyle
+
+struct SearchTextFieldStyle: TextFieldStyle {
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        configuration
+            .foregroundColor(.white)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(Color.niceGray)
+            .cornerRadius(8)
+            .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
     }
 }
 
@@ -80,45 +118,61 @@ struct DVTradeAnalysisSetup: View {
                     Text("Team 2 Sends")
                         .font(size: 16, color: .lighterGray, weight: .medium)
                         .pushLeft()
-
-                    PlayerBasicStatRow(player: ParsedBatter.TroutOrNull)
-
+                    
                     if showSearchForTeam2 {
-                        VStack {
-                            List {
-                                Text("\(team2FilteredPlayers.count) players found")
-                                    .foregroundColor(.white)
+                        Group {
+                            PlayerBasicStatRow(player: ParsedBatter.TroutOrNull)
 
-                                ForEach(team2FilteredPlayers.indices, id: \.self) { playerInd in
-
-                                    if let batter = team2FilteredPlayers.safeGet(at: playerInd) as? ParsedBatter {
-                                        Text([batter.name,
-                                              batter.team, batter.posStr()].joined(separator: " • "))
+                            if team2FilteredPlayers.isEmpty == false {
+                                ZStack {
+                                    ScrollView {
+                                        LazyVStack {
+                                            ForEach(team2FilteredPlayers.indices, id: \.self) { playerInd in
+                                                
+                                                if let batter = team2FilteredPlayers.safeGet(at: playerInd) as? ParsedBatter {
+                                                    PlayerBasicStatRow(player: batter)
+                                                }
+                                                
+                                                if let pitcher = team2FilteredPlayers.safeGet(at: playerInd) as? ParsedPitcher {
+                                                    PlayerBasicStatRow(player: pitcher)
+                                                }
+                                            }
+                                            .listRowBackground(Color.clear)
+                                            Spacer()
+                                        }
                                     }
-
-                                    if let pitcher = team2FilteredPlayers.safeGet(at: playerInd) as? ParsedPitcher {
-                                        Text([pitcher.name, pitcher.team, pitcher.posStr()].joined(separator: " • "))
+                                    .height(200)
+                                    .listStyle(.plain)
+                                    .cornerRadius(7)
+                                    
+                                    if isSearching {
+                                        ProgressView()
+                                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                            .scaleEffect(2)
                                     }
                                 }
-                                .listRowBackground(Color.niceGray)
                             }
-                            .cornerRadius(7)
-                            .scrollContentBackground(.hidden)
-                            .height(200)
-
-                            TextField("Player Name", text: $searchTextForTeam2)
-                                .padding(.horizontal)
-
-                            if isSearching {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                    .scaleEffect(2)
+                            
+                            else {
+                                Spacer()
                             }
                         }
                     }
 
-                    addPlayerButton
+                    Spacer()
                 }
+                .padding(.leading)
+
+                if showSearchForTeam2 {
+                    VStack {
+                        SearchTextField(searchText: $searchTextForTeam2, placeholder: "Player Name")
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 16)
+                        addPlayerButton
+                    }
+                }
+
 
                 Spacer()
             }
@@ -158,6 +212,18 @@ var addPlayerButton: some View {
             .frame(maxWidth: .infinity)
             .height(44)
             .background(color: .niceGray, padding: 0)
+    }
+}
+
+var doneButton: some View {
+    Button {
+        // Add player logic here
+    } label: {
+        Label("Done", systemImage: "checkmark.circle.fill")
+            .font(size: 16, color: .white, weight: .semibold)
+            .frame(maxWidth: .infinity)
+            .height(44)
+            .background(color: .niceBlue, padding: 0)
     }
 }
 
