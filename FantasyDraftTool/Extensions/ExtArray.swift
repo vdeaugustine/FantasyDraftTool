@@ -153,6 +153,30 @@ extension Array where Element == ParsedPlayer {
             return adp1 > adp2
         }
     }
+    
+    
+    func contains(_ batter: ParsedBatter) -> Bool {
+        
+        let allBatters = self.compactMap({ $0 as? ParsedBatter })
+        
+        let containAnswer = allBatters.filter { $0 == batter }
+        
+        return !containAnswer.isEmpty
+
+    }
+    
+    func contains(_ pitcher: ParsedPitcher) -> Bool {
+        
+        let allPitchers = self.compactMap({ $0 as? ParsedPitcher })
+        
+        let containAnswer = allPitchers.filter { $0 == pitcher }
+        
+        return !containAnswer.isEmpty
+
+    }
+    
+    
+    
 }
 
 extension Array where Element == DraftPlayer {

@@ -482,7 +482,6 @@ extension ParsedBatter {
     static func == (lhs: ParsedBatter, rhs: ParsedBatter) -> Bool {
         return
             lhs.name.removingWhiteSpaces() == rhs.name.removingWhiteSpaces() &&
-            lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces() &&
-            lhs.sb == rhs.sb && lhs.avg == rhs.avg && lhs.rbi == rhs.rbi
+            lhs.team.removingWhiteSpaces() == rhs.team.removingWhiteSpaces()
     }
 }
