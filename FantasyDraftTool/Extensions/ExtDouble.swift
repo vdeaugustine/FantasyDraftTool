@@ -109,6 +109,14 @@ extension Double {
     func formatForTime(_ allowedUnits: NSCalendar.Unit = [.hour, .minute]) -> String {
         Date.secondsFormatted(self, allowedUnits: allowedUnits)
     }
+    
+    func formatForBaseball() -> String {
+        let formattedValue = String(format: "%.3f", self.roundTo(places: 3))
+                if formattedValue.hasPrefix("0.") {
+                    return String(formattedValue.dropFirst(1))
+                }
+                return formattedValue
+    }
 
     var str: String {
         let roundTens = roundTo(places: 1)

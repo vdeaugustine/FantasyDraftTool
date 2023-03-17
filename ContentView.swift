@@ -65,7 +65,7 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
 
             NavigationView {
-                NVSettings()
+                DVTradeAnalysisSetup()
             }
             .tag(2)
             .tabItem {

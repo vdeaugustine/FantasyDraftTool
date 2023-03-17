@@ -93,6 +93,12 @@ extension View {
                 Color.hexStringToColor(hex: color).cornerRadius(radius).shadow(radius: shadow)
             }
     }
+    
+    func maxSize() -> some View {
+        
+        self.frame(maxWidth: .infinity, maxHeight: .infinity)
+        
+    }
 
     
 

@@ -164,6 +164,8 @@ struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, P
         }
         return .nullBatter
     }
+    
+    
     // MARK: - Static Properties
 
     static let nullBatter: ParsedBatter = .init(empty: "", name: "", team: "", g: 0, ab: 0, pa: 0, h: 0, the1B: 0, the2B: 0, the3B: 0, hr: 0, r: 0, rbi: 0, bb: 0, ibb: 0, so: 0, hbp: 0, sf: 0, sh: 0, sb: 0, cs: 0, avg: 0, positions: [], projectionType: .steamer, adp: nil)
