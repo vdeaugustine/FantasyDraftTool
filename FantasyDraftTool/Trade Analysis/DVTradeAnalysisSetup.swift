@@ -126,9 +126,9 @@ struct DVTradeAnalysisSetup: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 30) {
-                Text("Set Up Trade")
-                    .font(size: 28, color: .white, weight: .bold)
-                    .pushLeft()
+//                Text("Set Up Trade")
+//                    .font(size: 28, color: .white, weight: .bold)
+//                    .pushLeft()
 
                 VStack(spacing: 15) {
                     Text("Team 1 Sends")
@@ -274,7 +274,20 @@ struct DVTradeAnalysisSetup: View {
 
                 Spacer()
             }
-            .padding(.horizontal)
+            .padding()
+        }
+        .navigationBarTitle("Set Up Trade")
+        .safeAreaInset(edge: .bottom) {
+            NavigationLink {
+                
+            } label: {
+                Label("Analyze", systemImage: "chart.bar.fill")
+                    .font(size: 16, color: .white, weight: .semibold)
+                    .frame(maxWidth: .infinity)
+                    .height(44)
+                    .background(color: .niceBlue, padding: 0)
+                    .padding()
+            }
         }
         .background {
             Color.backgroundBlue.ignoresSafeArea().frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -352,6 +365,9 @@ struct DVTradeAnalysisSetup: View {
 
 struct DVTradeAnalysisSetup_Previews: PreviewProvider {
     static var previews: some View {
-        DVTradeAnalysisSetup()
+        NavigationView {
+            DVTradeAnalysisSetup()
+        }
+        
     }
 }
