@@ -30,14 +30,14 @@ struct DVHomePage: View {
             DVHomeLeaguesRect()
                 .padding()
                 .background {
-                    Color.niceGray.cornerRadius(7)
+                    MainModel.shared.specificColor.rect.cornerRadius(7)
                 }
                 .padding()
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background {
-            Color.backgroundBlue
+            MainModel.shared.specificColor.background
         }
     }
 }

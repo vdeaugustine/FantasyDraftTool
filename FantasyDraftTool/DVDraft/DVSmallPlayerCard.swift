@@ -19,21 +19,22 @@ struct DVSmallPlayerCard: View {
     var verticalDivider: some View {
         RoundedRectangle(cornerRadius: 7)
             .frame(width: 1)
-            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+            .foregroundColor(MainModel.shared.specificColor.lighter)
     }
 
     var starImage: String {
         model.isStar(player) ? "star.fill" : "star"
     }
 
-    var starColor: String {
-        model.isStar(player) ? "8B7500" : "BEBEBE"
+    
+    var starColor: Color {
+        model.isStar(player) ? .pointsGold : .lighterGray
     }
 
     var horizontalDivider: some View {
         RoundedRectangle(cornerRadius: 7)
             .height(1)
-            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+            .foregroundColor(MainModel.shared.specificColor.lighter)
     }
 
     var body: some View {
@@ -48,7 +49,7 @@ struct DVSmallPlayerCard: View {
                     Spacer()
                     Image(systemName: starImage) // Is a favorite
                         .font(.title2)
-                        .foregroundColor(.hexStringToColor(hex: starColor))
+                        .foregroundColor(starColor)
                 }
 
                 HStack(alignment: .top) {
@@ -73,7 +74,7 @@ struct DVSmallPlayerCard: View {
                         Text("Draft #\(model.draft.totalPickNumber + 1) OVR")
                             .font(size: 16, color: .white, weight: .medium)
                             .padding(.horizontal, 10)
-                            .background(color: .niceBlue, padding: 7)
+                            .background(color: MainModel.shared.specificColor.nice, padding: 7)
                     }
                     .buttonStyle(.plain)
                 }
@@ -87,7 +88,7 @@ struct DVSmallPlayerCard: View {
                         Text("POS RANK")
                             .font(.system(size: 12))
                             .fontWeight(.medium)
-                            .foregroundColor(.lighterGray)
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
 
                         Text("2")
                             .fontWeight(.bold)
@@ -98,7 +99,7 @@ struct DVSmallPlayerCard: View {
                         Text("ADP")
                             .font(.system(size: 12))
                             .fontWeight(.medium)
-                            .foregroundColor(.lighterGray)
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
 
                         Text("2")
                             .fontWeight(.bold)
@@ -109,7 +110,7 @@ struct DVSmallPlayerCard: View {
                         Text("PROJ PTS")
                             .font(.system(size: 12))
                             .fontWeight(.medium)
-                            .foregroundColor(.lighterGray)
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
 
                         Text("450")
                             .fontWeight(.bold)
@@ -120,7 +121,7 @@ struct DVSmallPlayerCard: View {
                         Text("POS AVG")
                             .font(.system(size: 12))
                             .fontWeight(.medium)
-                            .foregroundColor(.lighterGray)
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
 
                         Text("270")
                             .fontWeight(.bold)
@@ -140,7 +141,7 @@ struct DVSmallPlayerCard: View {
                        let diff = Int(adp) - model.draft.currentPickNumber
                     {
                         Text("Player will most likely be drafted in approximately \(diff) picks")
-                            .font(size: 16, color: .lighterGray, weight: .light)
+                            .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .light)
                             .lineLimit(2)
                             .layoutPriority(1)
                     }
@@ -156,7 +157,7 @@ struct DVSmallPlayerCard: View {
                             Text("Cancel")
                                 .font(size: 16, color: .white, weight: .medium)
                                 .padding(.horizontal, 10)
-                                .background(color: .niceGray, padding: 7)
+                                .background(color: MainModel.shared.specificColor.rect, padding: 7)
                         }
                         .buttonStyle(.plain)
                         
@@ -178,7 +179,7 @@ struct DVSmallPlayerCard: View {
                             Text("Go to Player Page")
                                 .font(size: 16, color: .white, weight: .medium)
                                 .padding(.horizontal, 10)
-                                .background(color: .niceBlue, padding: 7)
+                                .background(color: MainModel.shared.specificColor.nice, padding: 7)
                         }
                         .buttonStyle(.plain)
                         
@@ -208,7 +209,7 @@ struct DVSmallPlayerCard: View {
             
         }
         .frame(maxWidth: 430, maxHeight: 270)
-        .background(color: .backgroundBlue, padding: 10)
+        .background(color: MainModel.shared.specificColor.background, padding: 10)
         .navigationDestination(for: ParsedBatter.self) { batter in
             DVBatterDetailDraft(draftPlayer: .init(player: batter, draft: model.draft))
         }

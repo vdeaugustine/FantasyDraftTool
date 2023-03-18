@@ -22,7 +22,7 @@ struct TopHeaderDVDraft_Previews: PreviewProvider {
         TopHeaderDVDraft(draft: .exampleDraft(picksMade: 20, projection: .atc))
             .previewLayout(.sizeThatFits)
             .background {
-                Color.hexStringToColor(hex: "33434F")
+                Color.backgroundBlue
                     .ignoresSafeArea()
             }
     }

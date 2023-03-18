@@ -23,7 +23,7 @@ struct DraftedOrAvailablePill: View {
                 .font(size: fontSize, color: .white)
                 .padding(padding)
                 .background {
-                    Color.hexStringToColor(hex: "305294")
+                    MainModel.shared.specificColor.nice
                         .cornerRadius(10)
                 }
 
@@ -51,13 +51,6 @@ struct DVBatterDetailDraft: View {
         "Draft \(player.name) for \(model.draft.currentTeam.name)?"
     }
 
-//    init(draftPlayer: DraftPlayer) {
-//        self.draftPlayer = draftPlayer
-//    }
-//
-//    init(player: ParsedPlayer) {
-//        self.draftPlayer = DraftPlayer(player: player, draft: model.draft)
-//    }
 
     let draftPlayer: DraftPlayer
 
@@ -68,13 +61,13 @@ struct DVBatterDetailDraft: View {
     var horizontalDivider: some View {
         RoundedRectangle(cornerRadius: 7)
             .height(1)
-            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+            .foregroundColor(MainModel.shared.specificColor.lighter)
     }
 
     var verticalDivider: some View {
         RoundedRectangle(cornerRadius: 7)
             .frame(width: 1)
-            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+            .foregroundColor(MainModel.shared.specificColor.lighter)
     }
 
     var body: some View {
@@ -95,7 +88,7 @@ struct DVBatterDetailDraft: View {
                         Spacer()
                         Image(systemName: "star") // Is a favorite
                             .font(.title2)
-                            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
                     }
 
                     HStack(alignment: .bottom) {
@@ -110,7 +103,7 @@ struct DVBatterDetailDraft: View {
                                 } label: {
                                     Text("Draft")
                                         .font(size: 15, color: .white, weight: .medium)
-                                        .background(color: "305294", padding: 7)
+                                        .background(color: MainModel.shared.specificColor.nice, padding: 7)
                                 }.buttonStyle(.plain)
                                 
 
@@ -133,7 +126,7 @@ struct DVBatterDetailDraft: View {
                         VStack(spacing: 7) {
                             Text("Proj. System")
                                 .font(.system(size: 12))
-                                .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                                .foregroundColor(MainModel.shared.specificColor.lighter)
                             Text("ATC") // proj system
                                 .font(.system(size: 16))
                                 .foregroundColor(Color.white)
@@ -158,7 +151,7 @@ struct DVBatterDetailDraft: View {
                         Text("POS RANK")
                             .font(.system(size: 12))
                             .fontWeight(.medium)
-                            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
 
                         Text("2")
                             .fontWeight(.bold)
@@ -169,7 +162,7 @@ struct DVBatterDetailDraft: View {
                         Text("ADP")
                             .font(.system(size: 12))
                             .fontWeight(.medium)
-                            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
 
                         Text("2")
                             .fontWeight(.bold)
@@ -180,7 +173,7 @@ struct DVBatterDetailDraft: View {
                         Text("PROJ PTS")
                             .font(.system(size: 12))
                             .fontWeight(.medium)
-                            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
 
                         Text("450")
                             .fontWeight(.bold)
@@ -191,7 +184,7 @@ struct DVBatterDetailDraft: View {
                         Text("POS AVG")
                             .font(.system(size: 12))
                             .fontWeight(.medium)
-                            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
 
                         Text("270")
                             .fontWeight(.bold)
@@ -231,7 +224,7 @@ struct DVBatterDetailDraft: View {
         }
         .frame(maxWidth: .infinity)
         .background {
-            Color.hexStringToColor(hex: "33434F")
+            MainModel.shared.specificColor.background
                 .ignoresSafeArea()
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -258,7 +251,7 @@ extension DVBatterDetailDraft {
         var verticalDivider: some View {
             RoundedRectangle(cornerRadius: 7)
                 .frame(width: 1)
-                .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                .foregroundColor(MainModel.shared.specificColor.lighter)
                 .padding(.vertical, 10)
         }
 
@@ -328,7 +321,7 @@ extension DVBatterDetailDraft {
                 .padding(.vertical, 10)
                 .padding(.horizontal)
                 .background {
-                    Color.hexStringToColor(hex: "4A555E")
+                    MainModel.shared.specificColor.rect
                         .cornerRadius(7)
                         .shadow(radius: 1.5)
                 }
@@ -338,7 +331,7 @@ extension DVBatterDetailDraft {
         var horizontalDivider: some View {
             RoundedRectangle(cornerRadius: 7)
                 .height(1)
-                .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                .foregroundColor(MainModel.shared.specificColor.lighter)
         }
 
         var body: some View {
@@ -350,7 +343,7 @@ extension DVBatterDetailDraft {
                     .pushLeft()
 
                 Text("Fantasy Points")
-                    .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                    .foregroundColor(MainModel.shared.specificColor.lighter)
                     .fontWeight(.medium)
                     .font(.system(size: 16))
                     .pushLeft()
@@ -417,7 +410,7 @@ extension DVBatterDetailDraft {
             .frame(maxWidth: 175)
             .height(180)
             .background {
-                Color.hexStringToColor(hex: "4A555E").cornerRadius(7)
+                MainModel.shared.specificColor.rect.cornerRadius(7)
             }
         }
 

@@ -27,18 +27,18 @@ struct ProgressRing: View {
         ZStack {
             VStack(spacing: 6) {
                 VStack(spacing: 2) {
-                    Text(completed.str).font(size: 18, color: "BEBEBE", weight: .medium)
+                    Text(completed.str).font(size: 18, color: MainModel.shared.specificColor.lighter, weight: .medium)
 
                     RoundedRectangle(cornerRadius: 7)
                         .frame(width: 20, height: 1.5)
-                        .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                        .foregroundColor(MainModel.shared.specificColor.lighter)
 //                            .padding(.vertical, 10)
 
-                    Text(needed.str).font(size: 18, color: "BEBEBE", weight: .medium)
+                    Text(needed.str).font(size: 18, color: MainModel.shared.specificColor.lighter, weight: .medium)
                 }
                 
                 
-                Text("Picks").font(size: 12, color: "BEBEBE", weight: .medium)
+                Text("Picks").font(size: 12, color: MainModel.shared.specificColor.lighter, weight: .medium)
             }
             .padding(28)
             .overlay {
@@ -46,13 +46,13 @@ struct ProgressRing: View {
                 ZStack {
                     Circle()
                         .stroke(lineWidth: 5)
-                        .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                        .foregroundColor(MainModel.shared.specificColor.lighter)
                     Circle()
                         .trim(from: .leastNonzeroMagnitude, to: percent > 0.05 ? percent : 0.05)
                         .stroke(lineWidth: 5)
                         .rotationEffect(.degrees(-90))
                         .rotation3DEffect(.degrees(180), axis: (x: 0.0, y: 1.0, z: 0.0))
-                        .foregroundColor(Color.hexStringToColor(hex: "305294"))
+                        .foregroundColor(MainModel.shared.specificColor.nice)
                 }
                 
             }

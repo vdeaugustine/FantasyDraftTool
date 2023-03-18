@@ -15,7 +15,7 @@ struct PositionFilledRect: View {
 
     var topPosLabel: some View {
         Text(position.str.uppercased())
-            .font(size: 12, color: "BEBEBE", weight: .regular)
+            .font(size: 12, color: MainModel.shared.specificColor.lighter, weight: .regular)
     }
 
     var numFilled: Int {
@@ -29,7 +29,7 @@ struct PositionFilledRect: View {
 
     var valueLabel: some View {
         Text(numFilled.str)
-            .font(size: 12, color: "BEBEBE", weight: .regular)
+            .font(size: 12, color: MainModel.shared.specificColor.lighter, weight: .regular)
     }
 
     var body: some View {
@@ -55,7 +55,7 @@ struct PositionFilledRect: View {
                 }
             }
 
-            .background(color: "4A555E", padding: 5, radius: 7, shadow: 1)
+            .background(color: MainModel.shared.specificColor.rect, padding: 5, radius: 7, shadow: 1)
 //            ForEach(myTeam.draftedPlayers, id: \.self) { player in
 //                Text(player.player.name)
 //            }
@@ -76,6 +76,6 @@ extension View {
     func previewBackground() -> some View {
         frame(maxWidth: .infinity, maxHeight: .infinity)
 //            .ignoresSafeArea()
-            .background(color: "33434F", padding: 0)
+            .background(color: MainModel.shared.specificColor.background, padding: 0)
     }
 }

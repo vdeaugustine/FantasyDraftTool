@@ -19,15 +19,15 @@ struct DVAllPlayersRow: View {
     var verticalDivider: some View {
         RoundedRectangle(cornerRadius: 7)
             .frame(width: 1)
-            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+            .foregroundColor(MainModel.shared.specificColor.lighter)
     }
 
     var starImage: String {
         testBool ? "star.fill" : "star"
     }
 
-    var starColor: String {
-        testBool ? "8B7500" : "BEBEBE"
+    var starColor: Color {
+        testBool ? .pointsGold : .lighterGray
     }
 
     var body: some View {
@@ -85,7 +85,7 @@ struct DVAllPlayersRow: View {
             HStack {
                 Text([player.wPointsZScore(draft: model.draft).simpleStr(), "wPTS"])
                     .font(size: 14, color: .white)
-                    .background(color: .niceBlue, padding: 6)
+                    .background(color: MainModel.shared.specificColor.nice, padding: 6)
 
                 Text([player.fantasyPoints(.defaultPoints).simpleStr(), "PTS"])
                     .font(size: 14, color: .white)
@@ -102,15 +102,15 @@ struct DVAllPlayersRow: View {
                 Label("Toggle Favorite", systemImage: starImage)
                     .labelStyle(.iconOnly)
                     .rotationEffect(Angle(degrees: testBool ? 360 * 3 : 0))
-                    .foregroundColor(Color.hexStringToColor(hex: starColor))
+                    .foregroundColor(starColor)
             }
 //            .padding(.leading, 5)
         }
         .frame(maxWidth: .infinity)
         .padding()
         .background {
-            Color.niceGray
-//                Color.hexStringToColor(hex: "4A555E")
+            MainModel.shared.specificColor.rect
+//                MainModel.shared.specificColor.rect
                 .cornerRadius(7)
                 .shadow(radius: 1)
         }
@@ -127,7 +127,7 @@ struct DVAllPlayersRow_Previews: PreviewProvider {
         DVAllPlayersRow(player: ParsedBatter.TroutOrNull)
             .environmentObject(MainModel.shared)
             .background {
-                Color.hexStringToColor(hex: "33434F")
+                SpecificColors.firstOne.background
                     .ignoresSafeArea()
             }
     }

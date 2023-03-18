@@ -14,6 +14,8 @@ extension Color {
     static let lighterGray: Color = .hexStringToColor(hex: "BEBEBE")
     static let pointsGold: Color = .hexStringToColor(hex: "8B7500")
     static let backgroundBlue: Color = .hexStringToColor(hex: "33434F")
+    static let labelGreen: Color = .init(hex: "328400")
+    static let labelRed: Color = .init(hex: "AF050C")
 }
 
 // MARK: - DVDraftViewModel

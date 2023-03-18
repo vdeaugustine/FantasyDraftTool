@@ -38,7 +38,7 @@ struct DVAlreadyDraftedPlayers: View {
 struct DVAlreadyDraftedPlayers_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            Color.hexStringToColor(hex: "33434F")
+            MainModel.shared.specificColor.background
             ScrollView {
                 DVAlreadyDraftedPlayers()
                     .environmentObject(MainModel.shared)

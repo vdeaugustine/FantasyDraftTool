@@ -149,7 +149,7 @@ struct DVDraft: View {
                                         Label("Show more", systemImage: "plus")
                                             .font(.system(size: 14))
                                             .foregroundColor(.white)
-                                            .background(color: .niceBlue, padding: 10)
+                                            .background(color: MainModel.shared.specificColor.nice, padding: 10)
                                     }
                                 }
                             }
@@ -172,7 +172,7 @@ struct DVDraft: View {
 
             if doneLoading == false {
                 ZStack {
-                    Color.backgroundBlue
+                    MainModel.shared.specificColor.background
 
                     VStack(spacing: 10) {
                         ProgressView("Loading Draft")
@@ -190,7 +190,7 @@ struct DVDraft: View {
         .frame(maxWidth: .infinity)
         .navigationBarTitleDisplayMode(.inline)
         .background {
-            Color.hexStringToColor(hex: "33434F")
+            MainModel.shared.specificColor.background
                 .ignoresSafeArea()
         }
         .navigationDestination(for: ParsedBatter.self) { batter in

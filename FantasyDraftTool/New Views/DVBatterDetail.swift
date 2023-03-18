@@ -17,21 +17,21 @@ struct DVBatterDetail: View {
     var horizontalDivider: some View {
         RoundedRectangle(cornerRadius: 7)
             .height(1)
-            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+            .foregroundColor(MainModel.shared.specificColor.lighter)
     }
 
     var verticalDivider: some View {
         RoundedRectangle(cornerRadius: 7)
             .frame(width: 1)
-            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+            .foregroundColor(MainModel.shared.specificColor.lighter)
     }
     
     var starImage: String {
         model.isStar(player) ? "star.fill" : "star"
     }
 
-    var starColor: String {
-        model.isStar(player) ? "8B7500" : "BEBEBE"
+    var starColor: Color {
+        model.isStar(player) ? .pointsGold : .lighterGray
     }
 
     var body: some View {
@@ -55,7 +55,7 @@ struct DVBatterDetail: View {
                             .font(.title2)
                             .labelStyle(.iconOnly)
                             .rotationEffect(Angle(degrees: model.isStar(player) ? 360 * 3 : 0))
-                            .foregroundColor(Color.hexStringToColor(hex: starColor))
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
                     }
                         
                 }
@@ -79,7 +79,7 @@ struct DVBatterDetail: View {
                     VStack(spacing: 7) {
                         Text("Proj. System")
                             .font(.system(size: 12))
-                            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
                         Text("ATC") // proj system
                             .font(.system(size: 16))
                             .foregroundColor(Color.white)
@@ -87,7 +87,7 @@ struct DVBatterDetail: View {
                     }
                     .padding(10)
                     .background {
-                        Color.hexStringToColor(hex: "4A555D")
+                        MainModel.shared.specificColor.rect
                             .cornerRadius(7)
                     }
                 }
@@ -103,7 +103,7 @@ struct DVBatterDetail: View {
                         Text("POS RANK")
                             .font(.system(size: 12))
                             .fontWeight(.medium)
-                            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
 
                         Text("2")
                             .fontWeight(.bold)
@@ -114,7 +114,7 @@ struct DVBatterDetail: View {
                         Text("ADP")
                             .font(.system(size: 12))
                             .fontWeight(.medium)
-                            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
 
                         Text("2")
                             .fontWeight(.bold)
@@ -125,7 +125,7 @@ struct DVBatterDetail: View {
                         Text("PROJ PTS")
                             .font(.system(size: 12))
                             .fontWeight(.medium)
-                            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
 
                         Text("450")
                             .fontWeight(.bold)
@@ -136,7 +136,7 @@ struct DVBatterDetail: View {
                         Text("POS AVG")
                             .font(.system(size: 12))
                             .fontWeight(.medium)
-                            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                            .foregroundColor(MainModel.shared.specificColor.lighter)
 
                         Text("270")
                             .fontWeight(.bold)
@@ -174,7 +174,7 @@ struct DVBatterDetail: View {
         }
         .frame(maxWidth: .infinity)
         .background {
-            Color.hexStringToColor(hex: "33434F")
+            MainModel.shared.specificColor.background
                 .ignoresSafeArea()
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -192,7 +192,7 @@ extension DVBatterDetail {
         var verticalDivider: some View {
             RoundedRectangle(cornerRadius: 7)
                 .frame(width: 1)
-                .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                .foregroundColor(MainModel.shared.specificColor.lighter)
                 .padding(.vertical, 10)
         }
 
@@ -265,7 +265,7 @@ extension DVBatterDetail {
                 .padding(.vertical, 10)
                 .padding(.horizontal)
                 .background {
-                    Color.hexStringToColor(hex: "4A555E")
+                    MainModel.shared.specificColor.rect
                         .cornerRadius(7)
                         .shadow(radius: 1.5)
                 }
@@ -275,7 +275,7 @@ extension DVBatterDetail {
         var horizontalDivider: some View {
             RoundedRectangle(cornerRadius: 7)
                 .height(1)
-                .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                .foregroundColor(MainModel.shared.specificColor.lighter)
         }
 
         var body: some View {
@@ -287,7 +287,7 @@ extension DVBatterDetail {
                     .pushLeft()
 
                 Text("Fantasy Points")
-                    .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+                    .foregroundColor(MainModel.shared.specificColor.lighter)
                     .fontWeight(.medium)
                     .font(.system(size: 16))
                     .pushLeft()
@@ -354,7 +354,8 @@ extension DVBatterDetail {
             .padding(.top, 3)
             .frame(width: 153, height: 160)
             .background {
-                Color.hexStringToColor(hex: "4A555E").cornerRadius(7)
+                MainModel.shared.specificColor.rect.cornerRadius(7)
+                MainModel.shared.specificColor.rect
             }
         }
         // MARK: - BarsForStat

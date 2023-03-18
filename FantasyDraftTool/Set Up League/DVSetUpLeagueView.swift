@@ -61,7 +61,7 @@ struct DVSetUpLeagueView: View {
                         .onMove { indSet, theInt in
                             workingDraft.teams.move(fromOffsets: indSet, toOffset: theInt)
                         }
-                        .listRowBackground(Color.niceGray)
+                        .listRowBackground(MainModel.shared.specificColor.rect)
                         .listRowSeparatorTint(Color.white)
 
                         if workingDraft.teams.count < 15 {
@@ -73,14 +73,14 @@ struct DVSetUpLeagueView: View {
 
                                     .fontWeight(.semibold)
                             }
-                            .listRowBackground(Color.niceGray)
+                            .listRowBackground(MainModel.shared.specificColor.rect)
                             .listRowSeparatorTint(Color.white)
                         }
 
                     } header: {
                         HStack {
                             Text("Teams")
-                                .font(size: 16, color: .lighterGray, weight: .medium)
+                                .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .medium)
 
                             Spacer()
 
@@ -100,7 +100,7 @@ struct DVSetUpLeagueView: View {
                             }
                         }
                     }
-                    .listRowBackground(Color.niceGray)
+                    .listRowBackground(MainModel.shared.specificColor.rect)
 
                     Section {
                         Button {
@@ -116,10 +116,10 @@ struct DVSetUpLeagueView: View {
                     } header: {
                         HStack {
                             Text("Scoring")
-                                .font(size: 16, color: .lighterGray, weight: .medium)
+                                .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .medium)
                         }
                     }
-                    .listRowBackground(Color.niceGray)
+                    .listRowBackground(MainModel.shared.specificColor.rect)
 
                     Section {
                         Button {
@@ -135,9 +135,9 @@ struct DVSetUpLeagueView: View {
                     } header: {
                         HStack {
                             Text("Rosters")
-                                .font(size: 16, color: .lighterGray, weight: .medium)
+                                .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .medium)
                         }
-                    }.listRowBackground(Color.niceGray)
+                    }.listRowBackground(MainModel.shared.specificColor.rect)
 
                     Button {
                         showCreateDraftConfirmation.toggle()
@@ -151,14 +151,14 @@ struct DVSetUpLeagueView: View {
                     .frame(maxWidth: .infinity)
                     .layoutPriority(1)
 
-                    .listRowBackground(Color.niceBlue)
+                    .listRowBackground(MainModel.shared.specificColor.nice)
                 }
                 .scrollContentBackground(.hidden)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background {
-            Color.backgroundBlue.ignoresSafeArea()
+            model.specificColor.background.ignoresSafeArea()
         }
         .alert(alertMessage, isPresented: $showAlert) {
             TextField(teamSelected?.name ?? "", text: $editedTeamName)

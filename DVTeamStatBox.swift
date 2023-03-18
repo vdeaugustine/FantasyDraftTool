@@ -22,8 +22,8 @@ struct DVTeamStatBox: View {
             Text(value.simpleStr())
         }
         .frame(maxWidth: 110)
-        .font(size: 12, color: "BEBEBE", weight: .regular)
-        .background(color: "4A555E", padding: 8, radius: 7, shadow: 1)
+        .font(size: 12, color: MainModel.shared.specificColor.lighter, weight: .regular)
+        .background(color: MainModel.shared.specificColor.rect, padding: 8, radius: 7, shadow: 1)
         
     }
 }

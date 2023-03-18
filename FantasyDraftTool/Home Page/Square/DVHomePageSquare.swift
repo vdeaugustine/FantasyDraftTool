@@ -29,7 +29,7 @@ struct FindPlayersRect: View {
         }
         .padding([.leading, .top])
         .frame(width: 150, height: 140)
-        .background(color: .niceGray, padding: 0)
+        .background(color: MainModel.shared.specificColor.rect, padding: 0)
     }
 }
 
@@ -52,7 +52,7 @@ struct SettingsRect: View {
         }
         .padding([.leading, .top])
         .frame(width: 150, height: 140)
-        .background(color: .niceGray, padding: 0)
+        .background(color: MainModel.shared.specificColor.rect, padding: 0)
     }
 }
 
@@ -78,7 +78,7 @@ struct TradeAnalyzerRect: View {
         }
         .padding([.leading, .top])
         .frame(width: 150, height: 140)
-        .background(color: .niceGray, padding: 0)
+        .background(color: MainModel.shared.specificColor.rect, padding: 0)
     }
 }
 
@@ -101,7 +101,7 @@ struct AccountRect: View {
         }
         .padding([.leading, .top])
         .frame(width: 150, height: 140)
-        .background(color: .niceGray, padding: 0)
+        .background(color: MainModel.shared.specificColor.rect, padding: 0)
     }
 }
 

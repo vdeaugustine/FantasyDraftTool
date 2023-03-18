@@ -20,7 +20,7 @@ struct DVDraftRankings: View {
         VStack(spacing: 15){
             HStack {
                 Text("Rankings")
-                    .font(size: 16, color: "BEBEBE", weight: .medium)
+                    .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .medium)
                 Spacer()
                 
                 NVDropDownProjection(selection: $projection, font: viewModel.dropDownFont)

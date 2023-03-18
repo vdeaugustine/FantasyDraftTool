@@ -23,7 +23,7 @@ struct PositionsFilledSection: View {
     var body: some View {
         VStack {
             Text("Positions Filled")
-                .font(size: 16, color: "BEBEBE", weight: .medium)
+                .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .medium)
                 .pushLeft()
 //                .padding(.leading, 15)
 

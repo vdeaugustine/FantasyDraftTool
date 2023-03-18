@@ -40,12 +40,12 @@ struct SetUpScoringView: View {
                                 }
                         }
                     }
-                    .listRowBackground(Color.niceGray)
+                    .listRowBackground(MainModel.shared.specificColor.rect)
                     .listRowSeparatorTint(Color.white)
                 } header: {
                     HStack {
                         Text("Batter Stats")
-                            .font(size: 16, color: .lighterGray, weight: .medium)
+                            .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .medium)
                     }
                 }
 
@@ -63,12 +63,12 @@ struct SetUpScoringView: View {
                                 }
                         }
                     }
-                    .listRowBackground(Color.niceGray)
+                    .listRowBackground(MainModel.shared.specificColor.rect)
                     .listRowSeparatorTint(Color.white)
                 } header: {
                    
                         Text("Pitcher Stats")
-                            .font(size: 16, color: .lighterGray, weight: .medium)
+                            .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .medium)
                     
                 }
                 
@@ -84,12 +84,12 @@ struct SetUpScoringView: View {
                         
                 }
                 .frame(maxWidth: .infinity)
-                .listRowBackground(Color.niceBlue)
+                .listRowBackground(MainModel.shared.specificColor.nice)
             }
             .scrollContentBackground(.hidden)
         }
         .background {
-            Color.backgroundBlue
+            MainModel.shared.specificColor.background
         }
         .alert("Edit value for \(statKeyToChange)", isPresented: $showAlert) {
             TextField(scoringSettings.getValue(for: statKeyToChange)?.simpleStr() ?? statKeyToChange, text: $enteredNewValue)

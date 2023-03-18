@@ -32,10 +32,10 @@ struct DVSetUpRosterStructureView: View {
                     Stepper(totalRosterSize.str, value: $totalRosterSize)
                 } header: {
                     Text("Total Players Per Team")
-                        .font(size: 16, color: .lighterGray, weight: .medium)
+                        .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .medium)
                 }
 
-                .listRowBackground(Color.niceGray)
+                .listRowBackground(MainModel.shared.specificColor.rect)
 
                 Section {
                     ForEach(workingCopyDraft.rosterConstruction.keysArr, id: \.self) { key in
@@ -69,10 +69,10 @@ struct DVSetUpRosterStructureView: View {
 
                 } header: {
                     Text("Minimum for Each Position")
-                        .font(size: 16, color: .lighterGray, weight: .medium)
+                        .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .medium)
                 }
 
-                .listRowBackground(Color.niceGray)
+                .listRowBackground(MainModel.shared.specificColor.rect)
 
                 Section {
                     Button {
@@ -85,7 +85,7 @@ struct DVSetUpRosterStructureView: View {
                             .fontWeight(.semibold)
                     }
                     .frame(maxWidth: .infinity)
-                    .listRowBackground(Color.niceBlue)
+                    .listRowBackground(MainModel.shared.specificColor.nice)
                 }
                 
                 Section {
@@ -98,13 +98,13 @@ struct DVSetUpRosterStructureView: View {
                             .fontWeight(.semibold)
                     }
                     .frame(maxWidth: .infinity)
-                    .listRowBackground(Color.niceGray)
+                    .listRowBackground(MainModel.shared.specificColor.rect)
                 }
             }
             .scrollContentBackground(.hidden)
         }
         .background {
-            Color.backgroundBlue.ignoresSafeArea()
+            MainModel.shared.specificColor.background.ignoresSafeArea()
         }
         .navigationBarTitleDisplayMode(.inline)
         .presentationDetents([.fraction(0.9999)])

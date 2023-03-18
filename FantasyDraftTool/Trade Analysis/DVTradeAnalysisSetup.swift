@@ -51,7 +51,7 @@ struct PlayerBasicStatRow: View {
             .font(size: 12, color: .white, weight: .light)
         }
         .contentShape(Rectangle())
-        .background(color: .niceGray, padding: padding)
+        .background(color: MainModel.shared.specificColor.rect, padding: padding)
     }
 }
 
@@ -90,7 +90,7 @@ struct SearchTextField: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(Color.niceGray)
+        .background(MainModel.shared.specificColor.rect)
         .cornerRadius(8)
         .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
     }
@@ -104,7 +104,7 @@ struct SearchTextFieldStyle: TextFieldStyle {
             .foregroundColor(.white)
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            .background(Color.niceGray)
+            .background(MainModel.shared.specificColor.rect)
             .cornerRadius(8)
             .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
     }
@@ -121,8 +121,9 @@ struct DVTradeAnalysisSetup: View {
     @State private var searchTextForTeam2 = ""
     @State private var team1FilteredPlayers: [ParsedPlayer] = []
     @State private var team2FilteredPlayers: [ParsedPlayer] = []
-    @State private var isSearching = false
-
+    @State private var team2IsSearching = false
+    @State private var team1IsSearching = false
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 30) {
@@ -130,147 +131,79 @@ struct DVTradeAnalysisSetup: View {
 //                    .font(size: 28, color: .white, weight: .bold)
 //                    .pushLeft()
 
-                VStack(spacing: 15) {
-                    Text("Team 1 Sends")
-                        .font(size: 20, color: .white, weight: .medium)
-                        .pushLeft()
+                TeamSendView(teamSends: $team1Sends, showSearch: $showSearchForTeam1, searchText: $searchTextForTeam1, filteredPlayers: $team1FilteredPlayers, isSearching: $team2IsSearching, teamName: "Team 1")
 
-                    ForEach(team2Sends.indices, id: \.self) { playerInd in
-                        if let player = team1Sends.safeGet(at: playerInd) {
-                            PlayerBasicStatRow(player: player)
-                        }
-                    }
-
-                    if showSearchForTeam1 {
-                        VStack {
-                            Text("Add Players")
-                                .font(size: 16, color: .lighterGray, weight: .medium)
-                                .pushLeft()
-                                .padding(.leading)
-                            SearchTextField(searchText: $searchTextForTeam1, placeholder: "Player Name")
-                                .foregroundColor(.white)
-                                .padding(.horizontal, 16)
-                            if team1FilteredPlayers.isEmpty == false {
-                                ZStack {
-                                    ScrollView {
-                                        LazyVStack {
-                                            ForEach(team1FilteredPlayers.indices, id: \.self) { playerInd in
-
-                                                if let batter = team1FilteredPlayers.safeGet(at: playerInd) as? ParsedBatter {
-                                                    PlayerBasicStatRowButton(player: batter) {
-                                                        if !team1Sends.contains(batter) {
-                                                            team1Sends.append(batter)
-                                                        }
-                                                        searchTextForTeam1 = ""
-                                                    }
-                                                }
-
-                                                if let pitcher = team1FilteredPlayers.safeGet(at: playerInd) as? ParsedPitcher {
-                                                    PlayerBasicStatRowButton(player: pitcher) {
-                                                        if !team1Sends.contains(pitcher) {
-                                                            team1Sends.append(pitcher)
-                                                        }
-                                                        searchTextForTeam1 = ""
-                                                    }
-                                                }
-                                            }
-                                            .listRowBackground(Color.clear)
-                                            Spacer()
-                                        }
-                                    }
-                                    .height(200)
-                                    .listStyle(.plain)
-                                    .cornerRadius(7)
-
-                                    if isSearching {
-                                        ProgressView()
-                                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                            .scaleEffect(2)
-                                    }
-                                }
-                            } else {
-                                Spacer()
-                            }
-                        }
-                    }
-
-                    if showSearchForTeam1 {
-                        doneButton(1)
-                    } else {
-                        addPlayerButton(1)
-                    }
-                }
-
-                VStack(spacing: 15) {
-                    Text("Team 2 Sends")
-                        .font(size: 20, color: .white, weight: .medium)
-                        .pushLeft()
-
-                    ForEach(team2Sends.indices, id: \.self) { playerInd in
-                        if let player = team2Sends.safeGet(at: playerInd) {
-                            PlayerBasicStatRow(player: player)
-                        }
-                    }
-
-                    if showSearchForTeam2 {
-                        VStack {
-                            Text("Add Players")
-                                .font(size: 16, color: .lighterGray, weight: .medium)
-                                .pushLeft()
-                                .padding(.leading)
-                            SearchTextField(searchText: $searchTextForTeam2, placeholder: "Player Name")
-                                .foregroundColor(.white)
-                                .padding(.horizontal, 16)
-                            if team2FilteredPlayers.isEmpty == false {
-                                ZStack {
-                                    ScrollView {
-                                        LazyVStack {
-                                            ForEach(team2FilteredPlayers.indices, id: \.self) { playerInd in
-
-                                                if let batter = team2FilteredPlayers.safeGet(at: playerInd) as? ParsedBatter {
-                                                    PlayerBasicStatRowButton(player: batter) {
-                                                        if !team2Sends.contains(batter) {
-                                                            team2Sends.append(batter)
-                                                        }
-                                                        searchTextForTeam2 = ""
-                                                    }
-                                                }
-
-                                                if let pitcher = team2FilteredPlayers.safeGet(at: playerInd) as? ParsedPitcher {
-                                                    PlayerBasicStatRowButton(player: pitcher) {
-                                                        if !team2Sends.contains(pitcher) {
-                                                            team2Sends.append(pitcher)
-                                                        }
-                                                        searchTextForTeam2 = ""
-                                                    }
-                                                }
-                                            }
-                                            .listRowBackground(Color.clear)
-                                            Spacer()
-                                        }
-                                    }
-                                    .height(200)
-                                    .listStyle(.plain)
-                                    .cornerRadius(7)
-
-                                    if isSearching {
-                                        ProgressView()
-                                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                            .scaleEffect(2)
-                                    }
-                                }
-                            } else {
-                                Spacer()
-                            }
-                        }
-                    }
-
-                    if showSearchForTeam2 {
-                        doneButton(2)
-                    } else {
-                        addPlayerButton(2)
-                    }
-                }
+                TeamSendView(teamSends: $team2Sends, showSearch: $showSearchForTeam2, searchText: $searchTextForTeam2, filteredPlayers: $team2FilteredPlayers, isSearching: $team2IsSearching, teamName: "Team 2")
+//                VStack(spacing: 15) {
+//                    Text("Team 2 Sends")
+//                        .font(size: 20, color: .white, weight: .medium)
+//                        .pushLeft()
+//
+//                    ForEach(team2Sends.indices, id: \.self) { playerInd in
+//                        if let player = team2Sends.safeGet(at: playerInd) {
+//                            PlayerBasicStatRow(player: player)
+//                        }
+//                    }
+//
+//                    if showSearchForTeam2 {
+//                        VStack {
+//                            Text("Add Players")
+//                                .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .medium)
+//                                .pushLeft()
+//                                .padding(.leading)
+//                            SearchTextField(searchText: $searchTextForTeam2, placeholder: "Player Name")
+//                                .foregroundColor(.white)
+//                                .padding(.horizontal, 16)
+//                            if team2FilteredPlayers.isEmpty == false {
+//                                ZStack {
+//                                    ScrollView {
+//                                        LazyVStack {
+//                                            ForEach(team2FilteredPlayers.indices, id: \.self) { playerInd in
+//
+//                                                if let batter = team2FilteredPlayers.safeGet(at: playerInd) as? ParsedBatter {
+//                                                    PlayerBasicStatRowButton(player: batter) {
+//                                                        if !team2Sends.contains(batter) {
+//                                                            team2Sends.append(batter)
+//                                                        }
+//                                                        searchTextForTeam2 = ""
+//                                                    }
+//                                                }
+//
+//                                                if let pitcher = team2FilteredPlayers.safeGet(at: playerInd) as? ParsedPitcher {
+//                                                    PlayerBasicStatRowButton(player: pitcher) {
+//                                                        if !team2Sends.contains(pitcher) {
+//                                                            team2Sends.append(pitcher)
+//                                                        }
+//                                                        searchTextForTeam2 = ""
+//                                                    }
+//                                                }
+//                                            }
+//                                            .listRowBackground(Color.clear)
+//                                            Spacer()
+//                                        }
+//                                    }
+//                                    .height(200)
+//                                    .listStyle(.plain)
+//                                    .cornerRadius(7)
+//
+//                                    if isSearching {
+//                                        ProgressView()
+//                                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+//                                            .scaleEffect(2)
+//                                    }
+//                                }
+//                            } else {
+//                                Spacer()
+//                            }
+//                        }
+//                    }
+//
+//                    if showSearchForTeam2 {
+//                        doneButton(2)
+//                    } else {
+//                        addPlayerButton(2)
+//                    }
+//                }
 
                 Spacer()
             }
@@ -285,19 +218,19 @@ struct DVTradeAnalysisSetup: View {
                     .font(size: 16, color: .white, weight: .semibold)
                     .frame(maxWidth: .infinity)
                     .height(44)
-                    .background(color: .niceBlue, padding: 0)
+                    .background(color: MainModel.shared.specificColor.nice, padding: 0)
                     .padding()
             }
         }
         .background {
-            Color.backgroundBlue.ignoresSafeArea().frame(maxWidth: .infinity, maxHeight: .infinity)
+            MainModel.shared.specificColor.background.ignoresSafeArea().frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .onChange(of: searchTextForTeam2) { searchText in
-            self.isSearching = true
+            self.team2IsSearching = true
             DispatchQueue.global(qos: .userInitiated).async {
                 let batters = AllParsedBatters.batters(for: .steamer).filter { batterElement in
 
-                    let isInSending = self.team2Sends.contains(batterElement)
+                    let isInSending = self.team1Sends.contains(batterElement) || self.team2Sends.contains(batterElement)
 
                     let isInSearch = batterElement.name.lowercased().removingWhiteSpaces().contains(searchText.lowercased().removingWhiteSpaces())
 
@@ -306,7 +239,7 @@ struct DVTradeAnalysisSetup: View {
 
                 let pitchers = AllExtendedPitchers.steamer.all.filter { pitcherElement in
 
-                    let isInSending = self.team2Sends.contains(pitcherElement)
+                    let isInSending = self.team1Sends.contains(pitcherElement) || self.team2Sends.contains(pitcherElement)
 
                     let isInSearch = pitcherElement.name.lowercased().removingWhiteSpaces().contains(searchText.lowercased().removingWhiteSpaces())
 
@@ -317,7 +250,36 @@ struct DVTradeAnalysisSetup: View {
 
                 DispatchQueue.main.async {
                     self.team2FilteredPlayers = filteredPlayers
-                    self.isSearching = false
+                    self.team2IsSearching = false
+                }
+            }
+        }
+        .onChange(of: searchTextForTeam1) { searchText in
+            self.team1IsSearching = true
+            DispatchQueue.global(qos: .userInitiated).async {
+                let batters = AllParsedBatters.batters(for: .steamer).filter { batterElement in
+                    
+                    let isInSending = self.team1Sends.contains(batterElement) || self.team2Sends.contains(batterElement)
+                    
+                    let isInSearch = batterElement.name.lowercased().removingWhiteSpaces().contains(searchText.lowercased().removingWhiteSpaces())
+                    
+                    return !isInSending && isInSearch
+                }
+                
+                let pitchers = AllExtendedPitchers.steamer.all.filter { pitcherElement in
+                    
+                    let isInSending = self.team1Sends.contains(pitcherElement) || self.team2Sends.contains(pitcherElement)
+
+                    let isInSearch = pitcherElement.name.lowercased().removingWhiteSpaces().contains(searchText.lowercased().removingWhiteSpaces())
+
+                    return !isInSending && isInSearch
+                }
+
+                let filteredPlayers: [ParsedPlayer] = (batters + pitchers).prefixArray(4)
+
+                DispatchQueue.main.async {
+                    self.team1FilteredPlayers = filteredPlayers
+                    self.team1IsSearching = false
                 }
             }
         }
@@ -336,7 +298,7 @@ struct DVTradeAnalysisSetup: View {
                 .font(size: 16, color: .white, weight: .semibold)
                 .frame(maxWidth: .infinity)
                 .height(44)
-                .background(color: .niceGray, padding: 0)
+                .background(color: MainModel.shared.specificColor.rect, padding: 0)
         }
     }
 
@@ -355,7 +317,7 @@ struct DVTradeAnalysisSetup: View {
                 .font(size: 16, color: .white, weight: .semibold)
                 .frame(maxWidth: .infinity)
                 .height(44)
-                .background(color: .niceBlue, padding: 0)
+                .background(color: MainModel.shared.specificColor.nice, padding: 0)
         }
     }
     

@@ -73,6 +73,12 @@ struct ContentView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             
+            
+            ColorSelectionView()
+                .tag(3)
+                .tabItem {
+                    Label("Colors", systemImage: "circle")
+                }
 
         //
         //            NavigationView {

@@ -18,7 +18,7 @@ struct BoxForCurrentPickDVDraft: View {
         VStack {
             teamNameAndDraftPickNumber
             boxPart
-                .background(color: "4A555E", padding: 10, radius: 7, shadow: 1)
+                .background(color: MainModel.shared.specificColor.rect, padding: 10, radius: 7, shadow: 1)
                 .frame(width: 125, height: 88)
             currentLabel
         }
@@ -27,10 +27,10 @@ struct BoxForCurrentPickDVDraft: View {
     var teamNameAndDraftPickNumber: some View {
         VStack {
             Text("#\(draft.totalPickNumber)")
-                .font(size: 16, color: .hexStringToColor(hex: "BEBEBE"), weight: .light)
+                .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .light)
             if let team = draft.currentTeam {
                 Text("\(team.name)")
-                    .font(size: 16, color: .hexStringToColor(hex: "BEBEBE"), weight: .bold)
+                    .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .bold)
             }
         }
     }
@@ -61,7 +61,7 @@ struct BoxForCurrentPickDVDraft: View {
             HStack {
                 VStack {
                     Text("RANK")
-                        .font(size: 8, color: .hexStringToColor(hex: "BEBEBE"), weight: .light)
+                        .font(size: 8, color: MainModel.shared.specificColor.lighter, weight: .light)
                     Text("3")
                         .font(size: 12, color: .white, weight: .semibold)
                 }
@@ -69,7 +69,7 @@ struct BoxForCurrentPickDVDraft: View {
 
                 VStack {
                     Text("RANK")
-                        .font(size: 8, color: .hexStringToColor(hex: "BEBEBE"), weight: .light)
+                        .font(size: 8, color: MainModel.shared.specificColor.lighter, weight: .light)
                     Text("3")
                         .font(size: 12, color: .white, weight: .semibold)
                 }
@@ -77,7 +77,7 @@ struct BoxForCurrentPickDVDraft: View {
 
                 VStack {
                     Text("RANK")
-                        .font(size: 8, color: .hexStringToColor(hex: "BEBEBE"), weight: .light)
+                        .font(size: 8, color: MainModel.shared.specificColor.lighter, weight: .light)
                     Text("3")
                         .font(size: 12, color: .white, weight: .semibold)
                 }
@@ -88,7 +88,7 @@ struct BoxForCurrentPickDVDraft: View {
     var currentLabel: some View {
         
         Text("Current")
-            .font(size: 16, color: "BEBEBE", weight: .medium)
+            .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .medium)
         
     }
     

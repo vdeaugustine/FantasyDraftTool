@@ -23,7 +23,7 @@ struct DVAlreadyDraftedPlayerRow: View {
     var verticalDivider: some View {
         RoundedRectangle(cornerRadius: 7)
             .frame(width: 1)
-            .foregroundColor(.hexStringToColor(hex: "BEBEBE"))
+            .foregroundColor(MainModel.shared.specificColor.lighter)
 //            .padding(.vertical, 10)
     }
 
@@ -62,7 +62,7 @@ struct DVAlreadyDraftedPlayerRow: View {
                                     
                             }
                             .padding(.horizontal, 5)
-                            .background(color: "305294", padding: 7, radius: 10, shadow: 0)
+                            .background(color: MainModel.shared.specificColor.nice, padding: 7, radius: 10, shadow: 0)
 
 //                            .font(size: 12, color: .white, weight: .light)
 
@@ -87,7 +87,7 @@ struct DVAlreadyDraftedPlayerRow: View {
                         //                        Text([batter.fantasyPoints(model.draft.settings.scoringSystem).simpleStr(), "pts"])
                         //                            .padding(3)
                         //                            .background {
-                        //                                Color.hexStringToColor(hex: "4A555E")
+                        //                                MainModel.shared.specificColor.rect
                         //                                    .cornerRadius(7)
                         //                            }
                         //                    }
@@ -104,7 +104,7 @@ struct DVAlreadyDraftedPlayerRow: View {
 
                     Text([batter.fantasyPoints(model.draft.settings.scoringSystem).simpleStr(), "pts"])
                         .font(size: 14, color: .white)
-                        .background(color: "8B7500", padding: 6)
+                        .background(color: .pointsGold, padding: 6)
                 }
 
                 .frame(maxWidth: .infinity)
@@ -112,7 +112,7 @@ struct DVAlreadyDraftedPlayerRow: View {
                 .padding(.vertical, 10)
                 .padding(.horizontal)
                 .background {
-                    Color.hexStringToColor(hex: "4A555E")
+                    MainModel.shared.specificColor.rect
                         .cornerRadius(7)
                         .shadow(radius: 1.5)
                 }
@@ -126,7 +126,7 @@ struct DVAlreadyDraftedPlayerRow: View {
 struct DVAlreadyDraftedPlayerRow_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            Color.hexStringToColor(hex: "33434F")
+            MainModel.shared.specificColor.background
             DVAlreadyDraftedPlayerRow(player: .TroutOrNull)
                 .environmentObject(MainModel.shared)
 

@@ -12,9 +12,9 @@ struct SmallPillForProgress: View {
     
     var color: Color {
         if isFilled {
-            return .hexStringToColor(hex: "305294")
+            return MainModel.shared.specificColor.nice
         } else {
-            return .hexStringToColor(hex: "305294").opacity(0.10)
+            return MainModel.shared.specificColor.nice.opacity(0.10)
         }
     }
     
@@ -24,7 +24,7 @@ struct SmallPillForProgress: View {
                 .cornerRadius(7)
             RoundedRectangle(cornerRadius: 7)
                 .stroke(lineWidth: 0.25)
-                .foregroundColor(Color.hexStringToColor(hex: "BEBEBE"))
+                .foregroundColor(MainModel.shared.specificColor.lighter)
                 
         }
         

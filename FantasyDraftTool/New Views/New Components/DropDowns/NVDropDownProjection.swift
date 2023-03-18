@@ -29,7 +29,7 @@ struct NVDropDownProjection: View {
             }
             .font(font)
             .foregroundColor(.white)
-            .background(color: "305294", padding: 6)
+            .background(color: MainModel.shared.specificColor.nice, padding: 6)
             .buttonStyle(.plain)
         }
     }

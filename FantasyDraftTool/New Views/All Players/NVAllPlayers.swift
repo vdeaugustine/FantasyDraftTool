@@ -105,14 +105,14 @@ struct NVAllPlayers: View {
 
 //            .listRowInsets(EdgeInsets(top: -5, leading: 0, bottom: -100, trailing: 0))
             .background {
-                Color.hexStringToColor(hex: "33434F")
+                MainModel.shared.specificColor.background
                     .ignoresSafeArea()
             }
         }
         .listStyle(.plain)
         .navigationTitle("Players")
         .background {
-            Color.hexStringToColor(hex: "33434F")
+            MainModel.shared.specificColor.background
                 .ignoresSafeArea()
         }
     }

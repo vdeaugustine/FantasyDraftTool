@@ -15,10 +15,10 @@ struct BoxForPastPicksDVDraft: View {
     var teamNameAndDraftPickNumber: some View {
         VStack {
             Text("#\(draftPlayer.pickNumber)")
-                .font(size: 16, color: .hexStringToColor(hex: "BEBEBE"), weight: .light)
+                .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .light)
             if let team = draftPlayer.draftedTeam {
                 Text("\(team.name)")
-                    .font(size: 16, color: .hexStringToColor(hex: "BEBEBE"), weight: .bold)
+                    .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .bold)
             }
         }
     }
@@ -39,7 +39,7 @@ struct BoxForPastPicksDVDraft: View {
             HStack {
                 VStack {
                     Text("RANK")
-                        .font(size: 8, color: .hexStringToColor(hex: "BEBEBE"), weight: .light)
+                        .font(size: 8, color: MainModel.shared.specificColor.lighter, weight: .light)
                     Text("3")
                         .font(size: 12, color: .white, weight: .semibold)
                 }
@@ -47,7 +47,7 @@ struct BoxForPastPicksDVDraft: View {
 
                 VStack {
                     Text("RANK")
-                        .font(size: 8, color: .hexStringToColor(hex: "BEBEBE"), weight: .light)
+                        .font(size: 8, color: MainModel.shared.specificColor.lighter, weight: .light)
                     Text("3")
                         .font(size: 12, color: .white, weight: .semibold)
                 }
@@ -55,7 +55,7 @@ struct BoxForPastPicksDVDraft: View {
 
                 VStack {
                     Text("RANK")
-                        .font(size: 8, color: .hexStringToColor(hex: "BEBEBE"), weight: .light)
+                        .font(size: 8, color: MainModel.shared.specificColor.lighter, weight: .light)
                     Text("3")
                         .font(size: 12, color: .white, weight: .semibold)
                 }
@@ -66,7 +66,7 @@ struct BoxForPastPicksDVDraft: View {
     var recentLabel: some View {
         
         Text("Recent")
-            .font(size: 16, color: "BEBEBE", weight: .medium)
+            .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .medium)
         
     }
     var getName: (firstName: String, lastName: String) {
@@ -82,7 +82,7 @@ struct BoxForPastPicksDVDraft: View {
         VStack {
             teamNameAndDraftPickNumber
             boxPart
-                .background(color: "4A555E", padding: 10, radius: 7, shadow: 1)
+                .background(color: MainModel.shared.specificColor.rect, padding: 10, radius: 7, shadow: 1)
                 .frame(width: 125, height: 88)
             recentLabel
                 .padding(.top, 2)
@@ -97,7 +97,7 @@ struct BoxForPastPicksDVDraft_Previews: PreviewProvider {
         BoxForPastPicksDVDraft(draftPlayer: .TroutOrNull)
             .background {
                 #if DEBUG
-                    Color.hexStringToColor(hex: "33434F")
+                    Color.backgroundBlue
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .ignoresSafeArea()
                 #endif

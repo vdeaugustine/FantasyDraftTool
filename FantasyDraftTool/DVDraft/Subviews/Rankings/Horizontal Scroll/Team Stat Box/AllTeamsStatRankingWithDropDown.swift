@@ -39,8 +39,6 @@ struct AllTeamsStatRankingWithDropDown: View {
 
     func update() {
         DispatchQueue.global().async {
-            
-            
             rankTeamsBy(stat: "PTS") { teams in
                 PTSTeam = teams
             }
@@ -50,38 +48,20 @@ struct AllTeamsStatRankingWithDropDown: View {
             rankTeamsBy(stat: "SO") { teams in
                 soTeam = teams
             }
-            
 
-//            rankTeamsBy(stat: "RBI") { teams in
-//                RBITeam = teams
-//            }
-//
-//            rankTeamsBy(stat: "R") { teams in
-//                rTeam = teams
-//            }
-//
-//            rankTeamsBy(stat: "SB") { teams in
-//                sbTeam = teams
-//            }
-//
-//            rankTeamsBy(stat: "IP") { teams in
-//                ipTeam = teams
-//            }
-
-            
         }
     }
-    
+
     func updateThisTeam(statKey: String, thisTeam: Binding<[DraftTeam]>) {
         rankTeamsBy(stat: statKey) { team in
             thisTeam.wrappedValue = team
         }
     }
-    
+
     func statView(statKey: String, team: [DraftTeam]) -> some View {
         VStack(spacing: 10) {
             Text(statKey)
-                .font(size: 12, color: "BEBEBE", weight: .regular)
+                .font(size: 12, color: MainModel.shared.specificColor.lighter, weight: .regular)
             if let topTeam = team.first {
                 DVTeamStatBox(team: topTeam, value: topTeam.totalForStat(statKey: statKey, draft: draft))
             }
@@ -90,7 +70,7 @@ struct AllTeamsStatRankingWithDropDown: View {
                 withAnimation {
                     showDropDown.toggle()
                 }
-                
+
             } label: {
                 Label("Show More", systemImage: "chevron.up")
                     .labelStyle(.iconOnly)
@@ -109,87 +89,11 @@ struct AllTeamsStatRankingWithDropDown: View {
 
     var body: some View {
         ZStack {
-//            ScrollView(.horizontal) {
-                HStack {
-                    
-                    statView(statKey: "PTS", team: PTSTeam)
-                    statView(statKey: "HR", team: HRTeam)
-//                    statView(statKey: "RBI", team: RBITeam)
-//                    statView(statKey: "R", team: rTeam)
-                    statView(statKey: "SO", team: soTeam)
-//                    statView(statKey: "IP", team: ipTeam)
-//                    VStack(spacing: 10) {
-//                        Text("PTS")
-//                            .font(size: 12, color: "BEBEBE", weight: .regular)
-//                        if let topTeam = PTSTeam.first {
-//                            DVTeamStatBox(team: topTeam, value: topTeam.totalForStat(statKey: "PTS", draft: draft))
-//                        }
-//
-//                        Button {
-//                            showDropDown.toggle()
-//                        } label: {
-//                            Label("Show More", systemImage: "chevron.up")
-//                                .labelStyle(.iconOnly)
-//                                .rotationEffect(.degrees(showDropDown ? 0 : 180))
-//                        }
-//
-//                        if showDropDown {
-//                            VStack(spacing: 2) {
-//                                ForEach(PTSTeam, id: \.self) { team in
-//                                    DVTeamStatBox(team: team, value: team.totalForStat(statKey: "PTS", draft: draft))
-//                                }
-//                            }
-//                        }
-//                    }
-//                    VStack(spacing: 10) {
-//                        Text("HR")
-//                            .font(size: 12, color: "BEBEBE", weight: .regular)
-//                        if let topTeam = HRTeam.first {
-//                            DVTeamStatBox(team: topTeam, value: topTeam.totalForStat(statKey: "HR", draft: draft))
-//                        }
-//
-//                        Button {
-//                            showDropDown.toggle()
-//                        } label: {
-//                            Label("Show More", systemImage: "chevron.up")
-//                                .labelStyle(.iconOnly)
-//                                .rotationEffect(.degrees(showDropDown ? 0 : 180))
-//                        }
-//
-////                        if showDropDown {
-////                            VStack(spacing: 2) {
-////                                ForEach(rankTeamsBy(stat: statKey), id: \.self) { team in
-////                                    DVTeamStatBox(team: team, value: team.totalForStat(statKey: statKey, draft: draft))
-////                                }
-////                            }
-////                        }
-//                    }
-//
-//                    VStack(spacing: 10) {
-//                        Text("RBI")
-//                            .font(size: 12, color: "BEBEBE", weight: .regular)
-//                        if let topTeam = RBITeam.first {
-//                            DVTeamStatBox(team: topTeam, value: topTeam.totalForStat(statKey: "RBI", draft: draft))
-//                        }
-//
-//                        Button {
-//                            showDropDown.toggle()
-//                        } label: {
-//                            Label("Show More", systemImage: "chevron.up")
-//                                .labelStyle(.iconOnly)
-//                                .rotationEffect(.degrees(showDropDown ? 0 : 180))
-//                        }
-//
-////                        if showDropDown {
-////                            VStack(spacing: 2) {
-////                                ForEach(rankTeamsBy(stat: statKey), id: \.self) { team in
-////                                    DVTeamStatBox(team: team, value: team.totalForStat(statKey: statKey, draft: draft))
-////                                }
-////                            }
-////                        }
-//                    }
-                }
-//            }
+            HStack {
+                statView(statKey: "PTS", team: PTSTeam)
+                statView(statKey: "HR", team: HRTeam)
+                statView(statKey: "SO", team: soTeam)
+            }
 
             if showSpinner {
                 ProgressView()

@@ -28,7 +28,7 @@ struct DVHomeLeaguesRect: View {
                     
                 } label: {
                     Label("Create New", systemImage: "plus")
-                        .background(color: .niceBlue, padding: 10)
+                        .background(color: MainModel.shared.specificColor.nice, padding: 10)
                 }
                 .buttonStyle(.plain)
             }
@@ -42,7 +42,7 @@ struct DVHomeLeaguesRect: View {
                     Text("12 teams")
                         .font(size: 12, color: .white, weight: .light)
                 }
-                .listRowBackground(Color.niceGray)
+                .listRowBackground(MainModel.shared.specificColor.rect)
             }
             .listStyle(.plain)
             

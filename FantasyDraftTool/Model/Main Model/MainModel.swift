@@ -43,6 +43,9 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
     @Published var myStarBatters: Set<ParsedBatter> = []
     @Published var myStarPitchers: Set<ParsedPitcher> = []
+    
+    @Published var specificColor: SpecificColors = .firstOne
+    var colorScheme: MyColorScheme = .myFirst
 
     var myStarPlayers: [any ParsedPlayer] { Array(myStarBatters) + Array(myStarPitchers) }
 
