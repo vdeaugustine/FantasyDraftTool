@@ -142,6 +142,7 @@
 		9C82187F29A6E34F007DA5D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 9C82187E29A6E34F007DA5D2 /* FirebaseFirestore */; };
 		9C82188129A6E34F007DA5D2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9C82188029A6E34F007DA5D2 /* FirebaseFirestoreSwift */; };
 		9C8643A829A1BB8300067B1A /* NVMyTeamQuickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8643A729A1BB8300067B1A /* NVMyTeamQuickView.swift */; };
+		9C9C5A6B29C672550077423C /* ParsedPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9C5A6A29C672550077423C /* ParsedPlayers.swift */; };
 		9CA24CA62983915400A394B4 /* AllBattersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA52983915400A394B4 /* AllBattersListView.swift */; };
 		9CA24CA8298394EB00A394B4 /* ParsedBatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */; };
 		9CA24CAA2983A43500A394B4 /* ParsedBatterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA24CA92983A43500A394B4 /* ParsedBatterDetailView.swift */; };
@@ -332,6 +333,7 @@
 		9C82187529A6E234007DA5D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9C82188229A6F1DA007DA5D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9C8643A729A1BB8300067B1A /* NVMyTeamQuickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVMyTeamQuickView.swift; sourceTree = "<group>"; };
+		9C9C5A6A29C672550077423C /* ParsedPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedPlayers.swift; sourceTree = "<group>"; };
 		9CA24CA52983915400A394B4 /* AllBattersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBattersListView.swift; sourceTree = "<group>"; };
 		9CA24CA7298394EB00A394B4 /* ParsedBatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedBatter.swift; sourceTree = "<group>"; };
 		9CA24CA92983A43500A394B4 /* ParsedBatterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedBatterDetailView.swift; sourceTree = "<group>"; };
@@ -777,6 +779,7 @@
 		9C75B9B6296F590F003B35E6 /* FantasyDraftTool */ = {
 			isa = PBXGroup;
 			children = (
+				9C9C5A6A29C672550077423C /* ParsedPlayers.swift */,
 				9C0320C029C557880038C1CE /* ColorSelectionView.swift */,
 				9CACF7D929C3F2DB00DBF847 /* Trade Analysis */,
 				9CACF7D029C30D5A00DBF847 /* Home Page */,
@@ -1443,6 +1446,7 @@
 				9C8643A829A1BB8300067B1A /* NVMyTeamQuickView.swift in Sources */,
 				9CA24CE02988F57600A394B4 /* SelectProjectionTypeHScroll.swift in Sources */,
 				9C75B9E9296FD215003B35E6 /* ExtDate.swift in Sources */,
+				9C9C5A6B29C672550077423C /* ParsedPlayers.swift in Sources */,
 				9C2A2FA929B8121000B47A15 /* NVPlayerStats.swift in Sources */,
 				9CA24CDC2988F4FB00A394B4 /* PositionAnalysisView.swift in Sources */,
 			);
