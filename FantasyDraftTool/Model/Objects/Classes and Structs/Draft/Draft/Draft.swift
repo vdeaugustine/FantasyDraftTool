@@ -8,11 +8,20 @@
 import Foundation
 import SwiftUI
 
+
+
+enum DraftDestination: Hashable {
+    case newDraft, loadDraft, setupDraft
+}
+
 // MARK: - Draft
 
-struct Draft: Codable, Hashable, Equatable {
+struct Draft: Codable, Hashable, Equatable, Identifiable {
     // MARK: - Stored Properties
 
+    var id: Date { self.creationDate }
+    var leagueName: String
+    var creationDate: Date
     var teams: [DraftTeam]
     var settings: DraftSettings
     var rosterConstruction: RosterConstruction = .init()
@@ -140,7 +149,6 @@ struct Draft: Codable, Hashable, Equatable {
         changeCurrentIndex()
         guard currentIndex > 0 && currentIndex < teams.count else { return }
         currentTeam = teams[currentIndex]
-//        playerPool.setPositionsOrder()
     }
 
     mutating func insertIntoPool(player: DraftPlayer) {
@@ -180,7 +188,8 @@ struct Draft: Codable, Hashable, Equatable {
                                                    snakeDraft: true,
                                                    numberOfRounds: 25,
                                                    scoringSystem: .defaultPoints),
-                                   myTeamIndex: 0)
+                                   myTeamIndex: 0,
+                                   leagueName: "My League")
 
     // MARK: - Calculating Methods / Calculations
 
@@ -189,6 +198,18 @@ struct Draft: Codable, Hashable, Equatable {
         let sortedTeams = unsortedTeams.sorted(by: { $0.points(for: position) > $1.points(for: position) })
         return sortedTeams.first!
     }
+    
+    func getRoundNumber(for pickNumber: Int) -> Int {
+        let picksPerRound = self.teams.count
+        let numTeams = picksPerRound
+        let numRounds = Int(ceil(Double(picksPerRound) / 2.0)) * 2 // ceil(numTeams / 2) rounds, rounded up to the nearest even number
+        let adjustedPickNumber = self.settings.snakeDraft ? (pickNumber % (2 * picksPerRound) == 0 ? 2 * picksPerRound : pickNumber % (2 * picksPerRound)) : pickNumber
+        let roundNumber = (adjustedPickNumber - 1) / picksPerRound + 1
+        let isLastRound = roundNumber == numRounds
+        let pickNumberInRound = isLastRound ? (numTeams - (adjustedPickNumber - (numRounds - 1) * picksPerRound)) + 1 : (adjustedPickNumber - (roundNumber - 1) * picksPerRound)
+        return roundNumber
+    }
+
 
     func leagueAverage(for position: Position, excludeTopTeam: Bool = false) -> Double {
         let teamsToUse: [DraftTeam]
@@ -259,15 +280,28 @@ struct Draft: Codable, Hashable, Equatable {
         self.myStarBatters = try values.decode(Set<ParsedBatter>.self, forKey: .myStarBatters)
         self.myStarPitchers = try values.decode(Set<ParsedPitcher>.self, forKey: .myStarPitchers)
         self.rosterConstruction = try values.decode(RosterConstruction.self, forKey: .rosterConstruction)
+//        self.availablePlayers = try values.decode([AnyParsedPlayer].self, forKey: .availablePlayers)
+        self.leagueName = try values.decode(String.self, forKey: .leagueName)
+        self.creationDate = try values.decode(Date.self, forKey: .creationDate)
+
     }
 
-    init(teams: [DraftTeam], currentPickNumber: Int = 0, settings: DraftSettings, myTeamIndex: Int = 0) {
+    init(teams: [DraftTeam], currentPickNumber: Int = 0, settings: DraftSettings, myTeamIndex: Int = 0, leagueName: String) {
         self.teams = teams
         self.currentPickNumber = currentPickNumber
         self.totalPickNumber = 0
         self.settings = settings
         self.currentTeam = teams.first ?? DraftTeam(name: "", draftPosition: 0)
         self.myTeamIndex = myTeamIndex
+        self.leagueName = leagueName
+        self.creationDate = Date.now
+    }
+    
+    func completeDraft() {
+        
+        DraftResults(draft: self)
+        
+        
     }
 }
 
@@ -286,6 +320,9 @@ extension Draft {
         case myStarPlayers
         case myStarBatters, myStarPitchers
         case rosterConstruction
+        case availablePlayers
+        case leagueName
+        case creationDate
     }
 
     func encode(to encoder: Encoder) throws {
@@ -301,11 +338,13 @@ extension Draft {
         try container.encode(myStarPitchers, forKey: .myStarPitchers)
         try container.encode(myStarBatters, forKey: .myStarBatters)
         try container.encode(rosterConstruction, forKey: .rosterConstruction)
-        
+        try container.encode(leagueName, forKey: .leagueName)
+        try container.encode(creationDate, forKey: .creationDate)
+
     }
 
     static func == (lhs: Draft, rhs: Draft) -> Bool {
-        return lhs.teams == rhs.teams && lhs.settings == rhs.settings && lhs.currentTeam == rhs.currentTeam && lhs.currentPickNumber == rhs.currentPickNumber && lhs.totalPickNumber == rhs.totalPickNumber && lhs.playerPool == rhs.playerPool && lhs.pickStack == rhs.pickStack && lhs.rosterConstruction == rhs.rosterConstruction
+        return lhs.teams == rhs.teams && lhs.settings == rhs.settings && lhs.currentTeam == rhs.currentTeam && lhs.currentPickNumber == rhs.currentPickNumber && lhs.totalPickNumber == rhs.totalPickNumber && lhs.playerPool == rhs.playerPool && lhs.pickStack == rhs.pickStack && lhs.rosterConstruction == rhs.rosterConstruction && lhs.leagueName == rhs.leagueName
     }
 
     func hash(into hasher: inout Hasher) {
@@ -317,11 +356,19 @@ extension Draft {
         hasher.combine(playerPool)
         hasher.combine(pickStack)
         hasher.combine(rosterConstruction)
+//        hasher.combine(availablePlayers)
+        hasher.combine(leagueName)
+        hasher.combine(creationDate)
         
     }
 }
 
 extension Draft {
+    mutating func changeAvailablePlayers(_ newPlayers: [AnyParsedPlayer]) {
+//        availablePlayers = newPlayers
+        MainModel.shared.save()
+    }
+
     func simulateRemainingDraft() -> Stack<DraftPlayer> {
         var workingDraft: Draft = self
 
@@ -412,7 +459,7 @@ extension Draft {
     static func exampleDraft(picksMade: Int = 30, model: MainModel, projection: ProjectionTypes) -> Draft {
         let testStart: Date = .now
 
-        var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
+        var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings, leagueName: "Example Draft")
 
         draft = draft.simulatePicks(picksMade, projection: projection, progress: .constant(10))
 
@@ -430,8 +477,8 @@ extension Draft {
     static func exampleDraft(picksMade: Int = 30, projection: ProjectionTypes) -> Draft {
         let testStart: Date = .now
 
-        var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
-
+        var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings, leagueName: "Example Draft")
+        
         draft = draft.simulatePicks(picksMade, projection: projection, progress: .constant(10))
 
         print("time for draft simulation: \(Date.now - testStart)")
@@ -439,7 +486,7 @@ extension Draft {
         return draft
     }
 
-    static let nullDraft: Draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
+    static let nullDraft: Draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings, leagueName: "NULL")
 
     func asyncSimulatePicks(_ numPicks: Int, projection: ProjectionTypes, progress: inout Double) -> Draft {
         var draft = self
@@ -471,16 +518,14 @@ extension Draft {
     }
 
     static func asyncExampleDraft(picksMade: Int, proj: ProjectionTypes, progress: inout Double, completion: @escaping (Draft) -> Void) {
-        var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)
+        var draft = Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings, leagueName: "Example Draft")
 
         draft = draft.asyncSimulatePicks(picksMade, projection: proj, progress: &progress)
-        
 
         completion(draft)
     }
 
     static func loadExample() -> Draft? {
-        
         if let existingFile = loadDraft() {
             print("Found existing")
             return existingFile
@@ -507,23 +552,22 @@ extension Draft {
         }
     }
 
-
     static func saveJSONDataToDocumentsDirectory(jsonData: Data) {
         // Convert JSON data to a JSON string
 //        guard let jsonString = String(data: jsonData, encoding: .utf8) else {
 //            print("Error converting JSON data to JSON string")
 //            return
 //        }
-        
+
         // Get the path to the app's Documents directory
         guard let documentsDirectoryPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             print("Error getting Documents directory path")
             return
         }
-        
+
         // Create the full path to the file
         let fileURL = documentsDirectoryPath.appendingPathComponent("exampleDraft.json")
-        
+
         do {
             // Write the JSON data to the file
             try jsonData.write(to: fileURL, options: .atomic)
@@ -532,7 +576,7 @@ extension Draft {
             print("Error saving JSON data to file: \(error)")
         }
     }
-    
+
     static func loadDataFromDocumentsDirectory(fileName: String) -> Draft? {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(fileName)
@@ -548,14 +592,14 @@ extension Draft {
         }
         return nil
     }
-    
+
     static func loadDraft() -> Draft? {
         let data: Data
 
         guard let file = Bundle.main.url(forResource: "exampleDraft", withExtension: ".json")
         else {
-            return nil 
-            fatalError("Couldn't find exampleDraft in main bundle.")
+            return nil
+//            fatalError("Couldn't find exampleDraft in main bundle.")
         }
 
         do {
@@ -572,8 +616,4 @@ extension Draft {
             fatalError("Couldn't parse exampleDraft as \(Draft.self):\n\(error)")
         }
     }
-
-
-
-
 }

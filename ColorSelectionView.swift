@@ -19,40 +19,42 @@ struct ColorSelectionView: View {
     
     
     var body: some View {
-        VStack {
-            Text("Select a color scheme:")
-                .font(.headline)
-            
-            // Display each color option as a button
-            ForEach(colorOptions, id: \.self) { colorOption in
-                Button(action: {
-                    // Set the selected color when a color option is selected
-                    self.selectedColor = colorOption
-                    model.specificColor = colorOption
-                }) {
-                    VStack(spacing: 10) {
-                        Rectangle()
-                            .foregroundColor(colorOption.rect)
-                            .frame(width: 50, height: 50)
-                        
-                        
-                        Text(colorOption.niceStr)
-                            .font(.caption)
-                            .foregroundColor(.white)
-                            .background {
-                                Rectangle()
-                                    .foregroundColor(colorOption.nice)
-                                    .frame(width: 50, height: 20)
-                                    .cornerRadius(10)
-                            }
-                        
-                        
-                        
-                        
-                        
+        ScrollView {
+            VStack {
+                Text("Select a color scheme:")
+                    .font(.headline)
+                
+                // Display each color option as a button
+                ForEach(colorOptions, id: \.self) { colorOption in
+                    Button(action: {
+                        // Set the selected color when a color option is selected
+                        self.selectedColor = colorOption
+                        model.specificColor = colorOption
+                    }) {
+                        VStack(spacing: 10) {
+                            Rectangle()
+                                .foregroundColor(colorOption.rect)
+                                .frame(width: 50, height: 50)
+                            
+                            
+                            Text(colorOption.niceStr)
+                                .font(.caption)
+                                .foregroundColor(.white)
+                                .background {
+                                    Rectangle()
+                                        .foregroundColor(colorOption.nice)
+                                        .frame(width: 50, height: 20)
+                                        .cornerRadius(10)
+                                }
+                            
+                            
+                            
+                            
+                            
+                        }
                     }
+                    .buttonStyle(BorderlessButtonStyle())
                 }
-                .buttonStyle(BorderlessButtonStyle())
             }
         }
         .padding()

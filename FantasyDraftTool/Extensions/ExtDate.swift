@@ -9,11 +9,11 @@ import Foundation
 
 extension DateComponents {
     func formattedTime() -> String {
-        guard let hour = self.hour,
-              let date = Calendar.current.date(bySettingHour: hour, minute: self.minute ?? 0, second: 0, of: .now) else {
+        guard let hour = hour,
+              let date = Calendar.current.date(bySettingHour: hour, minute: minute ?? 0, second: 0, of: .now) else {
             return ""
         }
-        
+
         return date.getFormattedDate(format: .minimalTime)
     }
 }
@@ -54,12 +54,28 @@ extension Date {
 
     enum DateFormats: String, CustomStringConvertible {
         var description: String { rawValue }
+
+        /// "h:mm a"
+        /// "12:00 AM"
         case minimalTime = "h:mm a"
+        /// "Jul 22, 2020"
+        /// "MMM d, yyyy"
         case abreviatedMonth = "MMM d, yyyy"
+        /// "MMM d"
+        /// "Jul 22"
         case monthDay = "MMM d"
+        /// "M/d/yyyy"
+        /// "07/22/2020"
         case slashDate = "M/d/yyyy"
+        /// "MM/d/yyyy"
+        /// "07/22/2020"
         case slashDateZeros = "MM/d/yyyy"
+        /// "MMM d, yyyy h:mm a"
+        /// "Jul 22, 2020 12:00 AM"
         case abreviatedMonthAndMinimalTime = "MMM d, yyyy h:mm a"
+        /// "MM/dd/yyyy HH:mm:ss"
+        /// "07/22/2020 00:00:00"
+        case all = "MM/dd/yyyy HH:mm:ss"
     }
 
     static func today() -> Date {
@@ -242,6 +258,12 @@ extension Date {
         addHours(days * 24)
     }
 
+    /// Format a given number of seconds into a string representation that includes hours, minutes, and/or seconds.
+    /// - Parameters:
+    /// - seconds: The number of seconds to format.
+    /// - allowedUnits: An array of NSCalendar.Unit values indicating which units should be included in the formatted string (defaulting to .hour, .minute, and .second).
+    /// - unitsStyle: A DateComponentsFormatter.UnitsStyle value indicating how the units should be abbreviated or spelled out (defaulting to .abbreviated).
+    /// - Returns: A formatted string representing the number of hours, minutes, and/or seconds based on the specified units and style. If an error occurs during formatting, the method returns the string "SOMETHING WRONG".
     static func secondsFormatted(_ seconds: Double, allowedUnits: NSCalendar.Unit = [.hour, .minute, .second], unitsStyle: DateComponentsFormatter.UnitsStyle = .abbreviated) -> String {
         let interval = seconds
         let formatter = DateComponentsFormatter()

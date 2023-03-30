@@ -16,6 +16,7 @@ struct PlayerPool: Codable, Hashable, Equatable {
 
     var storedBatters: StoredBatters
     var storedPitchers: StoredPitchers
+//    var allSortedPlayers: [AnyParsedPlayer] = []
 
     func allStoredPlayers(projection: ProjectionTypes, scoring: ScoringSettings, batterLimit: Int, pitcherLimit: Int, sort: Bool, completion: @escaping ([any ParsedPlayer]) -> Void) {
         DispatchQueue.global().async {
@@ -86,6 +87,12 @@ struct PlayerPool: Codable, Hashable, Equatable {
         return indexFound + 1
     }
 
+    func totalRank(for player: ParsedPitcher) -> Int? {
+        let pitchers = storedPitchers.pitchers(for: player.projectionType)
+        guard let indexFound = pitchers.firstIndex(of: player) else { return nil }
+        return indexFound + 1
+    }
+
     // MARK: - Methods
 
     // MARK: - Initializers
@@ -99,6 +106,8 @@ struct PlayerPool: Codable, Hashable, Equatable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.storedBatters = try container.decode(StoredBatters.self, forKey: .storedBatters)
         self.storedPitchers = try container.decode(StoredPitchers.self, forKey: .storedPitchers)
+//        self.allSortedPlayers = try container.decode([AnyParsedPlayer].self, forKey: .allSortedPlayers)
+        
 //        self.battersDict = try container.decode([Position: [ParsedBatter]].self, forKey: .battersDict)
     }
 }
@@ -110,6 +119,8 @@ extension PlayerPool {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(storedBatters, forKey: .storedBatters)
         try container.encode(storedPitchers, forKey: .storedPitchers)
+//        try container.encode(allSortedPlayers, forKey: .allSortedPlayers)
+        
     }
 
     private enum CodingKeys: String, CodingKey {

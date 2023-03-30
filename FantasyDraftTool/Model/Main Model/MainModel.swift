@@ -19,11 +19,18 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
         #if DEBUG
 //            Draft.loadExample() ?? Draft.exampleDraft(picksMade: 0, projection: .atc)
 //        Draft.exampleDraft(model: 100, projection: .atc)
+        
+        if let example = Draft.loadExample() {
+            DraftResults(draft: example)
+        }
+        
+//        let anotherExample = Draft.exampleDraft(picksMade: 250, projection: .atc)
+//        anotherExample.save()
         #else
 //                .nullDraft
         #endif
         
-        return Draft(teams: DraftTeam.someDefaultTeams(amount: 8), settings: .defaultSettings)
+        return Draft(teams: DraftTeam.someDefaultTeams(amount: 8), settings: .defaultSettings, leagueName: "Default Draft")
         
     }()
 
@@ -115,7 +122,7 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 
         draft = Draft(teams: teams.map { DraftTeam(name: $0.name, draftPosition: $0.draftPosition) },
                       settings: settings,
-                      myTeamIndex: myTeamIndex)
+                      myTeamIndex: myTeamIndex, leagueName: draft.leagueName)
     }
 
     // MARK: - Getter methods
@@ -133,6 +140,8 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
         self.myStatsPlayers = try values.decode(MyStatsPlayers.self, forKey: .myStatsPlayers)
         self.myModifiedBatters = try values.decode(Set<ParsedBatter>.self, forKey: .myModifiedBatters)
         self.mainSettings = try values.decode(MainSettings.self, forKey: .mainSettings)
+//        self.allDrafts = try values.decode([Draft].self, forKey: .allDrafts)
+
     }
 
     init() { }
@@ -143,6 +152,7 @@ class MainModel: ObservableObject, Codable, Hashable, Equatable {
 extension MainModel {
     enum CodingKeys: CodingKey {
         case scoringSettings, draft, myStatsPlayers, defaultProjectionSystem, myModifiedBatters, mainSettings
+        case allDrafts
     }
 
     func encode(to encoder: Encoder) throws {
@@ -153,6 +163,8 @@ extension MainModel {
         try container.encode(defaultProjectionSystem, forKey: .defaultProjectionSystem)
         try container.encode(myModifiedBatters, forKey: .myModifiedBatters)
         try container.encode(mainSettings, forKey: .mainSettings)
+//        try container.encode(allDrafts, forKey: .allDrafts)
+
     }
 
     func hash(into hasher: inout Hasher) {
@@ -162,13 +174,15 @@ extension MainModel {
         hasher.combine(defaultProjectionSystem)
         hasher.combine(myModifiedBatters)
         hasher.combine(mainSettings)
+//        hasher.combine(allDrafts)
+
     }
 
     static func == (lhs: MainModel, rhs: MainModel) -> Bool {
         return lhs.scoringSettings == rhs.scoringSettings &&
             lhs.draft == rhs.draft &&
             lhs.myStatsPlayers == rhs.myStatsPlayers &&
-            lhs.defaultProjectionSystem == rhs.defaultProjectionSystem
+            lhs.defaultProjectionSystem == rhs.defaultProjectionSystem 
     }
 
     static func load() -> MainModel? {

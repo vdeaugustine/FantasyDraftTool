@@ -209,6 +209,14 @@ struct DVTradeAnalysisSetup: View {
             }
             .padding()
         }
+//        .onAppear{
+//            UIScrollView.appearance().alwaysBounceVertical = false
+//            UIScrollView.appearance().alwaysBounceHorizontal = false
+//        }
+//        .onDisappear {
+//            UIScrollView.appearance().alwaysBounceVertical = true
+//            UIScrollView.appearance().alwaysBounceHorizontal = true
+//        }
         .navigationBarTitle("Set Up Trade")
         .safeAreaInset(edge: .bottom) {
             NavigationLink {

@@ -28,7 +28,11 @@ protocol ParsedPlayer: Codable {
 
     func posStr() -> String
 
-    func samePlayer(for: ProjectionTypes) -> ParsedPlayer?
+    func getSomeADPStr() -> String
+    
+    func getSomeADP() -> Double
+
+    func samePlayer(for projection: ProjectionTypes) -> ParsedPlayer?
 
     var isStarred: Bool { get set }
     var starHasBeenSetAtLeastOnce: Bool { get set }
@@ -36,12 +40,148 @@ protocol ParsedPlayer: Codable {
 
 // MARK: - AnyParsedPlayer
 
-struct AnyParsedPlayer<T: ParsedPlayer> {
+struct AnyParsedPlayer: ParsedPlayer, Identifiable, Hashable {
+    func getSomeADP() -> Double {
+        player.getSomeADP()
+    }
+    
+    var id: ObjectIdentifier = .init(AnyParsedPlayer.self)
+    
+    var name: String
+
+    var team: String
+
+    var adp: Double?
+
+    var projectionType: ProjectionTypes
+
+    var dict: [String: Any] { player.dict }
+
+    func zScore(draft: Draft) -> Double {
+        return player.zScore(draft: draft)
+    }
+
+    func fantasyPoints(_ scoringSettings: ScoringSettings) -> Double {
+        return player.fantasyPoints(scoringSettings)
+    }
+
+    func weightedFantasyPoints(draft: Draft, limit: Int) -> Double {
+        return player.weightedFantasyPoints(draft: draft, limit: limit)
+    }
+
+    func averageForPosition(limit: Int, draft: Draft) -> Double {
+        return player.averageForPosition(limit: limit, draft: draft)
+    }
+
+    func wPointsZScore(draft: Draft) -> Double {
+        return player.wPointsZScore(draft: draft)
+    }
+
+    func posStr() -> String {
+        return player.posStr()
+    }
+
+    func getSomeADPStr() -> String {
+        return player.getSomeADPStr()
+    }
+
+    func samePlayer(for projection: ProjectionTypes) -> ParsedPlayer? {
+        return player.samePlayer(for: projection)
+    }
+
+    var isStarred: Bool
+
+    var starHasBeenSetAtLeastOnce: Bool
+
+    private let _getPlayer: () -> ParsedPlayer
+    
+    var batter: ParsedBatter? { self.player as? ParsedBatter }
+    var pitcher: ParsedPitcher? {self.player as? ParsedPitcher }
+
+    init<P: ParsedPlayer>(_ player: P) {
+        self.name = player.name
+        self.team = player.team
+
+        self.adp = player.adp
+
+        self.projectionType = player.projectionType
+
+        self.isStarred = player.isStarred
+
+        self.starHasBeenSetAtLeastOnce = player.starHasBeenSetAtLeastOnce
+
+        self._getPlayer = { player }
+        
+        self.id = ObjectIdentifier(AnyParsedPlayer.self)
+    }
+
+    var player: ParsedPlayer {
+        return _getPlayer()
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case name, team, adp, projectionType, dict, isStarred, starHasBeenSetAtLeastOnce
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(team, forKey: .team)
+        try container.encode(adp, forKey: .adp)
+        try container.encode(projectionType, forKey: .projectionType)
+        try container.encode(isStarred, forKey: .isStarred)
+        try container.encode(starHasBeenSetAtLeastOnce, forKey: .starHasBeenSetAtLeastOnce)
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.team = try container.decode(String.self, forKey: .team)
+        self.adp = try container.decodeIfPresent(Double.self, forKey: .adp)
+        self.projectionType = try container.decode(ProjectionTypes.self, forKey: .projectionType)
+        self.isStarred = try container.decode(Bool.self, forKey: .isStarred)
+        self.starHasBeenSetAtLeastOnce = try container.decode(Bool.self, forKey: .starHasBeenSetAtLeastOnce)
+        self._getPlayer = { ParsedBatter.nullBatter }
+    }
+    
+    
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(name)
+            hasher.combine(team)
+            hasher.combine(adp)
+            hasher.combine(projectionType)
+            hasher.combine(isStarred)
+            hasher.combine(starHasBeenSetAtLeastOnce)
+        }
+        
+        static func == (lhs: AnyParsedPlayer, rhs: AnyParsedPlayer) -> Bool {
+            return lhs.name == rhs.name
+                && lhs.team == rhs.team
+                && lhs.adp == rhs.adp
+                && lhs.projectionType == rhs.projectionType
+                && lhs.isStarred == rhs.isStarred
+                && lhs.starHasBeenSetAtLeastOnce == rhs.starHasBeenSetAtLeastOnce
+        }
+    
+
 }
 
 // MARK: - ParsedBatter
 
 struct ParsedBatter: Hashable, Codable, Identifiable, CustomStringConvertible, ParsedPlayer {
+    
+    
+    func getSomeADPStr() -> String {
+        getSomeADP().simpleStr()
+    }
+    
+    func getSomeADP() -> Double {
+        if let adp = adp { return adp }
+        let variants = AllParsedBatters.batterVariants(for: self).sortedByADP
+        if let first = variants.first, let adp = first.adp { return adp }
+        return 9999
+    }
+
     var starHasBeenSetAtLeastOnce: Bool = false
 
     var isStarred: Bool = false
@@ -488,6 +628,17 @@ extension ParsedBatter {
 // MARK: - ParsedPitcher
 
 struct ParsedPitcher: CustomStringConvertible, Codable, Hashable, ParsedPlayer {
+    func getSomeADPStr() -> String {
+        getSomeADP().simpleStr()
+    }
+    
+    func getSomeADP() -> Double {
+        if let adp = adp { return adp }
+        let variants = AllExtendedPitchers.pitcherVariants(for: self).sortedByADP
+        if let first = variants.first, let adp = first.adp { return adp }
+        return 9999
+    }
+
     var starHasBeenSetAtLeastOnce: Bool = false
 
     var isStarred: Bool = false

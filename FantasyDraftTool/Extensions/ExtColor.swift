@@ -58,7 +58,13 @@ extension Color {
 
     
     
+    /// A static property of the Color type that generates a random color.
+    ///
+    /// - Returns: A randomly-generated Color object.
+    ///
+    /// This property generates a random color by creating a Color object with randomly-generated values for its red, green, and blue components. The random(in:) method of the Double type is used to generate random values between 0 and 255 for each component, which are then divided by 255 to convert them to the appropriate range for the Color initializer.
 
+    /// The resulting Color object is then returned as the result of this property.
     static var random: Color {
         Color(red: .random(in: 0 ... 255) / 255, green: .random(in: 0 ... 255) / 255, blue: .random(in: 0 ... 255) / 255)
     }
@@ -83,10 +89,34 @@ extension Color {
         return (r, g, b, o)
     }
 
+    /// A utility function that creates a gradient using the current color and a lighter version of it.
+    ///
+    /// - Parameter brightnessConstant: An optional value that determines how much to increase the brightness of the color. The default value is nil.
+    ///
+    /// - Returns: A LinearGradient object that starts with the current color and ends with a lighter version of it.
+    ///
+    /// This function first creates a LinearGradient object with two color stops: the current color at location 0.1, and a lighter version of the current color at location 2. The getLighterColorForGradient() method is called with the optional brightnessConstant value to determine the lighter color.
+
+    /// The gradient starts at the bottom of the view (startPoint: .bottom) and ends at the top leading corner (endPoint: .topLeading), creating a diagonal gradient from bottom to top.
+
+    /// The resulting LinearGradient object is then returned as the result of this function.
     func getGradient(brightnessConstant: CGFloat? = nil) -> LinearGradient {
         LinearGradient(stops: [.init(color: self, location: 0.1), .init(color: getLighterColorForGradient(brightnessConstant), location: 2)], startPoint: .bottom, endPoint: .topLeading)
     }
 
+    /// A utility function that returns a lighter color for a gradient, based on the current color's components.
+    ///
+    /// - Parameter increaseAmount: An optional value that determines how much to increase the red, green, and blue components of the color to make it lighter. The default value is 40.
+    ///
+    /// - Returns: A Color object that is a lighter version of the original color.
+    ///
+    /// This function first extracts the red, green, and blue components of the color by multiplying each component by 255. It then adds the optional increaseAmount value (defaulting to 40) to each component to make the color lighter.
+
+    /// If any component's value exceeds 255, it is capped at 255 to prevent the color from becoming too bright.
+
+    /// Finally, the function creates a new UIColor object with the adjusted color components and an alpha value of 1, and returns a new Color object with the new UIColor object as its backing color.
+
+    /// The resulting Color object is then returned as the result of this function.
     func getLighterColorForGradient(_ increaseAmount: CGFloat? = nil) -> Color {
         var b = components.blue * 255
         var r = components.red * 255

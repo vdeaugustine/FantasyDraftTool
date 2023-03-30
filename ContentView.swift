@@ -43,13 +43,27 @@ struct ContentView: View {
 //                Label("List", systemImage: "list.bullet")
 //            }
 //            .navigationBarTitleDisplayMode(.inline)
+            
+            
 
             NavigationStack(path: $model.navPathForDrafting) {
                 
-                DVSetUpLeagueView()
-                    .navigationDestination(for: ParsedBatter.self) { batter in
-                        DVBatterDetailDraft(draftPlayer: .init(player: batter, draft: model.draft))
+                DVHomePage()
+                    .navigationDestination(for: DraftDestination.self) { draftDestination in
+                        switch draftDestination {
+                        case .loadDraft:
+                            DVDraft()
+                        case .newDraft:
+                            DVDraft()
+                        case .setupDraft:
+                            SetupDraftView()
+                        }
                     }
+                
+//                DVSetUpLeagueView()
+//                    .navigationDestination(for: ParsedBatter.self) { batter in
+//                        DVBatterDetailDraft(draftPlayer: .init(player: batter, draft: model.draft))
+//                    }
 //                DVDraft()
 //                    .onAppear {
 //                        model.draftLoadProgress = 0
@@ -73,13 +87,7 @@ struct ContentView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             
-            
-            ColorSelectionView()
-                .tag(3)
-                .tabItem {
-                    Label("Colors", systemImage: "circle")
-                }
-
+          
         //
         //            NavigationView {
         //                AllBattersListView()

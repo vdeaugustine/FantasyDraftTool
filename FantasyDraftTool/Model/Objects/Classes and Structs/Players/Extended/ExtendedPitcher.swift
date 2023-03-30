@@ -105,6 +105,17 @@ struct AllExtendedPitchers: Codable {
     static let atc: ExtensionPitcherProjection = .init(projectionType: .atc)
     static let theBat: ExtensionPitcherProjection = .init(projectionType: .thebat)
     static let depthCharts: ExtensionPitcherProjection = .init(projectionType: .depthCharts)
+    
+    static func pitcherVariants(for pitcher: ParsedPitcher) -> [ParsedPitcher] {
+        var retArr = [ParsedPitcher]()
+        for projection in ProjectionTypes.pitcherArr {
+            let pitchers = starters(for: projection, limit: 999) + relievers(for: projection, limit: 999)
+            if let foundPitcher = pitchers.first(where: { $0 == pitcher }) {
+                retArr.append(foundPitcher)
+            }
+        }
+        return retArr
+    }
 
     static func starters(for projection: ProjectionTypes, limit: Int) -> [ParsedPitcher] {
         switch projection {

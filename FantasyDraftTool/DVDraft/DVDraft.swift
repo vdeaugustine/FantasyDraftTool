@@ -31,6 +31,7 @@ struct DVDraft: View {
 //    }
 
     func availablePlayers(completion: @escaping ([ParsedPlayer]) -> Void) {
+    
         DispatchQueue.global().async {
             print("Start AVailable Players")
 
@@ -55,6 +56,8 @@ struct DVDraft: View {
 
                 print("Done with available players", Date.now - x)
 
+                let anyPlayers = trimmed.map({AnyParsedPlayer($0)})
+                model.draft.changeAvailablePlayers(anyPlayers)
                 completion(trimmed)
 //                print("Update players done", Date.now - startUpdatePlayers)
             }
@@ -71,6 +74,13 @@ struct DVDraft: View {
             }
         }
     }
+    
+    var roundPickNumberStr: String { (model.draft.roundPickNumber + 1).str }
+    
+    func roundTopLabel() -> some View {
+        Text(["Round", model.draft.roundNumber.str + ", ", "Pick", roundPickNumberStr])
+            .font(size: 28, color: .white, weight: .bold)
+    }
 
     var body: some View {
         ZStack {
@@ -78,8 +88,8 @@ struct DVDraft: View {
                 ZStack {
                     ScrollView {
                         VStack {
-                            Text(["Round", model.draft.roundNumber.str + ", ", "Pick", model.draft.roundPickNumber.str])
-                                .font(size: 28, color: .white, weight: .bold)
+                            
+                            roundTopLabel()
 
                             HStack {
                                 if let firstPick = draft.pickStack.getArray().first {

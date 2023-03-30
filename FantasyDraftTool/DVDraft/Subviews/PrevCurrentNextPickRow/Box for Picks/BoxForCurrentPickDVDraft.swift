@@ -7,13 +7,43 @@
 
 import SwiftUI
 
+// MARK: - BoxForCurrentPickDVDraft
+
 struct BoxForCurrentPickDVDraft: View {
-    
-    
     @EnvironmentObject private var model: MainModel
-    
+
     var draft: Draft { model.draft }
-    
+
+    var currentLabel: some View {
+        Text("Current")
+            .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .medium)
+            .padding(.top, 5)
+    }
+
+    var player: ParsedPlayer {
+        draft.currentTeam.recommendedPlayer(draft: draft, projection: model.draft.projectionCurrentlyUsing) ?? ParsedBatter.nullBatter
+    }
+
+    var teamNameAndDraftPickNumber: some View {
+        VStack {
+            Text("#\(draft.totalPickNumber + 1)")
+                .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .light)
+            if let team = draft.currentTeam {
+                Text("\(team.name)")
+                    .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .bold)
+            }
+        }
+    }
+
+    var getName: (firstName: String, lastName: String) {
+        let full = player.name.components(separatedBy: .whitespaces)
+        let first = full.safeGet(at: 0) ?? ""
+        let second = full.safeGet(at: 1) ?? ""
+        let suffix = full.safeGet(at: 2) ?? ""
+        let last = [second, suffix].joinString(" ")
+        return (firstName: first, lastName: last)
+    }
+
     var body: some View {
         VStack {
             teamNameAndDraftPickNumber
@@ -24,28 +54,7 @@ struct BoxForCurrentPickDVDraft: View {
         }
     }
 
-    var teamNameAndDraftPickNumber: some View {
-        VStack {
-            Text("#\(draft.totalPickNumber)")
-                .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .light)
-            if let team = draft.currentTeam {
-                Text("\(team.name)")
-                    .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .bold)
-            }
-        }
-    }
-    
-    var getName: (firstName: String, lastName: String) {
-        let full = player.name.components(separatedBy: .whitespaces)
-        let first = full.safeGet(at: 0) ?? ""
-        let second = full.safeGet(at: 1) ?? ""
-        let suffix = full.safeGet(at: 2) ?? ""
-        let last = [second, suffix].joinString(" ")
-        return (firstName: first, lastName: last)
-    }
-
     var boxPart: some View {
-        
         VStack(spacing: 12) {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
@@ -60,52 +69,51 @@ struct BoxForCurrentPickDVDraft: View {
 
             HStack {
                 VStack {
-                    Text("RANK")
-                        .font(size: 8, color: MainModel.shared.specificColor.lighter, weight: .light)
-                    Text("3")
-                        .font(size: 12, color: .white, weight: .semibold)
+                    if let batter = player as? ParsedBatter,
+                       let rank = draft.playerPool.totalRank(for: batter) {
+                        Text("B RANK")
+                            .font(size: 8, color: MainModel.shared.specificColor.lighter, weight: .light)
+                        Text(rank.str)
+                            .font(size: 12, color: .white, weight: .semibold)
+                    }
+                    if let pitcher = player as? ParsedPitcher,
+                       let rank = draft.playerPool.totalRank(for: pitcher) {
+                        Text("P RANK")
+                            .font(size: 8, color: MainModel.shared.specificColor.lighter, weight: .light)
+                        Text(rank.str)
+                            .font(size: 12, color: .white, weight: .semibold)
+                    }
                 }
                 Spacer()
 
                 VStack {
-                    Text("RANK")
-                        .font(size: 8, color: MainModel.shared.specificColor.lighter, weight: .light)
-                    Text("3")
-                        .font(size: 12, color: .white, weight: .semibold)
+                    if let adpStr = player.getSomeADPStr(),
+                       adpStr.isEmpty == false {
+                        Text("ADP")
+                            .font(size: 8, color: MainModel.shared.specificColor.lighter, weight: .light)
+                        Text(adpStr)
+                            .font(size: 12, color: .white, weight: .semibold)
+                    }
                 }
                 Spacer()
 
                 VStack {
-                    Text("RANK")
+                    Text("PTS")
                         .font(size: 8, color: MainModel.shared.specificColor.lighter, weight: .light)
-                    Text("3")
+                    Text(player.fantasyPoints(draft.settings.scoringSystem).simpleStr())
                         .font(size: 12, color: .white, weight: .semibold)
                 }
             }
         }
     }
-    
-    var currentLabel: some View {
-        
-        Text("Current")
-            .font(size: 16, color: MainModel.shared.specificColor.lighter, weight: .medium)
-        
-    }
-    
-    var player: ParsedPlayer {
-        draft.currentTeam.recommendedPlayer(draft: draft, projection: model.draft.projectionCurrentlyUsing) ?? ParsedBatter.nullBatter
-    }
-
-    
-
 }
 
+// MARK: - BoxForCurrentPickDVDraft_Previews
+
 struct BoxForCurrentPickDVDraft_Previews: PreviewProvider {
-    
-    static let draft = Draft.exampleDraft(picksMade: 30, projection: .thebat)
+//    static let draft = Draft.exampleDraft(picksMade: 30, projection: .thebat)
     static var previews: some View {
         BoxForCurrentPickDVDraft()
             .environmentObject(MainModel.shared)
-            
     }
 }

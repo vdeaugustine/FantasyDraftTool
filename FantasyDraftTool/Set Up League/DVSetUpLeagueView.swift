@@ -19,7 +19,8 @@ struct DVSetUpLeagueView: View {
     @State private var scoring: ScoringSettings = .defaultPoints
     @State private var showScoringSheet = false
     @State private var showRosterSheet = false
-    @State private var workingDraft = Draft(teams: DraftTeam.someDefaultTeams(amount: 8), settings: .defaultSettings)
+    @State private var workingDraft = Draft(teams: DraftTeam.someDefaultTeams(amount: 8), settings: .defaultSettings, leagueName: "My League")
+    @State private var leagueName: String = ""
 
     @State private var showCreateDraftConfirmation: Bool = false
 
@@ -42,7 +43,15 @@ struct DVSetUpLeagueView: View {
                 .padding([.top, .leading])
 
             VStack(spacing: 0) {
-                List {
+                Form {
+                    
+                    Section {
+                      TextField("League Name", text: $leagueName)
+                            .foregroundColor(.white)
+                            .listRowBackground(model.specificColor.rect)
+                    }
+                    
+                    
                     Section {
                         ForEach(workingDraft.teams.indices, id: \.self) { teamIndex in
                             if let team = workingDraft.teams.safeGet(at: teamIndex) {
@@ -87,6 +96,8 @@ struct DVSetUpLeagueView: View {
                             EditButton()
                                 .font(size: 16, color: .white)
                         }
+                    } footer: {
+                        Text("Tap on a team to edit its name")
                     }
 
                     Section {
@@ -182,16 +193,31 @@ struct DVSetUpLeagueView: View {
             DVSetUpRosterStructureView(draft: $workingDraft)
         }
         .confirmationDialog("Create Draft", isPresented: $showCreateDraftConfirmation, titleVisibility: .visible) {
-            NavigationLink("Confirm") {
-                DVDraft()
-                    .onAppear {
-                        model.draft = workingDraft
-                    }
+            
+            Button("Confirm", role: .destructive) {
+                model.draft = workingDraft
+                model.navPathForDrafting.append(DraftDestination.newDraft)
             }
+//            NavigationLink("Confirm") {
+//                DVDraft()
+//                    .onAppear {
+//                        model.draft = workingDraft
+//                    }
+//            }
             Button("Cancel", role: .cancel) {}
 
         } message: {
             Text("If you already have a draft in progress, this will overwrite it and all your progress in it. This is cannot be undone.")
+        }
+        .navigationDestination(for: DraftDestination.self) { draftDestination in
+            switch draftDestination {
+            case .loadDraft:
+                DVDraft()
+            case .newDraft:
+                DVDraft()
+            case .setupDraft:
+                SetupDraftView()
+            }
         }
     }
 }

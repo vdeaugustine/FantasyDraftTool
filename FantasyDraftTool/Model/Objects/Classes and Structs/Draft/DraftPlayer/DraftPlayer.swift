@@ -17,7 +17,15 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
     let roundNumber: Int
     let pickInRound: Int
     
-    /// Team that is assigned to the player. Not the computed property 
+    
+
+    var reach: Double {
+        let adp = player.getSomeADP()
+        let reach = Double(pickNumber) - adp
+        return reach
+    }
+
+    /// Team that is assigned to the player. Not the computed property
 //    var draftTeam: DraftTeam
     var weightedScoreWhenDrafted: Double
 
@@ -25,7 +33,7 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
         [player.name, " \(player.projectionType.title)", "Round:", roundNumber.str, "Pick:", pickInRound.str].joinString(" ")
     }
 
-    /// Computed property that tells you what team this player is found on within the draft 
+    /// Computed property that tells you what team this player is found on within the draft
     var draftedTeam: DraftTeam? {
         let team = MainModel.shared.draft.teams.first(where: { $0.draftedPlayers.contains(self) })
         return team
@@ -34,17 +42,14 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
     var id: String {
         "\(player.name) drafted #\(pickNumber) overall by."
     }
-    
+
     static let TroutOrNull: DraftPlayer = .init(player: ParsedBatter.TroutOrNull, draft: .exampleDraft(picksMade: 0, model: MainModel.shared, projection: .atc))
 
     // MARK: - Initializers
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        
-        
-        
-        
+
 //        if let parsedBatter = try? decoder.container.decode(ParsedBatter.self, forKey: .player) as? ParsedBatter {
 //                    parsedPlayer = parsedBatter
 //        } else if let parsedPitcher = try? decoder.container.decode(ParsedPitcher.self, forKey: .parsedPlayer) {
@@ -57,7 +62,7 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
         } else if let pitcher = try? values.decode(ParsedPitcher.self, forKey: .player) {
             self.player = pitcher
         } else {
-           fatalError()
+            fatalError()
         }
 //        self.player = try values.decodeIfPresent(ParsedBatter.self, forKey: .player)
 //        self.player = try values.decode(ParsedPlayer.self, forKey: .player)
@@ -90,7 +95,7 @@ class DraftPlayer: Hashable, Codable, Equatable, Identifiable, CustomStringConve
 // MARK: - Functions
 
 extension DraftPlayer {
-    func has(position: Position) -> Bool  {
+    func has(position: Position) -> Bool {
         guard let batter = player as? ParsedBatter else { return false }
         return batter.positions.contains(position)
     }

@@ -119,6 +119,6 @@ struct DVSetUpRosterStructureView: View {
 
 struct DVSetUpRosterStructureView_Previews: PreviewProvider {
     static var previews: some View {
-        DVSetUpRosterStructureView(draft: .constant(Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings)))
+        DVSetUpRosterStructureView(draft: .constant(Draft(teams: DraftTeam.someDefaultTeams(amount: 10), settings: .defaultSettings, leagueName: "Example League Name")))
     }
 }
